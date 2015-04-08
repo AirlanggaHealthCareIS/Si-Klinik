@@ -1,0 +1,17 @@
+Feature : Dokter dapat menginput rekam medik pasien
+
+I. Skenario I : Dokter menginput data rekam medik pasien dengan benar dan lengkap
+
+	GIVEN 	Dokter sudah melakukan login
+	WHEN	Dokter mengklik menu "rekam medik"
+	THEN	Dokter akan menuju halaman "rekam medik"
+	WHEN 	Dokter memilih nama pasien yang sedang ditangani saat itu dari daftar antrian
+	THEN	Dokter akan melihat seluruh history kesehatan yang dimiliki pasien tersebut
+	WHEN	Dokter mengklik tombol tambah
+	THEN	Dokter akan melihat halaman pengisian data rekam medik
+	WHEN	Dokter mengisi seluruh isian data rekam medik dengan benar, meliputi halaman rekam medik, tindakan pemeriksaan dan resep
+	AND 	Dokter mengklik tombol simpan
+	AND	Semua data tersebut telah diisi dengan benar dan lengkap
+	THEN	Data Rekam medik tersebut akan disimpan di dalam database
+	AND	Dokter akan mendapatkan pesan pemberitahuan bahwa data telah tersimpan
+	AND 	Dokter akan kembali ke halaman awal menu rekam medik
