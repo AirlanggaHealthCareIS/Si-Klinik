@@ -1,0 +1,9 @@
+mengubah jadwal praktek dokter
+
+skenario : terjadi bentrok jadwal praktek dokter
+
+- staf klinik berada pada menu form input jadwal dokter
+- ketika staf klinik mengubah jadwal hari dan jam praktek dokter
+- lalu staf klinik mendapatkan notifikasi berupa "jadwal dokter bentrok dengan dokter lain"
+- dan staf klinik kembali ke menu from input jadwal dokter
+- dan staf klinik harus mengisi kembali jadwal hari dan jam praktek dokter supaya tidak terjadi bentrok

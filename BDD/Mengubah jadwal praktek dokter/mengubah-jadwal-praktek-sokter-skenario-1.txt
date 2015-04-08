@@ -1,0 +1,10 @@
+mengubah jadwal praktek dokter
+
+skenario : mengubah jadwal hari dan jam prakter dokter
+
+- staf klinik berada pada menu form input jadwal dokter
+- ketika staf klinik menekan tombol "ubah"
+- kemudian menampilkan form hapus / ubah jadwal prakter dokter
+- ketika staf klinik mengubah jadwal hari dan jam praktek dokter dan menekan tombol "ok"
+- kemudian staf klinik mendapat pesan "sukses"
+- dan data yang diinputkan staf klinik masuk ke dalam database
