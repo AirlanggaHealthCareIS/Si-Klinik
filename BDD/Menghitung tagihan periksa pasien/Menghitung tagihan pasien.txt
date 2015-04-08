@@ -1,0 +1,10 @@
+Feature: Menghitung Tagihan Pasien
+Scenario: Menghitung tagihan pasien tanpa ada kesalahan inputan
+
+Given i'm on the panel of "Cari tagihan periksa pasien"
+When i fill the "ID Pasien" field
+And i press "Cari" button
+Then the table will be filled by transacations customer has made
+When i select the transaction that would be paid
+And i press "Tagihkan" button
+Then i will go to "Tagihan Periksa Pasien" window
