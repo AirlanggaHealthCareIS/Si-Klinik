@@ -1,0 +1,9 @@
+Feature : Melakukan login
+
+Scenario III : User melakukan LOGIN namun ada field tidak diisi
+
+	GIVEN 	User sudah membuka program aplikasi SI Klinik
+	WHEN 	User memasukkan username atau password atau tidak keduanya
+	AND	User mengklik tombol LOGIN
+	THEN	User akan mendapat pesan peringatan bahwa ada field yang kosong
+	AND	Field yang kosong tersebut akan diberi tanda merah.
