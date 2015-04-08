@@ -1,0 +1,15 @@
+Feature: staf klinik dapat melakukan registrasi pegawai klinik
+
+Skenario: memasukkan data identitas dokter dengan data yang dimasukkan tidak benar
+
+Given staf klinik berada pada halaman registrasi pegawai
+When staf klinik memilih menu “dokter”
+Then staf klinik berada pada halaman form registrasi dokter
+When staf klinik mengisi form input registrasi dokter, tetapi ada field yang salah (misal: yang seharusnya dengan angka, tetapi diisi dengan huruf)
+And menekan tombol “SIMPAN”
+Then akan muncul pesan peringatan bahwa data yang dimasukkan salah
+And staf klinik menekan tombol “OK”
+When staf klinik kembali berada pada halaman form registrasi dokter dan dapat melihat field mana yang isinya salah
+Then staf klinik mengisi field yang salah dengan data yang benar
+And menekan tombol “SIMPAN”
+Then staf klinik menerima pesan bahwa data telah tersimpan dan  dapat melihat data identitas dokter yang baru saja dimasukkan

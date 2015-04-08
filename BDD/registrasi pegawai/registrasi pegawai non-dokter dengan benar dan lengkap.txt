@@ -1,0 +1,11 @@
+Feature: staf klinik dapat melakukan registrasi pegawai klinik
+
+Skenario: memasukkan data identitas pegawai klinik dengan lengkap dan benar
+
+Given staf klinik berada pada halaman registrasi pegawai
+When staf klinik memilih menu “non-dokter”
+Then staf klinik berada pada menu form input registrasi pegawai klinik
+When staf klinik mengisi form input registrasi pegawwai dengan benar
+And menekan tombol “SIMPAN”
+Then staf klinik menerima pesan bahwa data telah tersimpan dan  dapat melihat data identitas dokter yang baru saja dimasukkan
+
