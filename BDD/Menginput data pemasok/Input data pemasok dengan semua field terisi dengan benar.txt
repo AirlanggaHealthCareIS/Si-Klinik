@@ -1,0 +1,70 @@
+﻿USE CASE MENAMBAH DATA SUPPLIER
+
+========================================================================================================
+Feature		Menambah data pemasok
+Scenario	Input data pemasok dengan semua field terisi dengan benar
+
+Given	 	Apoteker berada pada halaman data supplier
+
+When		Apoteker menekan tombol tambah
+
+Then		Apoteker dihadapkan pada form untuk pengisian data supplier
+
+
+When 		Apoteker memasukkan nama supplier misalnya “PT. KIMIA FARMA”
+
+
+And			Apoteker mengisi semua filed dengan benar dan lengkap
+
+
+And			Apoteker menekan tombol “OK” untuk menyimpan data yang telah diinputkan
+
+
+Then		Apoteker mendapat pesan bahwa data yang telah diinputkan berhasil tersimpan
+
+
+
+And			Apoteker berada pada halaman data supplier
+
+
+And			Apoteker dapat melihat data supplier yang telah ada sebelumnya dan data supplier yang baru saja diinputkan
+
+================================================================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

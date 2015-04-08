@@ -1,0 +1,30 @@
+﻿Feature				Menambah data pemasok
+	
+Scenario			Input data pemasok dengan nama supplier sudah ada di database
+
+Given	 			Apoteker berada pada halaman data supplier
+
+When				Apoteker menekan tombol tambah
+		
+Then				Apoteker dihadapkan pada form untuk pengisian data supplier
+
+When				Apoteker memasukkan nama supplier misalnya “PT. KIMIA FARMA”
+				
+Then				Apoteker mendapat pesan peringatan bahwa nama supplier  yang diinputkan sudah ada di database
+					
+When				Apoteker menekan tombol “OK” 
+					
+And					Apoteker mengisi kembali field nama supplier dengan data yang benar
+
+And					Apoteker mengisi semua field dengan lengkap dan benar
+
+And					Apoteker menekan tombol “ OK ”
+
+Then				Apoteker mendapat pesan peringatan bahwa data yang telah diinputkan berhasil tersimpan
+					
+And					Apoteker berada pada halaman data supplier
+					
+And					Apoteker dapat melihat data supplier sebelumnya yang telah ada dan data supplier yang baru saja diinputkan
+
+
+==============================================================================================================================================

@@ -1,0 +1,33 @@
+﻿Feature				Menambah data pemasok
+					
+Scenario			Input data pemasok dengan terdapat field yang masih kosong
+
+Given	 			Apoteker berada pada halaman data supplier
+
+When				Apoteker menekan tombol tambah
+
+Then				Apoteker dihadapkan pada form untuk pengisian data supplier
+
+When 				Apoteker memasukkan nama supplier misalnya “PT. SEHAT ABADI”
+
+And					Apoteker mengisi filed dengan tidak lengkap (terdapat field yang kosong)
+
+And					Apoteker menekan tombol “OK” untuk menyimpan data yang telah diinputkan
+
+Then				Apoteker mendapat pesan peringatan bahwa terdapat field yang masih kosong
+
+When				Apoteker menekan tombol “ OK “
+
+Then				Apoteker dapat melihat field mana yang masih kosong atau belum diisi
+
+When				Apoteker mengisi data pada field yang masih kosong
+
+And					Apoteker menekan tombol “ OK ”
+
+Then				Apoteker mendapat pesan bahwa data yang telah diinputkan berhasil tersimpan
+
+And					Apoteker berada pada halaman data supplier
+
+And					Apoteker dapat melihat data supplier sebelumnya yang telah ada dan data supplier yang baru saja diinputkan
+
+================================================================================================================================================
