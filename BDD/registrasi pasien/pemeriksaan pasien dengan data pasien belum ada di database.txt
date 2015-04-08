@@ -1,0 +1,27 @@
+Feature: staf klinik dapat melakukan registrasi pasien
+
+Skenario: memasukkan identitas pasien yang akan melakukan pemeriksaan, dalam hal ini pasien belum terdaftar di database
+
+Given staf klinik berada pada halaman registrasi pasien
+When staf klinik memilih menu “pemeriksaan pasien”
+Then staf klinik berada pada halaman form pemeriksaan pasien
+And mengecek nomor antrian pasien
+When staf klinik mengisi nama pasien
+And menekan tombol “CARI”
+Then akan muncul pesan peringatan bahwa nama pasien belum terdaftar
+And menenkan tombol “OK”
+Then staf klinik kembali ke halaman registrasi pasein
+And memilih menu “registrasi pasien baru” 
+When staf klinik berada pada halaman form registrasi pasien baru
+Then mengisi form registrasi pasien baru dengan lengkap dan benar
+And menekan tombol “OK”
+Then staf klinik menerima pesan bahwa data telah tersimpan dan dapat melihat data identitas pasien yang baru saja dimasukkan
+Then staf klinik memilih menu “pemeriksaan pasien”
+When staf klinik berada pada halaman form pemeriksaan pasien
+Then mengecek nomor antrian
+When staf klinik mengisi nama pasien
+And menekan tombol “CARI”
+Then akan muncul nama dan alamat pasien yang telah dimasukkan
+And staf klinik menekan tombol “DAFTAR”
+Then staf klinik menerima pesan bahwa pasien dapat melakukan pemeriksaan selanjutnya
+

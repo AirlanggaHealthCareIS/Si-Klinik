@@ -1,0 +1,10 @@
+Feature: staf klinik dapat melakukan registrasi pasien
+
+Skenario: memasukkan data identitas pasien baru dengan lengkap dan benar
+
+Given staf klinik berada pada halaman registrasi pasien baru
+When staf klinik memilih menu “pasien baru”
+Then staf klinik berada pada halaman form registrasi pasien baru
+When staf klinik mengisi form registrasi pasien baru dengan lengkap dan benar
+And menekan tombol “SIMPAN”
+Then staf klinik menerima pesan bahwa data telah tersimpan dan dapat melihat data identitas pasien baru yang baru saja dimasukkan

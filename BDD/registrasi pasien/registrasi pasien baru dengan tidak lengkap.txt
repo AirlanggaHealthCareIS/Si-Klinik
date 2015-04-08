@@ -1,0 +1,15 @@
+Feature: staf klinik dapat melakukan registrasi pasien
+
+Skenario: memasukkan data identitas pasien baru dengan tidak lengkap
+
+Given staf klinik berada pada halaman registrasi pasien baru
+When staf klinik memilih menu “pasien baru”
+Then staf klinik berada pada halaman form registrasi pasien baru
+When staf klinik mengisi form registrasi pasien baru, tetapi tidak lengkap (misal: ada field yang tidak diisi/kosong)
+And menekan tombol “SIMPAN”
+Then akan muncul pesan peringatan bahwa data yang dimasukkan tidak lengkap
+And staf klinik menekan tombol “OK”
+When staf klinik kembali berada pada halaman form registrasi pasien baru dan dapat melihat field mana yang kosong
+Then staf klinik mengisi field yang kosong dengan data yang benar
+And menekan tombol “SIMPAN”
+Then staf klinik menerima pesan bahwa data telah tersimpan dan dapat melihat data identitas pasien baru yang baru saja dimasukkan

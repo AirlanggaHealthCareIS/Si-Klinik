@@ -1,0 +1,15 @@
+Feature: staf klinik dapat melakukan registrasi pasien
+
+Skenario: memasukkan data identitas pasien baru dengan tidak benar
+
+Given staf klinik berada pada halaman registrasi pasien baru
+When staf klinik memilih menu “pasien baru”
+Then staf klinik berada pada halaman form registrasi pasien baru
+When staf klinik mengisi form registrasi pasien baru, tetapi ada field yang salah (misal: yang seharusnya diisi dengan huruf, tetapi diisi dengan angka)
+And menekan tombol “SIMPAN”
+Then akan muncul pesan peringatan bahwa data yang dimasukkan salah 
+And staf klinik menekan tombol “OK”
+When staf klinik kembali berada pada halaman form registrasi pasien baru dan dapat melihat field mana yang salah
+Then staf klinik mengisi field yang salah dengan data yang benar
+And menekan tombol “SIMPAN”
+Then staf klinik menerima pesan bahwa data telah tersimpan dan dapat melihat data identitas pasien baru yang baru saja dimasukkan
