@@ -1,0 +1,13 @@
+Feature : Apoteker dapat melihat resep pasien
+
+Scenario : Apoteker melihat resep pasien tetapi ID Pasien yang dimasukkan tidak tepat
+
+Given : Saya telah masuk ke halaman resep pasien
+When : Saya menginputkan ID Pasien dan meng-klik tombol Cari
+Then : Muncul pemberitahuan baha ID Pasien yang diinputkan tidak tersedia
+When : Saya meng-klik tombol ok 
+Then : Saya kembali ke halaman resep pasien dan diminta untuk menginputkan kembali ID Pasien
+When : Saya menginputkan kembali ID Pasien dengan tepat
+Then : Saya  dapat melihat tabel yang berisi resep-resep pasien sesuai ID yang diinputkan
+When : Saya memilih salah satu resep dan meng-klik tombol Lihat Detail
+Then : Saya dapat melihat detail data resep pasien yang telah dipilih

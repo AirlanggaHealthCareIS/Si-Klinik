@@ -1,0 +1,9 @@
+Feature : Apoteker dapat melihat resep pasien
+
+Scenario : Apoteker melihat resep pasien yang sesuai dengan id pasien
+
+Given : Saya telah masuk ke halaman resep pasien
+When : Saya menginputkan ID Pasien dan meng-klik tombol Cari
+Then : Saya  dapat melihat tabel yang berisi resep-resep pasien sesuai ID yang diinputkan
+When : Saya memilih salah satu resep dan meng-klik tombol Lihat Detail
+Then : Saya dapat melihat detail data resep pasien yang telah dipilih
