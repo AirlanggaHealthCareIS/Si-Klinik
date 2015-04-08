@@ -1,0 +1,21 @@
+feature : Men-generate PO
+
+scenario : tidak memilih supplier 
+
+- user berada pada halaman utama pemesanan obat
+- ketika user menekan tombol 'generate PO'
+- lalu user mendapat notifikasi berupah perintah untuk memilih supplier
+- selanjutnya user ditampilkan halaman utama pemesanan obat
+- ketika user memilih baris
+  dan menekan tombol 'supplier'
+- lalu user ditampilkan form pilih supplier
+- ketika supplier sudah dipilih
+  dan user menekan tombol ok
+- selanjutnya user ditampilkan halaman utama pemesanan obat dengan kondisi supplier sudah ada
+- ketika user menekan tombol 'generate PO'
+- maka user akan masuk ke halaman list PO
+- ketika user memilih salah satu PO
+  dan menekan tombol 'detail PO'
+- maka user akan masuk ke halaman Detil PO
+- ketika user menekan tombol 'cetak PDF'
+- maka user akan mendapatkan bukti PO tersebut dalam format PDF.
