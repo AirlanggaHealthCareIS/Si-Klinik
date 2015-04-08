@@ -1,0 +1,12 @@
+Feature : Mengubah pemesanan obat
+
+Scenario : memberikan jumlah pemesanan obat dibawah batas kritis
+
+- user berada pada menu pemesanan obat
+- ketika user memilih baris dan menekan tombol 'ok'
+- lalu user akan ditampilkan form ubah pemesanan
+- ketika user mengubah jumlah pemesanan obat kurang dari batas kritis
+  dan user menekan tombol 'ok'
+- lalu user mendapatkan notifikasi berupa pemberitahuan bahwa 'jumlah yang dipesan masih memasuki batas kritis obat'
+- ketika user memilih 'ok' 
+- lalu akan ditampilkan menu pemesanan obat dengan perubahaanya

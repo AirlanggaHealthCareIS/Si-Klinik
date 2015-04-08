@@ -1,0 +1,12 @@
+feature : Mengubah pemesanan obat
+
+Scenario : Mengubah jumlah pesanan obat dan supplier
+
+- User berada pada menu pemesanan obat
+- ketika user memilih baris dan menekan tombol 'ubah'
+- lalu user akan ditampilkan form ubah pemesanan
+- ketika user mengubah jumlah pemesanan
+  dan user mengubah supplier obat 
+  dan user menekan tombol 'ok'
+- lalu user mendapat halaman utama pemesanan obat
+- dan user dapat melihat perubahaan yang dilakukan
