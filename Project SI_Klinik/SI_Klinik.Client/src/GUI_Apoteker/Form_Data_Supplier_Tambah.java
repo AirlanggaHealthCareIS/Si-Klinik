@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Form_Apoteker;
+package GUI_Apoteker;
 
 /**
  *
@@ -17,7 +17,7 @@ public class Form_Data_Supplier_Tambah extends javax.swing.JFrame {
         initComponents();
     }
 
-    Form_Data_Supplier_Tambah(Form_Data_Supplier aThis) {
+    Form_Data_Supplier_Tambah(Form_Data_Supplier_Tambah aThis) {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
@@ -239,7 +239,7 @@ public class Form_Data_Supplier_Tambah extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField3ActionPerformed
 
     private void BACKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BACKActionPerformed
-        Form_Data_Supplier panggil = new Form_Data_Supplier();
+        Form_Data_Supplier_Tambah panggil = new Form_Data_Supplier_Tambah();
         panggil.show();
         this.setVisible(false);        // TODO add your handling code here:
     }//GEN-LAST:event_BACKActionPerformed

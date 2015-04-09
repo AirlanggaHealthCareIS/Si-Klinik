@@ -1,0 +1,9 @@
+Feature:mencatat obat keluar
+Scenario alternative
+•	Given: saat apoteker berada dalam from input id dan pilihan poli
+•	When:ketika ada pembelian tanpa rese/mandiri maka apoteker mengisi poli dengan poli mandiri dan id=0001
+•	Then:muncul form input pembelian obat  dan table
+•	When:ketika tekan tombol ok 
+•	Then: data inputan masuk ke table sementara
+•	When :ketika tekan tombol simpan pada bawa table
+•	Then:database obat pada apotek berkurang.
