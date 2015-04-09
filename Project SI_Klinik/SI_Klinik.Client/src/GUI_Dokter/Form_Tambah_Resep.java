@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Form_Dokter;
+package GUI_Dokter;
 
 /**
  *
@@ -177,13 +177,13 @@ public class Form_Tambah_Resep extends javax.swing.JFrame {
     }//GEN-LAST:event_kodeObatFocusGained
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        Panel_Detail_RekamMedik a = new Panel_Detail_RekamMedik();
+        Panel_Rekam_Medik_Detail a = new Panel_Rekam_Medik_Detail();
         a.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        Panel_Detail_RekamMedik a = new Panel_Detail_RekamMedik();
+        Panel_Rekam_Medik_Detail a = new Panel_Rekam_Medik_Detail();
         a.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
