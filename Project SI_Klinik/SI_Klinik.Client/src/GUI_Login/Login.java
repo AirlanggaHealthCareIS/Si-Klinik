@@ -9,6 +9,16 @@ import java.rmi.registry.Registry;
 import java.rmi.NotBoundException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.RemoteException;
+import GUI_Apoteker.GUI_Apoteker;
+import GUI_Dokter.GUI_Dokter;
+import GUI_Kasir.GUI_Kasir;
+import GUI_StafKlinik.GUI_StafKlinik;
+import database.Service.Petugas_Service;
+import database.Service.Dokter_Service;
+import database.entity.petugas;
+import database.entity.dokter;
+
+
 
       
 /**
@@ -17,9 +27,9 @@ import java.rmi.RemoteException;
  * @author JESSICA
  */
 public class Login extends javax.swing.JFrame {
-    //  private Pegawai_Service service7;
+     private Petugas_Service service1;
+     private Dokter_Service service2;
       Registry registry;
-    //  private User_Service user_Service;
       public SocketClient client;
       public int port;
       public String serverAddr, username;
@@ -27,15 +37,19 @@ public class Login extends javax.swing.JFrame {
       private Thread clientThread;
       private DefaultListModel model;
       private File file;
+      private petugas p;
+      private dokter d;
+      private boolean aktorIniDokter;
       
     /**
      * Creates new form Login
      */
-    public Login() throws RemoteException, NotBoundException {
-        
+    public Login() throws RemoteException, NotBoundException {        
         super("LOGIN");
-        initComponents();
-        
+        initComponents();  
+        p=new petugas();
+        d = new dokter();
+        aktorIniDokter = false;
    }
 
     @SuppressWarnings("unchecked")
@@ -47,7 +61,7 @@ public class Login extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         nama = new javax.swing.JTextField();
         masuk = new javax.swing.JButton();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        pass = new javax.swing.JPasswordField();
         jLabel6 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -80,8 +94,8 @@ public class Login extends javax.swing.JFrame {
         });
         jPanel1.add(masuk);
         masuk.setBounds(500, 340, 90, 30);
-        jPanel1.add(jPasswordField1);
-        jPasswordField1.setBounds(440, 260, 290, 30);
+        jPanel1.add(pass);
+        pass.setBounds(440, 260, 290, 30);
 
         jLabel6.setBackground(new java.awt.Color(51, 51, 51));
         jLabel6.setFont(new java.awt.Font("Old English Text MT", 0, 36)); // NOI18N
@@ -123,55 +137,76 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
- //   private boolean startReg() throws RemoteException, NotBoundException {
-//        username = nama.getText();       
-//        char[] password = pass.getPassword();
-//        StringBuilder b = new StringBuilder();
-//        b.append(password,0,password.length);
-//        registry = LocateRegistry.getRegistry("169.254.153.225", 9750);        
-//        user_Service = (User_Service) registry.lookup("service14");        
-//        if(username.contentEquals("")||password.length>0){
-//            jabatan = user_Service.getJabatan(username, b.toString());
-//            if(jabatan.equalsIgnoreCase("")){
-//                return false;
-//            }
-//            else{
-//                return true;
-//            }
-//        }
-//        else{
-//            return true;
-//        }
- //   }
+    private boolean startReg() throws RemoteException, NotBoundException {
+        username = nama.getText();       
+        char[] password = pass.getPassword();
+        StringBuilder b = new StringBuilder();
+        b.append(password,0,password.length);
+        registry = LocateRegistry.getRegistry("0.0.0.0", 9750);        
+        service1 = (Petugas_Service) registry.lookup("service1");        
+        service2 = (Dokter_Service) registry.lookup("service2");     
+        if(username.contentEquals("")||password.length>0){
+            p = service1.getPetugas(username,b.toString());
+            jabatan = p.getJabatan();
+            if(jabatan.equalsIgnoreCase("")){
+                d = service2.getDokter(username,b.toString());
+                if(d==null){
+                    return false;
+                }
+                else{
+                    aktorIniDokter = true;
+                    return true;
+                }                
+            }
+            else{
+                return true;
+            }
+        }
+        else{
+            return false;
+        }
+    }
     
     private void masukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_masukActionPerformed
         
-//         try {
-//             if(startReg()){
-//               if(jabatan.equalsIgnoreCase("inventori"))   {
-//                   Form_Inventori_awal panggil = new Form_Inventori_awal(username);
-//                   panggil.show();
-//                      this.dispose();
-//               }
-//               else if(jabatan.equalsIgnoreCase("pembelian"))   {
-//                    Form_Pembelian_awal panggil = new Form_Pembelian_awal(username);
-//                    panggil.show();
-//                    this.dispose();
-//               }
-//               if(jabatan.equalsIgnoreCase("kasir"))   {
-//                    Form_Kasir_awal panggil = new Form_Kasir_awal(username);
-//                    panggil.show();
-//                    this.dispose();
-//               }                 
-//             } 
-//             else{
-//                 JOptionPane.showMessageDialog(null, "Mohon masukkan username dan password dengan benar", "ERROR",JOptionPane.ERROR_MESSAGE);
-//            }
-//          } catch (RemoteException ex) {
-//              Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-//          } catch (NotBoundException ex) {
-//              Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-//          }
+         try {
+             if(startReg()){
+                if(aktorIniDokter)   {
+                    GUI_Dokter panggil = new GUI_Dokter(d);
+                    panggil.show();
+                    this.dispose();
+                }   
+                else{
+                   if(jabatan.equalsIgnoreCase("kasir"))   {
+                       GUI_Kasir panggil = new GUI_Kasir(p);
+                       panggil.show();
+                       this.dispose();
+                   }
+                   else if(jabatan.equalsIgnoreCase("apoteker"))   {
+                        GUI_Apoteker panggil = new GUI_Apoteker (p);
+                        panggil.show();
+                        this.dispose();
+                   }
+                   else if(jabatan.equalsIgnoreCase("perawat"))   {
+                        GUI_StafKlinik panggil = new GUI_StafKlinik (p);
+                        panggil.show();
+                        this.dispose();
+                   }           
+                   else if(jabatan.equalsIgnoreCase("staf klinik"))   {
+                        GUI_StafKlinik panggil = new GUI_StafKlinik(p);
+                        panggil.show();
+                        this.dispose();
+                   }                 
+                } 
+             }
+             else{
+                 JOptionPane.showMessageDialog(null, "Mohon masukkan username dan password dengan benar", "ERROR",JOptionPane.ERROR_MESSAGE);
+             }
+          } catch (RemoteException ex) {
+              Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+          } catch (NotBoundException ex) {
+              Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+          }
     }//GEN-LAST:event_masukActionPerformed
 
     
@@ -229,9 +264,9 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
     public javax.swing.JButton masuk;
     public javax.swing.JTextField nama;
+    private javax.swing.JPasswordField pass;
     // End of variables declaration//GEN-END:variables
 
 

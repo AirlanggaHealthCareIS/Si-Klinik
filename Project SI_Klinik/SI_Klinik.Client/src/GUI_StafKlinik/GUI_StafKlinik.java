@@ -4,6 +4,8 @@
  */
 package GUI_StafKlinik;
 
+import GUI_Apoteker.Panel_Resep;
+import GUI_Login.Login;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
@@ -12,9 +14,19 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import database.entity.petugas;
 
 public class GUI_StafKlinik extends javax.swing.JFrame {
-
+    petugas p;
+    public GUI_StafKlinik (petugas p){
+        super("Staf Klinik");
+        initComponents();
+        Panel_Profil_StafKlinik panel = new Panel_Profil_StafKlinik();
+        jPanel4.add(panel);
+        this.p = p;
+        jLabel3.setText(p.getNama_Petugas());
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -29,6 +41,7 @@ public class GUI_StafKlinik extends javax.swing.JFrame {
         jButton11 = new javax.swing.JButton();
         SUPPLIER = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
         jPanel4 = new javax.swing.JPanel();
@@ -69,6 +82,11 @@ public class GUI_StafKlinik extends javax.swing.JFrame {
         });
 
         jButton11.setText("LAPORAN KEUANGAN");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
 
         SUPPLIER.setText("FAKTUR BPJS");
         SUPPLIER.addActionListener(new java.awt.event.ActionListener() {
@@ -112,42 +130,50 @@ public class GUI_StafKlinik extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(0, 174, 217));
 
-        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("Selamat Datang,   xxxxxxxxxxxxx");
+        jLabel3.setText("jLabel3");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Account", "Profil", "Log Out" }));
+        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel1.setText("Selamat Datang, ");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Account", "Log Out" }));
+        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox1ItemStateChanged(evt);
+            }
+        });
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(312, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addGap(109, 109, 109)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(75, 75, 75))
+                .addGap(44, 44, 44))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox1))
+                    .addComponent(jComboBox1)
+                    .addComponent(jLabel3))
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 700, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 470, Short.MAX_VALUE)
-        );
+        jPanel4.setMinimumSize(new java.awt.Dimension(700, 450));
+        jPanel4.setPreferredSize(new java.awt.Dimension(700, 450));
+        jPanel4.setLayout(new java.awt.CardLayout());
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -155,14 +181,14 @@ public class GUI_StafKlinik extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 869, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(0, 6, Short.MAX_VALUE))
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,8 +198,8 @@ public class GUI_StafKlinik extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
@@ -195,14 +221,38 @@ public class GUI_StafKlinik extends javax.swing.JFrame {
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
         // TODO add your handling code here:
+         jPanel4.removeAll();
+         jPanel4.repaint();
+         jPanel4.revalidate();                    
+         Panel_Profil_StafKlinik panel = new Panel_Profil_StafKlinik ();
+         panel.setVisible(true);
+         jPanel4.add(panel);
+         jPanel4.repaint();
+         jPanel4.revalidate();                    
     }//GEN-LAST:event_jButton14ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
         // TODO add your handling code here:
+         jPanel4.removeAll();
+         jPanel4.repaint();
+         jPanel4.revalidate();                    
+         Panel_Registrasi_Pasien panel = new Panel_Registrasi_Pasien();
+         panel.setVisible(true);
+         jPanel4.add(panel);
+         jPanel4.repaint();
+         jPanel4.revalidate();                             
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
         // TODO add your handling code here:
+         jPanel4.removeAll();
+         jPanel4.repaint();
+         jPanel4.revalidate();                    
+         Panel_Registrasi_Staf  panel = new Panel_Registrasi_Staf();
+         panel.setVisible(true);
+         jPanel4.add(panel);
+         jPanel4.repaint();
+         jPanel4.revalidate();                            
     }//GEN-LAST:event_jButton15ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
@@ -210,11 +260,50 @@ public class GUI_StafKlinik extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void SUPPLIERActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SUPPLIERActionPerformed
-        // TODO add your handling code here:
-        //        Form_Staf_Apoteker panggil = new Form_Staf_Apoteker(f);
-        //        panggil.show();
-        //        this.dispose();
+         jPanel4.removeAll();
+         jPanel4.repaint();
+         jPanel4.revalidate();                    
+         Panel_bpjs  panel = new Panel_bpjs();
+         panel.setVisible(true);
+         jPanel4.add(panel);
+         jPanel4.repaint();
+         jPanel4.revalidate();                  
     }//GEN-LAST:event_SUPPLIERActionPerformed
+
+    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_jComboBox1ItemStateChanged
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+         if(jComboBox1.getSelectedIndex()==1){
+            try {
+                Login l = new Login();
+                l.setVisible(true);
+                  this.dispose();
+            } catch (RemoteException ex) {
+                Logger.getLogger(GUI_StafKlinik.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (NotBoundException ex) {
+                Logger.getLogger(GUI_StafKlinik.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        // TODO add your handling code here:
+         jPanel4.removeAll();
+         jPanel4.repaint();
+         jPanel4.revalidate();                    
+         Panel_Laporan_Keuangan  panel = new Panel_Laporan_Keuangan();
+         panel.setVisible(true);
+         jPanel4.add(panel);
+         jPanel4.repaint();
+         jPanel4.revalidate();       
+        
+       
+    }//GEN-LAST:event_jButton11ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -256,6 +345,7 @@ public class GUI_StafKlinik extends javax.swing.JFrame {
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;

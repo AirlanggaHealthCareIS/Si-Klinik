@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package Form_StafKlinik;
+package GUI_StafKlinik;
 
 /**
  *
@@ -37,6 +37,7 @@ public class Panel_Laporan_Keuangan extends javax.swing.JPanel {
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jLabel4 = new javax.swing.JLabel();
         jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        jLabel15 = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(700, 450));
 
@@ -59,7 +60,7 @@ public class Panel_Laporan_Keuangan extends javax.swing.JPanel {
         jScrollPane1.setViewportView(tabelLaporanKeuangan);
 
         tampilButton.setFont(new java.awt.Font("Maiandra GD", 0, 14)); // NOI18N
-        tampilButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gambar/Next-32.png"))); // NOI18N
+        tampilButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Next-32.png"))); // NOI18N
         tampilButton.setText("Tampilkan");
         tampilButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -68,7 +69,7 @@ public class Panel_Laporan_Keuangan extends javax.swing.JPanel {
         });
 
         cetakLaporanButton.setFont(new java.awt.Font("Maiandra GD", 0, 14)); // NOI18N
-        cetakLaporanButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gambar/agt_print-32.png"))); // NOI18N
+        cetakLaporanButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/agt_print-32.png"))); // NOI18N
         cetakLaporanButton.setText("Cetak Dokumen");
         cetakLaporanButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,9 +95,9 @@ public class Panel_Laporan_Keuangan extends javax.swing.JPanel {
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
                         .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
-                        .addComponent(tampilButton)))
-                .addContainerGap(17, Short.MAX_VALUE))
+                        .addGap(48, 48, 48)
+                        .addComponent(tampilButton, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(20, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(cetakLaporanButton)
@@ -121,8 +122,8 @@ public class Panel_Laporan_Keuangan extends javax.swing.JPanel {
                         .addComponent(tampilButton)
                         .addGap(3, 3, 3)))
                 .addGap(48, 48, 48)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cetakLaporanButton)
                 .addGap(27, 27, 27))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,16 +133,25 @@ public class Panel_Laporan_Keuangan extends javax.swing.JPanel {
                     .addContainerGap(348, Short.MAX_VALUE)))
         );
 
+        jLabel15.setFont(new java.awt.Font("Maiandra GD", 0, 36)); // NOI18N
+        jLabel15.setText("Laporan Keuangan");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel15)
+                .addGap(198, 198, 198))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(66, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jLabel15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -175,6 +185,7 @@ public class Panel_Laporan_Keuangan extends javax.swing.JPanel {
     private javax.swing.JButton cetakLaporanButton;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooser2;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel2;

@@ -2,12 +2,8 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Form_Apoteker;
+package GUI_Apoteker;
 
-/**
- *
- * @author tinot
- */
 public class Panel_DetailResep extends javax.swing.JPanel {
 
     /**
