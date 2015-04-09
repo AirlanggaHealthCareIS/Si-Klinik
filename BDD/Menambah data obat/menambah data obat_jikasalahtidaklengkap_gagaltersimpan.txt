@@ -1,0 +1,13 @@
+USER STORY "Menambah Data Obat"
+
+Feature : Apoteker dapat menambah data obat baru
+
+2. Scenario : Input data obat jika data salah atau tidak lengkap
+-Given	Apoteker berada pada halaman form input data obat
+-When	Apoteker melihat pesan "Data Gagagl Disimpan"
+-And   	Apoteker mengecek kembali data di Table Review
+-And	Apoteker menekan tombol checklist “Select”
+-And	Apoteker menekan tombol checklist yang muncul pada baris tiap data di Table Review
+-And	Apoteker menekan tombol “CLEAR” (bila data salah dan terdapat data yang kembar dalam satu Table Review)
+-Then 	Apoteker berada pada haaman form input data obat dan data obat baru di Table Review telah terhapus
+-And 	Apoteker menginputkan kembali data obat yang benar jika perlu menambahkan data obat lagi
