@@ -1,0 +1,7 @@
+Feature:mencatat obat keluar
+Scenario:tidak ada kesalahan dalam menginput id pasien dan pilihan poli
+•	Given:saat apoteker berada dalam from input id dan pilihan poli
+•	When:ketika user menekan tombol ok
+•	Then:muncul daftar table obat yang akan di terima user/pasien
+•	When:ketika apoteker tekan tombol ok
+•	Then:muncul pesan sukses dan database stok obat berkurang

@@ -1,0 +1,5 @@
+Feature:mencatat obat keluar
+Scenario : terjadi kesalahan dalam menginputkan Id_pasien dan pilihan poli
+•	Given: saat apoteker berada dalam from input id dan pilihan poli
+•	When:ketika user menekan tombol ok dan terjadi kesalahan
+•	Then:kembali ke menu awal pada pengisiaan Id_pasien dan pilihan poli
