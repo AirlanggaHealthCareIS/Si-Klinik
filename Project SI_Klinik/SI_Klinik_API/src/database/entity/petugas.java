@@ -44,8 +44,12 @@ public class petugas implements Serializable{
         this.Jabatan = Jabatan;
     }
     
-     public String getAlamat() {
+    public String getAlamat() {
         return Alamat;
+    }
+    
+    public void setAlamat(String Alamat) {
+        this.Alamat = Alamat;
     }
 
     public void setTelepon(String Telepon) {
