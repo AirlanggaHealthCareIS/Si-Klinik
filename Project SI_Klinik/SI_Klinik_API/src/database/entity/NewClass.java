@@ -7,8 +7,8 @@ package database.entity;
 
 /**
  *
- * @author asus
+ * @author asus//
  */
 public class NewClass {
-    
+    //.....
 }
