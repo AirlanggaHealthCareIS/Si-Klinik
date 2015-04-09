@@ -1,0 +1,10 @@
+USER STORY "Mengubah Data Obat"
+
+Featured : Apoteker dapat mengubah data obat
+
+2. Scenario : Terjadi kesalahan dalam memodifikasi data
+-Given	Apoteker berada pada halaman stock obat pada halaman Inventory obat
+-When 	Apoteker melihat pesan "Data gagal simpan"
+-Then	Apoteker kembali ke langkah awal
+-And	Apoteker mancari data obat
+-And 	Apoteker mengubah data obat yang dicari tadi

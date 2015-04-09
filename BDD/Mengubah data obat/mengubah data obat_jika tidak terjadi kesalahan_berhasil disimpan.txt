@@ -1,0 +1,16 @@
+USER STORY "Mengubah Data Obat"
+
+Feature : Apoteker dapat mengubah data obat
+
+1. Scenario : Tidak ada kesalahan dalam memodifikasi data obat
+-Given 	Apoteker telah membuka halaman stock obat pada halaman inventory obat
+-When	Apoteker menginputkan keyword obat (id obat/nama obat/supplier obat) 
+-And 	Apoteker menekan tombol “Search”
+-Then	Apoteker melihat tampilan data obat yang dicari berdasarkan keyword pada Table Data stock obat
+-When	Apoteker menekan tombol checklist “Enable Edit”
+-And	Apoteker mengklik data yang dipilih untuk diubah
+-Then	Apoteker melihat tampilan baris data obat yang dipilih dengan highlight kuning
+-When	Apoteker menginputkan data obat yang diubah
+-And 	Apoteker menekan tombol “SAVE”
+-Then 	Apoteker berada pada halaman stock obat pada halaman inventory obat
+-And	Apoteker melihat pesan “Berhasil diubah dan disimpan”
