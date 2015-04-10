@@ -22,4 +22,5 @@ public interface Petugas_Service extends Remote {
 
     petugas getPetugas (String ID_Petugas) throws RemoteException;
 
+    petugas getPetugas (String ID_Petugas, String Password_Petugas) throws RemoteException;
 }

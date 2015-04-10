@@ -17,6 +17,7 @@ import database.Service.Petugas_Service;
 import database.Service.Dokter_Service;
 import database.entity.petugas;
 import database.entity.dokter;
+import java.awt.Color;
 
 
 
@@ -50,6 +51,8 @@ public class Login extends javax.swing.JFrame {
         p=new petugas();
         d = new dokter();
         aktorIniDokter = false;
+        jLabel7.setVisible(false);
+        jLabel8.setVisible(false);
    }
 
     @SuppressWarnings("unchecked")
@@ -65,6 +68,8 @@ public class Login extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -82,7 +87,18 @@ public class Login extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("PASWORD");
         jPanel1.add(jLabel5);
-        jLabel5.setBounds(350, 260, 80, 30);
+        jLabel5.setBounds(350, 280, 80, 30);
+
+        nama.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                namaMouseClicked(evt);
+            }
+        });
+        nama.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                namaActionPerformed(evt);
+            }
+        });
         jPanel1.add(nama);
         nama.setBounds(440, 210, 290, 30);
 
@@ -93,9 +109,30 @@ public class Login extends javax.swing.JFrame {
             }
         });
         jPanel1.add(masuk);
-        masuk.setBounds(500, 340, 90, 30);
+        masuk.setBounds(500, 360, 90, 30);
+
+        pass.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                passMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                passMousePressed(evt);
+            }
+        });
+        pass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passActionPerformed(evt);
+            }
+        });
+        pass.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+                passCaretPositionChanged(evt);
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+            }
+        });
         jPanel1.add(pass);
-        pass.setBounds(440, 260, 290, 30);
+        pass.setBounds(440, 280, 290, 30);
 
         jLabel6.setBackground(new java.awt.Color(51, 51, 51));
         jLabel6.setFont(new java.awt.Font("Old English Text MT", 0, 36)); // NOI18N
@@ -113,6 +150,16 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setText("LOGIN");
         jPanel1.add(jLabel2);
         jLabel2.setBounds(510, 140, 120, 40);
+
+        jLabel7.setForeground(new java.awt.Color(153, 0, 0));
+        jLabel7.setText("Password salah");
+        jPanel1.add(jLabel7);
+        jLabel7.setBounds(450, 310, 200, 20);
+
+        jLabel8.setForeground(new java.awt.Color(153, 0, 0));
+        jLabel8.setText("Username salah");
+        jPanel1.add(jLabel8);
+        jLabel8.setBounds(450, 240, 210, 20);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/login.jpg"))); // NOI18N
         jLabel1.setText("LOGIN");
@@ -145,13 +192,23 @@ public class Login extends javax.swing.JFrame {
         registry = LocateRegistry.getRegistry("0.0.0.0", 9750);        
         service1 = (Petugas_Service) registry.lookup("service1");        
         service2 = (Dokter_Service) registry.lookup("service2");     
-        if(username.contentEquals("")||password.length>0){
+        if(!username.contentEquals("")||password.length>0){
             p = service1.getPetugas(username,b.toString());
-            jabatan = p.getJabatan();
-            if(jabatan.equalsIgnoreCase("")){
+            if(p==null){
                 d = service2.getDokter(username,b.toString());
                 if(d==null){
-                    return false;
+                    if(service1.getPetugas(username)!=null||service2.getDokter(username)!=null){
+                        pass.setBackground(Color.red);
+                        jLabel7.setVisible(true);                        
+                    }
+                    else {
+                        nama.setBackground(Color.red);
+                        pass.setBackground(Color.red);
+                        jLabel7.setVisible(true);                        
+                        jLabel8.setVisible(true);                        
+                    }
+                    JOptionPane.showMessageDialog(null, "Mohon masukkan username dan password dengan benar", "ERROR",JOptionPane.ERROR_MESSAGE);
+                    return false;                                        
                 }
                 else{
                     aktorIniDokter = true;
@@ -159,6 +216,7 @@ public class Login extends javax.swing.JFrame {
                 }                
             }
             else{
+                jabatan = p.getJabatan();
                 return true;
             }
         }
@@ -199,15 +257,42 @@ public class Login extends javax.swing.JFrame {
                    }                 
                 } 
              }
-             else{
-                 JOptionPane.showMessageDialog(null, "Mohon masukkan username dan password dengan benar", "ERROR",JOptionPane.ERROR_MESSAGE);
-             }
           } catch (RemoteException ex) {
               Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
           } catch (NotBoundException ex) {
               Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
           }
     }//GEN-LAST:event_masukActionPerformed
+
+    
+    private void namaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_namaActionPerformed
+
+    private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_passActionPerformed
+
+    private void passCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_passCaretPositionChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_passCaretPositionChanged
+
+    private void passMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_passMousePressed
+
+    private void passMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passMouseClicked
+        // TODO add your handling code here:
+        pass.setBackground(Color.WHITE);
+        jLabel7.setVisible(false);
+        pass.setText("");
+    }//GEN-LAST:event_passMouseClicked
+
+    private void namaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_namaMouseClicked
+        // TODO add your handling code here:
+        nama.setBackground(Color.WHITE);
+        jLabel8.setVisible(false);
+    }//GEN-LAST:event_namaMouseClicked
 
     
 //    
@@ -263,6 +348,8 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     public javax.swing.JButton masuk;
     public javax.swing.JTextField nama;

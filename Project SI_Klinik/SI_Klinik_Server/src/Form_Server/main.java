@@ -1,6 +1,7 @@
 
 package Form_Server;
 import ServerApplication.Service.Petugas_Server;
+import ServerApplication.Service.Dokter_Server;
 
 import si_klinik_server.DatabaseUtilities;
 import java.awt.event.ActionEvent;
@@ -28,8 +29,10 @@ public class main {
         Registry server = LocateRegistry.createRegistry(9750);
         
         Petugas_Server petugasServer= new Petugas_Server();
+        Dokter_Server dokterServer= new Dokter_Server();
         
         server.rebind("service1",   petugasServer);
+        server.rebind("service2",   dokterServer);
         
         System.out.println("Server Berhasil Tersambung");
     }

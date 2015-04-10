@@ -35,7 +35,7 @@ public class Petugas_Server extends UnicastRemoteObject implements Petugas_Servi
         PreparedStatement statement = null;
         try{
         statement = DatabaseUtilities.getConnection().prepareStatement(
-            "INSERT INTO petugas (ID_PETUGAS, NAMA_PETUGAS, JABATAN_PETUGAS, ALAMAT_PETUGAS, TELEPON_PETUGAS, TGL_LAHIR_PETUGAS, JENIS_KELAMIN_PETUGAS, AGAMA_PETUGAS, PASSWORD_PETUGAS) values(?, ?, ?, ?, ?, ?, ?, ?, ?)"
+            "INSERT INTO petugas (ID_PETUGAS, NAMA_PETUGAS, JABATAN_PETUGAS, ALAMAT_PETUGAS, TELEPON_PETUGAS, TGL_LAHIR_PETUGAS, JENIS_KELAMIN_PETUGAS, AGAMA_PETUGAS, PASSWORD_PETUGAS) values(?,?,?,?,?,?,?,?,?)"
         );
         
         statement.setString(1, petugas.getId_Petugas());
@@ -74,21 +74,20 @@ public class Petugas_Server extends UnicastRemoteObject implements Petugas_Servi
         PreparedStatement statement = null;
         try{
          statement = DatabaseUtilities.getConnection().prepareStatement(
-                 "UPDATE petugas SET NAMA_PETUGAS = ?" +
-                 ",JABATAN_PETUGAS = ?, ALAMAT_PETUGAS = ?, TELEPON_PETUGAS = ? , TGL_LAHIR_PETUGAS = ?, JENIS_KELAMIN_PETUGAS = ?, AGAMA_PETUGAS = ? , PASSWORD_PETUGAS = ?" +
-                 "WHERE ID_PETUGAS = ?"
+                 "UPDATE petugas SET NAMA_PETUGAS =?, JABATAN_PETUGAS =?, ALAMAT_PETUGAS =?, TELEPON_PETUGAS =? , TGL_LAHIR_PETUGAS =?, JENIS_KELAMIN_PETUGAS =?, AGAMA_PETUGAS =? , PASSWORD_PETUGAS =?" +
+                 "WHERE ID_PETUGAS =?"
          );
-         
-        statement.setString(1, petugas.getId_Petugas());
-        statement.setString(2, petugas.getNama_Petugas());
-        statement.setString(3, petugas.getJabatan());
-        statement.setString(4, petugas.getAlamat());
-        statement.setString(5, petugas.getTelepon());
-        statement.setString(6, petugas.getTanggalLahir());
-        statement.setString(7, petugas.getJenKel());
-        statement.setString(8, petugas.getAgama());
-        statement.setString(9, petugas.getPassword());
-
+                 
+        statement.setString(1, petugas.getNama_Petugas());
+        statement.setString(2, petugas.getJabatan());
+        statement.setString(3, petugas.getAlamat());
+        statement.setString(4, petugas.getTelepon());
+        statement.setString(5, petugas.getTanggalLahir());
+        statement.setString(6, petugas.getJenKel());
+        statement.setString(7, petugas.getAgama());
+        statement.setString(8, petugas.getPassword());
+        statement.setString(9, petugas.getId_Petugas());
+        
         statement.executeUpdate();
 
         }
@@ -106,32 +105,77 @@ public class Petugas_Server extends UnicastRemoteObject implements Petugas_Servi
         }
     }
 
-    public petugas getCustomer (String Id_Petugas) throws RemoteException {
+    public petugas getPetugas (String Id_Petugas) throws RemoteException {
 
         System.out.println("Client Melakukan Proses Get By Id");
+        PreparedStatement statement = null;
+        try {
+            statement = DatabaseUtilities.getConnection().prepareStatement(
+                    "SELECT ID_PETUGAS, NAMA_PETUGAS, JABATAN_PETUGAS, ALAMAT_PETUGAS, TELEPON_PETUGAS, TGL_LAHIR_PETUGAS, JENIS_KELAMIN_PETUGAS, AGAMA_PETUGAS, PASSWORD_PETUGAS FROM petugas WHERE ID_PETUGAS =?");
+            statement.setString(1, Id_Petugas);
+            ResultSet result = statement.executeQuery();
+            
+            petugas a = null;
+            
+            if(result.next()){
+                a = new petugas();
+                a.setId_Petugas(result.getString("ID_PETUGAS"));
+                a.setNama_Petugas(result.getString("NAMA_PETUGAS"));
+                a.setJabatan(result.getString("JABATAN_PETUGAS"));
+                a.setAlamat(result.getString("ALAMAT_PETUGAS"));
+                a.setTelepon(result.getString("TELEPON_PETUGAS"));
+                a.setTanggalLahir(result.getString("TGL_LAHIR_PETUGAS"));
+                a.setAgama(result.getString("AGAMA_PETUGAS"));
+                a.setJenKel(result.getString("JENIS_KELAMIN_PETUGAS"));
+                a.setPassword(result.getString("PASSWORD_PETUGAS"));
+            }
+            return a;
+            
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            return null;
+        }
+        finally{
+            if(statement != null){
+                try{
+                    statement.close();
+                }
+                catch(SQLException exception){
+                    exception.printStackTrace();
+                }
+            }
+            
+        }
+    }
+    
+     public petugas getPetugas (String Id_Petugas, String password) throws RemoteException {
+
+        System.out.println("Client Melakukan Proses Get By Id And Password");
 
         PreparedStatement statement = null;
         try{
             statement = DatabaseUtilities.getConnection().prepareStatement(
-                 "SELECT * FROM petugas WHERE ID_PETUGAS = ?");
+                 "SELECT ID_PETUGAS, NAMA_PETUGAS, JABATAN_PETUGAS, ALAMAT_PETUGAS, TELEPON_PETUGAS, TGL_LAHIR_PETUGAS, JENIS_KELAMIN_PETUGAS, AGAMA_PETUGAS, PASSWORD_PETUGAS FROM petugas WHERE ID_PETUGAS =? AND PASSWORD_PETUGAS=?");
 
+            statement.setString(1, Id_Petugas);
+            statement.setString(2, password);
             ResultSet result = statement.executeQuery();
-
-            petugas petugas = null;
-
+            
+            petugas a = null;
+            
             if(result.next()){
-                petugas.setId_Petugas(result.getString("ID_PETUGAS"));
-                petugas.setNama_Petugas(result.getString("NAMA_PETUGAS"));
-                petugas.setJabatan(result.getString("JABATAN_PETUGAS"));
-                petugas.setAlamat(result.getString("ALAMAT_PETUGAS"));
-                petugas.setTelepon(result.getString("TELEPON_PETUGAS"));
-                petugas.setTanggalLahir(result.getString("TGL_LAHIR_PETUGAS"));
-                petugas.setJenKel(result.getString("JENIS_KELAMIN_PETUGAS"));
-                petugas.setPassword(result.getString("PASSWORD_PETUGAS"));
+                a = new petugas();
+                a.setId_Petugas(result.getString("ID_PETUGAS"));
+                a.setNama_Petugas(result.getString("NAMA_PETUGAS"));
+                a.setJabatan(result.getString("JABATAN_PETUGAS"));
+                a.setAlamat(result.getString("ALAMAT_PETUGAS"));
+                a.setTelepon(result.getString("TELEPON_PETUGAS"));
+                a.setTanggalLahir(result.getString("TGL_LAHIR_PETUGAS"));
+                a.setAgama(result.getString("AGAMA_PETUGAS"));
+                a.setJenKel(result.getString("JENIS_KELAMIN_PETUGAS"));
+                a.setPassword(result.getString("PASSWORD_PETUGAS"));
             }
-
-            return petugas;
-
+            return a;
         }
         catch(SQLException exception){
           exception.printStackTrace();
@@ -147,10 +191,4 @@ public class Petugas_Server extends UnicastRemoteObject implements Petugas_Servi
             }
         }
     }
-
-    @Override
-    public petugas getPetugas(String ID_Petugas) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }

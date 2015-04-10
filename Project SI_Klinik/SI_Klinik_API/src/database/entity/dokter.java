@@ -4,11 +4,13 @@
  */
 package database.entity;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Acer
  */
-public class dokter {
+public class dokter implements Serializable{
     private String id_dokter;
     private String id_poli;
     private String nama_dokter;
