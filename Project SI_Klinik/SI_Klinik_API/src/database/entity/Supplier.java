@@ -12,8 +12,9 @@ public class Supplier implements Serializable{
     private String Id_Supplier;
     private String Nama_Supplier;
     private String Kota_Supplier;
+    private String Alamat_Supplier;
     private String Telepon_Supplier;
-    private String NPWP_Supplier;
+    private String NPWP_Supplier;    
     private String Jenis_pajak_Supplier;
     private String Kode_Pajak_Supplier;
     
@@ -24,6 +25,13 @@ public class Supplier implements Serializable{
     }
 
     public void setId_Supplier(String Id_Supplier) {
+        this.Id_Supplier = Id_Supplier;
+    }
+    public String getAlamat_Supplier() {
+        return Id_Supplier;
+    }
+
+    public void setAlamat_Supplier(String Alamat_Supplier) {
         this.Id_Supplier = Id_Supplier;
     }
 

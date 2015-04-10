@@ -27,6 +27,7 @@ public class Panel_Registrasi_Staf extends javax.swing.JPanel {
     private void initComponents() {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
         jPanel6 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
@@ -45,6 +46,7 @@ public class Panel_Registrasi_Staf extends javax.swing.JPanel {
         jTextField15 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
         jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        jScrollPane2 = new javax.swing.JScrollPane();
         jPanel7 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -140,7 +142,7 @@ public class Panel_Registrasi_Staf extends javax.swing.JPanel {
                         .addComponent(jButton1)))
                 .addContainerGap())
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap(87, Short.MAX_VALUE)
+                .addContainerGap(96, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,7 +152,7 @@ public class Panel_Registrasi_Staf extends javax.swing.JPanel {
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addComponent(jRadioButton2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                                 .addComponent(jRadioButton3)
                                 .addGap(156, 156, 156))
                             .addGroup(jPanel6Layout.createSequentialGroup()
@@ -219,7 +221,9 @@ public class Panel_Registrasi_Staf extends javax.swing.JPanel {
                 .addContainerGap(52, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Dokter", jPanel6);
+        jScrollPane1.setViewportView(jPanel6);
+
+        jTabbedPane1.addTab("Dokter", jScrollPane1);
 
         jPanel7.setMinimumSize(new java.awt.Dimension(700, 450));
 
@@ -355,7 +359,9 @@ public class Panel_Registrasi_Staf extends javax.swing.JPanel {
                     .addContainerGap(268, Short.MAX_VALUE)))
         );
 
-        jTabbedPane1.addTab("Non-Dokter", jPanel7);
+        jScrollPane2.setViewportView(jPanel7);
+
+        jTabbedPane1.addTab("Non-Dokter", jScrollPane2);
 
         jLabel1.setFont(new java.awt.Font("Maiandra GD", 0, 24)); // NOI18N
         jLabel1.setText("Registrasi Pegawai");
@@ -381,7 +387,7 @@ public class Panel_Registrasi_Staf extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -434,6 +440,8 @@ public class Panel_Registrasi_Staf extends javax.swing.JPanel {
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JRadioButton jRadioButton5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField15;
     private javax.swing.JTextField jTextField16;
