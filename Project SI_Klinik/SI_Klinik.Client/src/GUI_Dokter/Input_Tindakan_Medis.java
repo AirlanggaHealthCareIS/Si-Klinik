@@ -221,3 +221,4 @@ public class Panel_Input_Tindakan_Medis extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
     }
+}

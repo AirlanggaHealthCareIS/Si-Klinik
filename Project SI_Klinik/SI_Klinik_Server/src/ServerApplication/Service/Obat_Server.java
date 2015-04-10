@@ -8,6 +8,7 @@ import database.entity.obat;
 import database.Service.Obat_Service;
 import database.Service.Obat_Service;
 import database.entity.obat;
+import database.Service.Generate_PO_Service;
 import si_klinik_server.DatabaseUtilities;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -140,5 +141,40 @@ public class Obat_Server extends UnicastRemoteObject implements Obat_Service {
                 }
             }
         }
-    }   
+    }
+    public List<obat> getObatKritis() throws RemoteException {
+        System.out.println("proses get obat kritis");
+        Statement statement = null;
+        
+        try {
+            statement = DatabaseUtilities.getConnection().createStatement();
+            ResultSet result = statement.executeQuery("SELECT * FROM OBAT WHERE STOK_OBAT <= STOK_KRITIS");
+            List<obat> list = new ArrayList<obat>();
+            
+            while(result.next()){
+                obat obat = new obat();
+                obat.setid_obat(result.getString("ID_OBAT"));
+                obat.setnama_obat(result.getString("NAMA_OBAT"));
+              
+               
+                //list.add(a);
+            }
+            result.close();
+            return list;
+        } 
+        catch (SQLException exception) {
+            exception.printStackTrace();
+            return null;
+        }
+        finally{
+            if(statement!=null){
+                try {
+                    statement.close();
+                } catch (SQLException  exception) {
+                    exception.printStackTrace();
+                }
+            }
+        }
+    }
+    
 }
