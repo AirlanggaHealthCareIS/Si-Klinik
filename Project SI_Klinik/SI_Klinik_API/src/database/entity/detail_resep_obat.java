@@ -19,7 +19,7 @@ public class detail_resep_obat {
         return id_detail_resep;
     }
 
-    public void setid_detail_beli(String id_detail_beli) {
+    public void setid_detail_resep(String id_detail_beli) {
         this.id_detail_resep = id_detail_resep;
     }
     
