@@ -13,7 +13,7 @@ public class obat {
     private String nama_obat;
     private float dosis;
     private String keterangan_obat;
-    private int stock_obat;
+    private int stok_obat;
     private String pabrik_obat;
     private String jenis_obat;
     private String kemasan;
@@ -52,12 +52,12 @@ public class obat {
         this.keterangan_obat = keterangan_obat;
     }
     
-     public int getstock_obat() {
-        return stock_obat;
+     public int getstok_obat() {
+        return stok_obat;
     }
 
-    public void setstock_obat(int stock_obat) {
-        this.stock_obat = stock_obat;
+    public void setstok_obat(int stok_obat) {
+        this.stok_obat = stok_obat;
     }
     
      public String getpabrik_obat() {
