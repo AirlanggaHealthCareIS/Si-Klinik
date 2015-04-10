@@ -121,11 +121,9 @@ public class Form_data_suplier extends javax.swing.JPanel {
     }//GEN-LAST:event_TOMBOL_UBAHActionPerformed
 
     private void TOMBOL_TAMBAHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TOMBOL_TAMBAHActionPerformed
-        //        action = "insert";
-        //        TOMBOL_UBAH.setEnabled(false);
-        //        TAMBAH f = new TAMBAH (this);
-        //        f.setVisible(true);
-        //        this.setVisible(false);
+                Form_Data_Supplier_Tambah o1 = new Form_Data_Supplier_Tambah();
+                o1.setVisible(true);
+                this.setVisible(false);
 
     }//GEN-LAST:event_TOMBOL_TAMBAHActionPerformed
 

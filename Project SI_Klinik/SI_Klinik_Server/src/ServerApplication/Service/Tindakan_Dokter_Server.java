@@ -40,7 +40,7 @@ public class Tindakan_Dokter_Server extends UnicastRemoteObject implements Tinda
         
         statement.setString(1, dokter.getId_Tindakan_Dokter());
         statement.setString(2, dokter.getTindakan_Dokter());
-        statement.setString(3, dokter.getBiaya_Tindakan_Dokter());
+        //statement.setString(3, dokter.getBiaya_Tindakan_Dokter());
         
         statement.executeUpdate();
         
@@ -76,7 +76,7 @@ public class Tindakan_Dokter_Server extends UnicastRemoteObject implements Tinda
         
         statement.setString(1, dokter.getId_Tindakan_Dokter());
         statement.setString(2, dokter.getTindakan_Dokter());
-        statement.setString(3, dokter.getBiaya_Tindakan_Dokter());
+//        statement.setString(3, dokter.getBiaya_Tindakan_Dokter());
         
         statement.executeUpdate();
         
@@ -111,8 +111,8 @@ public class Tindakan_Dokter_Server extends UnicastRemoteObject implements Tinda
         
         if (result.next()){
             dokter.setId_Tindakan_Dokter(result.getString("ID_TINDAKAN_DOKTER"));
-            dokter.setBiaya_Tindakan_Dokter(result.getString("TINDAKAN_DOKTER"));
-            dokter.setBiaya_Tindakan_Dokter(result.getString("BIAYA_TINDAKAN_DOKTER"));
+//            dokter.setBiaya_Tindakan_Dokter(result.getString("TINDAKAN_DOKTER"));
+//            dokter.setBiaya_Tindakan_Dokter(result.getString("BIAYA_TINDAKAN_DOKTER"));
         }
         
         return dokter;

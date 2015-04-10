@@ -29,7 +29,7 @@ public class Supplier_Server extends UnicastRemoteObject implements Supplier_Ser
         PreparedStatement statement = null;
         try{
             statement = DatabaseUtilities.getConnection().prepareStatement(
-            "INSERT INTO supplier(Id_Supplier, Nama_Supplier, Alamat_Supplier, Kota_Supplier, Telepon_Supplier, NPWP_Supplier, Jenis_pajak_Supplier, Kode_Pajak_Supplier) values(?,?,?,?)");
+            "INSERT INTO supplier(ID_SUPPLIER, NAMA_SUPPLIER, ALAMAT_SUPPLIER, KOTA_SUPPLIER, TELEPON_SUPPLIER, NPWP_SUPPLIER, JENIS_PAJAK_SUPPLIER, KODE_PAJAK_SUPPLIER) values(?,?,?,?)");
             
             statement.setString(1, a.getId_Supplier());
             statement.setString(2, a.getNama_Supplier());
@@ -61,7 +61,7 @@ public class Supplier_Server extends UnicastRemoteObject implements Supplier_Ser
         PreparedStatement statement = null;
         try {
             statement = DatabaseUtilities.getConnection().prepareStatement(
-            "UPDATE supplier SET  Nama_Supplier=?, Alamat_Supplier=?, Kota_Supplier=?, Telepon_Supplier=?, NPWP_Supplier=?, Jenis_pajak_Supplier=?, KODE_SUPPLIER=? WHERE ID_SUPLIER=?");
+            "UPDATE supplier SET  NAMA_SUPPLIER=?, ALAMAT_SUPPLIER=?, KOTA_SUPPLIER=?, TELEPON_SUPPLIER=?, NPWP_SUPPLIER=?, JENIS_PAJAK_SUPPLIER=?, KODE_SUPPLIER=? WHERE ID_SUPLIER=?");
             statement.setString(1, b.getNama_Supplier());
             statement.setString(2, b.getAlamat_Supplier());
             statement.setString(3, b.getKota_Supplier());
@@ -86,12 +86,12 @@ public class Supplier_Server extends UnicastRemoteObject implements Supplier_Ser
         }
     }
     public Supplier getSupplier(String IdSuplier) throws RemoteException {
-        System.out.println("melakukan proses getby ID_bahan");
+        System.out.println("melakukan proses getby ID_SUPPLIER");
         
         PreparedStatement statement = null;
         try {
             statement = DatabaseUtilities.getConnection().prepareStatement(
-                    "SELECT * FROM supplier WHERE ID_SUPLIER = ?");
+                    "SELECT * FROM supplier WHERE ID_SUPPLIER = ?");
             statement.setString(1, IdSuplier);
             ResultSet result = statement.executeQuery();
             
@@ -99,14 +99,14 @@ public class Supplier_Server extends UnicastRemoteObject implements Supplier_Ser
             
             if(result.next()){
                 a = new Supplier();
-                a.setId_Supplier((result.getString("Id_Supplier")));
-                a.setNama_Supplier(result.getString("Nama_Supplier"));
-                a.setAlamat_Supplier(result.getString("Alamat_Supplier"));
-                a.setKota_Supplier(result.getString("Kota_Supplier"));
-                a.setTelepon_Supplier(result.getString("Telepon_Supplier"));
-                a.setNPWP_Supplier(result.getString("NPWP_Supplier"));
-                a.setJenis_pajak_Supplier(result.getString("Jenis_pajak_Supplier"));
-                a.setKode_Pajak_Supplier(result.getString("Kode_Pajak_Supplier"));
+                a.setId_Supplier((result.getString("ID_SUPPLIER")));
+                a.setNama_Supplier(result.getString("NAMA_SUPPLIER"));
+                a.setAlamat_Supplier(result.getString("ALAMAT_SUPPLIER"));
+                a.setKota_Supplier(result.getString("KOTA_SUPPLIER"));
+                a.setTelepon_Supplier(result.getString("TELEPON_SUPPLIER"));
+                a.setNPWP_Supplier(result.getString("NPWP_SUPPLIER"));
+                a.setJenis_pajak_Supplier(result.getString("JENIS_PAJAK_SUPPLIER"));
+                a.setKode_Pajak_Supplier(result.getString("KODE_PAJAK_SUPPLIER"));
                 
             }
             return a;
@@ -125,6 +125,45 @@ public class Supplier_Server extends UnicastRemoteObject implements Supplier_Ser
                 }
             }
             
+        }
+    }
+    
+    public List<Supplier> getSupliers() throws RemoteException {
+        System.out.println("proses get ALL SUPPLIER");
+        Statement statement = null;
+        
+        try {
+            statement = DatabaseUtilities.getConnection().createStatement();
+            ResultSet result = statement.executeQuery("SELECT * FROM supplier");
+            List<Supplier> list = new ArrayList<Supplier>();
+            
+            while(result.next()){
+                Supplier a = new Supplier();
+               a.setId_Supplier((result.getString("ID_SUPPLIER")));
+                a.setNama_Supplier(result.getString("NAMA_SUPPLIER"));
+                a.setAlamat_Supplier(result.getString("ALAMAT_SUPPLIER"));
+                a.setKota_Supplier(result.getString("KOTA_SUPPLIER"));
+                a.setTelepon_Supplier(result.getString("TELEPON_SUPPLIER"));
+                a.setNPWP_Supplier(result.getString("NPWP_SUPPLIER"));
+                a.setJenis_pajak_Supplier(result.getString("JENIS_PAJAK_SUPPLIER"));
+                a.setKode_Pajak_Supplier(result.getString("KODE_PAJAK_SUPPLIER"));
+                list.add(a);
+            }
+            result.close();
+            return list;
+        } 
+        catch (SQLException exception) {
+            exception.printStackTrace();
+            return null;
+        }
+        finally{
+            if(statement!=null){
+                try {
+                    statement.close();
+                } catch (SQLException  exception) {
+                    exception.printStackTrace();
+                }
+            }
         }
     }
 

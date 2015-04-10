@@ -4,19 +4,40 @@
  */
 package GUI_Apoteker;
 
+import java.awt.Color;
+import java.rmi.RemoteException;
+import javax.swing.JOptionPane;
+import database.entity.Supplier;
+import database.Service.Supplier_Service;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author user
  */
 public class Form_Data_Supplier_Tambah extends javax.swing.JFrame {
-
+private Supplier_Service ss;
     /**
      * Creates new form Form_Data_Supplier_Tambah
      */
     public Form_Data_Supplier_Tambah() {
         initComponents();
     }
-
+ private void refresh(){
+        NAMA.setText("");
+        ALAMAT.setText("");
+        KOTA.setText("");
+        TELEPON.setText("");
+        NPWP.setText("");
+        JENISPAJAK.setSelectedIndex(0);
+        KODEPAJAK.setText("");
+        
+        
+        
+        
+        
+    }
     Form_Data_Supplier_Tambah(Form_Data_Supplier_Tambah aThis) {
         throw new UnsupportedOperationException("Not yet implemented");
     }
@@ -35,7 +56,6 @@ public class Form_Data_Supplier_Tambah extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -43,24 +63,21 @@ public class Form_Data_Supplier_Tambah extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox();
-        jTextField7 = new javax.swing.JTextField();
+        NAMA = new javax.swing.JTextField();
+        KOTA = new javax.swing.JTextField();
+        TELEPON = new javax.swing.JTextField();
+        NPWP = new javax.swing.JTextField();
+        JENISPAJAK = new javax.swing.JComboBox();
+        KODEPAJAK = new javax.swing.JTextField();
         OK = new javax.swing.JButton();
         RESET = new javax.swing.JButton();
-        textArea1 = new java.awt.TextArea();
+        ALAMAT = new java.awt.TextArea();
         RESET1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Footlight MT Light", 0, 18)); // NOI18N
         jLabel1.setText("INPUT DATA SUPPLIER");
-
-        jLabel2.setText("ID SUPPLIER");
 
         jLabel3.setText("NAMA SUPPLIER ");
 
@@ -76,13 +93,7 @@ public class Form_Data_Supplier_Tambah extends javax.swing.JFrame {
 
         jLabel9.setText("KODE PAJAK");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pilihan", " " }));
+        JENISPAJAK.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pilihan", " " }));
 
         OK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Save-32.png"))); // NOI18N
         OK.setText("SIMPAN");
@@ -107,7 +118,6 @@ public class Form_Data_Supplier_Tambah extends javax.swing.JFrame {
                         .addComponent(RESET))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
                             .addComponent(jLabel5)
@@ -118,55 +128,48 @@ public class Form_Data_Supplier_Tambah extends javax.swing.JFrame {
                         .addGap(68, 68, 68)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addComponent(NAMA)
                                 .addGap(166, 166, 166))
-                            .addComponent(textArea1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jTextField7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
-                                .addComponent(jTextField6, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.LEADING)))))
+                            .addComponent(ALAMAT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(JENISPAJAK, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(KODEPAJAK, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)
+                            .addComponent(NPWP)
+                            .addComponent(TELEPON)
+                            .addComponent(KOTA))))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(58, 58, 58)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(NAMA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textArea1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ALAMAT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(KOTA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TELEPON, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(NPWP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(JENISPAJAK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(KODEPAJAK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel9))
                         .addGap(33, 33, 33)
                         .addComponent(OK))
@@ -198,7 +201,7 @@ public class Form_Data_Supplier_Tambah extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(RESET1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(RESET1, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel1)))
@@ -227,12 +230,104 @@ public class Form_Data_Supplier_Tambah extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
     private void OKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKActionPerformed
         // TODO add your handling code here:
+        boolean isi1 = false;
+        boolean isi2 = false;
+        boolean isi3 = false;
+        boolean isi4 = false;
+        boolean isi5 = false;
+        boolean isi6 = false;
+        boolean isi7 = false;
+        
+        
+        if(!NAMA.getText().equals("")){
+            isi1 = true;
+        }
+        if(!ALAMAT.getText().equals("")){
+            isi2 = true;
+        }
+        if(!KOTA.getText().equals("")){
+            isi3 = true;
+        }
+        if(!TELEPON.getText().equals("")){
+            isi4 = true;
+        }
+        if(!NPWP.getText().equals("")){
+            isi5 = true;
+        }
+        if(!JENISPAJAK.getItemAt(JENISPAJAK.getSelectedIndex()).toString().equals("")) {
+            isi6 = true;
+        }
+        if(!KODEPAJAK.getText().equals("")){
+            isi7 = true;
+        }
+        
+        if(isi1&&isi2&&isi3&&isi4&&isi5&&isi6&&isi7)    {
+            String N = NAMA.getText();
+            String A = ALAMAT.getText();
+            String K = KOTA.getText();
+            String T = TELEPON.getText();
+            String NP = NPWP.getText();
+            String JP = JENISPAJAK.getItemAt(JENISPAJAK.getSelectedIndex()).toString();
+            String KP = KODEPAJAK.getText();
+            String ID = null;
+            try {
+                ID = "SUP"+ss.getSupliers().size();
+            } catch (RemoteException ex) {
+                Logger.getLogger(Form_Data_Supplier_Tambah.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+               Supplier s= new Supplier();
+               s.setId_Supplier(ID);
+               s.setNama_Supplier(N);
+               s.setAlamat_Supplier(A);
+               s.setKota_Supplier(K);
+               s.setTelepon_Supplier(T);
+               s.setNPWP_Supplier(NP);
+               s.setJenis_pajak_Supplier(JP);
+               s.setKode_Pajak_Supplier(KP);
+               
+                if(ss.insertSupplier(s)!=null){
+                    int opsi = JOptionPane.showConfirmDialog(null, "Data Anda berhasil disimpan. Apakah Anda akan menambahkan data lagi?","", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+                    if(opsi==0){
+                        refresh();
+                    }
+                }
+                
+            }
+            catch(RemoteException exception){
+                exception.printStackTrace();
+            }
+        }
+        else{
+            if(!isi1){
+                NAMA.setBackground(Color.red);
+            }
+            if(!isi2){
+                ALAMAT.setBackground(Color.red);
+            }
+            if(!isi3){
+                KOTA.setBackground(Color.red);
+            }
+
+            if(!isi4){
+                TELEPON.setBackground(Color.red);
+            }
+       
+            
+            if(!isi5){
+                NPWP.setBackground(Color.red);
+            }
+            if(!isi6){
+                JENISPAJAK.setBackground(Color.red);
+            }
+
+            if(!isi7){
+                KODEPAJAK.setBackground(Color.red);
+            }
+            JOptionPane.showMessageDialog(null, "Ada kesalahan pada kolom isian Anda. Mohon memperbaiki field yang berwarna merah untuk melanjutkan.", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_OKActionPerformed
 
     /**
@@ -270,12 +365,17 @@ public class Form_Data_Supplier_Tambah extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private java.awt.TextArea ALAMAT;
+    private javax.swing.JComboBox JENISPAJAK;
+    private javax.swing.JTextField KODEPAJAK;
+    private javax.swing.JTextField KOTA;
+    private javax.swing.JTextField NAMA;
+    private javax.swing.JTextField NPWP;
     private javax.swing.JButton OK;
     private javax.swing.JButton RESET;
     private javax.swing.JButton RESET1;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JTextField TELEPON;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -285,12 +385,5 @@ public class Form_Data_Supplier_Tambah extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private java.awt.TextArea textArea1;
     // End of variables declaration//GEN-END:variables
 }

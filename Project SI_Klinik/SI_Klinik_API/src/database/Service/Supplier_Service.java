@@ -18,6 +18,6 @@ public interface Supplier_Service  extends Remote{
     void updateSupplier(Supplier supplier) throws RemoteException;
 
     Supplier getSupplier (String ID_Supplier) throws RemoteException;
-
+    List<Supplier> getSupliers() throws RemoteException;
     
 }
