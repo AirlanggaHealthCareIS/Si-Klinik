@@ -192,7 +192,7 @@ public class Login extends javax.swing.JFrame {
         registry = LocateRegistry.getRegistry("0.0.0.0", 9750);        
         service1 = (Petugas_Service) registry.lookup("service1");        
         service2 = (Dokter_Service) registry.lookup("service2");     
-        if(!username.contentEquals("")||password.length>0){
+        if(!username.equals("")&&password.length>0){
             p = service1.getPetugas(username,b.toString());
             if(p==null){
                 d = service2.getDokter(username,b.toString());
@@ -221,7 +221,16 @@ public class Login extends javax.swing.JFrame {
             }
         }
         else{
-            return false;
+            JOptionPane.showMessageDialog(null, "Ada field yang kosong. Mohon masukkan username dan password dengan benar", "ERROR",JOptionPane.ERROR_MESSAGE);
+            if(username.equals("")){
+                nama.setBackground(Color.red);
+                jLabel8.setVisible(true);     
+            }
+            if(password.length==0){
+                pass.setBackground(Color.red);
+                jLabel7.setVisible(true);     
+            }
+            return false;            
         }
     }
     
