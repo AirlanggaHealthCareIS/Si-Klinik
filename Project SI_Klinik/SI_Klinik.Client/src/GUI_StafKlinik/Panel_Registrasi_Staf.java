@@ -358,7 +358,7 @@ public class Panel_Registrasi_Staf extends javax.swing.JPanel {
         jTabbedPane1.addTab("Non-Dokter", jPanel7);
 
         jLabel1.setFont(new java.awt.Font("Maiandra GD", 0, 24)); // NOI18N
-        jLabel1.setText("Registrasi Pasien");
+        jLabel1.setText("Registrasi Pegawai");
         jLabel1.setMinimumSize(new java.awt.Dimension(700, 450));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
