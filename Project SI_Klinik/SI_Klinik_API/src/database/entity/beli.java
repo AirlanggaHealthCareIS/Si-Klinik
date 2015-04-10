@@ -11,7 +11,6 @@ package database.entity;
 public class beli {
     private String id_beli;
     private String id_supplier;
-    private String id_pengeluaran;
     private String tanggal_beli;
     private int sub_total;
     private float ppn_beli;
@@ -32,14 +31,6 @@ public class beli {
 
     public void setid_supplier(String id_supplier) {
         this.id_supplier = id_supplier;
-    }
-
-     public String getid_pengeluaran() {
-        return id_pengeluaran;
-    }
-
-    public void setid_pengeluaran(String id_pengeluaran) {
-        this.id_pengeluaran = id_pengeluaran;
     }
     
      public String gettanggal_beli() {

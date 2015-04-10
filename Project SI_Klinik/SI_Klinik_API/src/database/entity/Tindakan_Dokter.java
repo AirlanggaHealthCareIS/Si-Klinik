@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class Tindakan_Dokter implements Serializable{
     private String Id_Tindakan_Dokter;
     private String Tindakan_Dokter;
-    private String Biaya_Tindakan_Dokter;
+    private int Biaya_Tindakan_Dokter;
     
     
             
@@ -32,11 +32,11 @@ public class Tindakan_Dokter implements Serializable{
         this.Tindakan_Dokter = Tindakan_Dokter;
     }
 
-     public String getBiaya_Tindakan_Dokter() {
+     public int getBiaya_Tindakan_Dokter() {
         return Biaya_Tindakan_Dokter;
     }
 
-    public void setBiaya_Tindakan_Dokter(String Biaya_Tindakan_Dokter) {
+    public void setBiaya_Tindakan_Dokter(int Biaya_Tindakan_Dokter) {
         this.Biaya_Tindakan_Dokter = Biaya_Tindakan_Dokter;
     }   
 }

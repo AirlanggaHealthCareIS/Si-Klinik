@@ -12,9 +12,9 @@ public class Transaksi_Obat implements Serializable{
     private String Id_Transaksi_Obat;
     private String Id_Pemasukan;
     private String Tanggal_Jual;
-    private String Subtotal_Transaksi_Obat;
-    private String PPN_Transaksi_Obat;
-    private String Total_Transaksi_Obat;
+    private int Subtotal_Transaksi_Obat;
+    private float PPN_Transaksi_Obat;
+    private int Total_Transaksi_Obat;
     
             
 
@@ -42,27 +42,27 @@ public class Transaksi_Obat implements Serializable{
         this.Tanggal_Jual = Tanggal_Jual;
     }
     
-     public String getSubtotal_Transaksi_Obat() {
+     public int getSubtotal_Transaksi_Obat() {
         return Subtotal_Transaksi_Obat;
     }
 
-    public void setSubtotal_Transaksi_Obat(String Subtotal_Transaksi_Obat) {
+    public void setSubtotal_Transaksi_Obat(int Subtotal_Transaksi_Obat) {
         this.Subtotal_Transaksi_Obat = Subtotal_Transaksi_Obat;
     }
     
-     public String getPPN_Transaksi_Obat() {
+     public float getPPN_Transaksi_Obat() {
         return PPN_Transaksi_Obat;
     }
 
-    public void setPPN_Transaksi_Obat(String PPN_Transaksi_Obat) {
+    public void setPPN_Transaksi_Obat(float PPN_Transaksi_Obat) {
         this.PPN_Transaksi_Obat = PPN_Transaksi_Obat;
     }
     
-     public String getTotal_Transaksi_Obat() {
+     public int getTotal_Transaksi_Obat() {
         return Total_Transaksi_Obat;
     }
 
-     public void setTotal_Transaksi_Obat(String Total_Transaksi_Obat) {
+     public void setTotal_Transaksi_Obat(int Total_Transaksi_Obat) {
         this.Total_Transaksi_Obat = Total_Transaksi_Obat;
     }   
 }
