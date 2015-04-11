@@ -4,6 +4,9 @@
  */
 package GUI_Dokter;
 
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+
 /**
  *
  * @author JESSICA
@@ -13,12 +16,12 @@ public class Panel_Rekam_Medik_Tambah extends javax.swing.JPanel {
     /**
      * Creates new form Panel_Rekam_Medik_Tambah
      */
-    public Panel_Rekam_Medik_Tambah() {
+    public Panel_Rekam_Medik_Tambah() throws RemoteException, NotBoundException {
         initComponents();
         Panel_Resep panel1 = new Panel_Resep();
-        Panel_Input_Tindakan_Medis panel = new Panel_Input_Tindakan_Medis();
+        //Panel_Input_Tindakan_Medis panel = new Panel_Input_Tindakan_Medis();
         jPanel7.add(panel1);
-        jPanel6.add(panel);
+        //jPanel6.add(panel);
     }
 
     /**

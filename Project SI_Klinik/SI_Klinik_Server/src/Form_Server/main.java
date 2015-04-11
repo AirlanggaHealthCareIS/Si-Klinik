@@ -2,6 +2,8 @@
 package Form_Server;
 import ServerApplication.Service.Petugas_Server;
 import ServerApplication.Service.Dokter_Server;
+import ServerApplication.Service.Resep_Server;
+import ServerApplication.Service.Obat_Server;
 
 import si_klinik_server.DatabaseUtilities;
 import java.awt.event.ActionEvent;
@@ -30,9 +32,13 @@ public class main {
         
         Petugas_Server petugasServer= new Petugas_Server();
         Dokter_Server dokterServer= new Dokter_Server();
+        Resep_Server resepServer= new Resep_Server();
+        Obat_Server obatServer= new Obat_Server();
         
         server.rebind("service1",   petugasServer);
         server.rebind("service2",   dokterServer);
+        server.rebind("service3",   resepServer);
+        server.rebind("service4",   obatServer);
         
         System.out.println("Server Berhasil Tersambung");
     }

@@ -18,4 +18,8 @@ public interface Obat_Service extends Remote {
     void updateObat(obat obat) throws RemoteException;
 
     obat getObat (String id_obat) throws RemoteException;
+    
+    List getObatList(String nama) throws RemoteException;
+    
+    String getIdObat(String nama) throws RemoteException;
 }

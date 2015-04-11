@@ -15,6 +15,7 @@ public class Panel_Resep extends javax.swing.JPanel {
      */
     public Panel_Resep() {
         initComponents();
+        
     }
 
     /**
@@ -30,7 +31,7 @@ public class Panel_Resep extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         idpasien = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabel_resep = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
@@ -48,7 +49,7 @@ public class Panel_Resep extends javax.swing.JPanel {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabel_resep.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -59,7 +60,7 @@ public class Panel_Resep extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabel_resep);
 
         jButton1.setText("Lihat Detail");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -118,7 +119,7 @@ public class Panel_Resep extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 700, Short.MAX_VALUE)
+            .addGap(0, 722, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -153,6 +154,6 @@ public class Panel_Resep extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tabel_resep;
     // End of variables declaration//GEN-END:variables
 }

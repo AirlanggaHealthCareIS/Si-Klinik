@@ -4,11 +4,13 @@
  */
 package database.entity;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Acer
  */
-public class detail_resep_obat {
+public class detail_resep_obat implements Serializable{
     private String id_detail_resep;
     private String id_rekam_medis;
     private String id_obat;
@@ -19,7 +21,7 @@ public class detail_resep_obat {
         return id_detail_resep;
     }
 
-    public void setid_detail_resep(String id_detail_beli) {
+    public void setid_detail_resep(String id_detail_resep) {
         this.id_detail_resep = id_detail_resep;
     }
     

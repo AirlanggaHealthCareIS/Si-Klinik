@@ -5,7 +5,7 @@
 package ServerApplication.Service;
 import database.entity.detail_resep_obat;
 import database.entity.Rekam_Medis;
-import database.Service.Resep_Service;
+import database.Service.Detail_Resep_Service;
 import si_klinik_server.DatabaseUtilities;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -19,7 +19,7 @@ import java.util.List;
  *
  * @author tinot
  */
-public class Resep_Server extends UnicastRemoteObject implements Resep_Service{
+public class Resep_Server extends UnicastRemoteObject implements Detail_Resep_Service{
 
     public Resep_Server() throws RemoteException {
     
@@ -31,7 +31,7 @@ public class Resep_Server extends UnicastRemoteObject implements Resep_Service{
         try{
         statement = DatabaseUtilities.getConnection().prepareStatement(
             "INSERT INTO detail_resep_obat (ID_DETAIL_RESEP, ID_REKAM_MEDIS, ID_OBAT, QTY_DETAIL_RESEP)"
-                + " values(?, ?, ?, ?)"
+                + " VALUES (?, ?, ?, ?)"
         );
         
         statement.setString(1, resep.getid_detail_resep());
@@ -140,14 +140,12 @@ public class Resep_Server extends UnicastRemoteObject implements Resep_Service{
         try{
           statement = DatabaseUtilities.getConnection().createStatement();
 
-          ResultSet result = statement.executeQuery("SELECT * FROM detail_resep_obat");
+          ResultSet result = statement.executeQuery("SELECT O.NAMA_OBAT, D.QTY_DETAIL_RESEP FROM detail_resep_obat AS D, obat AS O WHERE D.ID_OBAT = O.ID_OBAT");
 
           List<detail_resep_obat> list = new ArrayList<detail_resep_obat>();
 
           while(result.next()){
                 detail_resep_obat resep = new detail_resep_obat();
-                resep.setid_detail_resep(result.getString("ID_DETAIL_RESEP"));
-                resep.setid_rekam_medis(result.getString("ID_REKAM_MEDIS"));
                 resep.setid_obat(result.getString("ID_OBAT"));
                 resep.setqty_detail_resep(result.getInt("QTY_DETAIL_RESEP"));
                 list.add(resep);

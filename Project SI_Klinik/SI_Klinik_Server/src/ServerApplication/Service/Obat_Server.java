@@ -4,8 +4,6 @@
  */
 package ServerApplication.Service;
 
-import database.entity.obat;
-import database.Service.Obat_Service;
 import database.Service.Obat_Service;
 import database.entity.obat;
 import database.Service.Generate_PO_Service;
@@ -177,4 +175,74 @@ public class Obat_Server extends UnicastRemoteObject implements Obat_Service {
         }
     }
     
-}
+
+    @Override
+    public List getObatList(String nama) throws RemoteException {
+        System.out.println("Client Melakukan Proses Get All by Name");
+
+        Statement statement = null;
+        try{
+          statement = DatabaseUtilities.getConnection().createStatement();
+
+          ResultSet result = statement.executeQuery("SELECT NAMA_OBAT FROM `obat` WHERE ID_OBAT LIKE '"+nama+"%'"+"ORDER BY ID_OBAT DESC");
+
+          List list = new ArrayList();
+          
+          while(result.next()){
+            list.add(result.getString("NAMA_OBAT"));
+          }
+          
+          result.close();
+
+          return list;
+
+        }catch(SQLException exception){
+          exception.printStackTrace();
+          return null;
+        }finally{
+            if(statement != null){
+                try{
+                    statement.close();
+                }catch(SQLException exception){
+                   exception.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
+    public String getIdObat(String nama) throws RemoteException {
+        System.out.println("Client Melakukan Proses Get Id by Name");
+        String hasil = "";
+
+        Statement statement = null;
+        try{
+          statement = DatabaseUtilities.getConnection().createStatement();
+
+          ResultSet result = statement.executeQuery("SELECT ID_OBAT FROM `obat` WHERE NAMA_OBAT = '"+nama+"'");
+
+          
+          while(result.next()){
+              hasil = result.getString("ID_OBAT");
+          }
+          
+            System.out.println(hasil);
+          result.close();
+
+          return hasil;
+
+        }catch(SQLException exception){
+          exception.printStackTrace();
+          return null;
+        }finally{
+            if(statement != null){
+                try{
+                    statement.close();
+                }catch(SQLException exception){
+                   exception.printStackTrace();
+                }
+            }
+        }
+    }
+    }
+
