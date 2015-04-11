@@ -28,14 +28,14 @@ public class Laporan_Keuangan_Server extends UnicastRemoteObject implements Lapo
     
     }
     
-     public Laporan_Keuangan getLaporanKeuangan (String tanggal1, String tanggal2) throws RemoteException {
+     public Laporan_Keuangan getLaporanKeuangan (String tanggal) throws RemoteException {
 //
         System.out.println("Client Melakukan Proses Get By Periode tanggal");
 
         PreparedStatement statement = null;
         try{
             statement = DatabaseUtilities.getConnection().prepareStatement(
-                    "SELECT * FROM pengeluaran as pen, pemasukan as pem where TANGGAL_TRANSAKSI<=? AND tanggal_transaksi>=?" 
+                    "SELECT * FROM transaksi WHERE tanggal_transaksi LIKE '% ? %'?" 
             );
             
             ResultSet result = statement.executeQuery();
@@ -43,11 +43,12 @@ public class Laporan_Keuangan_Server extends UnicastRemoteObject implements Lapo
             Laporan_Keuangan laporan_keuangan = null;
 
             if(result.next()){
-                laporan_keuangan.setTanggal(result.getString("TANGGAL_TRANSAKSI"));
+                laporan_keuangan.setPeriode(""+result.getDate("TANGGAL_TRANSAKSI"));
                 laporan_keuangan.setKeterangan(result.getString(""));
-                laporan_keuangan.setRef(result.getString("ID_TRANSAKSI"));
-                laporan_keuangan.setPemasukan(result.getInt("TOTAL_TRANSAKSI"));
-                laporan_keuangan.setPengeluaran(result.getInt("TOTAL_BELI"));
+                laporan_keuangan.setRef(result.getString(""));
+                laporan_keuangan.setPemasukan(result.getInt("TOTAL_MASUK"));
+                laporan_keuangan.setPengeluaran(result.getInt("TOTAL_KELUAR"));
+                laporan_keuangan.setSaldo(result.getInt("SALDO"));
             }
             return laporan_keuangan;
         }
@@ -74,18 +75,19 @@ public class Laporan_Keuangan_Server extends UnicastRemoteObject implements Lapo
         try{
           statement = DatabaseUtilities.getConnection().createStatement();
 
-          ResultSet result = statement.executeQuery("SELECT * FROM pengeluaran, pemasukan");
+          ResultSet result = statement.executeQuery("SELECT * FROM transaksi WHERE tanggal_transaksi LIKE '% ? %'");
 
           List<Laporan_Keuangan> list = new ArrayList<Laporan_Keuangan>();
 
           while(result.next()){
                 Laporan_Keuangan laporan_keuangan = new Laporan_Keuangan();
                 
-                laporan_keuangan.setTanggal(result.getString("TANGGAL_TRANSAKSI"));
+                laporan_keuangan.setPeriode(""+result.getDate("TANGGAL_TRANSAKSI"));
                 laporan_keuangan.setKeterangan(result.getString(""));
-                laporan_keuangan.setRef(result.getString("ID_TRANSAKSI"));
-                laporan_keuangan.setPemasukan(result.getInt("TOTAL_TRANSAKSI"));
+                laporan_keuangan.setRef(result.getString(""));
+                laporan_keuangan.setPemasukan(result.getInt("TOTAL_MASUK"));
                 laporan_keuangan.setPengeluaran(result.getInt("TOTAL_BELI"));
+                laporan_keuangan.setSaldo(result.getInt("SALDO"));
                 
                 list.add(laporan_keuangan);
           }

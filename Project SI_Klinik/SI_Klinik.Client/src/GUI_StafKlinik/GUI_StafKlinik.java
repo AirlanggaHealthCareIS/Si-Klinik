@@ -5,6 +5,7 @@
 package GUI_StafKlinik;
 
 import GUI_Apoteker.Panel_Resep;
+import GUI_StafKlinik.Panel_Laporan_Keuangan;
 import GUI_Login.Login;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;

@@ -1,6 +1,6 @@
 Feature : Staf klinik bisa membuat laporan keuangan
 
-Scenario : Membuat Laporan keuangan suatu periode yang mempunyai transaksi
+Scenario : Membuat Laporan keuangan suatu periode yang mempunyai transaksi dalam bentuk pdf
 
 	Given	Staf klinik sudah melakukan login
 	And		Semua data transaksi sudah disimpan di dalam database

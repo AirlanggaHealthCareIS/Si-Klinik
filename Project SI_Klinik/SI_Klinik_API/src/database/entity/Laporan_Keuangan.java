@@ -7,25 +7,26 @@
 package database.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  *
  * @author Windows 8.1
  */
 public class Laporan_Keuangan implements Serializable{
-    String tanggal;
+    String periode;
     String keterangan;
     String ref;
     int pemasukan;
     int pengeluaran;
     int saldo;
     
-    public void setTanggal (String tanggal){
-        this.tanggal = tanggal;
+    public void setPeriode(String periode){
+        this.periode = periode;
     }
     
-    public String getTanggal(){
-        return tanggal;
+    public String getPeriode(){
+        return periode;
     }
     
     public void setKeterangan (String keterangan){

@@ -22,7 +22,6 @@ public class TableModel_LaporanKeuangan extends AbstractTableModel{
     
     }
     
-    
     public Laporan_Keuangan get(int row){
         return list.get(row);
     }
@@ -35,12 +34,12 @@ public class TableModel_LaporanKeuangan extends AbstractTableModel{
      @Override
      public String getColumnName(int column) {
         switch(column){
-            case 0 : return "tanggal";
-            case 1 : return "keterangan";
-            case 2 : return "ref";
-            case 3 : return "pemasukan";
-            case 4 : return "pengeluaran";
-            case 5 : return "saldo";
+            case 0 : return "Periode";
+            case 1 : return "Keterangan";
+            case 2 : return "Ref";
+            case 3 : return "Pemasukan";
+            case 4 : return "Pengeluaran";
+            case 5 : return "Saldo";
 
             default: return null;
         }
@@ -56,7 +55,7 @@ public class TableModel_LaporanKeuangan extends AbstractTableModel{
     
     public Object getValueAt(int rowIndex, int columnIndex) {
         switch(columnIndex){
-            case 0 : return list.get(rowIndex).getTanggal();
+            case 0 : return list.get(rowIndex).getPeriode();
             case 1 : return list.get(rowIndex).getKeterangan();
             case 2 : return list.get(rowIndex).getRef();
             case 3 : return list.get(rowIndex).getPemasukan();
