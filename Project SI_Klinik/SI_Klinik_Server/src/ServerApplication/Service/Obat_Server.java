@@ -3,10 +3,9 @@
  * and open the template in the editor.
  */
 package ServerApplication.Service;
-
+ 
 import database.Service.Obat_Service;
 import database.entity.obat;
-import database.Service.Generate_PO_Service;
 import si_klinik_server.DatabaseUtilities;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
