@@ -15,6 +15,9 @@ import GUI_Kasir.GUI_Kasir;
 import GUI_StafKlinik.GUI_StafKlinik;
 import database.Service.Petugas_Service;
 import database.Service.Dokter_Service;
+import database.Service.Laporan_Keuangan_Service;
+import database.Service.Pasien_Service;
+import database.Service.Pendaftaran_Service;
 import database.entity.petugas;
 import database.entity.dokter;
 import java.awt.Color;
@@ -28,8 +31,11 @@ import java.awt.Color;
  * @author JESSICA
  */
 public class Login extends javax.swing.JFrame {
-     private Petugas_Service service1;
-     private Dokter_Service service2;
+      public Petugas_Service service1;
+      public Dokter_Service service2;
+      public Pendaftaran_Service service3;
+      public Pasien_Service service4;
+      public Laporan_Keuangan_Service service5;
       Registry registry;
       public SocketClient client;
       public int port;
@@ -192,6 +198,10 @@ public class Login extends javax.swing.JFrame {
         registry = LocateRegistry.getRegistry("0.0.0.0", 9750);        
         service1 = (Petugas_Service) registry.lookup("service1");        
         service2 = (Dokter_Service) registry.lookup("service2");     
+        service3 = (Pendaftaran_Service) registry.lookup("service3");     
+        service4 = (Pasien_Service) registry.lookup("service4");     
+        service5= (Laporan_Keuangan_Service) registry.lookup("service5");     
+        
         if(!username.equals("")&&password.length>0){
             p = service1.getPetugas(username,b.toString());
             if(p==null){
@@ -239,7 +249,7 @@ public class Login extends javax.swing.JFrame {
          try {
              if(startReg()){
                 if(aktorIniDokter)   {
-                    GUI_Dokter panggil = new GUI_Dokter(d);
+                    GUI_Dokter panggil = new GUI_Dokter(d,this);
                     panggil.show();
                     this.dispose();
                 }   
@@ -255,12 +265,12 @@ public class Login extends javax.swing.JFrame {
                         this.dispose();
                    }
                    else if(jabatan.equalsIgnoreCase("perawat"))   {
-                        GUI_StafKlinik panggil = new GUI_StafKlinik (p);
+                        GUI_StafKlinik panggil = new GUI_StafKlinik (p,this);
                         panggil.show();
                         this.dispose();
                    }           
                    else if(jabatan.equalsIgnoreCase("staf klinik"))   {
-                        GUI_StafKlinik panggil = new GUI_StafKlinik(p);
+                        GUI_StafKlinik panggil = new GUI_StafKlinik(p,this);
                         panggil.show();
                         this.dispose();
                    }                 

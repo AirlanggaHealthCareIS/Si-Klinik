@@ -1,13 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.2.2
+-- version 4.0.9
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 11, 2015 at 12:22 PM
--- Server version: 5.5.27
--- PHP Version: 5.4.7
+-- Generation Time: Apr 12, 2015 at 05:20 PM
+-- Server version: 5.6.14
+-- PHP Version: 5.5.6
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -36,15 +36,6 @@ CREATE TABLE IF NOT EXISTS `beli` (
   PRIMARY KEY (`ID_BELI`),
   KEY `FK_DARI1` (`ID_SUPPLIER`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `beli`
---
-
-INSERT INTO `beli` (`ID_BELI`, `ID_SUPPLIER`, `TANGGAL_BELI`, `SUB_TOTAL`, `PPN_BELI`, `TOTAL_BELI`) VALUES
-('B001', 'SUP001', '2015-04-11', 1000000, 25000, 1025000),
-('B002', 'SUP001', '2015-04-12', 500000, 12500, 512500),
-('B003', 'SUP001', '2015-04-13', 1000000, 25000, 1025000);
 
 -- --------------------------------------------------------
 
@@ -216,36 +207,57 @@ INSERT INTO `pasien` (`ID_PASIEN`, `NAMA_PASIEN`, `ALAMAT`, `JENIS_KELAMIN`, `TG
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pemasukan`
---
-
-CREATE TABLE IF NOT EXISTS `pemasukan` (
-  `ID_PEMASUKAN` char(6) NOT NULL,
-  `TANGGAL_TRANSAKSI` date DEFAULT NULL,
-  `ID_TRANSAKSI` varchar(6) NOT NULL,
-  PRIMARY KEY (`ID_PEMASUKAN`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `pendaftaran`
 --
 
 CREATE TABLE IF NOT EXISTS `pendaftaran` (
-  `ID_PENDAFTARAN` char(6) NOT NULL,
+  `ID_PENDAFTARAN` int(11) NOT NULL AUTO_INCREMENT,
   `ID_PETUGAS` char(6) NOT NULL,
   `ID_DOKTER` char(6) NOT NULL,
   `ID_PASIEN` char(6) NOT NULL,
   `ID_POLI` varchar(6) NOT NULL,
   `TGL_PERIKSA` date DEFAULT NULL,
   `KELUHAN` text,
+  `NO_ANTRIAN` int(11) NOT NULL,
   PRIMARY KEY (`ID_PENDAFTARAN`),
   KEY `FK_DIPILIH1` (`ID_DOKTER`),
   KEY `FK_MELAKUKAN1` (`ID_PASIEN`),
   KEY `FK_MEMILIH1` (`ID_POLI`),
   KEY `FK_MENGURUS1` (`ID_PETUGAS`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `pendaftaran`
+--
+
+INSERT INTO `pendaftaran` (`ID_PENDAFTARAN`, `ID_PETUGAS`, `ID_DOKTER`, `ID_PASIEN`, `ID_POLI`, `TGL_PERIKSA`, `KELUHAN`, `NO_ANTRIAN`) VALUES
+(1, 'PET005', 'DOK001', 'PAS001', 'pol001', '2015-04-11', 'pusing', 1),
+(2, 'PET003', 'DOK006', 'PAS002', 'pol003', '2015-04-11', '-', 2),
+(3, 'PET002', 'DOK003', 'PAS005', 'pol002', '2015-04-12', '-', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `penerimaan`
+--
+
+CREATE TABLE IF NOT EXISTS `penerimaan` (
+  `ID_Transaksi` varchar(10) NOT NULL,
+  `Tanggal` date NOT NULL,
+  `Jumlah` int(11) NOT NULL,
+  `Saldo` int(11) NOT NULL,
+  `Flag` int(11) NOT NULL,
+  PRIMARY KEY (`ID_Transaksi`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `penerimaan`
+--
+
+INSERT INTO `penerimaan` (`ID_Transaksi`, `Tanggal`, `Jumlah`, `Saldo`, `Flag`) VALUES
+('O-1', '2015-04-01', 150000, 2554000, 3),
+('O-2', '2015-04-06', 46000, 2600000, 4),
+('PE-1', '2015-03-24', 100000, 2504000, 1);
 
 -- --------------------------------------------------------
 
@@ -254,11 +266,21 @@ CREATE TABLE IF NOT EXISTS `pendaftaran` (
 --
 
 CREATE TABLE IF NOT EXISTS `pengeluaran` (
-  `ID_PENGELUARAN` char(6) NOT NULL,
-  `TANGGAL_TRANSAKSI` date DEFAULT NULL,
-  `ID_TRANSAKSI` varchar(6) NOT NULL,
-  PRIMARY KEY (`ID_PENGELUARAN`)
+  `ID_Transaksi` varchar(10) NOT NULL,
+  `Tanggal` date NOT NULL,
+  `Jumlah` int(11) NOT NULL,
+  `Saldo` int(11) NOT NULL,
+  `Flag` int(11) NOT NULL,
+  PRIMARY KEY (`ID_Transaksi`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pengeluaran`
+--
+
+INSERT INTO `pengeluaran` (`ID_Transaksi`, `Tanggal`, `Jumlah`, `Saldo`, `Flag`) VALUES
+('B-1', '2015-03-25', 100000, 2404000, 2),
+('B-2', '2015-04-11', 200000, 2400000, 5);
 
 -- --------------------------------------------------------
 
@@ -399,24 +421,6 @@ INSERT INTO `supplier` (`ID_SUPPLIER`, `NAMA_SUPPLIER`, `ALAMAT_SUPPLIER`, `KOTA
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `tabel_transaksi_obat`
---
-CREATE TABLE IF NOT EXISTS `tabel_transaksi_obat` (
-`TANGGAL_TRANSAKSI_OBAT` date
-,`TOTAL_OBAT` decimal(32,0)
-);
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `tabel_transaksi_periksa`
---
-CREATE TABLE IF NOT EXISTS `tabel_transaksi_periksa` (
-`TANGGAL_TRANSAKSI_PERIKSA` date
-,`TOTAL_PERIKSA` decimal(32,0)
-);
--- --------------------------------------------------------
-
---
 -- Table structure for table `tindakan_dokter`
 --
 
@@ -474,57 +478,24 @@ CREATE TABLE IF NOT EXISTS `tindakan_periksa` (
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `transaksi`
---
-CREATE TABLE IF NOT EXISTS `transaksi` (
-`TANGGAL_TRANSAKSI` date
-,`TOTAL_MASUK` decimal(55,0)
-,`TOTAL_KELUAR` decimal(32,0)
-,`SALDO` decimal(65,0)
-);
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `transaksi_keluar`
---
-CREATE TABLE IF NOT EXISTS `transaksi_keluar` (
-`TANGGAL_BELI` date
-,`TOTAL_KELUAR` decimal(32,0)
-);
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `transaksi_masuk`
---
-CREATE TABLE IF NOT EXISTS `transaksi_masuk` (
-`TANGGAL` date
-,`TOTAL_OBAT` decimal(32,0)
-,`TOTAL_PERIKSA` decimal(32,0)
-,`TOTAL_MASUK` decimal(55,0)
-);
--- --------------------------------------------------------
-
---
 -- Table structure for table `transaksi_obat`
 --
 
 CREATE TABLE IF NOT EXISTS `transaksi_obat` (
-  `ID_TRANSAKSI_OBAT` varchar(6) NOT NULL,
-  `TANGGAL_TRANSAKSI_OBAT` date DEFAULT NULL,
+  `ID_TRANSAKSI_OBAT` int(11) NOT NULL AUTO_INCREMENT,
+  `TANGGAL_JUAL` date DEFAULT NULL,
   `SUBTOTAL_TRANSAKSI_OBAT` int(11) DEFAULT NULL,
   `PPN_TRANSAKSI_OBAT` decimal(10,0) DEFAULT NULL,
   `TOTAL_TRANSAKSI_OBAT` int(11) DEFAULT NULL,
   PRIMARY KEY (`ID_TRANSAKSI_OBAT`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `transaksi_obat`
 --
 
-INSERT INTO `transaksi_obat` (`ID_TRANSAKSI_OBAT`, `TANGGAL_TRANSAKSI_OBAT`, `SUBTOTAL_TRANSAKSI_OBAT`, `PPN_TRANSAKSI_OBAT`, `TOTAL_TRANSAKSI_OBAT`) VALUES
-('TO001', '2015-04-11', 100000, 2500, 102500),
-('TO002', '2015-04-12', 100000, 2500, 102500),
-('TO003', '2015-04-13', 150000, 3750, 153750);
+INSERT INTO `transaksi_obat` (`ID_TRANSAKSI_OBAT`, `TANGGAL_JUAL`, `SUBTOTAL_TRANSAKSI_OBAT`, `PPN_TRANSAKSI_OBAT`, `TOTAL_TRANSAKSI_OBAT`) VALUES
+(1, '2015-04-12', 10000, '1000', 11000);
 
 -- --------------------------------------------------------
 
@@ -533,7 +504,7 @@ INSERT INTO `transaksi_obat` (`ID_TRANSAKSI_OBAT`, `TANGGAL_TRANSAKSI_OBAT`, `SU
 --
 
 CREATE TABLE IF NOT EXISTS `transaksi_periksa` (
-  `ID_TRANSAKSI_PERIKSA` varchar(5) NOT NULL,
+  `ID_TRANSAKSI_PERIKSA` int(11) NOT NULL AUTO_INCREMENT,
   `ID_DOKTER` char(6) NOT NULL,
   `ID_PASIEN` char(6) NOT NULL,
   `SUBTOTAL_TRANSAKSI_PERIKSA` int(11) DEFAULT NULL,
@@ -545,61 +516,14 @@ CREATE TABLE IF NOT EXISTS `transaksi_periksa` (
   PRIMARY KEY (`ID_TRANSAKSI_PERIKSA`),
   KEY `FK_DIISI2` (`ID_DOKTER`),
   KEY `FK_MENDAPTKAN1` (`ID_PASIEN`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `transaksi_periksa`
 --
 
 INSERT INTO `transaksi_periksa` (`ID_TRANSAKSI_PERIKSA`, `ID_DOKTER`, `ID_PASIEN`, `SUBTOTAL_TRANSAKSI_PERIKSA`, `PPN_TRANSAKSI_PERIKSA`, `TOTAL_TRANSAKSI_PERIKSA`, `KLAIM_BPJS`, `NO_KARTU_TRANSAKSI`, `TANGGAL_TRANSAKSI_PERIKSA`) VALUES
-('TP001', 'DOK001', 'PAS001', 100000, 2500, 1012500, '-', 'KT001', '2015-04-11'),
-('TP002', 'DOK002', 'PAS001', 150000, 3750, 153750, '-', 'KT001', '2015-04-12'),
-('TP003', 'DOK004', 'PAS002', 100000, 2500, 102500, '-', 'KT001', '2015-04-13');
-
--- --------------------------------------------------------
-
---
--- Structure for view `tabel_transaksi_obat`
---
-DROP TABLE IF EXISTS `tabel_transaksi_obat`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `tabel_transaksi_obat` AS (select `transaksi_obat`.`TANGGAL_TRANSAKSI_OBAT` AS `TANGGAL_TRANSAKSI_OBAT`,sum(`transaksi_obat`.`TOTAL_TRANSAKSI_OBAT`) AS `TOTAL_OBAT` from `transaksi_obat` group by `transaksi_obat`.`TANGGAL_TRANSAKSI_OBAT`);
-
--- --------------------------------------------------------
-
---
--- Structure for view `tabel_transaksi_periksa`
---
-DROP TABLE IF EXISTS `tabel_transaksi_periksa`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `tabel_transaksi_periksa` AS (select `transaksi_periksa`.`TANGGAL_TRANSAKSI_PERIKSA` AS `TANGGAL_TRANSAKSI_PERIKSA`,sum(`transaksi_periksa`.`TOTAL_TRANSAKSI_PERIKSA`) AS `TOTAL_PERIKSA` from `transaksi_periksa` group by `transaksi_periksa`.`TANGGAL_TRANSAKSI_PERIKSA`);
-
--- --------------------------------------------------------
-
---
--- Structure for view `transaksi`
---
-DROP TABLE IF EXISTS `transaksi`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `transaksi` AS (select coalesce(`m`.`TANGGAL`,`k`.`TANGGAL_BELI`) AS `TANGGAL_TRANSAKSI`,`m`.`TOTAL_MASUK` AS `TOTAL_MASUK`,`k`.`TOTAL_KELUAR` AS `TOTAL_KELUAR`,sum((`m`.`TOTAL_MASUK` - `k`.`TOTAL_KELUAR`)) AS `SALDO` from (`transaksi_masuk` `m` left join `transaksi_keluar` `k` on((`m`.`TANGGAL` = `k`.`TANGGAL_BELI`))) group by coalesce(`m`.`TANGGAL`,`k`.`TANGGAL_BELI`));
-
--- --------------------------------------------------------
-
---
--- Structure for view `transaksi_keluar`
---
-DROP TABLE IF EXISTS `transaksi_keluar`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `transaksi_keluar` AS (select `beli`.`TANGGAL_BELI` AS `TANGGAL_BELI`,sum(`beli`.`TOTAL_BELI`) AS `TOTAL_KELUAR` from `beli` group by `beli`.`TANGGAL_BELI`);
-
--- --------------------------------------------------------
-
---
--- Structure for view `transaksi_masuk`
---
-DROP TABLE IF EXISTS `transaksi_masuk`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `transaksi_masuk` AS (select coalesce(`t`.`TANGGAL_TRANSAKSI_OBAT`,`tp`.`TANGGAL_TRANSAKSI_PERIKSA`) AS `TANGGAL`,`t`.`TOTAL_OBAT` AS `TOTAL_OBAT`,`tp`.`TOTAL_PERIKSA` AS `TOTAL_PERIKSA`,sum((`t`.`TOTAL_OBAT` + `tp`.`TOTAL_PERIKSA`)) AS `TOTAL_MASUK` from (`tabel_transaksi_periksa` `tp` left join `tabel_transaksi_obat` `t` on((`t`.`TANGGAL_TRANSAKSI_OBAT` = `tp`.`TANGGAL_TRANSAKSI_PERIKSA`))) group by coalesce(`t`.`TANGGAL_TRANSAKSI_OBAT`,`tp`.`TANGGAL_TRANSAKSI_PERIKSA`));
+(1, 'DOK002', 'PAS004', 100000, '10000', 110000, '0', NULL, '2015-04-10');
 
 --
 -- Constraints for dumped tables
@@ -629,8 +553,7 @@ ALTER TABLE `detail_resep_obat`
 -- Constraints for table `detail_transaksi_obat`
 --
 ALTER TABLE `detail_transaksi_obat`
-  ADD CONSTRAINT `FK_BERISI3` FOREIGN KEY (`ID_OBAT`) REFERENCES `obat` (`ID_OBAT`),
-  ADD CONSTRAINT `FK_BERISI4` FOREIGN KEY (`ID_TRANSAKSI_OBAT`) REFERENCES `transaksi_obat` (`ID_TRANSAKSI_OBAT`);
+  ADD CONSTRAINT `FK_BERISI3` FOREIGN KEY (`ID_OBAT`) REFERENCES `obat` (`ID_OBAT`);
 
 --
 -- Constraints for table `dokter`
@@ -672,8 +595,7 @@ ALTER TABLE `rekam_medis`
 --
 ALTER TABLE `tindakan_periksa`
   ADD CONSTRAINT `FK_MENDAPATKAN2` FOREIGN KEY (`ID_TINDAKAN_DOKTER`) REFERENCES `tindakan_dokter` (`ID_TINDAKAN_DOKTER`),
-  ADD CONSTRAINT `FK_TERDIRI3` FOREIGN KEY (`ID_REKAM_MEDIS`) REFERENCES `rekam_medis` (`ID_REKAM_MEDIS`),
-  ADD CONSTRAINT `FK_TERDIRI4` FOREIGN KEY (`ID_TRANSAKSI_PERIKSA`) REFERENCES `transaksi_periksa` (`ID_TRANSAKSI_PERIKSA`);
+  ADD CONSTRAINT `FK_TERDIRI3` FOREIGN KEY (`ID_REKAM_MEDIS`) REFERENCES `rekam_medis` (`ID_REKAM_MEDIS`);
 
 --
 -- Constraints for table `transaksi_periksa`

@@ -22,11 +22,26 @@ public class TableModel_LaporanKeuangan extends AbstractTableModel{
     
     }
     
+    public void insert(Laporan_Keuangan supplier){
+        list.add(supplier);
+        fireTableDataChanged();
+        }
+
+    public void update(int row,Laporan_Keuangan supplier){
+        list.set(row, supplier);
+        fireTableDataChanged();
+    }
+
+    public void delete(int row){
+        list.remove(row);
+        fireTableDataChanged();
+    }
+    
     public Laporan_Keuangan get(int row){
         return list.get(row);
     }
     
-    public void setLaporan_Keuangan (List<Laporan_Keuangan>list){
+    public void setData(List<Laporan_Keuangan> list){
         this.list = list;
         fireTableDataChanged();
     }
@@ -34,12 +49,12 @@ public class TableModel_LaporanKeuangan extends AbstractTableModel{
      @Override
      public String getColumnName(int column) {
         switch(column){
-            case 0 : return "Periode";
-            case 1 : return "Keterangan";
-            case 2 : return "Ref";
-            case 3 : return "Pemasukan";
-            case 4 : return "Pengeluaran";
-            case 5 : return "Saldo";
+            case 0 : return "tanggal";
+            case 1 : return "keterangan";
+            case 2 : return "ref";
+            case 3 : return "pemasukan";
+            case 4 : return "pengeluaran";
+            case 5 : return "saldo";
 
             default: return null;
         }
@@ -55,7 +70,7 @@ public class TableModel_LaporanKeuangan extends AbstractTableModel{
     
     public Object getValueAt(int rowIndex, int columnIndex) {
         switch(columnIndex){
-            case 0 : return list.get(rowIndex).getPeriode();
+            case 0 : return list.get(rowIndex).getTanggal();
             case 1 : return list.get(rowIndex).getKeterangan();
             case 2 : return list.get(rowIndex).getRef();
             case 3 : return list.get(rowIndex).getPemasukan();

@@ -2,8 +2,11 @@
 package Form_Server;
 import ServerApplication.Service.Petugas_Server;
 import ServerApplication.Service.Dokter_Server;
-import ServerApplication.Service.Resep_Server;
-import ServerApplication.Service.Obat_Server;
+import ServerApplication.Service.Pasien_Server;
+import ServerApplication.Service.Pendaftaran_Server;
+import ServerApplication.Service.Laporan_Keuangan_Server;
+//import ServerApplication.Service.Resep_Server;
+//import ServerApplication.Service.Obat_Server;
 
 import si_klinik_server.DatabaseUtilities;
 import java.awt.event.ActionEvent;
@@ -32,13 +35,19 @@ public class main {
         
         Petugas_Server petugasServer= new Petugas_Server();
         Dokter_Server dokterServer= new Dokter_Server();
-        Resep_Server resepServer= new Resep_Server();
-        Obat_Server obatServer= new Obat_Server();
+        Pendaftaran_Server pendaftaranServer = new Pendaftaran_Server();
+        Pasien_Server pasienServer = new Pasien_Server();
+        Laporan_Keuangan_Server laporanServer = new Laporan_Keuangan_Server();
+        //Resep_Server resepServer= new Resep_Server();
+//        Obat_Server obatServer= new Obat_Server();
         
         server.rebind("service1",   petugasServer);
         server.rebind("service2",   dokterServer);
-        server.rebind("service3",   resepServer);
-        server.rebind("service4",   obatServer);
+        server.rebind("service3",   pendaftaranServer);
+        server.rebind("service4", pasienServer);
+        server.rebind("service5", laporanServer);
+        
+   //     server.rebind("service4",   obatServer);
         
         System.out.println("Server Berhasil Tersambung");
     }

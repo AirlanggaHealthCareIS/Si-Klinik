@@ -25,32 +25,42 @@ import java.util.List;
 public class Laporan_Keuangan_Server extends UnicastRemoteObject implements Laporan_Keuangan_Service {
     
     public Laporan_Keuangan_Server() throws RemoteException {
-    
+        
     }
     
-     public Laporan_Keuangan getLaporanKeuangan (String tanggal) throws RemoteException {
-//
+     public List<Laporan_Keuangan> getLaporanKeuangan (String tanggal1, String tanggal2) throws RemoteException {
         System.out.println("Client Melakukan Proses Get By Periode tanggal");
 
         PreparedStatement statement = null;
         try{
             statement = DatabaseUtilities.getConnection().prepareStatement(
-                    "SELECT * FROM transaksi WHERE tanggal_transaksi LIKE '% ? %'?" 
+                    "SELECT M.ID_Transaksi AS ID, M.Tanggal AS Tanggal, M.Jumlah AS Jumlah, M.Saldo AS Saldo, M.Flag AS Flag FROM penerimaan AS M where M.Tanggal>=? AND M.Tanggal<=? UNION SELECT P.ID_Transaksi AS ID, P.Tanggal AS Tanggal, P.Jumlah AS Jumlah, P.Saldo AS Saldo, P.Flag AS Flag FROM pengeluaran AS P where P.Tanggal>=? AND P.Tanggal<=? ORDER BY Flag" 
             );
+            statement.setString(1, tanggal1);
+            statement.setString(2, tanggal2);
+            statement.setString(3, tanggal1);
+            statement.setString(4, tanggal2);
             
+            System.out.println(statement.toString());
             ResultSet result = statement.executeQuery();
 
-            Laporan_Keuangan laporan_keuangan = null;
+           List<Laporan_Keuangan> list = new ArrayList<Laporan_Keuangan>();
 
-            if(result.next()){
-                laporan_keuangan.setPeriode(""+result.getDate("TANGGAL_TRANSAKSI"));
-                laporan_keuangan.setKeterangan(result.getString(""));
-                laporan_keuangan.setRef(result.getString(""));
-                laporan_keuangan.setPemasukan(result.getInt("TOTAL_MASUK"));
-                laporan_keuangan.setPengeluaran(result.getInt("TOTAL_KELUAR"));
-                laporan_keuangan.setSaldo(result.getInt("SALDO"));
-            }
-            return laporan_keuangan;
+          while(result.next()){
+                Laporan_Keuangan laporan_keuangan = new Laporan_Keuangan();
+                
+                laporan_keuangan.setTanggal(result.getString("Tanggal"));
+                laporan_keuangan.setRef(result.getString("ID"));
+                laporan_keuangan.setPemasukan(result.getInt("Jumlah"));
+                laporan_keuangan.setSaldo(result.getInt("Saldo"));                
+                laporan_keuangan.setFlag(result.getInt("Flag"));
+                
+                list.add(laporan_keuangan);
+          }
+          result.close();
+
+          return list;
+        
         }
         catch(SQLException exception){
           exception.printStackTrace();
@@ -75,25 +85,65 @@ public class Laporan_Keuangan_Server extends UnicastRemoteObject implements Lapo
         try{
           statement = DatabaseUtilities.getConnection().createStatement();
 
-          ResultSet result = statement.executeQuery("SELECT * FROM transaksi WHERE tanggal_transaksi LIKE '% ? %'");
+          ResultSet result = statement.executeQuery("SELECT M.ID_Transaksi AS ID, M.Tanggal AS Tanggal, M.Jumlah AS Jumlah, M.Saldo AS Saldo, M.Flag AS Flag FROM penerimaan AS M UNION ELECT P.ID_Transaksi AS ID, P.Tanggal AS Tanggal, P.Jumlah AS Jumlah, P.Saldo AS Saldo, P.Flag AS Flag FROM pengeluaran AS P ORDER BY Flag");
 
           List<Laporan_Keuangan> list = new ArrayList<Laporan_Keuangan>();
 
           while(result.next()){
                 Laporan_Keuangan laporan_keuangan = new Laporan_Keuangan();
                 
-                laporan_keuangan.setPeriode(""+result.getDate("TANGGAL_TRANSAKSI"));
-                laporan_keuangan.setKeterangan(result.getString(""));
-                laporan_keuangan.setRef(result.getString(""));
-                laporan_keuangan.setPemasukan(result.getInt("TOTAL_MASUK"));
-                laporan_keuangan.setPengeluaran(result.getInt("TOTAL_BELI"));
-                laporan_keuangan.setSaldo(result.getInt("SALDO"));
+                laporan_keuangan.setTanggal(result.getString("Tanggal"));
+                laporan_keuangan.setRef(result.getString("ID"));
+                laporan_keuangan.setPemasukan(result.getInt("Jumlah"));
+                laporan_keuangan.setSaldo(result.getInt("Saldo"));                
+                laporan_keuangan.setFlag(result.getInt("Flag"));
                 
                 list.add(laporan_keuangan);
           }
           result.close();
 
           return list;
+
+        }
+        catch(SQLException exception){
+          exception.printStackTrace();
+          return null;
+        }
+        finally{
+            if(statement != null){
+                try{
+                    statement.close();
+                }catch(SQLException exception){
+                   exception.printStackTrace();
+                }
+            }
+        }
+    }
+     
+    public Laporan_Keuangan getSaldoAwal(String tanggal1) throws RemoteException {
+        
+        System.out.println("Client Melakukan Proses Get All");
+
+        PreparedStatement statement = null;
+        try{
+            statement = DatabaseUtilities.getConnection().prepareStatement(
+                    "SELECT M.ID_Transaksi AS ID, M.Tanggal AS Tanggal, M.Jumlah AS Jumlah, M.Saldo AS Saldo, M.Flag AS Flag FROM penerimaan AS M WHERE M.Tanggal <? UNION SELECT P.ID_Transaksi AS ID, P.Tanggal AS Tanggal, P.Jumlah AS Jumlah, P.Saldo AS Saldo, P.Flag AS Flag FROM pengeluaran AS P WHERE P.Tanggal < ? ORDER BY Flag DESC LIMIT 1" 
+            );
+            statement.setString(1, tanggal1);
+            statement.setString(2, tanggal1);
+            Laporan_Keuangan laporan_keuangan = new Laporan_Keuangan(); 
+            ResultSet result = statement.executeQuery();
+
+          if(result.next()){
+                laporan_keuangan.setTanggal(result.getString("Tanggal"));
+                laporan_keuangan.setRef(result.getString("ID"));
+                laporan_keuangan.setPemasukan(result.getInt("Jumlah"));
+                laporan_keuangan.setSaldo(result.getInt("Saldo"));                
+                laporan_keuangan.setFlag(result.getInt("Flag"));
+          }
+          result.close();
+
+          return laporan_keuangan;
 
         }
         catch(SQLException exception){
