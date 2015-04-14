@@ -27,17 +27,15 @@ private Obat_Service ss;
         dosis.setText("");
         keterangan_obat.setText("");
         stok_obat.setText("");
-        pabrik_obat.setSelectedIndex(0);
-        jenis_obat.setText("");
-        kemasan.setTeext("");
-        harga_obat.setText("");
-        
+        pabrik_obat.setText("");
+        jenis_obat.setSelectedIndex(0);
+        kemasan.setText("");
+        harga_obat.setText("");    
     }
     
     dataobat_menambah(dataobat_menambah aThis) {
         throw new UnsupportedOperationException("Not yet implemented");
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -47,175 +45,194 @@ private Obat_Service ss;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox();
-        jLabel5 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
-        jTextField10 = new javax.swing.JTextField();
-        jTextField11 = new javax.swing.JTextField();
-        jTextField12 = new javax.swing.JTextField();
-        jTextField13 = new javax.swing.JTextField();
-        jTextField14 = new javax.swing.JTextField();
-        jTextField15 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
+        entry_data_obat = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        dosisobat = new javax.swing.JLabel();
+        hargaobat = new javax.swing.JLabel();
+        pabrikobat = new javax.swing.JLabel();
+        jenisobat = new javax.swing.JLabel();
+        kemasanobat = new javax.swing.JLabel();
+        namaobat = new javax.swing.JLabel();
+        keterangan = new javax.swing.JLabel();
+        stokobat = new javax.swing.JLabel();
+        nama_obat = new javax.swing.JTextField();
+        dosis = new javax.swing.JTextField();
+        keterangan_obat = new javax.swing.JTextField();
+        stok_obat = new javax.swing.JTextField();
+        pabrik_obat = new javax.swing.JTextField();
+        jenis_obat = new javax.swing.JComboBox();
+        kemasan = new javax.swing.JTextField();
+        harga_obat = new javax.swing.JTextField();
+        tombol_save = new javax.swing.JButton();
+        tombol_clear = new javax.swing.JButton();
+        tombol_back = new javax.swing.JButton();
 
         setMinimumSize(new java.awt.Dimension(700, 450));
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel3.setText("Nama Obat");
+        entry_data_obat.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        entry_data_obat.setText("ENTRY DATA OBAT");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel4.setText("Dosis");
+        dosisobat.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        dosisobat.setText("Dosis");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel6.setText("Jenis Obat");
+        hargaobat.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        hargaobat.setText("Harga Obat");
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel11.setText("Stock Obat");
+        pabrikobat.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        pabrikobat.setText("Pabrik Obat");
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel8.setText("Kemasan");
+        jenisobat.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jenisobat.setText("Jenis Obat");
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel13.setText("Pabrik Obat");
+        kemasanobat.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        kemasanobat.setText("Kemasan");
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel9.setText("Harga Obat");
+        namaobat.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        namaobat.setText("Nama Obat");
 
-        jComboBox2.setBackground(new java.awt.Color(204, 204, 204));
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pilih", "Kapsul", "Tablet", "Sirup", "Krim", "Cair" }));
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+        keterangan.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        keterangan.setText("Keterangan Obat Rekam Medis ");
+
+        stokobat.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        stokobat.setText("Stock Obat");
+
+        nama_obat.setBackground(new java.awt.Color(204, 204, 204));
+
+        dosis.setBackground(new java.awt.Color(204, 204, 204));
+
+        keterangan_obat.setBackground(new java.awt.Color(204, 204, 204));
+
+        stok_obat.setBackground(new java.awt.Color(204, 204, 204));
+
+        pabrik_obat.setBackground(new java.awt.Color(204, 204, 204));
+
+        jenis_obat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pilih", "Kapsul", "Tablet", "Sirup", "Krim", "Cair" }));
+
+        kemasan.setBackground(new java.awt.Color(204, 204, 204));
+
+        harga_obat.setBackground(new java.awt.Color(204, 204, 204));
+
+        tombol_save.setText("SAVE");
+        tombol_save.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
+                tombol_saveActionPerformed(evt);
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel5.setText("Keterangan Obat Rekam Medis ");
+        tombol_clear.setText("CLEAR");
 
-        jButton1.setText("SAVE");
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(471, Short.MAX_VALUE)
+                .addComponent(tombol_save, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(tombol_clear)
+                .addGap(27, 27, 27))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(dosisobat)
+                        .addComponent(keterangan)
+                        .addComponent(namaobat)
+                        .addComponent(stokobat, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(pabrikobat, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jenisobat)
+                        .addComponent(kemasanobat, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(hargaobat))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(stok_obat, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(harga_obat, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(kemasan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jenis_obat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(pabrik_obat, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(nama_obat, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(dosis, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(keterangan_obat, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(25, 25, 25)))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(282, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tombol_save)
+                    .addComponent(tombol_clear))
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(namaobat)
+                        .addComponent(nama_obat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(dosisobat)
+                        .addComponent(dosis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(keterangan)
+                        .addComponent(keterangan_obat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(stokobat)
+                        .addComponent(stok_obat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(pabrikobat, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(pabrik_obat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jenisobat)
+                        .addComponent(jenis_obat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(kemasanobat, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(kemasan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(harga_obat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(hargaobat))
+                    .addContainerGap(68, Short.MAX_VALUE)))
+        );
 
-        jButton2.setText("CLEAR");
-
-        jLabel1.setFont(new java.awt.Font("Tempus Sans ITC", 1, 18)); // NOI18N
-        jLabel1.setText("INPUT DATA OBAT");
-
-        jTextField9.setBackground(new java.awt.Color(204, 204, 204));
-
-        jTextField10.setBackground(new java.awt.Color(204, 204, 204));
-
-        jTextField11.setBackground(new java.awt.Color(204, 204, 204));
-
-        jTextField12.setBackground(new java.awt.Color(204, 204, 204));
-
-        jTextField13.setBackground(new java.awt.Color(204, 204, 204));
-
-        jTextField14.setBackground(new java.awt.Color(204, 204, 204));
-
-        jTextField15.setBackground(new java.awt.Color(204, 204, 204));
-
-        jButton3.setText("BACK");
+        tombol_back.setText("BACK");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(242, 242, 242))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(55, 55, 55)
+                .addContainerGap(43, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(41, 41, 41))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
-                        .addGap(43, 43, 43))))
+                    .addComponent(tombol_back)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(entry_data_obat, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(214, 214, 214))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addComponent(entry_data_obat, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23)
+                .addComponent(tombol_back)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addGap(35, 35, 35))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-/**
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox2ActionPerformed
-*/
- private void OKActionPerformed(java.awt.event.ActionEvent evt) {                                   
+
+    private void tombol_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombol_saveActionPerformed
         // TODO add your handling code here:
         boolean isi1 = false;
         boolean isi2 = false;
@@ -226,8 +243,7 @@ private Obat_Service ss;
         boolean isi7 = false;
         boolean isi8 = false;
        
-        
-        
+         
         if(!nama_obat.getText().equals("")){
             isi1 = true;
         }
@@ -254,14 +270,14 @@ private Obat_Service ss;
         }
         
         if(isi1&&isi2&&isi3&&isi4&&isi5&&isi6&&isi7)    {
-            String nm = nama_obat.getText();
-            String ds = dosis.getText();
-            String kt = keterangan_obat.getText();
-            String st = stok_obat.getText();
-            String pb = pabrik_obat.getText();
-            String jn = jenis_obat.getItemAt(jenis_obat.getSelectedIndex()).toString();
-            String km = kemasan.getText();
-            String hg = harga_obat.getText();
+            String NM = nama_obat.getText();
+            String DS = dosis.getText();
+            String KT = keterangan_obat.getText();
+            String ST = stok_obat.getText();
+            String PB = pabrik_obat.getText();
+            String JN = jenis_obat.getItemAt(jenis_obat.getSelectedIndex()).toString();
+            String KM = kemasan.getText();
+            String HG = harga_obat.getText();
             String ID = null;
             try {
                 ID = "OBAT"+ss.getObat().size();
@@ -270,23 +286,22 @@ private Obat_Service ss;
             }
             try {
                obat s = new obat();
-               s.setid_obat(id);
-               s.setnama_obat(nm);
-               s.setdosis(ds);
-               s.setketerangan_obat(kt);
-               s.setstok_obat(st);
-               s.setpabrik_obat(pb);
-               s.setjenis_obat(jn);
-               s.setkemasan(km);
-               s.setharga_obat(hg);
+               s.setid_obat(ID);
+               s.setnama_obat(NM);
+               s.setdosis(DS);
+               s.setketerangan_obat(KT);
+               s.setstok_obat(ST);
+               s.setpabrik_obat(PB);
+               s.setjenis_obat(JN);
+               s.setkemasan(KM);
+               s.setharga_obat(HG);
                
-                if(ss.insertObat(s)!=null){
+               if(ss.insertObat(s)!=null){
                     int opsi = JOptionPane.showConfirmDialog(null, "Data Anda berhasil disimpan. Apakah Anda akan menambahkan data lagi?","", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
                     if(opsi==0){
                         refresh();
                     }
-                }
-                
+                }       
             }
             catch(RemoteException exception){
                 exception.printStackTrace();
@@ -323,7 +338,7 @@ private Obat_Service ss;
             }
             JOptionPane.showMessageDialog(null, "Ada kesalahan pada kolom isian Anda. Mohon memperbaiki field yang berwarna merah untuk melanjutkan.", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-    }                                  
+    }//GEN-LAST:event_tombol_saveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -362,25 +377,26 @@ private Obat_Service ss;
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox jComboBox2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField14;
-    private javax.swing.JTextField jTextField15;
-    private javax.swing.JTextField jTextField9;
+    private javax.swing.JTextField dosis;
+    private javax.swing.JLabel dosisobat;
+    private javax.swing.JLabel entry_data_obat;
+    private javax.swing.JTextField harga_obat;
+    private javax.swing.JLabel hargaobat;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JComboBox jenis_obat;
+    private javax.swing.JLabel jenisobat;
+    private javax.swing.JTextField kemasan;
+    private javax.swing.JLabel kemasanobat;
+    private javax.swing.JLabel keterangan;
+    private javax.swing.JTextField keterangan_obat;
+    private javax.swing.JTextField nama_obat;
+    private javax.swing.JLabel namaobat;
+    private javax.swing.JTextField pabrik_obat;
+    private javax.swing.JLabel pabrikobat;
+    private javax.swing.JTextField stok_obat;
+    private javax.swing.JLabel stokobat;
+    private javax.swing.JButton tombol_back;
+    private javax.swing.JButton tombol_clear;
+    private javax.swing.JButton tombol_save;
     // End of variables declaration//GEN-END:variables
 }
