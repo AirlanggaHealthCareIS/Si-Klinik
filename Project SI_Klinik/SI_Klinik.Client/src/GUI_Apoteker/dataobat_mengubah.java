@@ -6,7 +6,7 @@ package mengelolaobat;
 
 /**
  *
- * @author Administrator
+ * @author Administrator 
  */
 public class dataobat_mengubah extends javax.swing.JPanel {
 
