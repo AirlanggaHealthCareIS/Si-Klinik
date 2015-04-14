@@ -93,11 +93,11 @@
                   <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jDateChooser2" pref="27" max="32767" attributes="0"/>
-                              <Component id="jLabel4" max="32767" attributes="0"/>
-                          </Group>
                           <Component id="jDateChooser1" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="jDateChooser2" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jLabel4" pref="27" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="tampilButton" min="-2" max="-2" attributes="0"/>
@@ -136,10 +136,10 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="tabelLaporanKeuangan">
+            <Component class="javax.swing.JTable" name="jTable1">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="5" rowCount="4">
+                  <Table columnCount="5" rowCount="0">
                     <Column editable="true" title="Tanggal" type="java.lang.Object"/>
                     <Column editable="true" title="Pemasukan" type="java.lang.Object"/>
                     <Column editable="true" title="Pengeluaran" type="java.lang.Object"/>
@@ -148,6 +148,9 @@
                   </Table>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="componentShown" listener="java.awt.event.ComponentListener" parameters="java.awt.event.ComponentEvent" handler="jTable1ComponentShown"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -180,6 +183,11 @@
           </Events>
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser1">
+          <Properties>
+            <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-dd"/>
+            <Property name="maxSelectableDate" type="java.util.Date" value="null"/>
+            <Property name="minSelectableDate" type="java.util.Date" value="null"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
@@ -187,6 +195,11 @@
           </Properties>
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser2">
+          <Properties>
+            <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-dd"/>
+            <Property name="maxSelectableDate" type="java.util.Date" value="null"/>
+            <Property name="minSelectableDate" type="java.util.Date" value="null"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
