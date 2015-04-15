@@ -4,20 +4,12 @@
  */
 package GUI_StafKlinik;
 
-import database.entity.*;
-import database.Service.*;
-import java.awt.Color;
-import java.rmi.RemoteException;
-import java.sql.Date;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-
+/**
+ *
+ * @author JESSICA
+ */
 public class Panel_Registrasi_Staf extends javax.swing.JPanel {
-    private Dokter_Service ds;
-    private dokter d;
-    
+
     /**
      * Creates new form Panel_Registrasi_Staf
      */
@@ -25,19 +17,6 @@ public class Panel_Registrasi_Staf extends javax.swing.JPanel {
         initComponents();
     }
 
-    private boolean CheckNumber(String a){
-        char b;
-        StringBuffer s;        
-        for(int i = 0; i<a.length();i++){
-            b = a.charAt(i);                        
-            s = new StringBuffer();
-            s.append(b);          
-            if(!s.toString().equals("1")&&!s.toString().equals("2")&&!s.toString().equals("3")&&!s.toString().equals("4")&&!s.toString().equals("5")&&!s.toString().equals("6")&&!s.toString().equals("7")&&!s.toString().equals("8")&&!s.toString().equals("9")&&!s.toString().equals("0")){               
-               return false;
-            }            
-        }
-        return true;
-    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -59,16 +38,14 @@ public class Panel_Registrasi_Staf extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        nomorijinField = new javax.swing.JTextField();
-        telpField = new javax.swing.JTextField();
-        agamaField = new javax.swing.JTextField();
+        jTextField22 = new javax.swing.JTextField();
+        jTextField21 = new javax.swing.JTextField();
+        jTextField20 = new javax.swing.JTextField();
         jRadioButton2 = new javax.swing.JRadioButton();
         jRadioButton3 = new javax.swing.JRadioButton();
-        alamatField = new javax.swing.JTextField();
-        dokterField = new javax.swing.JTextField();
-        lahirField = new com.toedter.calendar.JDateChooser();
-        jLabel16 = new javax.swing.JLabel();
-        tarifField = new javax.swing.JTextField();
+        jTextField15 = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextField();
+        jDateChooser2 = new com.toedter.calendar.JDateChooser();
         jScrollPane2 = new javax.swing.JScrollPane();
         jPanel7 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
@@ -79,13 +56,13 @@ public class Panel_Registrasi_Staf extends javax.swing.JPanel {
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
-        agamastafField = new javax.swing.JTextField();
-        telpstafField = new javax.swing.JTextField();
-        jabatanField = new javax.swing.JTextField();
+        jTextField24 = new javax.swing.JTextField();
+        jTextField23 = new javax.swing.JTextField();
+        jTextField27 = new javax.swing.JTextField();
         jRadioButton4 = new javax.swing.JRadioButton();
         jRadioButton5 = new javax.swing.JRadioButton();
-        alamatstafField = new javax.swing.JTextField();
-        stafField = new javax.swing.JTextField();
+        jTextField16 = new javax.swing.JTextField();
+        jTextField4 = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
         jDateChooser3 = new com.toedter.calendar.JDateChooser();
         jLabel1 = new javax.swing.JLabel();
@@ -96,11 +73,6 @@ public class Panel_Registrasi_Staf extends javax.swing.JPanel {
         jPanel6.setPreferredSize(new java.awt.Dimension(700, 450));
 
         jButton1.setText("SIMPAN");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         jLabel11.setFont(new java.awt.Font("Cambria Math", 0, 18)); // NOI18N
         jLabel11.setText("Data Diri Dokter");
@@ -126,21 +98,21 @@ public class Panel_Registrasi_Staf extends javax.swing.JPanel {
         jLabel12.setFont(new java.awt.Font("Cambria Math", 0, 14)); // NOI18N
         jLabel12.setText("Nomor Ijin");
 
-        nomorijinField.addActionListener(new java.awt.event.ActionListener() {
+        jTextField22.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nomorijinFieldActionPerformed(evt);
+                jTextField22ActionPerformed(evt);
             }
         });
 
-        telpField.addActionListener(new java.awt.event.ActionListener() {
+        jTextField21.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                telpFieldActionPerformed(evt);
+                jTextField21ActionPerformed(evt);
             }
         });
 
-        agamaField.addActionListener(new java.awt.event.ActionListener() {
+        jTextField20.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                agamaFieldActionPerformed(evt);
+                jTextField20ActionPerformed(evt);
             }
         });
 
@@ -150,18 +122,9 @@ public class Panel_Registrasi_Staf extends javax.swing.JPanel {
         jRadioButton3.setFont(new java.awt.Font("Cambria Math", 0, 14)); // NOI18N
         jRadioButton3.setText("Laki-laki");
 
-        dokterField.addActionListener(new java.awt.event.ActionListener() {
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dokterFieldActionPerformed(evt);
-            }
-        });
-
-        jLabel16.setFont(new java.awt.Font("Cambria Math", 0, 14)); // NOI18N
-        jLabel16.setText("Tarif Dokter");
-
-        tarifField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tarifFieldActionPerformed(evt);
+                jTextField3ActionPerformed(evt);
             }
         });
 
@@ -170,15 +133,16 @@ public class Panel_Registrasi_Staf extends javax.swing.JPanel {
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(559, Short.MAX_VALUE))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(289, 289, 289)
+                        .addComponent(jButton1)))
+                .addContainerGap())
             .addGroup(jPanel6Layout.createSequentialGroup()
-<<<<<<< .mine
-                .addContainerGap(69, Short.MAX_VALUE)
-=======
                 .addContainerGap(96, Short.MAX_VALUE)
->>>>>>> .r110
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,16 +152,17 @@ public class Panel_Registrasi_Staf extends javax.swing.JPanel {
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addComponent(jRadioButton2)
-<<<<<<< .mine
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
-=======
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
->>>>>>> .r110
                                 .addComponent(jRadioButton3)
                                 .addGap(156, 156, 156))
                             .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(alamatField, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39)
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -207,27 +172,14 @@ public class Panel_Registrasi_Staf extends javax.swing.JPanel {
                         .addGap(30, 30, 30)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(agamaField, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lahirField, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(telpField, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jTextField22, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton1)
-                                    .addComponent(nomorijinField, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(30, 30, 30)
-                                .addComponent(tarifField, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(39, 39, 39)
-                                .addComponent(dokterField, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                    .addComponent(jTextField20, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextField21, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -239,11 +191,11 @@ public class Panel_Registrasi_Staf extends javax.swing.JPanel {
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(dokterField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(alamatField, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
@@ -251,26 +203,22 @@ public class Panel_Registrasi_Staf extends javax.swing.JPanel {
                             .addComponent(jRadioButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(26, 26, 26)
                         .addComponent(jLabel8))
-                    .addComponent(lahirField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(telpField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(agamaField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(nomorijinField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel16)
-                    .addComponent(tarifField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                    .addComponent(jTextField22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(54, 54, 54)
                 .addComponent(jButton1)
-                .addGap(30, 30, 30))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         jScrollPane1.setViewportView(jPanel6);
@@ -309,9 +257,9 @@ public class Panel_Registrasi_Staf extends javax.swing.JPanel {
         jRadioButton5.setFont(new java.awt.Font("Cambria Math", 0, 14)); // NOI18N
         jRadioButton5.setText("Laki-laki");
 
-        stafField.addActionListener(new java.awt.event.ActionListener() {
+        jTextField4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                stafFieldActionPerformed(evt);
+                jTextField4ActionPerformed(evt);
             }
         });
 
@@ -340,16 +288,16 @@ public class Panel_Registrasi_Staf extends javax.swing.JPanel {
                                 .addContainerGap(221, Short.MAX_VALUE))
                             .addGroup(jPanel7Layout.createSequentialGroup()
                                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(stafField, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
-                                    .addComponent(alamatstafField)
-                                    .addComponent(jabatanField))
+                                    .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
+                                    .addComponent(jTextField16)
+                                    .addComponent(jTextField27))
                                 .addContainerGap(164, Short.MAX_VALUE))))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGap(53, 53, 53)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(agamastafField, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
+                            .addComponent(jTextField24, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
                             .addComponent(jDateChooser3, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
-                            .addComponent(telpstafField))
+                            .addComponent(jTextField23))
                         .addContainerGap(165, Short.MAX_VALUE))))
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -376,16 +324,16 @@ public class Panel_Registrasi_Staf extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
-                    .addComponent(stafField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(alamatstafField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextField16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jRadioButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15))
                 .addGap(18, 18, 18)
-                .addComponent(jabatanField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextField27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
@@ -393,11 +341,11 @@ public class Panel_Registrasi_Staf extends javax.swing.JPanel {
                         .addGap(26, 26, 26)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel19)
-                            .addComponent(telpstafField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextField23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(29, 29, 29)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel20)
-                            .addComponent(agamastafField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jTextField24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jDateChooser3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                 .addComponent(jButton5)
@@ -444,159 +392,30 @@ public class Panel_Registrasi_Staf extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void dokterFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dokterFieldActionPerformed
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_dokterFieldActionPerformed
+    }//GEN-LAST:event_jTextField3ActionPerformed
 
-    private void stafFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stafFieldActionPerformed
+    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_stafFieldActionPerformed
+    }//GEN-LAST:event_jTextField4ActionPerformed
 
-    private void telpFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telpFieldActionPerformed
+    private void jTextField21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField21ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_telpFieldActionPerformed
+    }//GEN-LAST:event_jTextField21ActionPerformed
 
-    private void agamaFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agamaFieldActionPerformed
+    private void jTextField20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField20ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_agamaFieldActionPerformed
+    }//GEN-LAST:event_jTextField20ActionPerformed
 
-    private void nomorijinFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomorijinFieldActionPerformed
+    private void jTextField22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField22ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nomorijinFieldActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        boolean isi1 = false;// nama
-        boolean isi2 = false;//alamat
-        boolean isi3 = false;// jenis kelamin
-        boolean isi4 = false;//tanggallahir
-        boolean isi5 = false;//nomor telepon
-        boolean isi6 = false;//agama
-        boolean isi7 = false;//nomorijin
-        boolean isi8 = false;//tarif dokter
-        
-        if(!dokterField.getText().equals("")){
-            isi1 = true;
-        }
-        
-        if(!alamatField.getText().equals("")){
-            isi2 = true;
-            
-        }
-        
-        if(!lahirField.getDate().equals("")){
-            isi4 = true;
-            
-        }
-        
-        if(!telpField.getText().equals("")){
-            isi5 = true;
-        }
-        
-        if(!agamaField.getText().equals("")){
-            isi6 = true;
-        }
-        
-        if(!nomorijinField.getText().equals("")){
-            isi7 = true;
-        }
-        
-        if(!tarifField.getText().equals("")){
-            isi8 = true;
-        }
-        
-        if(isi1&&isi2&&isi3&&isi4&&isi5&&isi6&&isi7&&isi8)    {
-            d = new dokter ();
-            String nama = dokterField.getText();
-            String alamat = alamatField.getText();
-            //String jenisKelamin = 
-            //Date tanggalLahir = lahirField.getDate();
-            String NoTelepon = telpField.getText();
-            String agama = agamaField.getText();
-            String noIjin = nomorijinField.getText();
-            int tarif = Integer.parseInt(tarifField.getText());
-            
-            try {
-                  d.setnama_dokter(nama);
-                  d.setalamat_dokter(alamat);
-                  d.settelepon_dokter(NoTelepon);
-                  d.setagama_dokter(agama);
-                  d.setno_ijin(noIjin);
-                  d.settarif_dokter(tarif);
-                
-                  
-                  
-                if (ds.insertDokter(d)!=null) {
-                    int opsi = JOptionPane.showConfirmDialog(null, "Data Anda berhasil disimpan. Apakah Anda akan menambahkan data lagi?","", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
-                if(opsi==0){
-                    refresh();
-                }
-                
-                }
-                
-            }
-            catch(RemoteException exception){
-                exception.printStackTrace();
-            }
-        }
-        else{
-            if(!isi1){
-                dokterField.setBackground(Color.red);
-            }
-            if(!isi2){
-                alamatField.setBackground(Color.red);
-            }
-            if(!isi4){
-                lahirField.setBackground(Color.red);
-            }
-            if(!isi5){
-                telpField.setBackground(Color.red);
-            }
-            if(!isi6){
-                agamaField.setBackground(Color.red);
-            }
-            if(!isi7){
-                nomorijinField.setBackground(Color.red);
-            }
-            if(!isi8){
-                tarifField.setBackground(Color.red);
-            }
-            
-            JOptionPane.showMessageDialog(null, "Ada kesalahan pada kolom isian Anda. Mohon memperbaiki field yang berwarna merah untuk melanjutkan.", "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
-    
-    }                                             
-
-    private void refresh(){
-       
-        dokterField.setText("");
-        alamatField.setText("");
-        //lahirField
-        telpField.setText("");
-        agamaField.setText("");
-        nomorijinField.setText("");
-        tarifField.setText("");
-       // jComboBox1.removeAllItems();
-        //jComboBox2.removeAllItems();
-        //jComboBox1.addItem("Pilih");
-        //jComboBox1.setSelectedIndex(0);        
-        //jComboBox2.addItem("Pilih");
-        //jComboBox2.setSelectedIndex(0);        
-        //jComboBox1.setBackground(Color.GRAY);        
-        //jComboBox2.setBackground(Color.GRAY);
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void tarifFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tarifFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tarifFieldActionPerformed
+    }//GEN-LAST:event_jTextField22ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField agamaField;
-    private javax.swing.JTextField agamastafField;
-    private javax.swing.JTextField alamatField;
-    private javax.swing.JTextField alamatstafField;
-    private javax.swing.JTextField dokterField;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton5;
+    private com.toedter.calendar.JDateChooser jDateChooser2;
     private com.toedter.calendar.JDateChooser jDateChooser3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -605,7 +424,6 @@ public class Panel_Registrasi_Staf extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
@@ -625,12 +443,15 @@ public class Panel_Registrasi_Staf extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jabatanField;
-    private com.toedter.calendar.JDateChooser lahirField;
-    private javax.swing.JTextField nomorijinField;
-    private javax.swing.JTextField stafField;
-    private javax.swing.JTextField tarifField;
-    private javax.swing.JTextField telpField;
-    private javax.swing.JTextField telpstafField;
+    private javax.swing.JTextField jTextField15;
+    private javax.swing.JTextField jTextField16;
+    private javax.swing.JTextField jTextField20;
+    private javax.swing.JTextField jTextField21;
+    private javax.swing.JTextField jTextField22;
+    private javax.swing.JTextField jTextField23;
+    private javax.swing.JTextField jTextField24;
+    private javax.swing.JTextField jTextField27;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
 }

@@ -279,33 +279,33 @@ private Obat_Service ss;
             String KM = kemasan.getText();
             String HG = harga_obat.getText();
             String ID = null;
-            try {
-                ID = "OBAT"+ss.getObat().size();
-            } catch (RemoteException ex) {
-                Logger.getLogger(dataobat_menambah.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            try {
-               obat s = new obat();
-               s.setid_obat(ID);
-               s.setnama_obat(NM);
-               s.setdosis(DS);
-               s.setketerangan_obat(KT);
-               s.setstok_obat(ST);
-               s.setpabrik_obat(PB);
-               s.setjenis_obat(JN);
-               s.setkemasan(KM);
-               s.setharga_obat(HG);
+//            try {
+//                ID = "OBAT"+ss.getObat().size();
+//            } catch (RemoteException ex) {
+//                Logger.getLogger(dataobat_menambah.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//            try {
+//               obat s = new obat();
+//               s.setid_obat(ID);
+//               s.setnama_obat(NM);
+//               s.setdosis(DS);
+//               s.setketerangan_obat(KT);
+//               s.setstok_obat(ST);
+//               s.setpabrik_obat(PB);
+//               s.setjenis_obat(JN);
+//               s.setkemasan(KM);
+//               s.setharga_obat(HG);
                
-               if(ss.insertObat(s)!=null){
-                    int opsi = JOptionPane.showConfirmDialog(null, "Data Anda berhasil disimpan. Apakah Anda akan menambahkan data lagi?","", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
-                    if(opsi==0){
-                        refresh();
-                    }
-                }       
-            }
-            catch(RemoteException exception){
-                exception.printStackTrace();
-            }
+//               if(ss.insertObat(s)!=null){
+//                    int opsi = JOptionPane.showConfirmDialog(null, "Data Anda berhasil disimpan. Apakah Anda akan menambahkan data lagi?","", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+//                    if(opsi==0){
+//                        refresh();
+//                    }
+//                }       
+//            }
+//            catch(RemoteException exception){
+//                exception.printStackTrace();
+//            }
         }
         else{
             if(!isi1){

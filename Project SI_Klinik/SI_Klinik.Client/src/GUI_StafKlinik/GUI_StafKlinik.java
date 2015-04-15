@@ -5,8 +5,8 @@
 package GUI_StafKlinik;
 
 import GUI_Apoteker.Panel_Resep;
-import GUI_StafKlinik.Panel_Laporan_Keuangan;
 import GUI_Login.Login;
+import database.Service.Laporan_Keuangan_Service;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
@@ -19,12 +19,14 @@ import database.entity.petugas;
 
 public class GUI_StafKlinik extends javax.swing.JFrame {
     petugas p;
-    public GUI_StafKlinik (petugas p){
+    Laporan_Keuangan_Service laporanServer;
+    public GUI_StafKlinik ( petugas p, Login l){
         super("Staf Klinik");
         initComponents();
         Panel_Profil_StafKlinik panel = new Panel_Profil_StafKlinik();
         jPanel4.add(panel);
         this.p = p;
+        laporanServer = l.service5;
         jLabel3.setText(p.getNama_Petugas());
     }
     
@@ -297,7 +299,7 @@ public class GUI_StafKlinik extends javax.swing.JFrame {
          jPanel4.removeAll();
          jPanel4.repaint();
          jPanel4.revalidate();                    
-         Panel_Laporan_Keuangan  panel = new Panel_Laporan_Keuangan();
+         Panel_Laporan_Keuangan  panel = new Panel_Laporan_Keuangan(this);
          panel.setVisible(true);
          jPanel4.add(panel);
          jPanel4.repaint();

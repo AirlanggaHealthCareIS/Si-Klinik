@@ -15,7 +15,7 @@ public class Panel_Profil_Dokter extends javax.swing.JPanel {
     /**
      * Creates new form Panel_Profil_Dokter
      */
-    public Panel_Profil_Dokter() {
+    public Panel_Profil_Dokter(GUI_Dokter gui) {
         initComponents();
     }
 

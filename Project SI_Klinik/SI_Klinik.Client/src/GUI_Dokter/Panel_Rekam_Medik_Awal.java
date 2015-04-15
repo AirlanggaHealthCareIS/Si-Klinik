@@ -4,17 +4,58 @@
  */
 package GUI_Dokter;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import Client_Application_Model.TableModel_Antrian;
+import database.Service.Pendaftaran_Service;
+import database.Service.Pasien_Service;
+import database.entity.Antrian;
+import database.entity.Pasien;
+import database.entity.pendaftaran;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
 /**
  *
  * @author JESSICA
  */
 public class Panel_Rekam_Medik_Awal extends javax.swing.JPanel {
-
-    /**
-     * Creates new form Panel_Rekam_Medik_Awal
-     */
-    public Panel_Rekam_Medik_Awal() {
-        initComponents();
+    private TableModel_Antrian tabelModelAntrian = new TableModel_Antrian();
+    private Pendaftaran_Service pendaftaranService;
+    private Pasien_Service pasienService;
+    private Antrian antrian;
+    private String action;
+    public Pasien pasien;
+    private GUI_Dokter gui;
+    
+    public Panel_Rekam_Medik_Awal(final GUI_Dokter gui) {
+        initComponents();         
+        this.gui=gui;
+        pendaftaranService = gui.ps;
+        pasienService = gui.pas;
+        action = "";
+        updateMenu.setEnabled(false);      
+        refresh();
+        jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent e) {
+                int row = jTable1.getSelectedRow();
+                 if(row != -1&&(!action.equals("insert")||(!action.equals("")))){                   
+                   antrian = tabelModelAntrian.get(row);
+                    try {
+                        pasien=pasienService.getPasien(antrian.getId_Pasien());
+                        gui.setPasien(pasien);
+                    } catch (RemoteException ex) {
+                        Logger.getLogger(Panel_Rekam_Medik_Awal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                   updateMenu.setEnabled(true);
+                 }
+            }
+        });
     }
 
     /**
@@ -30,15 +71,23 @@ public class Panel_Rekam_Medik_Awal extends javax.swing.JPanel {
         jTable1 = new javax.swing.JTable();
         updateMenu = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setMinimumSize(new java.awt.Dimension(700, 450));
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
+        addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentAdded(java.awt.event.ContainerEvent evt) {
+                formComponentAdded(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "No Antrian", "Nama", "Alamat"
@@ -56,40 +105,109 @@ public class Panel_Rekam_Medik_Awal extends javax.swing.JPanel {
 
         jLabel17.setText("*) Pilih salah satu pasien kemudian klik next");
 
+        jButton1.setText("REFRESH");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel17)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 661, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(updateMenu)
                 .addGap(295, 295, 295))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel17)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 661, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
+                .addContainerGap(29, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel17)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(updateMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31))
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    public String getCalendarNow(){
+         Calendar cal = new GregorianCalendar();
+         String tanggal ="0";
+         if(cal.get(Calendar.DATE)<0){
+                tanggal="0"+cal.get(Calendar.DATE);
+            }
+         else{
+                tanggal=""+cal.get(Calendar.DATE);
+            }
+        String bulan="0";
+        if(cal.get(Calendar.MONTH)<10){
+            bulan="0"+(cal.get(Calendar.MONTH)+1);;
+        }
+        else{
+            bulan=""+(cal.get(Calendar.MONTH)+1);
+        }
+        String tahun= ""+cal.get(Calendar.YEAR);
+        tanggal = (tahun+"-"+bulan+"-"+tanggal);
+        return tanggal;
+    }
+    
     private void updateMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateMenuActionPerformed
         // TODO add your handling code here:
-
+        Panel_History_RekamMedik panel = new Panel_History_RekamMedik(gui);
+        gui.updatePanel(panel);
     }//GEN-LAST:event_updateMenuActionPerformed
 
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        // TODO add your handling code here:
+        refresh();
+    }//GEN-LAST:event_formComponentShown
+    private void refresh(){
+        try{
+            List<pendaftaran> list= new ArrayList<>();
+            list = pendaftaranService.getPendaftarans(getCalendarNow());
+            if(list.size()>0){
+            List<Antrian> a = new ArrayList<Antrian> ();
+            for(int i=0;i<list.size();i++ ){
+                Antrian aa = new Antrian();
+                aa.setNomor(list.get(i).getAntrian());
+                Pasien pasien = pasienService.getPasien(list.get(i).getId_Pasien());                
+                aa.setId_Pasien(pasien.getId_Pasien());
+                aa.setNama_Pasien(pasien.getNama_Pasien());
+                aa.setAlamat(pasien.getAlamat());
+                a.add(aa);
+            }
+             tabelModelAntrian.setData(a);
+             jTable1.setModel(tabelModelAntrian);     }
+         }catch(RemoteException exception){
+             exception.printStackTrace();
+         }
+    }
+    private void formComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_formComponentAdded
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_formComponentAdded
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        refresh();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

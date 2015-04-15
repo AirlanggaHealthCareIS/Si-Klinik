@@ -192,9 +192,9 @@ public class Form_Tambah_Resep extends javax.swing.JFrame {
     }//GEN-LAST:event_kodeObatFocusGained
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        Panel_Rekam_Medik_Tambah a = new Panel_Rekam_Medik_Tambah();
-        a.setVisible(true);
-        this.dispose();
+//        Panel_Rekam_Medik_Tambah a = new Panel_Rekam_Medik_Tambah();
+//        a.setVisible(true);
+//        this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -228,11 +228,11 @@ public class Form_Tambah_Resep extends javax.swing.JFrame {
                     if(opsi==0){
                         refresh();
                     }
-                    else{
-                        Panel_Rekam_Medik_Tambah a = new Panel_Rekam_Medik_Tambah();
-                        a.setVisible(true);
-                        this.dispose();
-                    }
+//                    else{
+//                        Panel_Rekam_Medik_Tambah a = new Panel_Rekam_Medik_Tambah();
+//                        a.setVisible(true);
+//                        this.dispose();
+//                    }
                 }
                 else{
                     JOptionPane.showMessageDialog(null, "Input Data Eror", "PESAN", JOptionPane.ERROR_MESSAGE);
@@ -243,9 +243,9 @@ public class Form_Tambah_Resep extends javax.swing.JFrame {
             catch(RemoteException exception){
                 exception.printStackTrace();
             }
-            Panel_Rekam_Medik_Tambah a = new Panel_Rekam_Medik_Tambah();
-            a.setVisible(true);
-            this.dispose();
+//            Panel_Rekam_Medik_Tambah a = new Panel_Rekam_Medik_Tambah();
+//            a.setVisible(true);
+//            this.dispose();
         }
         
     }//GEN-LAST:event_jButton2ActionPerformed

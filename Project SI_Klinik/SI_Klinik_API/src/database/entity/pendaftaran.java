@@ -16,7 +16,7 @@ public class pendaftaran implements Serializable{
     private String Id_Poli;
     private String Tanggal_Periksa;
     private String Keluhan;
-    
+    private int antrian;
     
     
     public String getId_Pendaftaran() {
@@ -73,5 +73,13 @@ public class pendaftaran implements Serializable{
     
     public void setKeluhan ( String Keluhan) {
         this.Keluhan = Keluhan;
+    }
+    
+     public int getAntrian () {
+        return antrian;
+    }
+    
+    public void setAntrian ( int antrian) {
+        this.antrian = antrian;
     }
 }

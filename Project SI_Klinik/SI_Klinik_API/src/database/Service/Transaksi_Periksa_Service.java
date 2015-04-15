@@ -7,6 +7,7 @@ package database.Service;
 
 import database.entity.Transaksi_Periksa;
 import java.rmi.RemoteException;
+import java.util.List;
 
 /**
  *
@@ -15,4 +16,5 @@ import java.rmi.RemoteException;
 public interface Transaksi_Periksa_Service {
 
     Transaksi_Periksa getTransaksi(String id_pasien) throws RemoteException;
+    List<Transaksi_Periksa> getTransaksis(String id_pasien) throws RemoteException;
 }

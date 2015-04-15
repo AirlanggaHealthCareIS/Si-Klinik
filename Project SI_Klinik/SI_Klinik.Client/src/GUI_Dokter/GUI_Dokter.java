@@ -3,14 +3,9 @@
  * and open the template in the editor.
  */
 package GUI_Dokter;
-//import Form_Staf_Apoteker.*;
-/**
- *
- * @author user
- */
+
+
 import GUI_Login.Login;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.List;
@@ -18,18 +13,52 @@ import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import database.entity.dokter;
+import database.entity.Pasien;
+import database.Service.Pasien_Service;
+import database.Service.Dokter_Service;
+import database.Service.Obat_Service;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import database.Service.Pendaftaran_Service;
+import javax.swing.JPanel;
 
 public class GUI_Dokter extends javax.swing.JFrame {
-    dokter d;
+    public dokter d;
+    private Pasien p;
+    public Pasien_Service pas;
+    public Dokter_Service ds;
+    public Pendaftaran_Service ps;
    
-     public GUI_Dokter (dokter d){
-        super("Apoteker");
+     public GUI_Dokter (dokter d, Login l){
+        super("Dokter");
         initComponents();
-        Panel_Rekam_Medik_Tambah panel = new Panel_Rekam_Medik_Tambah();
+        pas = l.service4;
+        ps= l.service3;
+        ds = l.service2;
+        Panel_Profil_Dokter panel = new Panel_Profil_Dokter(this);
         jPanel4.add(panel);
         this.d = d;
         jLabel3.setText(d.getnama_dokter());
     }
+     
+    public void setPasien (Pasien p){
+        this.p = p;
+    } 
+    
+    public Pasien getPasien(){
+        return p;
+    }
+    
+   public void updatePanel(JPanel panel){
+         jPanel4.removeAll();
+         jPanel4.repaint();
+         jPanel4.revalidate();                             
+         panel.setVisible(true);
+         jPanel4.add(panel);
+         jPanel4.repaint();
+         jPanel4.revalidate();  
+     }
+     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -131,6 +160,7 @@ public class GUI_Dokter extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jPanel4.setMinimumSize(new java.awt.Dimension(700, 450));
         jPanel4.setLayout(new java.awt.CardLayout());
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -151,7 +181,8 @@ public class GUI_Dokter extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -178,11 +209,15 @@ public class GUI_Dokter extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:                         
+         Panel_Rekam_Medik_Awal panel = new Panel_Rekam_Medik_Awal(this);
+         updatePanel(panel);
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:                     
+         Panel_Profil_Dokter panel = new Panel_Profil_Dokter(this);
+         updatePanel(panel);
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
