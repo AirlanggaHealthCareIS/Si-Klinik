@@ -602,14 +602,14 @@ public class Panel_Registrasi_Staf extends javax.swing.JPanel {
 //                Logger.getLogger(Panel_Registrasi_Staf.class.getName()).log(Level.SEVERE, null, ex);
 //            }
 //        }
-        boolean isi1 = false;
-        boolean isi2 = false;
+                boolean isi1 = false;// nama
+        boolean isi2 = false;//alamat
         boolean isi3 = false;
-        boolean isi4 = false;
-        boolean isi5 = false;
-        boolean isi6 = false;
-        boolean isi7 = false;
-        boolean isi8 = false;
+        boolean isi4 = false;//tanggallahir
+        boolean isi5 = false;//nomor telepon
+        boolean isi6 = false;//agama
+        boolean isi7 = false;//nomorijin
+        boolean isi8 = false;//tarif dokter
         boolean isi9 = false;
         
         if(!namaField.getText().equals("")){
@@ -782,13 +782,14 @@ private void refresh(){
 
     private void simpanPetugasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simpanPetugasActionPerformed
         // TODO add your handling code here:
-        boolean isi1 = false;
-        boolean isi2 = false;
-        boolean isi3 = false;
-        boolean isi4 = false;
-        boolean isi5 = false;
-        boolean isi6 = false;
-        boolean isi7 = false;
+        boolean isi1 = false;// id petugas
+        boolean isi2 = false;//nama petugas
+        boolean isi3 = false;//alamat petugas
+        boolean isi4 = false;//jabatan
+        boolean isi5 = false;//tanggal lahir
+        boolean isi6 = false;//nomor telepon
+        boolean isi7 = false;//agama
+        
         
         if(!idPetugasField.getText().equals("")){
             isi1 = true;
@@ -796,18 +797,22 @@ private void refresh(){
         
         if(!namaPetugasField.getText().equals("")){
             isi2 = true;
+            
         }
         
         if(!alamatPetugasField.getText().equals("")){
             isi3 = true;
+            
         }
         
         if(!jabatanField.getText().equals("")){
             isi4 = true;
+            
         }
         
         if(!ttlPetugas.getDate().toString().equals("")){
             isi5 = true;
+            
         }
         
         if(!teleponPetugasField.getText().equals("")){
@@ -820,9 +825,7 @@ private void refresh(){
         
         
         if(isi1&&isi2&&isi3&&isi4&&isi5&&isi6&&isi7)    {
-            
             petugas petugas = new petugas ();
-            
             String id_petugas = idPetugasField.getText();
             String nama_petugas = namaPetugasField.getText();
             String alamat_petugas = alamatPetugasField.getText();
