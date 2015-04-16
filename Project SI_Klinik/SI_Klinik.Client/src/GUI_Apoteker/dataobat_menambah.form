@@ -44,11 +44,11 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
               <Component id="entry_data_obat" min="-2" pref="50" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-              <Component id="tombol_back" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jPanel1" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
+              <Component id="tombol_back" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jPanel1" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -67,12 +67,40 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="471" max="32767" attributes="0"/>
+              <Group type="102" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
                   <Component id="tombol_save" min="-2" pref="67" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="tombol_clear" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="pabrikobat" min="-2" pref="80" max="-2" attributes="0"/>
+                      <Component id="jenisobat" min="-2" max="-2" attributes="0"/>
+                      <Component id="kemasanobat" min="-2" pref="67" max="-2" attributes="0"/>
+                      <Component id="hargaobat" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel1" alignment="0" min="-2" pref="66" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace pref="179" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="field_pabrik_obat" min="-2" pref="255" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="116" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="field_kemasan" pref="105" max="32767" attributes="0"/>
+                                  <Component id="field_harga_obat" pref="105" max="32767" attributes="0"/>
+                                  <Component id="field_jenis_obat" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                              <Component id="field_stok_kritis" alignment="0" min="-2" pref="74" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
               </Group>
               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
@@ -82,23 +110,13 @@
                           <Component id="keterangan" min="-2" max="-2" attributes="0"/>
                           <Component id="namaobat" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="stokobat" min="-2" pref="80" max="-2" attributes="0"/>
-                          <Component id="pabrikobat" min="-2" pref="80" max="-2" attributes="0"/>
-                          <Component id="jenisobat" min="-2" max="-2" attributes="0"/>
-                          <Component id="kemasanobat" min="-2" pref="67" max="-2" attributes="0"/>
-                          <Component id="hargaobat" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="82" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="stok_obat" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
-                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="harga_obat" alignment="0" max="32767" attributes="0"/>
-                              <Component id="kemasan" alignment="0" min="-2" pref="105" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="jenis_obat" min="-2" max="-2" attributes="0"/>
-                          <Component id="pabrik_obat" alignment="0" min="-2" pref="255" max="-2" attributes="0"/>
-                          <Component id="nama_obat" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
-                          <Component id="dosis" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
-                          <Component id="keterangan_obat" min="-2" pref="345" max="-2" attributes="0"/>
+                          <Component id="field_stok_obat" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
+                          <Component id="field_nama_obat" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
+                          <Component id="field_dosis" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
+                          <Component id="field_keterangan_obat" min="-2" pref="345" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
@@ -108,7 +126,32 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="282" max="32767" attributes="0"/>
+                  <EmptySpace pref="132" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel1" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                      <Component id="field_stok_kritis" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="pabrikobat" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
+                      <Component id="field_pabrik_obat" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="jenisobat" min="-2" max="-2" attributes="0"/>
+                      <Component id="field_jenis_obat" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="kemasanobat" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                      <Component id="field_kemasan" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="field_harga_obat" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="hargaobat" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="tombol_save" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="tombol_clear" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -120,44 +163,24 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="namaobat" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="nama_obat" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="field_nama_obat" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="dosisobat" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="dosis" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="field_dosis" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="keterangan" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="keterangan_obat" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="field_keterangan_obat" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="stokobat" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="stok_obat" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="field_stok_obat" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="pabrikobat" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
-                          <Component id="pabrik_obat" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jenisobat" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jenis_obat" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="kemasanobat" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                          <Component id="kemasan" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="harga_obat" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="hargaobat" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace pref="68" max="32767" attributes="0"/>
+                      <EmptySpace pref="192" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -228,63 +251,49 @@
             <Property name="text" type="java.lang.String" value="Stock Obat"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="nama_obat">
+        <Component class="javax.swing.JTextField" name="field_nama_obat">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="cc" red="cc" type="rgb"/>
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="dosis">
+        <Component class="javax.swing.JTextField" name="field_dosis">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="cc" red="cc" type="rgb"/>
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="keterangan_obat">
+        <Component class="javax.swing.JTextField" name="field_keterangan_obat">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="cc" red="cc" type="rgb"/>
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="stok_obat">
+        <Component class="javax.swing.JTextField" name="field_stok_obat">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="cc" red="cc" type="rgb"/>
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="pabrik_obat">
+        <Component class="javax.swing.JTextField" name="field_pabrik_obat">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="cc" red="cc" type="rgb"/>
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="jenis_obat">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="6">
-                <StringItem index="0" value="Pilih"/>
-                <StringItem index="1" value="Kapsul"/>
-                <StringItem index="2" value="Tablet"/>
-                <StringItem index="3" value="Sirup"/>
-                <StringItem index="4" value="Krim"/>
-                <StringItem index="5" value="Cair"/>
-              </StringArray>
-            </Property>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="kemasan">
+        <Component class="javax.swing.JTextField" name="field_kemasan">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="cc" red="cc" type="rgb"/>
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="harga_obat">
+        <Component class="javax.swing.JTextField" name="field_harga_obat">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="cc" red="cc" type="rgb"/>
@@ -302,6 +311,28 @@
         <Component class="javax.swing.JButton" name="tombol_clear">
           <Properties>
             <Property name="text" type="java.lang.String" value="CLEAR"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="field_jenis_obat">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="cc" green="cc" red="cc" type="rgb"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel1">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="11" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Stock Kritis"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="field_stok_kritis">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="cc" green="cc" red="cc" type="rgb"/>
+            </Property>
           </Properties>
         </Component>
       </SubComponents>

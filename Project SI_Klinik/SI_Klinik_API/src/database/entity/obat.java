@@ -14,6 +14,7 @@ public class obat {
     private float dosis;
     private String keterangan_obat;
     private int stok_obat;
+    private int stok_kritis;
     private String pabrik_obat;
     private String jenis_obat;
     private String kemasan;
@@ -58,6 +59,13 @@ public class obat {
 
     public void setstok_obat(int stok_obat) {
         this.stok_obat = stok_obat;
+    }
+      public int getstok_kritis() {
+        return stok_kritis;
+    }
+
+    public void setstok_kritis(int stok_kritis) {
+        this.stok_kritis = stok_kritis;
     }
     
      public String getpabrik_obat() {

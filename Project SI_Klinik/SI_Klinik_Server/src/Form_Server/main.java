@@ -21,7 +21,7 @@ import java.util.GregorianCalendar;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
-
+import ServerApplication.Service.Obat_Server;
 /**
  *
  * @author Jessica
@@ -38,6 +38,7 @@ public class main {
         Pendaftaran_Server pendaftaranServer = new Pendaftaran_Server();
         Pasien_Server pasienServer = new Pasien_Server();
         Laporan_Keuangan_Server laporanServer = new Laporan_Keuangan_Server();
+        Obat_Server obatserver = new Obat_Server();
         //Resep_Server resepServer= new Resep_Server();
 //        Obat_Server obatServer= new Obat_Server();
         
@@ -46,6 +47,7 @@ public class main {
         server.rebind("service3",   pendaftaranServer);
         server.rebind("service4", pasienServer);
         server.rebind("service5", laporanServer);
+        server.rebind("service6", obatserver);
         
    //     server.rebind("service4",   obatServer);
         

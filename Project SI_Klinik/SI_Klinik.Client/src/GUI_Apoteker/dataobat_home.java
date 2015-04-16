@@ -4,17 +4,47 @@
  */
 package GUI_Apoteker;
 
+import database.Service.Obat_Service;
+import database.entity.obat;
+import Client_Application_Model.TableModel_Obat;
+import GUI_Apoteker.dataobat_menambah;
+import GUI_Apoteker.dataobat_mengubah;
+import java.rmi.RemoteException;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 /**
  *
  * @author Administrator
  */
 public class dataobat_home extends javax.swing.JPanel {
 
+    private TableModel_Obat tablemodel_obat = new TableModel_Obat();
+    public Obat_Service obat_service;
+    public obat Obat;
+    public dataobat_menambah dataobatmenambah;
+    public dataobat_mengubah dataobatmengubah;
+    private String action;
     /**
      * Creates new form dataobat_home
      */
     public dataobat_home() {
         initComponents();
+        
+        tombol_add.setEnabled(false);
+        tombol_edit.setEnabled(false);
+        action = "";
+        jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent e){
+                int row = jTable1.getSelectedRow();
+                if (row !=-1&&(!action.equals("insert")||(!action.equals(""))))
+                    tombol_add.setEnabled(true);
+                    tombol_edit.setEnabled(true);
+                    Obat = tablemodel_obat.get(row);
+            }
+        });
+
     }
 
     /**
@@ -35,28 +65,33 @@ public class dataobat_home extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(700, 450));
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID OBAT", "NAMA OBAT", "DOSIS", "KETERANGAN OBAT", "STOK OBAT", "PABRIK OBAT", "JENIS OBAT", "KEMASAN", "HARGA OBAT"
+                "ID OBAT", "NAMA OBAT", "DOSIS", "KETERANGAN OBAT", "STOK OBAT", "STOK KRITIS", "PABRIK OBAT", "JENIS OBAT", "KEMASAN", "HARGA OBAT"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -69,6 +104,11 @@ public class dataobat_home extends javax.swing.JPanel {
         });
 
         tombol_edit.setText("EDIT");
+        tombol_edit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tombol_editActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -128,10 +168,32 @@ public class dataobat_home extends javax.swing.JPanel {
 
     private void tombol_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombol_addActionPerformed
         // TODO add your handling code here:
-        dataobat_menambah o1 = new dataobat_menambah();
-        o1.setVisible(true);
-        this.setVisible(false);
+        action = "add";
+        tombol_edit.setEnabled(false);
+        tombol_add.setEnabled(false);
+        dataobatmenambah.setVisible(true);
+        this.setVisible(true);
     }//GEN-LAST:event_tombol_addActionPerformed
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        try{
+            tablemodel_obat.setData(this.obat_service.getObat());
+        }
+        catch (RemoteException exception){
+            exception.printStackTrace();
+        }
+        jTable1.setModel(tablemodel_obat);
+    }//GEN-LAST:event_formComponentShown
+
+    private void tombol_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombol_editActionPerformed
+        // TODO add your handling code here:
+        action = "update";
+        tombol_edit.setEnabled(false);
+        tombol_add.setEnabled(false);
+        dataobatmengubah.setVisible(true);
+        this.setVisible(true);
+        
+    }//GEN-LAST:event_tombol_editActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
