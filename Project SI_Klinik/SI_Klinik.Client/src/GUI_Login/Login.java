@@ -18,6 +18,7 @@ import database.Service.Dokter_Service;
 import database.Service.Laporan_Keuangan_Service;
 import database.Service.Pasien_Service;
 import database.Service.Pendaftaran_Service;
+import database.Service.Tindakan_Dokter_Service;
 import database.entity.petugas;
 import database.entity.dokter;
 import java.awt.Color;
@@ -36,6 +37,7 @@ public class Login extends javax.swing.JFrame {
       public Pendaftaran_Service service3;
       public Pasien_Service service4;
       public Laporan_Keuangan_Service service5;
+      public Tindakan_Dokter_Service service6;
       Registry registry;
       public SocketClient client;
       public int port;
@@ -201,6 +203,7 @@ public class Login extends javax.swing.JFrame {
         service3 = (Pendaftaran_Service) registry.lookup("service3");     
         service4 = (Pasien_Service) registry.lookup("service4");     
         service5= (Laporan_Keuangan_Service) registry.lookup("service5");     
+        service6 = (Tindakan_Dokter_Service) registry.lookup("service6");
         
         if(!username.equals("")&&password.length>0){
             p = service1.getPetugas(username,b.toString());

@@ -20,6 +20,7 @@ import database.Service.Obat_Service;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import database.Service.Pendaftaran_Service;
+import database.Service.Tindakan_Dokter_Service;
 import javax.swing.JPanel;
 
 public class GUI_Dokter extends javax.swing.JFrame {
@@ -28,6 +29,7 @@ public class GUI_Dokter extends javax.swing.JFrame {
     public Pasien_Service pas;
     public Dokter_Service ds;
     public Pendaftaran_Service ps;
+    public Tindakan_Dokter_Service tds;
    
      public GUI_Dokter (dokter d, Login l){
         super("Dokter");
@@ -35,6 +37,7 @@ public class GUI_Dokter extends javax.swing.JFrame {
         pas = l.service4;
         ps= l.service3;
         ds = l.service2;
+        tds = l.service6;
         Panel_Profil_Dokter panel = new Panel_Profil_Dokter(this);
         jPanel4.add(panel);
         this.d = d;
