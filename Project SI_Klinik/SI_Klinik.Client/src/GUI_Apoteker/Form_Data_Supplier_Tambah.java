@@ -4,11 +4,15 @@
  */
 package GUI_Apoteker;
 
+import GUI_Dokter.GUI_Dokter;
 import java.awt.Color;
 import java.rmi.RemoteException;
 import javax.swing.JOptionPane;
 import database.entity.Supplier;
 import database.Service.Supplier_Service;
+import java.rmi.NotBoundException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,13 +21,20 @@ import java.util.logging.Logger;
  * @author user
  */
 public class Form_Data_Supplier_Tambah extends javax.swing.JFrame {
-private Supplier_Service ss;
+    private Supplier_Service ss;     
+    private GUI_Apoteker gui;
+    private Form_data_suplier f;
+    
     /**
      * Creates new form Form_Data_Supplier_Tambah
      */
-    public Form_Data_Supplier_Tambah() {
+    public Form_Data_Supplier_Tambah(GUI_Apoteker gui) {
         initComponents();
+     
+        ss = gui.ss;
+        this.gui = gui;
     }
+    
  private void refresh(){
         NAMA.setText("");
         ALAMAT.setText("");
@@ -32,10 +43,6 @@ private Supplier_Service ss;
         NPWP.setText("");
         JENISPAJAK.setSelectedIndex(0);
         KODEPAJAK.setText("");
-        
-        
-        
-        
         
     }
     Form_Data_Supplier_Tambah(Form_Data_Supplier_Tambah aThis) {
@@ -72,7 +79,7 @@ private Supplier_Service ss;
         OK = new javax.swing.JButton();
         RESET = new javax.swing.JButton();
         ALAMAT = new java.awt.TextArea();
-        RESET1 = new javax.swing.JButton();
+        BACK = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -104,6 +111,11 @@ private Supplier_Service ss;
         });
 
         RESET.setText("RESET");
+        RESET.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RESETActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -177,8 +189,13 @@ private Supplier_Service ss;
                 .addContainerGap())
         );
 
-        RESET1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Previous-32.png"))); // NOI18N
-        RESET1.setText("BACK");
+        BACK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Previous-32.png"))); // NOI18N
+        BACK.setText("BACK");
+        BACK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BACKActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -190,7 +207,7 @@ private Supplier_Service ss;
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1)
                         .addGap(101, 101, 101)
-                        .addComponent(RESET1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(BACK, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -201,7 +218,7 @@ private Supplier_Service ss;
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(RESET1, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+                    .addComponent(BACK, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel1)))
@@ -262,7 +279,6 @@ private Supplier_Service ss;
         if(!KODEPAJAK.getText().equals("")){
             isi7 = true;
         }
-        
         if(isi1&&isi2&&isi3&&isi4&&isi5&&isi6&&isi7)    {
             String N = NAMA.getText();
             String A = ALAMAT.getText();
@@ -288,10 +304,19 @@ private Supplier_Service ss;
                s.setJenis_pajak_Supplier(JP);
                s.setKode_Pajak_Supplier(KP);
                
-                if(ss.insertSupplier(s)!=null){
+               if(ss.insertSupplier(s)!=null){
+                    System.out.println("masuk");
                     int opsi = JOptionPane.showConfirmDialog(null, "Data Anda berhasil disimpan. Apakah Anda akan menambahkan data lagi?","", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
                     if(opsi==0){
                         refresh();
+                    }
+                    else{
+                       try {
+                           gui.repaintPanel(new Form_data_suplier(this.gui));
+                           this.dispose();
+                       } catch (NotBoundException ex) {
+                           Logger.getLogger(Form_Data_Supplier_Tambah.class.getName()).log(Level.SEVERE, null, ex);
+                       }
                     }
                 }
                 
@@ -330,6 +355,26 @@ private Supplier_Service ss;
         }
     }//GEN-LAST:event_OKActionPerformed
 
+    private void RESETActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RESETActionPerformed
+        // TODO add your handling code here:
+        refresh();   
+    }//GEN-LAST:event_RESETActionPerformed
+
+    private void BACKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BACKActionPerformed
+        // TODO add your handling code here:
+        Form_data_suplier o1;
+        try {
+            o1 = new Form_data_suplier(gui);
+            o1.setVisible(true);
+                this.setVisible(false);
+        } catch (RemoteException ex) {
+            Logger.getLogger(Form_Data_Supplier_Tambah.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NotBoundException ex) {
+            Logger.getLogger(Form_Data_Supplier_Tambah.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                
+    }//GEN-LAST:event_BACKActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -358,14 +403,11 @@ private Supplier_Service ss;
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Form_Data_Supplier_Tambah().setVisible(true);
-            }
-        });
+     
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.TextArea ALAMAT;
+    private javax.swing.JButton BACK;
     private javax.swing.JComboBox JENISPAJAK;
     private javax.swing.JTextField KODEPAJAK;
     private javax.swing.JTextField KOTA;
@@ -373,7 +415,6 @@ private Supplier_Service ss;
     private javax.swing.JTextField NPWP;
     private javax.swing.JButton OK;
     private javax.swing.JButton RESET;
-    private javax.swing.JButton RESET1;
     private javax.swing.JTextField TELEPON;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;

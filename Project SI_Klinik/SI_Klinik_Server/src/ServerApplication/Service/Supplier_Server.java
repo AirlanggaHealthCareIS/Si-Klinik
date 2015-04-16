@@ -29,7 +29,7 @@ public class Supplier_Server extends UnicastRemoteObject implements Supplier_Ser
         PreparedStatement statement = null;
         try{
             statement = DatabaseUtilities.getConnection().prepareStatement(
-            "INSERT INTO supplier(ID_SUPPLIER, NAMA_SUPPLIER, ALAMAT_SUPPLIER, KOTA_SUPPLIER, TELEPON_SUPPLIER, NPWP_SUPPLIER, JENIS_PAJAK_SUPPLIER, KODE_PAJAK_SUPPLIER) values(?,?,?,?)");
+            "INSERT INTO supplier(ID_SUPPLIER, NAMA_SUPPLIER, ALAMAT_SUPPLIER, KOTA_SUPPLIER, TELEPON_SUPPLIER, NPWP_SUPPLIER, JENIS_PAJAK_SUPPLIER, KODE_PAJAK_SUPPLIER) values(?,?,?,?,?,?,?,?)");
             
             statement.setString(1, a.getId_Supplier());
             statement.setString(2, a.getNama_Supplier());
@@ -39,6 +39,7 @@ public class Supplier_Server extends UnicastRemoteObject implements Supplier_Ser
             statement.setString(6, a.getNPWP_Supplier());
             statement.setString(7, a.getJenis_pajak_Supplier());
             statement.setString(8, a.getKode_Pajak_Supplier());
+            System.out.println(statement.toString());
             statement.execute();
             return a;
         }
@@ -134,7 +135,7 @@ public class Supplier_Server extends UnicastRemoteObject implements Supplier_Ser
         
         try {
             statement = DatabaseUtilities.getConnection().createStatement();
-            ResultSet result = statement.executeQuery("SELECT * FROM supplier");
+            ResultSet result = statement.executeQuery("SELECT * FROM supplier ORDER BY ID_SUPPLIER DESC");
             List<Supplier> list = new ArrayList<Supplier>();
             
             while(result.next()){

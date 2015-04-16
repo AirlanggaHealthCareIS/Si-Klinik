@@ -5,6 +5,7 @@
 package GUI_Apoteker;
 
 import GUI_Login.Login;
+import database.Service.Supplier_Service;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
@@ -14,16 +15,19 @@ import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import database.entity.petugas;
+import javax.swing.JPanel;
 
 public class GUI_Apoteker extends javax.swing.JFrame {
     petugas p;
+    Supplier_Service ss;
     
-    public GUI_Apoteker (petugas p){
+    public GUI_Apoteker (petugas p,Login l){
         super("Apoteker");
         initComponents();
         Panel_Profil_Apoteker panel = new Panel_Profil_Apoteker();
         jPanel4.add(panel);
         this.p= p;
+        ss = l.service6;
         jLabel3.setText(p.getNama_Petugas());
     }
     @SuppressWarnings("unchecked")
@@ -204,7 +208,17 @@ public class GUI_Apoteker extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    public void repaintPanel(JPanel panel){
+         jPanel4.removeAll();
+         jPanel4.repaint();
+         jPanel4.revalidate();                    
+         panel.setVisible(true);
+         jPanel4.add(panel);
+         jPanel4.repaint();
+         jPanel4.revalidate(); 
+    }
+    
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
         // TODO add your handling code here:
          jPanel4.removeAll();
@@ -216,16 +230,25 @@ public class GUI_Apoteker extends javax.swing.JFrame {
          jPanel4.repaint();
          jPanel4.revalidate();            
     }//GEN-LAST:event_jButton13ActionPerformed
-
+    
     private void SUPPLIERActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SUPPLIERActionPerformed
          jPanel4.removeAll();
          jPanel4.repaint();
          jPanel4.revalidate();                    
-         Form_data_suplier panel = new Form_data_suplier();
-         panel.setVisible(true);
+         Form_data_suplier panel;
+        try {
+            panel = new Form_data_suplier(this);
+            panel.setVisible(true);
          jPanel4.add(panel);
          jPanel4.repaint();
-         jPanel4.revalidate();                
+         jPanel4.revalidate();    
+        } catch (RemoteException ex) {
+            Logger.getLogger(GUI_Apoteker.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NotBoundException ex) {
+            Logger.getLogger(GUI_Apoteker.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
+                    
     }//GEN-LAST:event_SUPPLIERActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
