@@ -5,6 +5,7 @@ import ServerApplication.Service.Dokter_Server;
 import ServerApplication.Service.Pasien_Server;
 import ServerApplication.Service.Pendaftaran_Server;
 import ServerApplication.Service.Laporan_Keuangan_Server;
+import ServerApplication.Service.Tindakan_Dokter_Server;
 //import ServerApplication.Service.Resep_Server;
 //import ServerApplication.Service.Obat_Server;
 
@@ -38,6 +39,7 @@ public class main {
         Pendaftaran_Server pendaftaranServer = new Pendaftaran_Server();
         Pasien_Server pasienServer = new Pasien_Server();
         Laporan_Keuangan_Server laporanServer = new Laporan_Keuangan_Server();
+        Tindakan_Dokter_Server tindakanServer = new Tindakan_Dokter_Server();
         Obat_Server obatserver = new Obat_Server();
         //Resep_Server resepServer= new Resep_Server();
 //        Obat_Server obatServer= new Obat_Server();
@@ -47,6 +49,7 @@ public class main {
         server.rebind("service3",   pendaftaranServer);
         server.rebind("service4", pasienServer);
         server.rebind("service5", laporanServer);
+        server.rebind("service6", tindakanServer);
         server.rebind("service6", obatserver);
         
    //     server.rebind("service4",   obatServer);
