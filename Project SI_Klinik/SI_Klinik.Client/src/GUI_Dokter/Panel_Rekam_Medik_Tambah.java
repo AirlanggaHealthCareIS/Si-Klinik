@@ -19,7 +19,7 @@ public class Panel_Rekam_Medik_Tambah extends javax.swing.JPanel {
     public Panel_Rekam_Medik_Tambah(GUI_Dokter gui) throws RemoteException, NotBoundException {
         initComponents();        
         Panel_Resep panel1 = new Panel_Resep();
-        Input_Tindakan_Medis panel6 = new Input_Tindakan_Medis(gui);
+        Panel_Input_Tindakan_Medis panel6 = new Panel_Input_Tindakan_Medis(gui);
         jPanel7.add(panel1);
         //jPanel6.add(panel);
         jPanel6.add(panel6);
