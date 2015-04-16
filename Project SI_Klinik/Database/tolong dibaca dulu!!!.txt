@@ -1,5 +1,6 @@
 ini versi tanggal 02-04-2015 oleh Aliffahri Saputra
-jika kalian mengisi atau mengupdate manual, tolong update read me ini, terima kasih.
+ jika kalian mengisi atau mengupdate manual, tolong update read me ini, terima kasih.
 
 versi tanggal 10-04-2015 oleh Mella Pratamy (perubahan pada tabel obat, ada tambahan field tanggal_kadaluarsa_obat. Menyesuaikan yg ada di GUI)
 versi tanggal 10-04-2015 oleh Mella Pratamy (perubahan pada tabel obat, field kadaluarsa obat disuruh jessica hapus lagi aja) :D
+versi tanggal 16-04-2015 oleh Mella Pratamy, input database obat
