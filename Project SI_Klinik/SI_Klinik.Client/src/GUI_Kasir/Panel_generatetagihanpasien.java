@@ -5,10 +5,14 @@
  */
 package GUI_Kasir;
 
+import Client_Application_Model.TableModel_TransaksiPeriksa;
 import javax.swing.JOptionPane;
 import database.Service.Transaksi_Periksa_Service;
 import database.entity.Transaksi_Periksa;
+import java.rmi.RemoteException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author Indyka
@@ -18,9 +22,14 @@ public class Panel_generatetagihanpasien extends javax.swing.JPanel {
     /**
      * Creates new form Panel_generatetagihankasir
      */
+    
+    
+    private TableModel_TransaksiPeriksa tablemodel = new TableModel_TransaksiPeriksa();
+    private Transaksi_Periksa_Service tp;
+    private List<Transaksi_Periksa> list;
+    
     public Panel_generatetagihanpasien() {
         initComponents();
-        Transaksi_Periksa_Service tp;
 
     }
 
@@ -38,7 +47,7 @@ public class Panel_generatetagihanpasien extends javax.swing.JPanel {
         idpasien = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabeltagihan = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
@@ -53,7 +62,7 @@ public class Panel_generatetagihanpasien extends javax.swing.JPanel {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabeltagihan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -64,7 +73,7 @@ public class Panel_generatetagihanpasien extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabeltagihan);
 
         jButton2.setText("Tagihkan");
 
@@ -133,6 +142,16 @@ public class Panel_generatetagihanpasien extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public void cektagihan(String idpasien){
+        try {
+            list = tp.getTransaksis(idpasien);
+            tablemodel.setData(list);
+            tabeltagihan.setModel(tablemodel);
+            
+        } catch (RemoteException ex) {
+            Logger.getLogger(Panel_generatetagihanpasien.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -143,6 +162,6 @@ public class Panel_generatetagihanpasien extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tabeltagihan;
     // End of variables declaration//GEN-END:variables
 }
