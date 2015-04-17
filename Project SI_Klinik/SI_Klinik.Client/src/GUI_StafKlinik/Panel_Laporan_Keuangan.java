@@ -7,13 +7,37 @@
 package GUI_StafKlinik;
 
 import Client_Application_Model.TableModel_LaporanKeuangan;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import database.Service.Laporan_Keuangan_Service;
 import database.entity.Laporan_Keuangan;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import database.entity.petugas;
 
 /**
  *
@@ -22,6 +46,18 @@ import javax.swing.JOptionPane;
 public class Panel_Laporan_Keuangan extends javax.swing.JPanel {
     Laporan_Keuangan_Service laporanServer;
     TableModel_LaporanKeuangan tabel;
+    petugas p = new petugas();
+    int baris;
+    String tanggal1;
+    String tanggal2;
+    
+    private Font font1 = new Font(Font.FontFamily.HELVETICA,14,Font.BOLD);
+    private Font font2 = new Font(Font.FontFamily.HELVETICA,18,Font.BOLD);
+    private Font font3 = new Font(Font.FontFamily.HELVETICA,11,Font.BOLD);
+    private Font font5 = new Font(Font.FontFamily.HELVETICA,11);
+    private Font font4 = new Font(Font.FontFamily.HELVETICA,9);
+    private Font font6 = new Font(Font.FontFamily.HELVETICA,9,Font.BOLD);
+    
     /**
      * Creates new form FormLaporanKeuangan
      */
@@ -49,6 +85,7 @@ public class Panel_Laporan_Keuangan extends javax.swing.JPanel {
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jLabel4 = new javax.swing.JLabel();
         jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        refreshButton = new javax.swing.JToggleButton();
         jLabel15 = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(700, 450));
@@ -63,7 +100,7 @@ public class Panel_Laporan_Keuangan extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Tanggal", "Pemasukan", "Pengeluaran", "Keterangan", "Saldo"
+                "Tanggal", "Keterangan", "Ref", "Pemasukan", "Pengeluaran", "Saldo"
             }
         ));
         jTable1.addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -94,12 +131,26 @@ public class Panel_Laporan_Keuangan extends javax.swing.JPanel {
         jDateChooser1.setDateFormatString("yyyy-MM-dd");
         jDateChooser1.setMaxSelectableDate(null);
         jDateChooser1.setMinSelectableDate(null);
+        jDateChooser1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jDateChooser1MouseClicked(evt);
+            }
+        });
 
         jLabel4.setText("S/D");
 
         jDateChooser2.setDateFormatString("yyyy-MM-dd");
         jDateChooser2.setMaxSelectableDate(null);
         jDateChooser2.setMinSelectableDate(null);
+
+        refreshButton.setFont(new java.awt.Font("Maiandra GD", 0, 14)); // NOI18N
+        refreshButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Refresh-32.png"))); // NOI18N
+        refreshButton.setText("Refresh");
+        refreshButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refreshButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -118,7 +169,9 @@ public class Panel_Laporan_Keuangan extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(48, 48, 48)
-                        .addComponent(tampilButton, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(tampilButton, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(refreshButton)))
                 .addContainerGap(20, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -141,7 +194,9 @@ public class Panel_Laporan_Keuangan extends javax.swing.JPanel {
                             .addComponent(jDateChooser2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(tampilButton)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tampilButton)
+                            .addComponent(refreshButton))
                         .addGap(3, 3, 3)))
                 .addGap(48, 48, 48)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
@@ -180,24 +235,57 @@ public class Panel_Laporan_Keuangan extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tampilButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tampilButtonActionPerformed
-        String tanggal1;
-        String tanggal2;
-        if(!jDateChooser1.getDate().toString().equals("")&&!jDateChooser2.getDate().toString().equals("")){        
-           
+        if(jDateChooser1.getDate().toString().isEmpty() && jDateChooser2.getDate().toString().isEmpty()){        
+           JOptionPane.showMessageDialog(null, "Mohon isikan periode", "ERROR",JOptionPane.ERROR_MESSAGE);
+        }
+        else{
            Date tanggal3 =(Date) jDateChooser1.getDate();
            tanggal1 = new java.text.SimpleDateFormat("yyyy-MM-dd").format(tanggal3);
            tanggal3 =(Date) jDateChooser2.getDate();
            tanggal2 = new java.text.SimpleDateFormat("yyyy-MM-dd").format(tanggal3);
            refresh(tanggal1, tanggal2);
         }
+    }//GEN-LAST:event_tampilButtonActionPerformed
+    
+    private void cetakLaporanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cetakLaporanButtonActionPerformed
+        // TODO add your handling code here:
+        if(!jDateChooser1.getDate().toString().isEmpty()&&!jDateChooser2.getDate().toString().isEmpty()){        
+           
+           Date tanggal3 =(Date) jDateChooser1.getDate();
+           tanggal1 = new java.text.SimpleDateFormat("yyyy-MM-dd").format(tanggal3);
+           tanggal3 =(Date) jDateChooser2.getDate();
+           tanggal2 = new java.text.SimpleDateFormat("yyyy-MM-dd").format(tanggal3);
+           refresh1(tanggal1, tanggal2);
+        }
         else{
              JOptionPane.showMessageDialog(null, "Mohon isikan periode", "ERROR",JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_tampilButtonActionPerformed
+    }//GEN-LAST:event_cetakLaporanButtonActionPerformed
+
+    private void jTable1ComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jTable1ComponentShown
+        // TODO add your handling code here:
+//        refresh();
+    }//GEN-LAST:event_jTable1ComponentShown
+
+    private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
+        // TODO add your handling code here:
+        
+        jDateChooser1.setDate(null);
+        jDateChooser2.setDate(null);
+        List list = new ArrayList<>();
+        tabel.setData(list);
+        jTable1.setModel(tabel);
+    }//GEN-LAST:event_refreshButtonActionPerformed
+
+    private void jDateChooser1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDateChooser1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jDateChooser1MouseClicked
+
     private void refresh(String tanggal1, String tanggal2){
         try{
             List<Laporan_Keuangan> list= new ArrayList<>();
             list = laporanServer.getLaporanKeuangan(tanggal1, tanggal2);
+//            baris = list.size();
             if(list.size()>0){                       
                 Laporan_Keuangan l = new Laporan_Keuangan();
                 l.setTanggal(tanggal1);
@@ -224,14 +312,66 @@ public class Panel_Laporan_Keuangan extends javax.swing.JPanel {
                         list.get(i).setKeterangan("Pemasukan dari penjualan obat");
                     }
                 }
+                
             tabel.setData(list);
-            jTable1.setModel(tabel);     
+            jTable1.setModel(tabel);  
+            }
+            
+            else if (list.size() == 0){
+                JOptionPane.showMessageDialog(null, "Tidak ada transaksi pada periode "+ tanggal1 +" sampai dengan "+ tanggal2+"!");
             }
          }catch(RemoteException exception){
              exception.printStackTrace();
          }
+        
     }
-     private void refresh(){
+    
+    private void refresh1(String tanggal1, String tanggal2){
+        try{
+            List<Laporan_Keuangan> list= new ArrayList<>();
+            list = laporanServer.getLaporanKeuangan(tanggal1, tanggal2);
+//            baris = list.size();
+            if(list.size()>0){                       
+                Laporan_Keuangan l = new Laporan_Keuangan();
+                l.setTanggal(tanggal1);
+                l.setFlag(0);
+                l.setKeterangan("Saldo awal");
+                l.setSaldo(laporanServer.getSaldoAwal(tanggal1).getSaldo());
+                l.setPemasukan(0);
+                l.setPengeluaran(0);
+                l.setRef("");
+                list.add(0, l);
+                for(int i=0;i<list.size();i++ ){
+                    if(list.get(i).getRef().startsWith("B-")){
+                        int temp = list.get(i).getPemasukan();
+                        list.get(i).setPemasukan(0);
+                        list.get(i).setPengeluaran(temp);
+                    }
+                    if(list.get(i).getRef().startsWith("B-")){
+                        list.get(i).setKeterangan("Membeli Obat dari supplier");
+                    }
+                    else if (list.get(i).getRef().startsWith("Pe-")){
+                        list.get(i).setKeterangan("Pemasukan dari tindakan pemeriksaan dokter");
+                    }
+                    else if(list.get(i).getRef().startsWith("O-")){
+                        list.get(i).setKeterangan("Pemasukan dari penjualan obat");
+                    }
+                }
+//            tabel.setData(list);
+                createPdf(list);
+//            jTable1.setModel(tabel);  
+            }
+            
+            else if (list.size() == 0){
+                JOptionPane.showMessageDialog(null, "Tidak ada transaksi pada periode "+ tanggal1 +" sampai dengan "+ tanggal2+"!");
+            }
+         }catch(RemoteException exception){
+             exception.printStackTrace();
+         }
+        
+    }
+     
+    private void refresh(){
         try{
             List<Laporan_Keuangan> list= new ArrayList<>();
             list = laporanServer.getLaporanKeuangan();            
@@ -259,17 +399,154 @@ public class Panel_Laporan_Keuangan extends javax.swing.JPanel {
              exception.printStackTrace();
          }
     }
-    private void cetakLaporanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cetakLaporanButtonActionPerformed
-        // TODO add your handling code here:
+     
+    private void createPdf(List<Laporan_Keuangan> list){
+        JFileChooser saveFile = new JFileChooser();
+        saveFile.setSelectedFile(new File("D:/document/Laporan Keuangan.pdf"));        
+        String result = null;        
+        if (saveFile.showSaveDialog(null)== JFileChooser.APPROVE_OPTION) {
+              result= saveFile.getSelectedFile().toString();
+        } else {
+            System.out.println("No Selection ");
+            }
+        try {            
+            // TODO add your handling code here:
+            Document document = new Document();
+            try {
+                PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(result));                
+                document.open();
+                PdfContentByte canvas = writer.getDirectContent();
+                Rectangle rect = new Rectangle (50,800,550,700);
+                rect.setBorder(Rectangle.BOX);
+                rect.setBorderWidth(0);
+                rect.setBorderColor(BaseColor.BLACK);
+                canvas.rectangle(rect);
+                Paragraph preface;
+                preface= getPreface("Laporan Keuangan");                
+                document.add(preface);
+                document.add(Chunk.NEWLINE);
+                document.add(Chunk.NEWLINE);
+                document.add(createTableLaporan(list));
+                document.close();
+                open(result);                
+            } catch (DocumentException ex) {
+                Logger.getLogger(Panel_Laporan_Keuangan.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Panel_Laporan_Keuangan.class.getName()).log(Level.SEVERE, null, ex);
+        }       
+    }
+    
+    private PdfPTable createTableLaporan(List<Laporan_Keuangan> list){
+        PdfPTable tabel = new PdfPTable(6);        
+        PdfPCell cell;
+        cell = new PdfPCell(new Phrase(("Tanggal"),font6));        
+        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cell.setRowspan(1);        
+        cell.setBorder(Rectangle.BOX);
+        cell.setBorderWidth(1);
+        tabel.addCell(cell);                
+        cell = new PdfPCell(new Phrase(("Keterangan"),font6));                
+        cell.setRowspan(1);
+        cell.setColspan(1);        
+        cell.setBorder(Rectangle.BOX);
+        cell.setBorderWidth(1);
+        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        tabel.addCell(cell);        
+        cell = new PdfPCell(new Phrase(("Ref"),font6));        
+        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cell.setRowspan(1);
+        cell.setBorder(Rectangle.BOX);
+        cell.setBorderWidth(1);
+        tabel.addCell(cell);
+        cell = new PdfPCell(new Phrase(("Pemasukan"),font6));        
+        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cell.setRowspan(1);
+        cell.setBorder(Rectangle.BOX);
+        cell.setBorderWidth(1);
+        tabel.addCell(cell);
+        cell = new PdfPCell(new Phrase(("Pengeluaran"),font6));        
+        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cell.setRowspan(1);
+        cell.setBorder(Rectangle.BOX);
+        cell.setBorderWidth(1);
+        tabel.addCell(cell);
+        cell = new PdfPCell(new Phrase(("Saldo"),font6));       
+        cell.setColspan(1);        
+        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cell.setBorder(Rectangle.BOX);
+        cell.setBorderWidth(1);
+        tabel.addCell(cell);
         
-    }//GEN-LAST:event_cetakLaporanButtonActionPerformed
-
-    private void jTable1ComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jTable1ComponentShown
-        // TODO add your handling code here:
-//        refresh();
-    }//GEN-LAST:event_jTable1ComponentShown
-
-
+        for(int i=0;i<list.size();i++){   
+            cell = new PdfPCell(new Phrase((""+list.get(i).getTanggal()),font5));
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            tabel.addCell(cell);
+            
+            cell = new PdfPCell(new Phrase((""+list.get(i).getKeterangan()),font5));
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);            
+            tabel.addCell(cell);
+            
+            cell = new PdfPCell(new Phrase((""+list.get(i).getRef()),font5));
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            tabel.addCell(cell);
+            
+            cell = new PdfPCell(new Phrase((""+list.get(i).getPemasukan()),font5));
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            tabel.addCell(cell);
+            
+            cell = new PdfPCell(new Phrase((""+list.get(i).getPengeluaran()),font5));
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            tabel.addCell(cell);
+            
+            cell = new PdfPCell(new Phrase((""+list.get(i).getSaldo()),font5));
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            tabel.addCell(cell);
+        }
+        return tabel;
+    }
+    
+    private Paragraph getPreface(String status){
+        Paragraph preface =new Paragraph();
+        Calendar cal = new GregorianCalendar();
+        String tanggal ="0";
+        if(cal.get(Calendar.DATE)<0){
+            tanggal="0"+cal.get(Calendar.DATE);
+        }
+        else{
+            tanggal=""+cal.get(Calendar.DATE);
+        }
+        int bulan=(cal.get(Calendar.MONTH))+1;;                
+        int tahun= cal.get(Calendar.YEAR);
+        preface.setAlignment(Element.ALIGN_CENTER);     
+        Chunk chunk = new Chunk("Laporan Keuangan",font1);
+        preface.add(Chunk.NEWLINE);
+        preface.add(chunk);
+        chunk = new Chunk("SI Klinik",font2);
+        preface.add(Chunk.NEWLINE);
+        preface.add(chunk);
+        chunk = new Chunk("Periode : "+tanggal1+" s/d "+tanggal2,font3);
+        preface.add(Chunk.NEWLINE);
+        preface.add(chunk);
+        chunk = new Chunk("Diambil pada tanggal "+tanggal+"/"+bulan+"/"+tahun,font5);
+        preface.add(Chunk.NEWLINE);
+        preface.add(chunk);
+        return preface;
+    }
+    
+    public void open(String url) {
+        try {
+            Desktop desktop = Desktop.getDesktop();
+            if (desktop.isSupported(Desktop.Action.OPEN)) {
+                desktop.open(new File(url));
+            } else {
+                System.out.println("Open is not supported");
+            }
+        } catch (IOException exp) {
+            exp.printStackTrace();
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cetakLaporanButton;
     private com.toedter.calendar.JDateChooser jDateChooser1;
@@ -280,6 +557,7 @@ public class Panel_Laporan_Keuangan extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JToggleButton refreshButton;
     private javax.swing.JToggleButton tampilButton;
     // End of variables declaration//GEN-END:variables
 }
