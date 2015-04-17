@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package GUI_Apoteker;
+package GUI_Apoteker; 
 import java.awt.Color;
 import java.rmi.RemoteException;
 import javax.swing.JOptionPane;
