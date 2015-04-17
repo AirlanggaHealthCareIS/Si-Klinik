@@ -27,11 +27,13 @@ public class Panel_generatetagihanpasien extends javax.swing.JPanel {
     private TableModel_TransaksiPeriksa tablemodel = new TableModel_TransaksiPeriksa();
     private Transaksi_Periksa_Service tp;
     private List<Transaksi_Periksa> list;
+    private Panel_transaksiperiksa ptp;
     
     public Panel_generatetagihanpasien() {
         initComponents();
 
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -76,6 +78,11 @@ public class Panel_generatetagihanpasien extends javax.swing.JPanel {
         jScrollPane1.setViewportView(tabeltagihan);
 
         jButton2.setText("Tagihkan");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -140,6 +147,13 @@ public class Panel_generatetagihanpasien extends javax.swing.JPanel {
         }
         cektagihan(idpasien.getText());
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+         if(tabeltagihan.getSelectedRow()==0){
+                JOptionPane.showMessageDialog(null, "Pilih transaksi yang ingin dibayarkan terlebih dahulu", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+        ptp = new Panel_transaksiperiksa(list, tabeltagihan.getSelectedRow());
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     public void cektagihan(String idpasien){
         try {

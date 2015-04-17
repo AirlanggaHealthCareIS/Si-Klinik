@@ -5,6 +5,9 @@
  */
 package GUI_Kasir;
 
+import database.entity.Transaksi_Periksa;
+import java.util.List;
+
 /**
  *
  * @author Indyka
@@ -16,6 +19,15 @@ public class Panel_transaksiperiksa extends javax.swing.JPanel {
      */
     public Panel_transaksiperiksa() {
         initComponents();
+    }
+    
+    private List<Transaksi_Periksa> transaksi;
+    private int row;
+    
+    public Panel_transaksiperiksa(List<Transaksi_Periksa> list, int index){
+        initComponents();
+        transaksi = list;
+        row = index;
     }
 
     /**
