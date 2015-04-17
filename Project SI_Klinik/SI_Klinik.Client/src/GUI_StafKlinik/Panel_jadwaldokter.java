@@ -5,11 +5,24 @@
  */
 package GUI_StafKlinik;
 
+import Client_Application_Model.TableModel_Jadwal;
+import database.Service.Jadwal_Service;
+import database.entity.Jadwal
+import java.rmi.RemoteException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Indyka
  */
 public class Panel_jadwaldokter extends javax.swing.JPanel {
+    
+    private Jadwal_Service service;
+    private TableModel_Jadwal model = new TableModel_Jadwal();
+    private List<Jadwal> jadwal;
+    private Frame_ubahjadwaldokter ujd;
 
     /**
      * Creates new form Panel_jadwaldokter
@@ -30,7 +43,7 @@ public class Panel_jadwaldokter extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabeljadwal = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jComboBox5 = new javax.swing.JComboBox();
@@ -51,7 +64,7 @@ public class Panel_jadwaldokter extends javax.swing.JPanel {
 
         jLabel1.setText("Jadwal Dokter");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabeljadwal.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -62,13 +75,23 @@ public class Panel_jadwaldokter extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabeljadwal);
 
         jButton1.setText("Hapus");
 
         jButton2.setText("Ubah");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jComboBox5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox5ActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Hari");
 
@@ -204,6 +227,25 @@ public class Panel_jadwaldokter extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        int selected;
+        selected = tabeljadwal.getSelectedRow();
+        ujd = new Frame_ubahjadwaldokter(model, (String)jComboBox5.getSelectedItem(), selected);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jComboBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox5ActionPerformed
+        Object hario = jComboBox5.getSelectedItem();
+        String hari = (String) hario;
+        try {
+            jadwal = service.getJadwal(hari);
+            model.setData(jadwal);
+            tabeljadwal.setModel(model);
+        } catch (RemoteException ex) {
+            Logger.getLogger(Panel_jadwaldokter.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jComboBox5ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -223,6 +265,6 @@ public class Panel_jadwaldokter extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tabeljadwal;
     // End of variables declaration//GEN-END:variables
 }
