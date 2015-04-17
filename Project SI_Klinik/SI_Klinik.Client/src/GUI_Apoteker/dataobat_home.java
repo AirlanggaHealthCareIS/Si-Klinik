@@ -19,7 +19,7 @@ import javax.swing.event.ListSelectionListener;
  * @author Administrator
  */
 public class dataobat_home extends javax.swing.JPanel {
-
+    private GUI_Apoteker GUI;
     private TableModel_Obat tablemodel_obat = new TableModel_Obat();
     public Obat_Service obat_service;
     public obat Obat;
@@ -29,9 +29,10 @@ public class dataobat_home extends javax.swing.JPanel {
     /**
      * Creates new form dataobat_home
      */
-    public dataobat_home() {
+    public dataobat_home(GUI_Apoteker a) {
         initComponents();
-        
+        GUI = a;
+        obat_service = a.ob;
         tombol_add.setEnabled(false);
         tombol_edit.setEnabled(false);
         action = "";
@@ -94,6 +95,11 @@ public class dataobat_home extends javax.swing.JPanel {
                 "ID OBAT", "NAMA OBAT", "DOSIS", "KETERANGAN OBAT", "STOK OBAT", "STOK KRITIS", "PABRIK OBAT", "JENIS OBAT", "KEMASAN", "HARGA OBAT"
             }
         ));
+        jTable1.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                jTable1ComponentShown(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         tombol_add.setText("ADD");
@@ -171,17 +177,21 @@ public class dataobat_home extends javax.swing.JPanel {
         action = "add";
         tombol_edit.setEnabled(false);
         tombol_add.setEnabled(false);
-        dataobatmenambah.setVisible(true);
+        dataobat_menambah a = new dataobat_menambah(GUI);
+        a.setVisible(true);
         this.setVisible(true);
     }//GEN-LAST:event_tombol_addActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         try{
+            System.out.println("masuk");
             tablemodel_obat.setData(this.obat_service.getObat());
+            
         }
         catch (RemoteException exception){
             exception.printStackTrace();
         }
+        System.out.println("masuk2");
         jTable1.setModel(tablemodel_obat);
     }//GEN-LAST:event_formComponentShown
 
@@ -190,10 +200,41 @@ public class dataobat_home extends javax.swing.JPanel {
         action = "update";
         tombol_edit.setEnabled(false);
         tombol_add.setEnabled(false);
-        dataobatmengubah.setVisible(true);
+        dataobat_mengubah b = new dataobat_mengubah(GUI);
+        b.setVisible(true);
         this.setVisible(true);
         
     }//GEN-LAST:event_tombol_editActionPerformed
+
+    public void UpdateTabel(){
+    
+        try{
+            System.out.println("masuk");
+            tablemodel_obat.setData(this.obat_service.getObat());
+            
+        }
+        catch (RemoteException exception){
+            exception.printStackTrace();
+        }
+        System.out.println("masuk2");
+        jTable1.setModel(tablemodel_obat);
+       
+    }                   
+
+    private void jTable1ComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jTable1ComponentShown
+        
+        try{
+            System.out.println("masuk");
+            tablemodel_obat.setData(this.obat_service.getObat());
+            
+        }
+        catch (RemoteException exception){
+            exception.printStackTrace();
+        }
+        System.out.println("masuk2");
+        jTable1.setModel(tablemodel_obat);
+       
+    }//GEN-LAST:event_jTable1ComponentShown
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

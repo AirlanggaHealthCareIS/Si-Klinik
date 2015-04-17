@@ -37,7 +37,7 @@ public class GUI_Dokter extends javax.swing.JFrame {
         pas = l.service4;
         ps= l.service3;
         ds = l.service2;
-        tds = l.service6;
+        //tds = l.service6;
         Panel_Profil_Dokter panel = new Panel_Profil_Dokter(this);
         jPanel4.add(panel);
         this.d = d;

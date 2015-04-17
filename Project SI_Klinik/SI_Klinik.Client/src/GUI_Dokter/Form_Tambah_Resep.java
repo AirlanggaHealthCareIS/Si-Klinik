@@ -211,7 +211,7 @@ public class Form_Tambah_Resep extends javax.swing.JFrame {
             try {
                 ID = "RES"+service3.getResep().size();
                 nama = String.valueOf(namaObat.getSelectedItem()).toString();
-                hasil = service4.getIdObat(nama);
+                //hasil = service4.getIdObat(nama);
             } catch (RemoteException ex) {
                 Logger.getLogger(Form_Tambah_Resep.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -255,14 +255,14 @@ public class Form_Tambah_Resep extends javax.swing.JFrame {
         namaObat.setVisible(true);
         jml.setVisible(true);
         String kode = kodeObat.getText();
-        try {
-            List a = service4.getObatList(kode);
-            for (int i = 0; i < a.size(); i++) {
-                namaObat.addItem(a.get(i).toString());
-            }
-        } catch (RemoteException ex) {
-            Logger.getLogger(Form_Tambah_Resep.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//     //       List a = service4.getObatList(kode);
+////            for (int i = 0; i < a.size(); i++) {
+////                namaObat.addItem(a.get(i).toString());
+//            }
+//        } catch (RemoteException ex) {
+//            Logger.getLogger(Form_Tambah_Resep.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         
     }//GEN-LAST:event_jButton1ActionPerformed
 

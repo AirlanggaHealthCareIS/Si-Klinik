@@ -30,7 +30,7 @@ public class Obat_Server extends UnicastRemoteObject implements Obat_Service {
         PreparedStatement statement = null;
         try{
         statement = DatabaseUtilities.getConnection().prepareStatement(
-            "INSERT INTO petugas (ID_OBAT, NAMA_OBAT, DOSIS, KETERANGAN_OBAT, STOK_OBAT, STOK_KRITIS, PABRIK_OBAT, JENIS_OBAT, KEMASAN, HARGA_OBAT) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+            "INSERT INTO obat (ID_OBAT, NAMA_OBAT, DOSIS, KETERANGAN_OBAT, STOK_OBAT, STOK_KRITIS, PABRIK_OBAT, JENIS_OBAT, KEMASAN, HARGA_OBAT) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
         );
         
         statement.setString(1, obat.getid_obat());

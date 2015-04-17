@@ -4,11 +4,14 @@
  */
 package database.entity;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+
 /**
  *
  * @author Administrator
  */
-public class obat { 
+public class obat implements Serializable{ 
     private String id_obat;
     private String nama_obat;
     private float dosis;

@@ -50,10 +50,11 @@ public class TableModel_Obat extends AbstractTableModel{
             case 2 : return "DOSIS";
             case 3 : return "KETERANGAN_OBAT";
             case 4 : return "STOK_OBAT";
-            case 5 : return "PABRIK_OBAT";
-            case 6 : return "JENIS_OBAT";
-            case 7 : return "KEMASAN";     
-            case 8 : return "HARGA_OBAT";
+            case 5 :return "STOK_KRITIS";
+            case 6 : return "PABRIK_OBAT";
+            case 7 : return "JENIS_OBAT";
+            case 8 : return "KEMASAN";     
+            case 9: return "HARGA_OBAT";
             default: return null;
         }
     }   
@@ -61,7 +62,7 @@ public class TableModel_Obat extends AbstractTableModel{
         return list.size();
     }   
     public int getColumnCount() {
-        return 9;
+        return 10;
     }
 
     public Object getValueAt(int rowIndex, int columnIndex) {
@@ -71,10 +72,11 @@ public class TableModel_Obat extends AbstractTableModel{
             case 2 : return list.get(rowIndex).getdosis();
             case 3 : return list.get(rowIndex).getketerangan_obat();
             case 4 : return list.get(rowIndex).getstok_obat();
-            case 5 : return list.get(rowIndex).getpabrik_obat();
-            case 6 : return list.get(rowIndex).getjenis_obat();
-            case 7 : return list.get(rowIndex).getkemasan();    
-            case 8 : return list.get(rowIndex).getharga_obat();
+            case 5 : return list.get(rowIndex).getstok_kritis();
+            case 6 : return list.get(rowIndex).getpabrik_obat();
+            case 7 : return list.get(rowIndex).getjenis_obat();
+            case 8 : return list.get(rowIndex).getkemasan();    
+            case 9 : return list.get(rowIndex).getharga_obat();
             
             default : return null;
         }
