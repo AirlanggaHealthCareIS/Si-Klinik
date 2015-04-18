@@ -3,20 +3,51 @@
  * and open the template in the editor.
  */
 package GUI_Apoteker;
-
+import Client_Application_Model.TableModel_Resep;
+import database.entity.lihatResep;
+import database.Service.lihat_Resep_Service;
+import database.entity.petugas;
+import java.rmi.RemoteException;
+import java.rmi.registry.Registry;
+import java.rmi.NotBoundException;
+import java.rmi.registry.LocateRegistry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 /**
  *
  * @author tinot
  */
-
 public class Panel_Resep extends javax.swing.JPanel {
-
+    private TableModel_Resep tableModelResep = new TableModel_Resep();
+    private lihat_Resep_Service lihatResepService;
+    public String no;
+    private Registry registry;
     /**
      * Creates new form Panel_Resep
      */
-    public Panel_Resep() {
+    public Panel_Resep() throws NotBoundException {
+        this.lihatResepService = lihatResepService;
+        try{
+            registry = LocateRegistry.getRegistry("0.0.0.0", 9750);
+            lihatResepService = (lihat_Resep_Service) registry.lookup("service9"); 
+            tableModelResep.setData(this.lihatResepService.getLihatResep());
+        }catch(RemoteException exception){
+            exception.printStackTrace();
+        }
         initComponents();
-        
+        tabel_resep.setModel(tableModelResep);
+        tabel_resep.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+            public void valueChanged(ListSelectionEvent e) {
+                int row = tabel_resep.getSelectedRow();
+                 if(row != -1){
+                   lihatResep ll = tableModelResep.get(row);
+                   no = ll.getId_resep();
+                 }
+            }
+        });
     }
 
     /**
@@ -71,6 +102,11 @@ public class Panel_Resep extends javax.swing.JPanel {
         });
 
         jButton2.setText("Cari");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Vani", 1, 18)); // NOI18N
         jLabel4.setText("Resep Pasien");
@@ -142,10 +178,42 @@ public class Panel_Resep extends javax.swing.JPanel {
     }//GEN-LAST:event_idpasienFocusGained
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Panel_DetailResep b = new Panel_DetailResep();
-        b.setVisible(true);
+//        Panel_DetailResep b;
+//        try {
+//            try {
+//                b = new Panel_DetailResep(no);
+//                b.setVisible(true);
+//            } catch (RemoteException ex) {
+//                Logger.getLogger(Panel_Resep.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//            
+//        } catch (NotBoundException ex) {
+//            Logger.getLogger(Panel_Resep.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        petugas p = new petugas();
+        try {
+            Panel_DetailResep pd = new Panel_DetailResep(no);
+            GUI_Apoteker s = new GUI_Apoteker(p);
+        s.updatePanel(pd);
+        s.setVisible(true);
+        } catch (NotBoundException ex) {
+            Logger.getLogger(Panel_Resep.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (RemoteException ex) {
+            Logger.getLogger(Panel_Resep.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try {
+            tableModelResep.setData(this.lihatResepService.getLihatResep(Integer.parseInt(idpasien.getText())));
+            tabel_resep.setModel(tableModelResep);
+            idpasien.setText("Masukkan ID Pasien");
+        } catch (RemoteException ex) {
+            Logger.getLogger(Panel_Resep.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField idpasien;

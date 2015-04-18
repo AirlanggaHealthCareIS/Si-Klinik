@@ -15,9 +15,11 @@ import java.util.List;
 public interface Obat_Service extends Remote {
     obat insertObat(obat obat) throws RemoteException;
 
-    void updateObat(obat o) throws RemoteException;
+    void updateObat(obat obat) throws RemoteException;
 
     obat getObat (String id_obat) throws RemoteException;
-    List<obat> getObat() throws RemoteException;
     
+    List getObatList(String nama) throws RemoteException;
+    
+    String getIdObat(String nama) throws RemoteException;
 }

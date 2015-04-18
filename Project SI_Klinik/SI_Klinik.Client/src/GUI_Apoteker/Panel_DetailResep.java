@@ -3,14 +3,54 @@
  * and open the template in the editor.
  */
 package GUI_Apoteker;
-
+import Client_Application_Model.TableModel_Lihat_Resep;
+import database.entity.detail_lihat_resep;
+import database.entity.detail_resep_obat;
+import database.Service.Detail_Lihat_Resep_Service;
+import database.Service.Detail_Resep_Service;
+import java.rmi.RemoteException;
+import java.rmi.registry.Registry;
+import java.rmi.NotBoundException;
+import java.rmi.registry.LocateRegistry;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 public class Panel_DetailResep extends javax.swing.JPanel {
-
+    private TableModel_Lihat_Resep tableModelResep = new TableModel_Lihat_Resep();
+    private Detail_Lihat_Resep_Service detailLihatResepService;
+    private Detail_Resep_Service detailResepService;
+    public String noID;
+    private String temp;
+    private Registry registry;
     /**
      * Creates new form Panel_DetailResep
      */
-    public Panel_DetailResep() {
+    public Panel_DetailResep(String no) throws NotBoundException, RemoteException {
+        this.detailLihatResepService = detailLihatResepService;
+        this.detailResepService = detailResepService;
+        noID = no;
+        temp = "";
+        List<detail_lihat_resep> list = new ArrayList<detail_lihat_resep>();
+        
+        try{
+            registry = LocateRegistry.getRegistry("0.0.0.0", 9750);
+            detailLihatResepService = (Detail_Lihat_Resep_Service) registry.lookup("service10"); 
+            detailResepService = (Detail_Resep_Service) registry.lookup("service7"); 
+            
+            tableModelResep.setData(this.detailLihatResepService.getLihatResepDetail(noID));
+        }catch(RemoteException exception){
+            exception.printStackTrace();
+        }
         initComponents();
+        list = detailLihatResepService.getLihatResep(noID);
+        tabel_detail.setModel(tableModelResep);
+        tanggal.setText(list.get(0).getTanggal());
+        temp = ""+list.get(0).getId_Pasien();
+        idPasien.setText(temp);
+        namaDokter.setText(list.get(0).getNama_Dokter());
+        
+        
     }
 
     /**
@@ -28,9 +68,12 @@ public class Panel_DetailResep extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabel_detail = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        tanggal = new javax.swing.JLabel();
+        idPasien = new javax.swing.JLabel();
+        namaDokter = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(700, 450));
 
@@ -45,7 +88,7 @@ public class Panel_DetailResep extends javax.swing.JPanel {
         jLabel6.setFont(new java.awt.Font("Georgia", 2, 11)); // NOI18N
         jLabel6.setText("Daftar Obat");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabel_detail.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -56,12 +99,18 @@ public class Panel_DetailResep extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(tabel_detail);
 
         jButton3.setText("Kelola Penjualan");
 
         jLabel4.setFont(new java.awt.Font("Vani", 1, 18)); // NOI18N
         jLabel4.setText("Detail Resep");
+
+        tanggal.setText("tgl");
+
+        idPasien.setText("id");
+
+        namaDokter.setText("dokter");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -74,9 +123,16 @@ public class Panel_DetailResep extends javax.swing.JPanel {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 656, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6)
-                            .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(namaDokter)
+                                    .addComponent(idPasien)
+                                    .addComponent(tanggal)))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(300, 300, 300)
                         .addComponent(jButton3))
@@ -91,11 +147,17 @@ public class Panel_DetailResep extends javax.swing.JPanel {
                 .addGap(9, 9, 9)
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tanggal))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel31)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel31)
+                    .addComponent(idPasien))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel5)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(namaDokter))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -109,7 +171,7 @@ public class Panel_DetailResep extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 700, Short.MAX_VALUE)
+            .addGap(0, 705, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(5, 5, 5)
@@ -118,7 +180,7 @@ public class Panel_DetailResep extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 450, Short.MAX_VALUE)
+            .addGap(0, 455, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(5, 5, 5)
@@ -127,6 +189,7 @@ public class Panel_DetailResep extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel idPasien;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel33;
@@ -135,6 +198,8 @@ public class Panel_DetailResep extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel namaDokter;
+    private javax.swing.JTable tabel_detail;
+    private javax.swing.JLabel tanggal;
     // End of variables declaration//GEN-END:variables
 }
