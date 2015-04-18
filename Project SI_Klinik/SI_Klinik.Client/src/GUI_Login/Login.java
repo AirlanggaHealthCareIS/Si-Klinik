@@ -203,7 +203,7 @@ public class Login extends javax.swing.JFrame {
         service3 = (Pendaftaran_Service) registry.lookup("service3");     
         service4 = (Pasien_Service) registry.lookup("service4");     
         service5= (Laporan_Keuangan_Service) registry.lookup("service5");     
-        service6 = (Tindakan_Dokter_Service) registry.lookup("service6");
+//        service6 = (Tindakan_Dokter_Service) registry.lookup("service6");
         
         if(!username.equals("")&&password.length>0){
             p = service1.getPetugas(username,b.toString());

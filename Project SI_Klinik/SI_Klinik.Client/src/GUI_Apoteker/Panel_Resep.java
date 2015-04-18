@@ -13,6 +13,7 @@ import java.rmi.NotBoundException;
 import java.rmi.registry.LocateRegistry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 /**
@@ -209,6 +210,11 @@ public class Panel_Resep extends javax.swing.JPanel {
         try {
             tableModelResep.setData(this.lihatResepService.getLihatResep(Integer.parseInt(idpasien.getText())));
             tabel_resep.setModel(tableModelResep);
+            if (tabel_resep.getRowCount()==0) {
+                JOptionPane.showMessageDialog(null, "Data Tidak Ditemukan", "Pesan", JOptionPane.OK_OPTION);
+                tableModelResep.setData(this.lihatResepService.getLihatResep());
+                tabel_resep.setModel(tableModelResep);
+            }
             idpasien.setText("Masukkan ID Pasien");
         } catch (RemoteException ex) {
             Logger.getLogger(Panel_Resep.class.getName()).log(Level.SEVERE, null, ex);
