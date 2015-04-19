@@ -13,6 +13,7 @@ public class jadwal {
     private String id_dokter;
     private String hari;
     private String jam;
+    private String id_poli;
       
     
     public String getid_jadwal() {
@@ -45,6 +46,14 @@ public class jadwal {
 
     public void setjam(String jam) {
         this.jam = jam;
+    }
+    
+    public String getid_poli() {
+        return id_poli;
+    }
+
+    public void setid_poli(String a) {
+        this.id_poli=a ;
     }
     
     

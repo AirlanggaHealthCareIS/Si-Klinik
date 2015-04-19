@@ -13,6 +13,8 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -23,31 +25,25 @@ public class Form_data_suplier extends javax.swing.JPanel {
     private GUI_Apoteker gui;
     private TableModel_Supplier tabelSupplier = new TableModel_Supplier();
     Registry registry;
+    private Supplier supplier;
     
     /**
      * Creates new form Form_data_suplier
      */
     public Form_data_suplier(GUI_Apoteker gui) throws RemoteException, NotBoundException {
         this.ss = gui.ss;
-        this.gui=gui;
-        
-        initComponents();
-        
-//        tabelSup.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-//            public void valueChanged (ListSelectionEvent e){
-//                int row = tabelSup.getSelectedRow();
-//                if (row != -1) {
-//                   Supplier sup = tabelSupplier.get(row);
-//                   
-//                    
-//                }
-//            }
-//        });
-        
-        registry = LocateRegistry.getRegistry("0.0.0.0", 9750);
-        ss = (Supplier_Service)registry.lookup("service6");
+        this.gui=gui;        
+        initComponents();        
         tabelSupplier.setData(this.ss.getSupliers());
         tabelSup.setModel(tabelSupplier);
+        tabelSup.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged (ListSelectionEvent e){
+                int row = tabelSup.getSelectedRow();
+                if (row != -1) {
+                   supplier = tabelSupplier.get(row);
+                }
+            }
+        });
     }
 
     /**
@@ -180,12 +176,11 @@ public class Form_data_suplier extends javax.swing.JPanel {
     }//GEN-LAST:event_TOMBOL_TAMBAHActionPerformed
     public void refresh(){
         try {
-            // TODO add your handling code here:
             tabelSupplier.setData(this.ss.getSupliers());
+            tabelSup.setModel(tabelSupplier);
         } catch (RemoteException ex) {
             Logger.getLogger(Form_data_suplier.class.getName()).log(Level.SEVERE, null, ex);
         }
-        tabelSup.setModel(tabelSupplier);
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         refresh();

@@ -31,7 +31,7 @@ public class Panel_Rekam_Medik_Awal extends javax.swing.JPanel {
     private Antrian antrian;
     private String action;
     public Pasien pasien;
-    private GUI_Dokter gui;
+    private GUI_Dokter gui;    
     
     public Panel_Rekam_Medik_Awal(final GUI_Dokter gui) {
         initComponents();         
@@ -49,6 +49,7 @@ public class Panel_Rekam_Medik_Awal extends javax.swing.JPanel {
                     try {
                         pasien=pasienService.getPasien(antrian.getId_Pasien());
                         gui.setPasien(pasien);
+                        gui.keluhan = antrian.getKeluhan();
                     } catch (RemoteException ex) {
                         Logger.getLogger(Panel_Rekam_Medik_Awal.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -167,8 +168,14 @@ public class Panel_Rekam_Medik_Awal extends javax.swing.JPanel {
     
     private void updateMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateMenuActionPerformed
         // TODO add your handling code here:
-        Panel_History_RekamMedik panel = new Panel_History_RekamMedik(gui);
-        gui.updatePanel(panel);
+        Panel_History_RekamMedik panel;
+        try {
+            panel = new Panel_History_RekamMedik(gui);
+            gui.updatePanel(panel);
+        } catch (RemoteException ex) {
+            Logger.getLogger(Panel_Rekam_Medik_Awal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_updateMenuActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
@@ -185,6 +192,7 @@ public class Panel_Rekam_Medik_Awal extends javax.swing.JPanel {
                 Antrian aa = new Antrian();
                 aa.setNomor(list.get(i).getAntrian());
                 Pasien pasien = pasienService.getPasien(list.get(i).getId_Pasien());                
+                aa.setKeluhan(list.get(i).getKeluhan());
                 aa.setId_Pasien(pasien.getId_Pasien());
                 aa.setNama_Pasien(pasien.getNama_Pasien());
                 aa.setAlamat(pasien.getAlamat());

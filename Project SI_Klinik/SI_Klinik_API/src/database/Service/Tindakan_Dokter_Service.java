@@ -20,4 +20,5 @@ public interface Tindakan_Dokter_Service extends Remote {
 
     Tindakan_Dokter getTindakan_Dokter (String Tindakan_Dokter) throws RemoteException;
 
+    List<Tindakan_Dokter> getAllTindakan_Dokter () throws RemoteException;
 }

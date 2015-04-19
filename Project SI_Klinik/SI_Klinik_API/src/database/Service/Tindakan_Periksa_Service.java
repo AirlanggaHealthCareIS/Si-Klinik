@@ -16,10 +16,10 @@ import java.util.List;
  */
 public interface Tindakan_Periksa_Service extends Remote {
    Tindakan_Periksa insertTindakan_Periksa(Tindakan_Periksa periksa) throws RemoteException;
-
-    void updateTindakan_Periksa(Tindakan_Periksa periksa) throws RemoteException;
-
-    Tindakan_Periksa getTindakan_Periksa (String Tindakan_Periksa) throws RemoteException;
+//
+//    void updateTindakan_Periksa(Tindakan_Periksa periksa) throws RemoteException;
+//
+//    Tindakan_Periksa getTindakan_Periksa (String Tindakan_Periksa) throws RemoteException;
 
     
 }

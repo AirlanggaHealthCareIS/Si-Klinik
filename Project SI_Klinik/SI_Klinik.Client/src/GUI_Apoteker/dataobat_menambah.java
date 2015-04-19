@@ -8,6 +8,9 @@ import java.rmi.RemoteException;
 import javax.swing.JOptionPane;
 import database.entity.obat;
 import database.Service.Obat_Service;
+import database.Service.Supplier_Service;
+import database.entity.Supplier;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
@@ -16,27 +19,47 @@ import java.util.logging.Logger;
  */
 public class dataobat_menambah extends javax.swing.JFrame {
         Obat_Service ss;
+        GUI_Apoteker a;
+        Supplier_Service supplierservice;
                 
     /**
      * Creates new form dataobat_menambah
      */
     public dataobat_menambah(GUI_Apoteker a) {
         initComponents();
-        ss = a.ob;
+        this.a = a;
+        ss = a.os;
         //Obat_Service ob;
     }
     private void refresh(){
+        jComboBox1.removeAllItems();
+        jComboBox1.addItem("Pilih");
         field_nama_obat.setText("");
         field_dosis.setText("");
         field_keterangan_obat.setText("");
         field_stok_obat.setText("");
         field_stok_kritis.setText("");
-        field_pabrik_obat.setText("");
         field_jenis_obat.setText("");
         field_kemasan.setText("");
         field_harga_obat.setText("");    
     }
 
+    
+    
+    private boolean CheckNumber(String a){
+        char b;
+        StringBuffer s;        
+        for(int i = 0; i<a.length();i++){
+            b = a.charAt(i);                        
+            s = new StringBuffer();
+            s.append(b);          
+            if(!s.toString().equals("1")&&!s.toString().equals("2")&&!s.toString().equals("3")&&!s.toString().equals("4")&&!s.toString().equals("5")&&!s.toString().equals("6")&&!s.toString().equals("7")&&!s.toString().equals("8")&&!s.toString().equals("9")&&!s.toString().equals("0")){               
+               return false;
+            }            
+        }
+        return true;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -61,7 +84,6 @@ public class dataobat_menambah extends javax.swing.JFrame {
         field_dosis = new javax.swing.JTextField();
         field_keterangan_obat = new javax.swing.JTextField();
         field_stok_obat = new javax.swing.JTextField();
-        field_pabrik_obat = new javax.swing.JTextField();
         field_kemasan = new javax.swing.JTextField();
         field_harga_obat = new javax.swing.JTextField();
         tombol_save = new javax.swing.JButton();
@@ -69,6 +91,7 @@ public class dataobat_menambah extends javax.swing.JFrame {
         field_jenis_obat = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         field_stok_kritis = new javax.swing.JTextField();
+        jComboBox1 = new javax.swing.JComboBox();
         tombol_back = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -102,19 +125,11 @@ public class dataobat_menambah extends javax.swing.JFrame {
         stokobat.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         stokobat.setText("Stock Obat");
 
-        field_nama_obat.setBackground(new java.awt.Color(204, 204, 204));
-
-        field_dosis.setBackground(new java.awt.Color(204, 204, 204));
-
-        field_keterangan_obat.setBackground(new java.awt.Color(204, 204, 204));
-
-        field_stok_obat.setBackground(new java.awt.Color(204, 204, 204));
-
-        field_pabrik_obat.setBackground(new java.awt.Color(204, 204, 204));
-
-        field_kemasan.setBackground(new java.awt.Color(204, 204, 204));
-
-        field_harga_obat.setBackground(new java.awt.Color(204, 204, 204));
+        field_nama_obat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                field_nama_obatActionPerformed(evt);
+            }
+        });
 
         tombol_save.setText("SAVE");
         tombol_save.addActionListener(new java.awt.event.ActionListener() {
@@ -124,76 +139,91 @@ public class dataobat_menambah extends javax.swing.JFrame {
         });
 
         tombol_clear.setText("CLEAR");
-
-        field_jenis_obat.setBackground(new java.awt.Color(204, 204, 204));
+        tombol_clear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tombol_clearActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel1.setText("Stock Kritis");
+        jLabel1.setText("Batas Kritis");
 
-        field_stok_kritis.setBackground(new java.awt.Color(204, 204, 204));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                jComboBox1PopupMenuWillBecomeVisible(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(tombol_save, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tombol_clear)
-                .addGap(27, 27, 27))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pabrikobat, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jenisobat)
-                    .addComponent(kemasanobat, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(hargaobat)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 179, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(field_pabrik_obat, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(116, 116, 116))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(tombol_save, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tombol_clear))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(field_kemasan, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
-                                .addComponent(field_harga_obat, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
-                                .addComponent(field_jenis_obat))
-                            .addComponent(field_stok_kritis, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())))
+                            .addComponent(pabrikobat, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jenisobat)
+                            .addComponent(kemasanobat, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(hargaobat)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(namaobat))
+                        .addGap(179, 179, 179)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(field_nama_obat, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(field_stok_kritis, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(field_keterangan_obat)
+                            .addComponent(field_dosis)
+                            .addComponent(field_stok_obat, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(field_jenis_obat)
+                            .addComponent(field_kemasan)
+                            .addComponent(field_harga_obat))
+                        .addGap(26, 26, 26)))
+                .addGap(27, 27, 27))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addContainerGap()
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(dosisobat)
                         .addComponent(keterangan)
-                        .addComponent(namaobat)
                         .addComponent(stokobat, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(field_stok_obat, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(field_nama_obat, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(field_dosis, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(field_keterangan_obat, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(25, 25, 25)))
+                    .addContainerGap(479, Short.MAX_VALUE)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(132, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(field_nama_obat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(namaobat))
+                .addGap(18, 18, 18)
+                .addComponent(field_dosis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(field_keterangan_obat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(field_stok_obat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(field_stok_kritis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(pabrikobat, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(field_pabrik_obat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jenisobat)
-                    .addComponent(field_jenis_obat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(field_jenis_obat, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(kemasanobat, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -209,26 +239,21 @@ public class dataobat_menambah extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(namaobat)
-                        .addComponent(field_nama_obat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(39, 39, 39)
+                    .addComponent(dosisobat)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(dosisobat)
-                        .addComponent(field_dosis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(keterangan)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(keterangan)
-                        .addComponent(field_keterangan_obat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(stokobat)
-                        .addComponent(field_stok_obat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(192, Short.MAX_VALUE)))
+                    .addComponent(stokobat)
+                    .addContainerGap(213, Short.MAX_VALUE)))
         );
 
         tombol_back.setText("BACK");
+        tombol_back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tombol_backActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -262,7 +287,7 @@ public class dataobat_menambah extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 701, Short.MAX_VALUE)
+            .addGap(0, 728, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -303,13 +328,13 @@ public class dataobat_menambah extends javax.swing.JFrame {
         if(!field_keterangan_obat.getText().equals("")){
             isi3 = true;
         }
-        if(!field_stok_obat.getText().equals("")){
+        if(CheckNumber(field_stok_obat.getText())&&!field_stok_obat.getText().equals("")){
             isi4 = true;
         }
-        if(!field_stok_kritis.getText().equals("")){
+        if(CheckNumber(field_stok_kritis.getText())&&!field_stok_kritis.getText().equals("")){
             isi5 = true;
         }
-        if(!field_pabrik_obat.getText().equals("")){
+        if(!jComboBox1.getItemAt(jComboBox1.getSelectedIndex()).toString().equals("Pilih")){
             isi6 = true;
         }
         if(!field_jenis_obat.getText().equals("")) {
@@ -328,7 +353,7 @@ public class dataobat_menambah extends javax.swing.JFrame {
             String KT = field_keterangan_obat.getText();
             int ST = Integer.parseInt(field_stok_obat.getText());
             int SK = Integer.parseInt(field_stok_kritis.getText());
-            String PB = field_pabrik_obat.getText();
+            String PB = jComboBox1.getItemAt(jComboBox1.getSelectedIndex()).toString();
             String JN = field_jenis_obat.getText();
             String KM = field_kemasan.getText();
             int HG = Integer.parseInt(field_harga_obat.getText());
@@ -375,6 +400,10 @@ public class dataobat_menambah extends javax.swing.JFrame {
                         if(opsi==0){
                             refresh();
                         }
+                        else{
+                           a.repaintPanel(new dataobat_home(this.a));
+                           this.dispose();
+                        }
                     }
                 }
                 catch(RemoteException exception){
@@ -400,7 +429,7 @@ public class dataobat_menambah extends javax.swing.JFrame {
                     field_stok_kritis.setBackground(Color.red);
                 }
                 if(!isi6){
-                    field_pabrik_obat.setBackground(Color.red);
+                    jComboBox1.setBackground(Color.red);
                 }
                 if(!isi7){
                     field_jenis_obat.setBackground(Color.red);
@@ -417,6 +446,35 @@ public class dataobat_menambah extends javax.swing.JFrame {
             }
     }//GEN-LAST:event_tombol_saveActionPerformed
 
+    private void jComboBox1PopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jComboBox1PopupMenuWillBecomeVisible
+        // TODO add your handling code here:
+        List<Supplier> list;
+        try {
+            list = supplierservice.getSupliers();
+            for (int i = 0; i < list.size(); i++) {
+                jComboBox1.addItem(list.get(i).getNama_Supplier());
+            }
+        } catch (RemoteException ex) {
+            Logger.getLogger(dataobat_mengubah.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_jComboBox1PopupMenuWillBecomeVisible
+
+    private void field_nama_obatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_field_nama_obatActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_field_nama_obatActionPerformed
+
+    private void tombol_clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombol_clearActionPerformed
+        // TODO add your handling code here:
+        refresh();
+    }//GEN-LAST:event_tombol_clearActionPerformed
+
+    private void tombol_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombol_backActionPerformed
+        // TODO add your handling code here:
+        a.repaintPanel(new dataobat_home(this.a));
+        this.dispose();
+    }//GEN-LAST:event_tombol_backActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -431,10 +489,10 @@ public class dataobat_menambah extends javax.swing.JFrame {
     private javax.swing.JTextField field_kemasan;
     private javax.swing.JTextField field_keterangan_obat;
     private javax.swing.JTextField field_nama_obat;
-    private javax.swing.JTextField field_pabrik_obat;
     private javax.swing.JTextField field_stok_kritis;
     private javax.swing.JTextField field_stok_obat;
     private javax.swing.JLabel hargaobat;
+    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

@@ -7,7 +7,7 @@ package GUI_StafKlinik;
 
 import Client_Application_Model.TableModel_Jadwal;
 import database.Service.Jadwal_Service;
-import database.entity.Jadwal
+import database.entity.jadwal;
 import java.rmi.RemoteException;
 import java.util.List;
 import java.util.logging.Level;
@@ -21,7 +21,7 @@ public class Panel_jadwaldokter extends javax.swing.JPanel {
     
     private Jadwal_Service service;
     private TableModel_Jadwal model = new TableModel_Jadwal();
-    private List<Jadwal> jadwal;
+    private List<jadwal> jadwal;
     private Frame_ubahjadwaldokter ujd;
 
     /**

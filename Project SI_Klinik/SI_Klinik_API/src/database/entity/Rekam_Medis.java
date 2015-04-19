@@ -205,20 +205,20 @@ public class Rekam_Medis implements Serializable{
          return list;
      }
      
-     public void setTemperature(List <detail_Assessment> list) {
+     public void setAssessment(List <detail_Assessment> list) {
         this.list = list;
     }
      
      public String getAssessments(){
          String assessment = "";
-         for(int i=0; i<list.size();i++){
+          for(int i=0; i<list.size();i++){
              if(i==0){
-                assessment = assessment+list.get(i);
+                assessment = assessment+list.get(i).getAssessment();
              }
              else{
-                assessment = assessment+"; "+list.get(i);
+                assessment = assessment+"; "+list.get(i).getAssessment();
              }             
-         }
+         }          
          return assessment;
      }
 }

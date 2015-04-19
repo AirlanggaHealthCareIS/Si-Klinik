@@ -5,7 +5,7 @@
  */
 package database.Service;
 
-import database.entity.Jadwal;
+import database.entity.jadwal;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.List;
  */
 public interface Jadwal_Service extends Remote{
     
-    List<Jadwal> getJadwal (String hari) throws RemoteException;
+    List<jadwal> getJadwal (String hari) throws RemoteException;
     void ubahJadwal (String id_jadwal, String hari, String jam) throws RemoteException;
     
 }

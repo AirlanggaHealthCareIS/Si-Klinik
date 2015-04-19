@@ -21,6 +21,8 @@ public class Pasien implements Serializable{
     private String Pekerjaan;
     private String Nomor_BPJS_Pasien;
     private String Golongan_Darah;
+    private String suku;
+    private String status;
             
 
     public String getId_Pasien() {
@@ -119,5 +121,21 @@ public class Pasien implements Serializable{
     
     public void setGolongan_Darah ( String Golongan_Darah) {
         this.Golongan_Darah = Golongan_Darah;
+    }
+    
+    public String getSuku () {
+        return suku;
+    }
+    
+    public void setSuku ( String Suku) {
+        this.suku = Suku;
+    }
+    
+    public String getStatus () {
+        return status;
+    }
+    
+    public void setStatus ( String Status) {
+        this.status = Status;
     }
 }

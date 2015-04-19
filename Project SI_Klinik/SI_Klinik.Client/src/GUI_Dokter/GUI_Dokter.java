@@ -6,6 +6,8 @@ package GUI_Dokter;
 
 
 import GUI_Login.Login;
+import database.Service.Assessment_Service;
+import database.Service.Detail_Resep_Service;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.List;
@@ -20,28 +22,45 @@ import database.Service.Obat_Service;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import database.Service.Pendaftaran_Service;
+import database.Service.Penyakit_Service;
+import database.Service.RekamMedik_Service;
 import database.Service.Tindakan_Dokter_Service;
+import database.Service.Tindakan_Periksa_Service;
+import database.Service.Transaksi_Periksa_Service;
 import javax.swing.JPanel;
 
 public class GUI_Dokter extends javax.swing.JFrame {
     public dokter d;
+    public String keluhan;
     private Pasien p;
+    public Detail_Resep_Service drs;
+    public Assessment_Service as;
     public Pasien_Service pas;
     public Dokter_Service ds;
     public Pendaftaran_Service ps;
+    public RekamMedik_Service rs;
+    public Tindakan_Periksa_Service tip;
     public Tindakan_Dokter_Service tds;
+    public Transaksi_Periksa_Service tp;
+    public Penyakit_Service pes;
    
      public GUI_Dokter (dokter d, Login l){
         super("Dokter");
         initComponents();
         pas = l.service4;
+        tds =l.service6;
+        as = l.service7; 
+        tp = l.service14;
         ps= l.service3;
         ds = l.service2;
-        //tds = l.service6;
-        Panel_Profil_Dokter panel = new Panel_Profil_Dokter(this);
-        jPanel4.add(panel);
+        tip= l.service13;
+        pes = l.service16;
+        drs = l.service8;
+        rs = l.service15;
         this.d = d;
         jLabel3.setText(d.getnama_dokter());
+        Panel_Profil_Dokter panel = new Panel_Profil_Dokter(this);
+        updatePanel(panel);
     }
      
     public void setPasien (Pasien p){
@@ -78,7 +97,7 @@ public class GUI_Dokter extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(900, 700));
+        setMinimumSize(new java.awt.Dimension(880, 601));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/banner.jpg"))); // NOI18N
 
@@ -144,13 +163,13 @@ public class GUI_Dokter extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(273, Short.MAX_VALUE)
+                .addContainerGap(212, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addGap(109, 109, 109)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44))
+                .addGap(65, 65, 65))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

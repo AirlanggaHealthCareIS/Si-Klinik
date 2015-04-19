@@ -5,18 +5,27 @@
 package GUI_Dokter;
 
 import GUI_Apoteker.*;
+import database.entity.dokter;
 
 /**
  *
  * @author JESSICA
  */
 public class Panel_Profil_Dokter extends javax.swing.JPanel {
-
-    /**
-     * Creates new form Panel_Profil_Dokter
-     */
+    GUI_Dokter gui ;
+    dokter d;
+    
     public Panel_Profil_Dokter(GUI_Dokter gui) {
         initComponents();
+        this.gui=gui;
+        this.d = gui.d;
+        nama.setText(d.getnama_dokter());
+        alamat.setText(d.getalamat_dokter());
+        jenkel.setText(d.getjenis_kelamin_dokter());
+        telp.setText(d.gettelepon_dokter());
+        tanggallahir.setText(d.gettgl_lahir_dokter());
+        agama.setText(d.getagama_dokter());
+        izin.setText(d.getno_ijin());
     }
 
     /**
@@ -37,14 +46,21 @@ public class Panel_Profil_Dokter extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
+        nama = new javax.swing.JLabel();
+        alamat = new javax.swing.JLabel();
+        telp = new javax.swing.JLabel();
+        tanggallahir = new javax.swing.JLabel();
+        jenkel = new javax.swing.JLabel();
+        agama = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
+        izin = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(700, 450));
         setPreferredSize(new java.awt.Dimension(700, 450));
@@ -67,27 +83,41 @@ public class Panel_Profil_Dokter extends javax.swing.JPanel {
 
         jLabel5.setText("No. Telepon");
 
-        jLabel6.setText("Tangga Lahir");
+        jLabel6.setText("Tanggal Lahir");
 
         jLabel7.setText("Jenis Kelamin");
 
         jLabel8.setText("Agama");
 
-        jLabel9.setText(": Ani");
+        nama.setText(": Ani");
 
-        jLabel10.setText(": Jl. Mulyorejo 8");
+        alamat.setText(": Jl. Mulyorejo 8");
 
-        jLabel11.setText(": 08172774587");
+        telp.setText(": 08172774587");
 
-        jLabel12.setText(": 28 Maret 1980");
+        tanggallahir.setText(": 28 Maret 1980");
 
-        jLabel13.setText(": Perempuan");
+        jenkel.setText(": Perempuan");
 
-        jLabel14.setText(": Islam");
+        agama.setText(": Islam");
 
         jLabel16.setText("No. Izin");
 
-        jLabel17.setText(": 9082309129873");
+        izin.setText(": 9082309129873");
+
+        jLabel1.setText(":");
+
+        jLabel2.setText(":");
+
+        jLabel18.setText(":");
+
+        jLabel19.setText(":");
+
+        jLabel20.setText(":");
+
+        jLabel21.setText(":");
+
+        jLabel22.setText(":");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -111,48 +141,76 @@ public class Panel_Profil_Dokter extends javax.swing.JPanel {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
                             .addComponent(jLabel16))))
-                .addGap(22, 22, 22)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel17)
-                    .addComponent(jLabel14)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel12)
-                    .addComponent(jLabel13))
-                .addContainerGap(306, Short.MAX_VALUE))
+                    .addComponent(izin)
+                    .addComponent(agama)
+                    .addComponent(telp)
+                    .addComponent(alamat)
+                    .addComponent(nama)
+                    .addComponent(tanggallahir)
+                    .addComponent(jenkel))
+                .addContainerGap(295, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel9))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel10))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel11))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel12))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel7))
-                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel14))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel17)
-                    .addComponent(jLabel16))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(nama)
+                        .addGap(18, 18, 18)
+                        .addComponent(alamat)
+                        .addGap(18, 18, 18)
+                        .addComponent(telp)
+                        .addGap(18, 18, 18)
+                        .addComponent(tanggallahir)
+                        .addGap(18, 18, 18)
+                        .addComponent(jenkel)
+                        .addGap(18, 18, 18)
+                        .addComponent(agama)
+                        .addGap(18, 18, 18)
+                        .addComponent(izin))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel18)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel19)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel20)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel21))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel4)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel6)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel7)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel8)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel22)
+                            .addComponent(jLabel16))))
                 .addContainerGap(117, Short.MAX_VALUE))
         );
 
@@ -161,7 +219,7 @@ public class Panel_Profil_Dokter extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(86, Short.MAX_VALUE)
+                .addContainerGap(84, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel15)
@@ -186,26 +244,34 @@ public class Panel_Profil_Dokter extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void TOMBOL_UBAHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TOMBOL_UBAHActionPerformed
-
+        Panel_Profil_Dokter_Ubah panel = new Panel_Profil_Dokter_Ubah(this.gui);
+        gui.updatePanel(panel);
     }//GEN-LAST:event_TOMBOL_UBAHActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton TOMBOL_UBAH;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel agama;
+    private javax.swing.JLabel alamat;
+    private javax.swing.JLabel izin;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel jenkel;
+    private javax.swing.JLabel nama;
+    private javax.swing.JLabel tanggallahir;
+    private javax.swing.JLabel telp;
     // End of variables declaration//GEN-END:variables
 }

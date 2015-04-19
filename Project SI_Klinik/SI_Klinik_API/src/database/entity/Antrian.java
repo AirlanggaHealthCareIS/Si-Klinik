@@ -12,6 +12,7 @@ public class Antrian implements Serializable{
     private String Nama_Pasien;
     private String Alamat;
     private int Nomor;
+    private String keluhan;
     
     public String getId_Pasien() {
         return Id_Pasien;
@@ -35,6 +36,14 @@ public class Antrian implements Serializable{
     
     public void setAlamat(String Alamat) {
         this.Alamat = Alamat;
+    }
+    
+    public String getKeluhan() {
+        return keluhan;
+    }
+    
+    public void setKeluhan(String keluhan) {
+        this.keluhan = keluhan;
     }
 
     public int getNomor() {

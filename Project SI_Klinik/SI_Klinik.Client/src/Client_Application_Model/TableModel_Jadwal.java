@@ -5,7 +5,7 @@
  */
 package Client_Application_Model;
 
-import database.entity.Jadwal;
+import database.entity.jadwal;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -15,18 +15,18 @@ import javax.swing.table.AbstractTableModel;
  * @author BOCIL
  */
 public class TableModel_Jadwal extends AbstractTableModel{
-    private List<Jadwal> list = new ArrayList<Jadwal>(); //ambil list Customers dari bridge
+    private List<jadwal> list = new ArrayList<jadwal>(); //ambil list Customers dari bridge
     
     public TableModel_Jadwal(){
     
     }
     
-    public void insert(Jadwal jadwal){
+    public void insert(jadwal jadwal){
         list.add(jadwal);
         fireTableDataChanged();
         }
 
-    public void update(int row,Jadwal jadwal){
+    public void update(int row,jadwal jadwal){
         list.set(row, jadwal);
         fireTableDataChanged();
     }
@@ -36,11 +36,11 @@ public class TableModel_Jadwal extends AbstractTableModel{
         fireTableDataChanged();
     }
     
-    public Jadwal get(int row){
+    public jadwal get(int row){
         return list.get(row);
     }
     
-    public void setData(List<Jadwal> jadwal){
+    public void setData(List<jadwal> list){
         this.list = list;
         fireTableDataChanged();
     }
@@ -63,7 +63,7 @@ public class TableModel_Jadwal extends AbstractTableModel{
     }
 
     public int getColumnCount() {
-        return 6;
+        return 5;
     }
     
     public Object getValueAt(int rowIndex, int columnIndex) {

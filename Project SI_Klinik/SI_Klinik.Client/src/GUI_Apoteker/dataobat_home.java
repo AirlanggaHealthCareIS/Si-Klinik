@@ -32,17 +32,18 @@ public class dataobat_home extends javax.swing.JPanel {
     public dataobat_home(GUI_Apoteker a) {
         initComponents();
         GUI = a;
-        obat_service = a.ob;
+        obat_service = a.os;
         tombol_add.setEnabled(false);
         tombol_edit.setEnabled(false);
         action = "";
         jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e){
                 int row = jTable1.getSelectedRow();
-                if (row !=-1&&(!action.equals("insert")||(!action.equals(""))))
+                if (row !=-1&&(!action.equals("insert")||(!action.equals("")))){
                     tombol_add.setEnabled(true);
                     tombol_edit.setEnabled(true);
                     Obat = tablemodel_obat.get(row);
+                }
             }
         });
 
@@ -121,25 +122,26 @@ public class dataobat_home extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(tombol_add)
-                .addGap(18, 18, 18)
-                .addComponent(tombol_edit)
-                .addGap(60, 60, 60))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 661, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 661, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(tombol_add, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(38, 38, 38)
+                        .addComponent(tombol_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(211, 211, 211)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tombol_add)
-                    .addComponent(tombol_edit))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(tombol_add, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                    .addComponent(tombol_edit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(29, 29, 29))
         );
 
@@ -177,22 +179,13 @@ public class dataobat_home extends javax.swing.JPanel {
         action = "add";
         tombol_edit.setEnabled(false);
         tombol_add.setEnabled(false);
-        dataobat_menambah a = new dataobat_menambah(GUI);
+        dataobat_menambah a = new dataobat_menambah(GUI);        
         a.setVisible(true);
         this.setVisible(true);
     }//GEN-LAST:event_tombol_addActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        try{
-            System.out.println("masuk");
-            tablemodel_obat.setData(this.obat_service.getObat());
-            
-        }
-        catch (RemoteException exception){
-            exception.printStackTrace();
-        }
-        System.out.println("masuk2");
-        jTable1.setModel(tablemodel_obat);
+   
     }//GEN-LAST:event_formComponentShown
 
     private void tombol_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombol_editActionPerformed
@@ -200,7 +193,7 @@ public class dataobat_home extends javax.swing.JPanel {
         action = "update";
         tombol_edit.setEnabled(false);
         tombol_add.setEnabled(false);
-        dataobat_mengubah b = new dataobat_mengubah(GUI);
+        dataobat_mengubah b = new dataobat_mengubah(GUI,Obat);
         b.setVisible(true);
         this.setVisible(true);
         
@@ -209,31 +202,17 @@ public class dataobat_home extends javax.swing.JPanel {
     public void UpdateTabel(){
     
         try{
-            System.out.println("masuk");
-            tablemodel_obat.setData(this.obat_service.getObat());
-            
+            tablemodel_obat.setData(this.obat_service.getObat());            
         }
         catch (RemoteException exception){
             exception.printStackTrace();
         }
-        System.out.println("masuk2");
         jTable1.setModel(tablemodel_obat);
        
     }                   
 
     private void jTable1ComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jTable1ComponentShown
         
-        try{
-            System.out.println("masuk");
-            tablemodel_obat.setData(this.obat_service.getObat());
-            
-        }
-        catch (RemoteException exception){
-            exception.printStackTrace();
-        }
-        System.out.println("masuk2");
-        jTable1.setModel(tablemodel_obat);
-       
     }//GEN-LAST:event_jTable1ComponentShown
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

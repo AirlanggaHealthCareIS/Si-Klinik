@@ -6,17 +6,25 @@ package GUI_Dokter;
 
 import database.Service.Dokter_Service;
 import database.Service.Tindakan_Dokter_Service;
+import database.Service.Tindakan_Periksa_Service;
+import database.Service.Transaksi_Periksa_Service;
+import database.entity.Rekam_Medis;
 import database.entity.dokter;
 import java.io.File;
 import javax.swing.DefaultListModel;
 import database.entity.Tindakan_Dokter;
+import database.entity.Tindakan_Periksa;
+import database.entity.Transaksi_Periksa;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 /**
  *
@@ -25,26 +33,46 @@ import javax.swing.JOptionPane;
 public class Panel_Input_Tindakan_Medis extends javax.swing.JPanel {
       private Dokter_Service service2;
       private Tindakan_Dokter_Service service6;
-      public String serverAddr, username;
-      private String jabatan;
-      private Thread clientThread;
-      private DefaultListModel model;
-      private File file;
-      private dokter d;
-      private boolean aktorIniDokter;
+      private Transaksi_Periksa_Service transaksi;
+      private Tindakan_Periksa_Service tinper;
       public Vector listTindakan_Medis;
-      ArrayList Tindakan_Medis = new ArrayList();
-      List<Tindakan_Dokter> td; 
-      
-     
-    private Tindakan_Dokter_Service service;
+      private String id;
+      List<Tindakan_Dokter> td = new ArrayList<Tindakan_Dokter>();
+      List<Tindakan_Dokter> list = new ArrayList<Tindakan_Dokter>();
+      GUI_Dokter gui;
 
     /**
      * Creates new form Input_Tindakan_Medis
      */
-    public Panel_Input_Tindakan_Medis(GUI_Dokter gui) {
+      
+      public String getTanggal(){
+        Calendar cal = new GregorianCalendar();
+            String tanggal ="0";
+            if(cal.get(Calendar.DATE)<0){
+                tanggal="0"+cal.get(Calendar.DATE);
+            }
+            else{
+                tanggal=""+cal.get(Calendar.DATE);
+            }
+            String bulan="0";
+            if(cal.get(Calendar.MONTH)<10){
+                bulan="0"+(cal.get(Calendar.MONTH)+1);;
+            }
+            else{
+                bulan=""+(cal.get(Calendar.MONTH)+1);
+            }
+            String tahun= ""+cal.get(Calendar.YEAR);
+            tanggal = (tahun+"-"+bulan+"-"+tanggal);
+            return tanggal;
+    }
+      
+    public Panel_Input_Tindakan_Medis(GUI_Dokter gui, String id_rekam) {
         initComponents();
         service6 = gui.tds;
+        transaksi = gui.tp;
+        id = id_rekam;
+        tinper = gui.tip;
+        this.gui= gui;
     }
 
     /**
@@ -56,19 +84,21 @@ public class Panel_Input_Tindakan_Medis extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(700, 450));
         setPreferredSize(new java.awt.Dimension(750, 450));
 
-        jLabel4.setFont(new java.awt.Font("Maiandra GD", 1, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Maiandra GD", 1, 36)); // NOI18N
         jLabel4.setText("Input Tindakan Medis");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -90,9 +120,6 @@ public class Panel_Input_Tindakan_Medis extends javax.swing.JPanel {
             }
         });
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Next-32.png"))); // NOI18N
-        jButton5.setText("BACK");
-
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Next-32.png"))); // NOI18N
         jButton4.setText("NEXT");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -101,62 +128,74 @@ public class Panel_Input_Tindakan_Medis extends javax.swing.JPanel {
             }
         });
 
+        jLabel10.setText("3/4");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(249, 249, 249)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(127, 127, 127))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton4)
+                .addGap(318, 318, 318))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(145, 145, 145)
+                .addComponent(jLabel4)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addComponent(jLabel4)
+                .addGap(43, 43, 43)
+                .addComponent(jLabel3)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton2))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(43, 43, 43)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton4)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(71, Short.MAX_VALUE))
+        );
+
+        jScrollPane1.setViewportView(jPanel1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(262, 262, 262)
-                        .addComponent(jLabel4))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(249, 249, 249)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(65, 65, 65)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE))))
-                .addGap(127, 127, 127))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(206, 206, 206)
-                .addComponent(jButton5)
-                .addGap(91, 91, 91)
-                .addComponent(jButton4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(79, 79, 79)
-                .addComponent(jLabel3)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton5)
-                    .addComponent(jButton4))
-                .addContainerGap(81, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        // TODO add your handling code here:
+        
         try {
-                td = service6.getTindakan();
-                
+                td = service6.getAllTindakan_Dokter();                
         } catch (RemoteException ex) {
             Logger.getLogger(Panel_Input_Tindakan_Medis.class.getName()).log(Level.SEVERE,null,ex);
         }
@@ -173,30 +212,67 @@ public class Panel_Input_Tindakan_Medis extends javax.swing.JPanel {
                 temp,
                 temp[0]);
             try{
-               Tindakan_Medis.add(service6.getTindakan_Dokter(a).getTindakan_Dokter());
+               list.add(service6.getTindakan_Dokter(a));
                listTindakan_Medis.add(a);
-               
+               updateLists(jList1,listTindakan_Medis);
             } catch (RemoteException ex) {
                 Logger.getLogger (Panel_Input_Tindakan_Medis.class.getName()).log(Level.SEVERE, null, ex);
             }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    public void updateLists(JList list, Vector a){
+        list.removeAll();
+        list.setListData(a);
+    }
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        int a = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin akan menghapus data ini?");
+        if(a==0){
+            listTindakan_Medis.remove(jList1.getSelectedIndex());
+            list.remove(jList1.getSelectedIndex());
+            updateLists(jList1,listTindakan_Medis);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        jButton4.setVisible(false);
+        int jumlah = 0;
+        for (int i = 0; i < list.size(); i++) {
+            jumlah = jumlah + list.get(i).getBiaya_Tindakan_Dokter();
+        }
+        Transaksi_Periksa transaksiperiksa = new Transaksi_Periksa();
+        transaksiperiksa.setId_Dokter(gui.d.getid_dokter());
+        transaksiperiksa.setId_Pasien(gui.getPasien().getId_Pasien());
+        transaksiperiksa.setPPN_Transaksi_Periksa(""+(double)jumlah/10);
+        transaksiperiksa.setSubtotal_Transaksi_Periksa(""+jumlah);
+        transaksiperiksa.setTotal_Transaksi_Periksa(""+(jumlah+(jumlah/10)));
+        transaksiperiksa.setTanggal_Transaksi_Periksa(getTanggal());
+        try {
+            transaksi.insertTransaksi(transaksiperiksa);
+            transaksiperiksa = transaksi.getLastTransaksi();
+            for (int i = 0; i < listTindakan_Medis.size(); i++) {
+                Tindakan_Periksa tindakan = new Tindakan_Periksa();
+                tindakan.setId_Transaksi_Periksa(transaksiperiksa.getId_Transaksi_Periksa());
+                tindakan.setId_Rekam_Medis(""+id);
+                tindakan.setId_Tindakan_Dokter(list.get(i).getId_Tindakan_Dokter());
+                tinper.insertTindakan_Periksa(tindakan);
+            }
+        } catch (RemoteException ex) {
+            Logger.getLogger(Panel_Input_Tindakan_Medis.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JList jList1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }

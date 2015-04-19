@@ -17,7 +17,7 @@ import database.entity.petugas;
 
 public class GUI_Kasir extends javax.swing.JFrame {
     petugas p;
-    public GUI_Kasir (petugas p){        
+    public GUI_Kasir (petugas p, Login l){        
         super("Kasir");
         initComponents();  
         this.p = p;

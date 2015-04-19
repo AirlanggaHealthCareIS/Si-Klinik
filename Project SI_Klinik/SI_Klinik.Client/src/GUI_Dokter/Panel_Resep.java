@@ -26,15 +26,16 @@ import java.util.ArrayList;
  * @author tinot
  */
 public class Panel_Resep extends javax.swing.JPanel {
-    private Detail_Resep_Service service3;
+    private Detail_Resep_Service detResepService;
     Registry registry;
+    GUI_Dokter gui;
     /**
      * Creates new form Panel_Resep
      */
-    public Panel_Resep() throws RemoteException, NotBoundException{
+    public Panel_Resep(GUI_Dokter gui){
         initComponents();
-        registry = LocateRegistry.getRegistry("0.0.0.0", 9750);
-        service3 = (Detail_Resep_Service) registry.lookup("service3");
+        this.gui= gui;
+        detResepService = gui.drs;
     }
     
     /**
@@ -134,15 +135,15 @@ public class Panel_Resep extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 103, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 12, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

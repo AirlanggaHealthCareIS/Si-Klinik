@@ -112,36 +112,38 @@ public class Pasien_Server extends UnicastRemoteObject implements Pasien_Service
         }
     }
 
-    public Pasien getCustomer (String Id_Pasien) throws RemoteException {
-
-        System.out.println("Client Melakukan Proses Get By Id");
+    @Override
+    public Pasien getPasien(String ID_Pasien) throws RemoteException {
+         System.out.println("Client Melakukan Proses Get By Id");
 
         PreparedStatement statement = null;
         try{
             statement = DatabaseUtilities.getConnection().prepareStatement(
-                 "SELECT * FROM petugas WHERE ID_PASIEN = ?");
+                 " SELECT * FROM pasien WHERE ID_PASIEN =?");
 
+            statement.setString(1, ID_Pasien);
             ResultSet result = statement.executeQuery();
-
-            Pasien Pasien = null;
-
+            
+            Pasien a = null;
+            
             if(result.next()){
-                Pasien.setId_Pasien(result.getString("ID_PASIEN"));
-                Pasien.setNama_Pasien(result.getString("NAMA_PASIEN"));
-                Pasien.setAlamat(result.getString("ALAMAT_PASIEN"));
-                Pasien.setJenis_Kelamin(result.getString("JENIS_KELAMIN_PASIEN"));
-                Pasien.setTempat_Lahir(result.getString("TEMPAT_LAHIR_PASIEN"));
-                Pasien.setTanggal_Lahir(result.getString("TANGGAL_LAHIR_PASIEN"));
-                Pasien.setNomor_Telepon(result.getString("NOMOR_TELEPON_PASIEN"));
-                Pasien.setUmur(result.getString("UMUR_PASIEN"));
-                Pasien.setAgama(result.getString("AGAMA_PASIEN"));
-                Pasien.setPekerjaan(result.getString("PEKERJAAN_PASIEN"));
-                Pasien.setNomor_BPJS_Pasien(result.getString("NOMOR_BPJS_PASIEN"));
-                Pasien.setGolongan_Darah(result.getString("GOLONGAN_DARAH_PASIEN"));
+                a = new Pasien();
+               a.setId_Pasien(result.getString("ID_PASIEN"));
+                a.setNama_Pasien(result.getString("NAMA_PASIEN"));
+                a.setAlamat(result.getString("ALAMAT"));
+                a.setJenis_Kelamin(result.getString("JENIS_KELAMIN"));                
+                a.setTanggal_Lahir(result.getString("TGL_LAHIR"));
+                a.setNomor_Telepon(result.getString("NO_TELEPON"));
+                a.setUmur(result.getString("UMUR"));
+                a.setAgama(result.getString("AGAMA"));
+                a.setTempat_Lahir(result.getString("TEMPAT_LAHIR"));
+                a.setPekerjaan(result.getString("PEKERJAAN"));
+                a.setNomor_BPJS_Pasien(result.getString("NO_BPJS_PASIEN"));
+                a.setGolongan_Darah(result.getString("GOL_DARAH"));
+                a.setSuku(result.getString("Suku Bangsa"));
+                a.setStatus(result.getString("Status Pernikahan"));
             }
-
-            return Pasien;
-
+            return a;
         }
         catch(SQLException exception){
           exception.printStackTrace();
@@ -157,10 +159,5 @@ public class Pasien_Server extends UnicastRemoteObject implements Pasien_Service
             }
         }
     }
-
-    @Override
-    public Pasien getPasien(String ID_Pasien) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+       
 }

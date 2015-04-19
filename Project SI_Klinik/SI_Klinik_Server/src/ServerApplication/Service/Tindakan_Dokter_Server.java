@@ -133,6 +133,43 @@ public class Tindakan_Dokter_Server extends UnicastRemoteObject implements Tinda
         }
     }
 
+    @Override
+    public List<Tindakan_Dokter> getAllTindakan_Dokter() throws RemoteException {
+        System.out.println("Client Melakukan Proses Get by ID");
+        
+        PreparedStatement statement = null;
+        try{
+        statement = DatabaseUtilities.getConnection().prepareStatement(
+                    "SELECT * FROM `tindakan_dokter`");
+        
+        ResultSet result = statement.executeQuery();
+        
+        List<Tindakan_Dokter> list = new ArrayList<Tindakan_Dokter>() ;
+        if (result.next()){
+            Tindakan_Dokter td = new Tindakan_Dokter();
+            td.setId_Tindakan_Dokter(result.getString("ID_TINDAKAN_DOKTER"));
+            td.setTindakan_Dokter(result.getString("TINDAKAN_DOKTER"));
+            td.setBiaya_Tindakan_Dokter(result.getInt("BIAYA_TINDAKAN_DOKTER"));
+            list.add(td);
+        }
+        
+        return list;
+        
+        }
+        catch (SQLException exception){
+        exception.printStackTrace();
+        return null;
+      }
+      finally {
+            if(statement !=null){
+                try{
+                    statement.close();
+                }catch (SQLException exception){
+                    exception.printStackTrace();
+                }
+            }
+        }
+    }
 
 }   
         

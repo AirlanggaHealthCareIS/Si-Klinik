@@ -25,12 +25,8 @@ public class Form_Data_Supplier_Tambah extends javax.swing.JFrame {
     private GUI_Apoteker gui;
     private Form_data_suplier f;
     
-    /**
-     * Creates new form Form_Data_Supplier_Tambah
-     */
     public Form_Data_Supplier_Tambah(GUI_Apoteker gui) {
         initComponents();
-     
         ss = gui.ss;
         this.gui = gui;
     }
@@ -45,11 +41,6 @@ public class Form_Data_Supplier_Tambah extends javax.swing.JFrame {
         KODEPAJAK.setText("");
         
     }
-    Form_Data_Supplier_Tambah(Form_Data_Supplier_Tambah aThis) {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -301,7 +292,7 @@ public class Form_Data_Supplier_Tambah extends javax.swing.JFrame {
                s.setKota_Supplier(K);
                s.setTelepon_Supplier(T);
                s.setNPWP_Supplier(NP);
-               s.setJenis_pajak_Supplier(JP);
+               //s.setJenis_pajak_Supplier(JP);
                s.setKode_Pajak_Supplier(KP);
                
                if(ss.insertSupplier(s)!=null){
@@ -365,8 +356,8 @@ public class Form_Data_Supplier_Tambah extends javax.swing.JFrame {
         Form_data_suplier o1;
         try {
             o1 = new Form_data_suplier(gui);
-            o1.setVisible(true);
-                this.setVisible(false);
+            gui.repaintPanel(o1);
+                this.dispose();
         } catch (RemoteException ex) {
             Logger.getLogger(Form_Data_Supplier_Tambah.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NotBoundException ex) {

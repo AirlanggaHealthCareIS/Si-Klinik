@@ -3,8 +3,19 @@
  * and open the template in the editor.
  */
 package GUI_Dokter;
+import Client_Application_Model.TableModel_RM_Awal;
+import database.Service.Assessment_Service;
 import database.Service.Pasien_Service;
+import database.Service.RekamMedik_Service;
 import database.entity.Pasien;
+import database.entity.Rekam_Medis;
+import database.entity.detail_Assessment;
+import java.rmi.RemoteException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -12,17 +23,45 @@ import database.entity.Pasien;
  */
 public class Panel_History_RekamMedik extends javax.swing.JPanel {
     private Pasien_Service pasienServer;
+    private RekamMedik_Service RekamServer;
+    private Assessment_Service detailServer;
     private Pasien p;
+    private TableModel_RM_Awal tabel;
+    private String action;
+    private Rekam_Medis r;
+    private GUI_Dokter gui;
     /**
      * Creates new form Panel_History_RekamMedik
      */
-    public Panel_History_RekamMedik(GUI_Dokter gui) {
+    public Panel_History_RekamMedik(GUI_Dokter gui) throws RemoteException {
         initComponents();
+        RekamServer = gui.rs;
+        this.gui= gui;
+        detailServer = gui.as;
+        tabel = new TableModel_RM_Awal();
         pasienServer = gui.pas;
+        RekamServer = gui.rs;
+        action = "";
+        jButton2.setEnabled(false);
         p = gui.getPasien();
         nama.setText(p.getNama_Pasien());
         alamat.setText(p.getAlamat());
-        jenkel.setText(p.getJenis_Kelamin());
+        jenkel.setText(p.getJenis_Kelamin());        
+        List<Rekam_Medis> list = RekamServer.getRekamMediks(p.getId_Pasien());
+        for (int i = 0; i < list.size(); i++) {            
+            List<detail_Assessment> lists = detailServer.getAssessments(list.get(i).getId_Rekam_Medis());
+            list.get(i).setAssessment(lists);
+        }
+        setTabel(list);
+        jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent e) {
+                int row = jTable1.getSelectedRow();
+                 if(row != -1&&(!action.equals("insert")||(!action.equals("")))){                   
+                    r= tabel.get(row);                    
+                   jButton2.setEnabled(true);
+                 }
+            }
+        });
     }
 
     /**
@@ -117,19 +156,17 @@ public class Panel_History_RekamMedik extends javax.swing.JPanel {
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jenkel, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(nama, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(alamat, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jenkel, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(nama, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(40, 40, 40)
@@ -137,8 +174,13 @@ public class Panel_History_RekamMedik extends javax.swing.JPanel {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 653, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19))
             .addGroup(layout.createSequentialGroup()
-                .addGap(173, 173, 173)
-                .addComponent(jLabel15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(alamat, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(173, 173, 173)
+                        .addComponent(jLabel15)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -171,14 +213,33 @@ public class Panel_History_RekamMedik extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public void setTabel (List <Rekam_Medis> list) {
+       tabel.setData(list);
+       jTable1.setModel(tabel);      
+    }
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
-        
+        action ="insert";
+        jButton2.setEnabled(false);  
+
+        try {
+            gui.updatePanel(new Panel_Rekam_Medik_Tambah(gui));
+        } catch (RemoteException ex) {
+            Logger.getLogger(Panel_History_RekamMedik.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        jButton2.setEnabled(false);
+        action ="detail";
+        jButton2.setEnabled(false);  
+        try {
+            gui.updatePanel(new Panel_Rekam_Medik_Tambah(gui));
+        } catch (RemoteException ex) {
+            Logger.getLogger(Panel_History_RekamMedik.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

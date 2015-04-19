@@ -35,9 +35,10 @@ public class Rekam_Medis_Server extends UnicastRemoteObject implements RekamMedi
         PreparedStatement statement = null;
         try{
         statement = DatabaseUtilities.getConnection().prepareStatement(
-            "INSERT INTO `rekam_medis`(`ID_REKAM_MEDIS`, `ID_DOKTER`, `ID_PASIEN`, `TGL_REKAM_MEDIS`, `ALERGI_OBAT`, `RIWAYAT_SEKARANG`, `RIWAYAT_DAHULU`, `RIWAYAT_KELUARGA`, `KETERANGAN_PEKERJAAN`, `KEBIASAAN`, `KEADAAN_UMUM`, `GCS`, `KESADARAN`, `TENSI`, `NADI`, `RR`, `TEMPERATURE`, `PEMERIKSAAN_LAIN`, `TPL`, `RUJUKAN_DOKTER`) VALUES (null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+            "INSERT INTO `rekam_medis`( `ID_DOKTER`, `ID_PASIEN`, `TGL_REKAM_MEDIS`, `ALERGI_OBAT`, `RIWAYAT_SEKARANG`, `RIWAYAT_DAHULU`, `RIWAYAT_KELUARGA`, `KETERANGAN_PEKERJAAN`, `KEBIASAAN`, `KEADAAN_UMUM`, `GCS`, `KESADARAN`, `TENSI`, `NADI`, `RR`, `TEMPERATURE`, `PEMERIKSAAN_LAIN`, `TPL`, `RUJUKAN_DOKTER`,`ID_REKAM_MEDIS`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
         );
         
+        statement.setString(20,rekam.getId_Rekam_Medis());
         statement.setString(1, rekam.getId_Dokter());
         statement.setString(2, rekam.getId_Pasien());
         statement.setString(3, rekam.getTanggal_Rekam_Medis());
@@ -84,7 +85,7 @@ public class Rekam_Medis_Server extends UnicastRemoteObject implements RekamMedi
         PreparedStatement statement = null;
         try{
          statement = DatabaseUtilities.getConnection().prepareStatement(
-                 "UPDATE `rekam_medis` SET `ID_DOKTER`=?,`ID_PASIEN`=?,`TGL_REKAM_MEDIS`=?,`ALERGI_OBAT`=?,`RIWAYAT_SEKARANG`=?,`RIWAYAT_DAHULU`=?,`RIWAYAT_KELUARGA`=?,`KETERANGAN_PEKERJAAN`=?,`KEBIASAAN`=?,`KEADAAN_UMUM`=?,`GCS`=?,`KESADARAN`=?,`TENSI`=?,`NADI`=?,`RR`=?,`TEMPERATURE`=?,`PEMERIKSAAN_LAIN`=?,`TPL`=?,`RUJUKAN_DOKTER`=?"
+                 "UPDATE `rekam_medis` SET `ID_DOKTER`=?, `ID_PASIEN`=?,`TGL_REKAM_MEDIS`=?,`ALERGI_OBAT`=?,`RIWAYAT_SEKARANG`=?,`RIWAYAT_DAHULU`=?,`RIWAYAT_KELUARGA`=?,`KETERANGAN_PEKERJAAN`=?,`KEBIASAAN`=?,`KEADAAN_UMUM`=?,`GCS`=?,`KESADARAN`=?,`TENSI`=?,`NADI`=?,`RR`=?,`TEMPERATURE`=?,`PEMERIKSAAN_LAIN`=?,`TPL`=?,`RUJUKAN_DOKTER`=?"
                  + "WHERE `ID_REKAM_MEDIS`= ?"
          );
          
@@ -188,10 +189,9 @@ public class Rekam_Medis_Server extends UnicastRemoteObject implements RekamMedi
         PreparedStatement statement = null;
         
         try{
-            statement = DatabaseUtilities.getConnection().prepareStatement("SELECT * FROM rekam_medis WHERE ID_PASIEN=?");
+            statement = DatabaseUtilities.getConnection().prepareStatement("SELECT R.ID_REKAM_MEDIS, R.ID_DOKTER, R.ID_PASIEN, R.TGL_REKAM_MEDIS, R.ALERGI_OBAT, R.RIWAYAT_SEKARANG, R.RIWAYAT_DAHULU, R.RIWAYAT_KELUARGA, R.KETERANGAN_PEKERJAAN, R.KEBIASAAN, R.KEADAAN_UMUM, R.GCS, R.KESADARAN, R.TENSI, R.NADI, R.RR, R.TEMPERATURE, R.PEMERIKSAAN_LAIN, R.TPL, R.RUJUKAN_DOKTER, D.NAMA_DOKTER FROM dokter AS D, rekam_medis AS R WHERE R.ID_DOKTER = D.ID_DoKTER AND R.ID_PASIEN =? ");        
             statement.setString(1, ID_Pasien);
             ResultSet result = statement.executeQuery();
-            
             List<Rekam_Medis> list = new ArrayList<Rekam_Medis>();
 
             while(result.next()){
@@ -216,6 +216,7 @@ public class Rekam_Medis_Server extends UnicastRemoteObject implements RekamMedi
                 a.setPemeriksaan_Lain(result.getString("PEMERIKSAAN_LAIN"));
                 a.setTPL(result.getString("TPL"));
                 a.setRujukan_Dokter(result.getString("RUJUKAN_DOKTER"));
+                a.setNama_Dokter(result.getString("NAMA_DOKTER"));
                 list.add(a);
             }
            result.close();
@@ -237,4 +238,59 @@ public class Rekam_Medis_Server extends UnicastRemoteObject implements RekamMedi
             }
         }
     }
+    
+    @Override    
+    public Rekam_Medis getLastRekamMedik(String ID_Pasien) throws RemoteException{
+        System.out.println("Client Melakukan Proses Get Last Rekam Medis");
+
+        PreparedStatement statement = null;
+        
+        try{
+            statement = DatabaseUtilities.getConnection().prepareStatement("SELECT R.ID_REKAM_MEDIS, R.ID_DOKTER, R.ID_PASIEN, R.TGL_REKAM_MEDIS, R.ALERGI_OBAT, R.RIWAYAT_SEKARANG, R.RIWAYAT_DAHULU, R.RIWAYAT_KELUARGA, R.KETERANGAN_PEKERJAAN, R.KEBIASAAN, R.KEADAAN_UMUM, R.GCS, R.KESADARAN, R.TENSI, R.NADI, R.RR, R.TEMPERATURE, R.PEMERIKSAAN_LAIN, R.TPL, R.RUJUKAN_DOKTER, D.NAMA_DOKTER FROM dokter AS D, rekam_medis AS R WHERE R.ID_DOKTER = D.ID_DoKTER AND R.ID_PASIEN =? ORDER BY R.TGL_REKAM_MEDIS DESC LIMIT 1 ");        
+            statement.setString(1, ID_Pasien);
+            ResultSet result = statement.executeQuery();
+            Rekam_Medis a=null;
+            while(result.next()){
+                a = new Rekam_Medis();
+                a.setId_Rekam_Medis(result.getString("ID_REKAM_MEDIS"));
+                a.setId_Dokter(result.getString("ID_DOKTER"));
+                a.setId_Pasien(result.getString("ID_PASIEN"));
+                a.setTanggal_Rekam_Medis(result.getString("TGL_REKAM_MEDIS"));
+                a.setAlergi_Obat(result.getString("ALERGI_OBAT"));
+                a.setRiwayat_Sekarang(result.getString("RIWAYAT_SEKARANG"));
+                a.setRiwayat_Dahulu(result.getString("RIWAYAT_DAHULU"));
+                a.setRiwayat_Keluarga(result.getString("RIWAYAT_KELUARGA"));
+                a.setKeterangan_Pekerjaan(result.getString("KETERANGAN_PEKERJAAN"));
+                a.setKebiasaan(result.getString("KEBIASAAN"));
+                a.setKeadaanUmum(result.getString("KEADAAN_UMUM"));
+                a.setGCS(result.getInt("GCS"));
+                a.setKesadaran(result.getString("KESADARAN"));
+                a.setTensi(result.getString("TENSI"));
+                a.setNadi(result.getInt("NADI"));
+                a.setRR(result.getInt("RR"));
+                a.setTemperature(result.getInt("TEMPERATURE"));
+                a.setPemeriksaan_Lain(result.getString("PEMERIKSAAN_LAIN"));
+                a.setTPL(result.getString("TPL"));
+                a.setRujukan_Dokter(result.getString("RUJUKAN_DOKTER"));
+                a.setNama_Dokter(result.getString("NAMA_DOKTER"));
+            }
+           result.close();
+          return a;
+
+        }
+        catch(SQLException exception){
+          exception.printStackTrace();
+          return null;
+        }
+        finally{
+            if(statement != null){
+                try{
+                    statement.close();
+                }catch(SQLException exception){
+                   exception.printStackTrace();
+                }
+            }
+        }
+    }
+    
 }

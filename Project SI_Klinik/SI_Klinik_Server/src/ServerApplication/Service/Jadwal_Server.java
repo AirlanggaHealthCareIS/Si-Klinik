@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import si_klinik_server.DatabaseUtilities;
 import database.Service.Jadwal_Service;
-import database.entity.
+import database.entity.jadwal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -45,10 +45,10 @@ public class Jadwal_Server extends UnicastRemoteObject implements Jadwal_Service
         }
     }
     
-    public List<Jadwal> getJadwal(String hari) throws RemoteException{
+    public List<jadwal> getJadwal(String hari) throws RemoteException{
         PreparedStatement statement = null;
         
-        List<Jadwal> list = new ArrayList<Jadwal>();
+        List<jadwal> list = new ArrayList<jadwal>();
         
         try {
             statement = DatabaseUtilities.getConnection().prepareStatement(
@@ -57,7 +57,7 @@ public class Jadwal_Server extends UnicastRemoteObject implements Jadwal_Service
             statement.executeUpdate();
             ResultSet result = statement.executeQuery();
             
-            Jadwal x = new Jadwal(); 
+            jadwal x = new jadwal(); 
             
             
             while(result.next()){
