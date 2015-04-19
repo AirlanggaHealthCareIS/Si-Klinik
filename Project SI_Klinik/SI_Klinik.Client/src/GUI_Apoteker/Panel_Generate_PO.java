@@ -3,21 +3,65 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package form_Apoteker;
-
+package GUI_Apoteker;
+import Client_Application_Model.TabelModel_Generate_PO;
+import database.entity.obat_kritis;
+import database.Service.Obat_Service;
+import java.rmi.RemoteException;
+import java.util.List;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import GUI_Apoteker.Form_ubah_pemesanan_obat;
+import database.Service.Supplier_Service;
+import database.entity.Supplier;
+import database.entity.detil_pesan_obat;
+import database.Service.pemesanan_obat_service;
+import database.entity.Pemesanan_Obat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author asus
  */
 public class Panel_Generate_PO extends javax.swing.JPanel {
-
+    TabelModel_Generate_PO table = new TabelModel_Generate_PO();
+    Obat_Service obs;
+    obat_kritis ok;
+    pemesanan_obat_service pemesanan_obat_service;
+    Supplier_Service supplier2;
+    GUI_Apoteker gui;
+    List<obat_kritis> listob;
+    List<Pemesanan_Obat> listPO;
+    
+    int index;
+    
     /**
      * Creates new form Panel_Generate_PO
      */
-    public Panel_Generate_PO() {
+    public Panel_Generate_PO(GUI_Apoteker gui) {
         initComponents();
+        obs = gui.obs;
+        supplier2 = gui.supplier2;
+        pemesanan_obat_service = gui.pemesanan_obat;
+        this.gui = gui;
+        UBAH.setEnabled(false);
+        jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent e) {
+                int row = jTable1.getSelectedRow();
+                 if(row != -1){                   
+                   UBAH.setEnabled(true);
+                   ok = table.get(row);
+                   index = row;
+                 }
+            }
+        });
     }
 
+    public void updateList(obat_kritis ob){
+        listob.set(index, ob);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,9 +74,8 @@ public class Panel_Generate_PO extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        UBAH = new javax.swing.JButton();
+        generatePO = new javax.swing.JButton();
 
         setMinimumSize(new java.awt.Dimension(700, 450));
 
@@ -49,14 +92,17 @@ public class Panel_Generate_PO extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setText("Data Pemesanan Obat");
 
-        jButton2.setText("ubah");
-
-        jButton3.setText("generate PO");
-
-        jButton1.setText("supplier");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        UBAH.setText("ubah");
+        UBAH.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                UBAHActionPerformed(evt);
+            }
+        });
+
+        generatePO.setText("generate PO");
+        generatePO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                generatePOActionPerformed(evt);
             }
         });
 
@@ -64,21 +110,17 @@ public class Panel_Generate_PO extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(281, 281, 281))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(228, 228, 228)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 212, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(134, 134, 134))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton3)
-                .addGap(257, 257, 257))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(UBAH, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(generatePO, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
+                .addGap(68, 68, 68))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -87,25 +129,99 @@ public class Panel_Generate_PO extends javax.swing.JPanel {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
-                .addGap(39, 39, 39)
-                .addComponent(jButton3)
-                .addContainerGap(120, Short.MAX_VALUE))
+                .addGap(127, 127, 127)
+                .addComponent(UBAH)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(generatePO)
+                .addContainerGap(57, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void UBAHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UBAHActionPerformed
+        Form_ubah_pemesanan_obat ub= new Form_ubah_pemesanan_obat(this.gui,this);
+        gui.setVisible(false);        
+        ub.setVisible(true);
+        UBAH.setEnabled(false);
+    }//GEN-LAST:event_UBAHActionPerformed
 
+    public String getTanggal(){
+        Calendar cal = new GregorianCalendar();
+        String tanggal = "0";
+        if(cal.get(Calendar.DATE)<0){
+            tanggal = "0"+ cal.get(Calendar.DATE);
+        }
+        else{
+            tanggal = "0"+ cal.get(Calendar.DATE);
+        }
+        String bulan = "0";
+        if(cal.get(Calendar.MONTH)<0){
+            bulan = "0"+ cal.get(Calendar.MONTH);
+        }
+        else{
+            bulan = "0"+ cal.get(Calendar.MONTH);
+        }
+        String tahun = ""+cal.get(Calendar.YEAR);
+        tanggal = (tanggal+"-"+bulan+"-"+tahun);
+        return tanggal;
+    }
+    
+    private void generatePOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generatePOActionPerformed
+        int size = 0;
+        try {
+            List<Pemesanan_Obat> listPo = pemesanan_obat_service.getPO();
+            size = listPO.size();
+        } catch (RemoteException ex) {
+            Logger.getLogger(Panel_Generate_PO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Pemesanan_Obat pemesanan_obat = new Pemesanan_Obat();
+        pemesanan_obat.setId_Pemesnan_obat("PO"+(size+1));
+        try {
+            pemesanan_obat.setId_supplier(supplier2.getId_Supplier(listob.get(0).getNAMA_SUPPLIER()).getId_Supplier());
+        } catch (RemoteException ex) {
+            Logger.getLogger(Panel_Generate_PO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        pemesanan_obat.setTgl_Pemesanan(getTanggal());
+        listPO.add(pemesanan_obat);
+        
+        for(int i = 1; i<listob.size(); i++){
+            boolean ada= true;
+            for(int j = 0; j<listPO.size();j++){
+                try {
+                    if(supplier2.getSupplier(listPO.get(j).getId_supplier()).getNama_Supplier().equals(listob.get(i).getNAMA_SUPPLIER())){                             
+                        //nambah detail beli obat
+                        detil_pesan_obat detail = new detil_pesan_obat();
+                        detail.setId_Pemesanan_obat(listPO.get(i).getId_Pemesanan_obat());
+                        detail.setId_obat(listob.get(i).getID_OBAT());
+                        detail.setJumlah_pesan(listob.get(i).getSELISIH());
+                        detail.setStatus(0);
+                        
+                    }
+                    else{
+                        //nambah PO
+                        
+                    }
+                } catch (RemoteException ex) {
+                    Logger.getLogger(Panel_Generate_PO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }        
+    }//GEN-LAST:event_generatePOActionPerformed
+    
+    public  void updatetable() throws RemoteException{
+        listob = obs.getObatKritis();
+        table.setData(listob);
+        jTable1.setModel(table);        
+    }
+    
+    public  void updatetable2() throws RemoteException{
+        table.setData(listob);
+        jTable1.setModel(table);        
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton UBAH;
+    private javax.swing.JButton generatePO;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

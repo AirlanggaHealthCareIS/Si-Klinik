@@ -3,19 +3,41 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package form_Apoteker;
+package GUI_Apoteker;
 
+import database.entity.obat_kritis;
+import GUI_Apoteker.GUI_Apoteker;
+import GUI_Apoteker.Panel_Generate_PO;
+import java.rmi.RemoteException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import database.entity.Supplier;
+import database.Service.Supplier_Service;
 /**
  *
  * @author asus
  */
 public class Form_ubah_pemesanan_obat extends javax.swing.JFrame {
-
+    obat_kritis ok_baru ;
+    Panel_Generate_PO panel_baru;
+    GUI_Apoteker gui;
+    Supplier_Service supplier2;
     /**
      * Creates new form Form_ubah_pemesanan_obat
      */
-    public Form_ubah_pemesanan_obat() {
+    public Form_ubah_pemesanan_obat(GUI_Apoteker gui, Panel_Generate_PO panel) {
         initComponents();
+        ok_baru = panel.ok;
+        this.gui = gui;
+        supplier2 = panel.supplier2;
+        panel_baru = panel;
+        nomer.setText(""+panel.ok.getNo());
+        id_obat.setText(""+panel.ok.getID_OBAT());
+        nama_obat.setText(panel.ok.getNAMA_OBAT());
+        jumlah_pemesanan.setText(""+panel.ok.getSELISIH());
+       
+        
     }
 
     /**
@@ -30,15 +52,15 @@ public class Form_ubah_pemesanan_obat extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        nomer = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        id_obat = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        nama_obat = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        jumlah_pemesanan = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        supplierCOmbox = new javax.swing.JComboBox();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -49,52 +71,74 @@ public class Form_ubah_pemesanan_obat extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("No :");
 
-        jTextField1.setEditable(false);
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField1.setText("11");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        nomer.setEditable(false);
+        nomer.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        nomer.setText("11");
+        nomer.setEnabled(false);
+        nomer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                nomerActionPerformed(evt);
             }
         });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("No_Id_Obat :");
 
-        jTextField2.setEditable(false);
-        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField2.setText("ob_001");
+        id_obat.setEditable(false);
+        id_obat.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        id_obat.setText("ob_001");
+        id_obat.setEnabled(false);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Nama_Obat :");
 
-        jTextField3.setEditable(false);
-        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField3.setText("Paracetamol");
+        nama_obat.setEditable(false);
+        nama_obat.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        nama_obat.setText("Paracetamol");
+        nama_obat.setEnabled(false);
+        nama_obat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nama_obatActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Jumlah_Pemesanan :");
 
-        jTextField4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField4.setText("30");
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        jumlah_pemesanan.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jumlah_pemesanan.setText("30");
+        jumlah_pemesanan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                jumlah_pemesananActionPerformed(evt);
             }
         });
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Supplier :");
 
-        jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Kimia Farma", "Johnson" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        supplierCOmbox.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        supplierCOmbox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Kimia Farma", "Johnson" }));
+        supplierCOmbox.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                supplierCOmboxPopupMenuWillBecomeVisible(evt);
+            }
+        });
+        supplierCOmbox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                supplierCOmboxActionPerformed(evt);
             }
         });
 
         jButton1.setText("OK");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -111,11 +155,11 @@ public class Form_ubah_pemesanan_obat extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField1)
-                    .addComponent(jTextField2)
-                    .addComponent(jTextField3)
-                    .addComponent(jTextField4)
-                    .addComponent(jComboBox1, 0, 155, Short.MAX_VALUE))
+                    .addComponent(nomer)
+                    .addComponent(id_obat)
+                    .addComponent(nama_obat)
+                    .addComponent(jumlah_pemesanan)
+                    .addComponent(supplierCOmbox, 0, 155, Short.MAX_VALUE))
                 .addContainerGap(81, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -130,23 +174,23 @@ public class Form_ubah_pemesanan_obat extends javax.swing.JFrame {
                 .addGap(47, 47, 47)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(id_obat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nama_obat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jumlah_pemesanan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(supplierCOmbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(39, 39, 39))
@@ -172,56 +216,55 @@ public class Form_ubah_pemesanan_obat extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void nomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomerActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_nomerActionPerformed
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void jumlah_pemesananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jumlah_pemesananActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_jumlah_pemesananActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void supplierCOmboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supplierCOmboxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_supplierCOmboxActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+    private void nama_obatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nama_obatActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nama_obatActionPerformed
+
+    private void supplierCOmboxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_supplierCOmboxPopupMenuWillBecomeVisible
+        supplierCOmbox.removeAllItems();
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+            List<Supplier> listsup = supplier2.getSupliers();
+            for(int i = 0; i<listsup.size(); i++){
+                supplierCOmbox.addItem(listsup.get(i).getNama_Supplier().toString());
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Form_ubah_pemesanan_obat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Form_ubah_pemesanan_obat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Form_ubah_pemesanan_obat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Form_ubah_pemesanan_obat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (RemoteException ex) {
+            Logger.getLogger(Form_ubah_pemesanan_obat.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //</editor-fold>
+        
+    }//GEN-LAST:event_supplierCOmboxPopupMenuWillBecomeVisible
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Form_ubah_pemesanan_obat().setVisible(true);
-            }
-        });
-    }
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ok_baru.setID_OBAT(id_obat.getText());
+        ok_baru.setNAMA_OBAT(nama_obat.getText());
+        ok_baru.setNAMA_SUPPLIER(supplierCOmbox.getItemAt(supplierCOmbox.getSelectedIndex()).toString());
+        ok_baru.setSELISIH(Integer.parseInt(jumlah_pemesanan.getText()));
+        
+        panel_baru.updateList(ok_baru);
+        try {
+            panel_baru.updatetable2();
+        } catch (RemoteException ex) {
+            Logger.getLogger(Form_ubah_pemesanan_obat.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.dispose();
+        gui.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField id_obat;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -229,9 +272,9 @@ public class Form_ubah_pemesanan_obat extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jumlah_pemesanan;
+    private javax.swing.JTextField nama_obat;
+    private javax.swing.JTextField nomer;
+    private javax.swing.JComboBox supplierCOmbox;
     // End of variables declaration//GEN-END:variables
 }
