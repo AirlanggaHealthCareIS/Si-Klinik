@@ -21,6 +21,7 @@ public class obat implements Serializable{
     private String pabrik_obat;
     private String jenis_obat;
     private String kemasan;
+    private String NamaSupplier;
     private int harga_obat;
             
 
@@ -43,6 +44,9 @@ public class obat implements Serializable{
      public float getdosis() {
         return dosis;
     }
+     public String getNamaSupplier(){
+         return NamaSupplier;
+     }
 
     public void setdosis(float dosis) {
         this.dosis = dosis;
