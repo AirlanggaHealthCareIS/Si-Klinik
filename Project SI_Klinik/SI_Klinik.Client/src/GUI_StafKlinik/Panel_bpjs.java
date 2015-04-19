@@ -4,17 +4,62 @@
  */
 package GUI_StafKlinik;
 
+import Client_Application_Model.tabelmodel_fakbpjs;
+import database.Service.Transaksi_Periksa_Service;
+import database.entity.Transaksi_Periksa;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import javax.swing.JOptionPane;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Font.FontFamily;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import javax.swing.JFileChooser;
+
 /**
  *
  * @author JESSICA
  */
 public class Panel_bpjs extends javax.swing.JPanel {
-
-    /**
-     * Creates new form Panel_bpjs
-     */
-    public Panel_bpjs() {
+    GUI_StafKlinik gui;
+    Transaksi_Periksa_Service tps;
+    tabelmodel_fakbpjs tabel = new tabelmodel_fakbpjs();
+     private String pilihan;
+     private Font font1 = new Font(FontFamily.HELVETICA,14,Font.BOLD);
+     private Font font2 = new Font(FontFamily.HELVETICA,18,Font.BOLD);
+     private Font font3 = new Font(FontFamily.HELVETICA,11,Font.BOLD);
+     private Font font5 = new Font(FontFamily.HELVETICA,11);
+     private Font font4 = new Font(FontFamily.HELVETICA,9);     
+     private Font font6 = new Font(FontFamily.HELVETICA,9,Font.BOLD);
+    
+    
+    public Panel_bpjs(GUI_StafKlinik a) {        
         initComponents();
+        gui = a;
+        tps = a.bpjs;
     }
 
     /**
@@ -31,11 +76,12 @@ public class Panel_bpjs extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox();
+        jSpinner1 = new javax.swing.JSpinner();
         CETAK = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox();
-        jComboBox2 = new javax.swing.JComboBox();
+        jButton2 = new javax.swing.JButton();
+        tampilButton = new javax.swing.JToggleButton();
         jLabel5 = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(700, 450));
@@ -57,9 +103,8 @@ public class Panel_bpjs extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jButton2.setText("REFRESH");
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "JANUARI", "FEBUARI", "MARET", "APRIL", "MEI ", "JUNI", "JULI", "AGUSTUSH", "SEPTEMBER", "OKTOBER", "NOPEMBER", "DESEMBER" }));
 
-        CETAK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/agt_print-32.png"))); // NOI18N
         CETAK.setText("CETAK");
         CETAK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -67,7 +112,6 @@ public class Panel_bpjs extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/detail.jpg"))); // NOI18N
         jButton1.setText("LIHAT");
         jButton1.setActionCommand("VIUW");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -76,56 +120,75 @@ public class Panel_bpjs extends javax.swing.JPanel {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "JANUARI", "FEBUARI", "MARET", "APRIL", "MEI ", "JUNI", "JULI", "AGUSTUSH", "SEPTEMBER", "OKTOBER", "NOPEMBER", "DESEMBER" }));
+        jButton2.setText("REFRESH");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2012", "2013", "2014", "2015", "2016" }));
+        tampilButton.setFont(new java.awt.Font("Maiandra GD", 0, 14)); // NOI18N
+        tampilButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Next-32.png"))); // NOI18N
+        tampilButton.setText("Tampilkan");
+        tampilButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tampilButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(CETAK)
-                .addGap(45, 45, 45)
-                .addComponent(jButton1)
-                .addGap(35, 35, 35)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(183, 183, 183))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox1, 0, 142, Short.MAX_VALUE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(389, 389, 389))
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jComboBox1, 0, 132, Short.MAX_VALUE)
+                    .addComponent(jSpinner1))
+                .addGap(99, 99, 99)
+                .addComponent(tampilButton, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(144, 144, 144))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addGap(107, 107, 107)
+                        .addComponent(CETAK, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(62, 62, 62)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(61, 61, 61)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(tampilButton))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+                .addGap(22, 22, 22)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(CETAK)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(CETAK, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18))
         );
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -156,23 +219,195 @@ public class Panel_bpjs extends javax.swing.JPanel {
 
     private void CETAKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CETAKActionPerformed
         // TODO add your handling code here:
+        int bulan= (int)jComboBox1.getSelectedIndex()+1;
+        try{
+            System.out.println(bulan);
+            List<Transaksi_Periksa> list= tps.getBPJS(bulan);
+            createPdf(list);
+         }catch(RemoteException exception){
+             exception.printStackTrace();
+         }
+        
     }//GEN-LAST:event_CETAKActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void refresh(int bulan){
+        try{
+            System.out.println(bulan);
+            List<Transaksi_Periksa> list= tps.getBPJS(bulan);
+            tabel.setData(list);
+            jTable1.setModel(tabel);
+            System.out.println("masuk");
+         }catch(RemoteException exception){
+             exception.printStackTrace();
+         }
+    }
+    
+    private void refresh(){
+        List baru = new ArrayList<>();
+        tabel.setData(baru);
+        jTable1.setModel(tabel);        
+    }
+    
+    private void tampilButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tampilButtonActionPerformed
+        refresh();
+        int bulan= (int)jComboBox1.getSelectedIndex()+1;
+        refresh(bulan);
+    }//GEN-LAST:event_tampilButtonActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        refresh();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void createPdf(List<Transaksi_Periksa> a){
+        JFileChooser saveFile = new JFileChooser();
+        saveFile.setSelectedFile(new File("D:/document/report1.pdf"));        
+        String result = null;        
+        if (saveFile.showSaveDialog(null)== JFileChooser.APPROVE_OPTION) {
+              result= saveFile.getSelectedFile().toString();
+        } else {
+            System.out.println("No Selection ");
+            }
+        try {            
+            // TODO add your handling code here:
+            Document document = new Document();
+            try {
+                PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(result));                
+                document.open();
+                PdfContentByte canvas = writer.getDirectContent();
+                Rectangle rect = new Rectangle (50,800,550,700);
+                rect.setBorder(Rectangle.BOX);
+                rect.setBorderWidth(5);
+                rect.setBorderColor(BaseColor.BLACK);
+                canvas.rectangle(rect);
+                Paragraph preface = getPreface("Bulanan");
+                    document.add(preface);
+                    document.add(Chunk.NEWLINE);
+                    document.add(Chunk.NEWLINE);
+                    document.add(createTableBulanan(a));
+                    document.close();
+                open(result);                
+            } catch (DocumentException ex) {
+                Logger.getLogger(Panel_bpjs.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Panel_bpjs.class.getName()).log(Level.SEVERE, null, ex);
+        }       
+    }
+    private PdfPTable createTableBulanan(List<Transaksi_Periksa> a){
+        PdfPTable tabel = new PdfPTable(5);        
+        PdfPCell cell;
+        cell = new PdfPCell(new Phrase(("ID Pasien"),font6));        
+        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cell.setRowspan(2);        
+        cell.setBorder(Rectangle.BOX);
+        cell.setBorderWidth(1);
+        tabel.addCell(cell);                
+        cell = new PdfPCell(new Phrase(("ID Transaksi pasien"),font6));                
+        cell.setRowspan(2);       
+        cell.setBorder(Rectangle.BOX);
+        cell.setBorderWidth(1);
+        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        tabel.addCell(cell);        
+        cell = new PdfPCell(new Phrase(("Nomor BPJS"),font6));        
+        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cell.setRowspan(2);
+        cell.setBorder(Rectangle.BOX);
+        cell.setBorderWidth(1);
+        tabel.addCell(cell);
+        cell = new PdfPCell(new Phrase(("Jumlah Transaksi"),font6));        
+        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cell.setRowspan(2);
+        cell.setBorder(Rectangle.BOX);
+        cell.setBorderWidth(1);
+        tabel.addCell(cell);
+        cell = new PdfPCell(new Phrase(("Tanggal Transaksi"),font6));        
+        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cell.setRowspan(2);
+        cell.setBorder(Rectangle.BOX);
+        cell.setBorderWidth(1);
+        tabel.addCell(cell);
+        for(int i=0;i<a.size();i++){            
+            cell = new PdfPCell(new Phrase((""+a.get(i).getId_Pasien()),font5));
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            tabel.addCell(cell);
+            
+            cell = new PdfPCell(new Phrase(a.get(i).getId_Transaksi_Periksa().toString(),font5));
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);            
+            tabel.addCell(cell);
+            
+            cell = new PdfPCell(new Phrase((""+a.get(i).getKlaim_BPJS()),font5));
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            tabel.addCell(cell);
+            
+            cell = new PdfPCell(new Phrase((""+a.get(i).getTotal_Transaksi_Periksa()),font5));
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            tabel.addCell(cell);
+            
+            cell = new PdfPCell(new Phrase((""+a.get(i).getTanggal_Transaksi_Periksa()),font5));
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            tabel.addCell(cell);            
+        }
+        return tabel;
+    }
+    
+    private Paragraph getPreface(String status){
+        Paragraph preface =new Paragraph();
+        Calendar cal = new GregorianCalendar();
+        String tanggal ="0";
+        if(cal.get(Calendar.DATE)<0){
+            tanggal="0"+cal.get(Calendar.DATE);
+        }
+        else{
+            tanggal=""+cal.get(Calendar.DATE);
+        }
+        int bulan=(cal.get(Calendar.MONTH))+1;;                
+        int tahun= cal.get(Calendar.YEAR);
+        preface.setAlignment(Element.ALIGN_CENTER);     
+        Chunk chunk = new Chunk("Laporan "+status+" Klaim BPJS",font1);
+        preface.add(Chunk.NEWLINE);
+        preface.add(chunk);
+        chunk = new Chunk("Klinik ibu dan anak ",font2);
+        preface.add(Chunk.NEWLINE);
+        preface.add(chunk);
+        chunk = new Chunk("Periode Bulan "+jComboBox1.getItemAt(jComboBox1.getSelectedIndex()).toString());
+        preface.add(Chunk.NEWLINE);
+        preface.add(chunk);
+        chunk = new Chunk("Diambil oleh : "+gui.p.getNama_Petugas()+" pada tanggal "+tanggal+"/"+bulan+"/"+tahun,font5);
+        preface.add(Chunk.NEWLINE);
+        preface.add(chunk);
+        return preface;
+    }
+    
+    public void open(String url) {
+    try {
+        Desktop desktop = Desktop.getDesktop();
+        if (desktop.isSupported(Desktop.Action.OPEN)) {
+            desktop.open(new File(url));
+        } else {
+            System.out.println("Open is not supported");
+        }
+    } catch (IOException exp) {
+        exp.printStackTrace();
+    }
+}
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CETAK;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JToggleButton tampilButton;
     // End of variables declaration//GEN-END:variables
 }

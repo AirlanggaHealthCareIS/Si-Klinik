@@ -6,6 +6,7 @@
 package database.Service;
 
 import database.entity.Transaksi_Periksa;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 
@@ -13,8 +14,8 @@ import java.util.List;
  *
  * @author Indyka
  */
-public interface Transaksi_Periksa_Service {
+public interface Transaksi_Periksa_Service extends Remote{
 
     Transaksi_Periksa getTransaksi(String id_pasien) throws RemoteException;
-    List<Transaksi_Periksa> getTransaksis(String id_pasien) throws RemoteException;
+    List<Transaksi_Periksa> getBPJS(int bulan) throws RemoteException;
 }
