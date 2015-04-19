@@ -129,6 +129,7 @@ public class Supplier_Server extends UnicastRemoteObject implements Supplier_Ser
         }
     }
     
+    @Override
     public List<Supplier> getSupliers() throws RemoteException {
         System.out.println("proses get ALL SUPPLIER");
         Statement statement = null;
@@ -167,6 +168,41 @@ public class Supplier_Server extends UnicastRemoteObject implements Supplier_Ser
             }
         }
     }
+
+    @Override
+    public Supplier getId_Supplier(String Nama_Supplier) throws RemoteException {
+         System.out.println("melakukan proses getId_supplier by NAMA_SUPPLIER");
+        
+        PreparedStatement statement = null;
+        try {
+            statement = DatabaseUtilities.getConnection().prepareStatement(
+                    "SELECT ID_SUPPLIER FROM supplier WHERE NAMA_SUPPLIER = ?");
+            statement.setString(1, Nama_Supplier);
+            ResultSet result = statement.executeQuery();
+            
+            Supplier a = null;
+            
+            if(result.next()){
+                a = new Supplier();
+                a.setId_Supplier((result.getString("ID_SUPPLIER")));
+            }
+            return a;
+            
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            return null;
+        }
+        finally{
+            if(statement != null){
+                try{
+                    statement.close();
+                }
+                catch(SQLException exception){
+                    exception.printStackTrace();
+                }
+            }
+            
+        }}
 
         
         
