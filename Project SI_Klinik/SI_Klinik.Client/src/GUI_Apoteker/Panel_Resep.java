@@ -45,7 +45,7 @@ public class Panel_Resep extends javax.swing.JPanel {
                 int row = tabel_resep.getSelectedRow();
                  if(row != -1){
                    lihatResep ll = tableModelResep.get(row);
-                   no = ll.getId_resep();
+                   no = ll.getId_rekam_medik();
                  }
             }
         });

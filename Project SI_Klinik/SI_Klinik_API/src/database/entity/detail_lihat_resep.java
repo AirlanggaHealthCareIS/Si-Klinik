@@ -14,6 +14,7 @@ public class detail_lihat_resep implements Serializable{
     private String Tanggal;
     private String nama_Dokter;
     private String nama_obat;
+    private String nama_pasien;
     private int qty;
     
     public int getId_Pasien() {
@@ -29,6 +30,14 @@ public class detail_lihat_resep implements Serializable{
 
     public void setTanggal(String Tanggal) {
         this.Tanggal = Tanggal;
+    }
+    
+    public String getNamaPasien() {
+        return nama_pasien;
+    }
+
+    public void setNamaPasien(String nama_pasien) {
+        this.nama_pasien = nama_pasien;
     }
 
     public String getNama_Dokter() {

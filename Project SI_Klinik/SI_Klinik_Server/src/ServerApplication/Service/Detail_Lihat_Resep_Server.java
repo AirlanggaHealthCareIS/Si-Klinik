@@ -26,20 +26,21 @@ public class Detail_Lihat_Resep_Server extends UnicastRemoteObject implements De
     }
 
     @Override
-    public List<detail_lihat_resep> getLihatResep(String resep) throws RemoteException {
+    public List<detail_lihat_resep> getLihatResep(String rekam) throws RemoteException {
         System.out.println("Client Melakukan Proses Get By");
 
         Statement statement = null;
         try{
           statement = DatabaseUtilities.getConnection().createStatement();
 
-          ResultSet result = statement.executeQuery("SELECT RM.ID_PASIEN, D.NAMA_DOKTER, RM.TGL_REKAM_MEDIS FROM detail_resep_obat AS DRO, dokter AS D, rekam_medis AS RM WHERE DRO.ID_DETAIL_RESEP = '"+resep+"' AND RM.ID_REKAM_MEDIS = DRO.ID_REKAM_MEDIS AND D.ID_DOKTER = RM.ID_DOKTER");
+          ResultSet result = statement.executeQuery("SELECT RM.ID_PASIEN, P.NAMA_PASIEN, D.NAMA_DOKTER, RM.TGL_REKAM_MEDIS FROM detail_resep_obat AS DRO, dokter AS D, rekam_medis AS RM, pasien AS P WHERE RM.ID_REKAM_MEDIS = '"+rekam+"' AND RM.ID_PASIEN = P.ID_PASIEN AND RM.ID_REKAM_MEDIS = DRO.ID_REKAM_MEDIS AND D.ID_DOKTER = RM.ID_DOKTER");
 
           List<detail_lihat_resep> list = new ArrayList<detail_lihat_resep>();
 
           while(result.next()){
                 detail_lihat_resep lihat_resep = new detail_lihat_resep();
                 lihat_resep.setId_Pasien(result.getInt("ID_PASIEN"));
+                lihat_resep.setNamaPasien(result.getString("NAMA_PASIEN"));
                 lihat_resep.setNama_Dokter(result.getString("NAMA_DOKTER"));
                 lihat_resep.setTanggal(result.getString("TGL_REKAM_MEDIS"));
                 list.add(lihat_resep);
@@ -64,14 +65,14 @@ public class Detail_Lihat_Resep_Server extends UnicastRemoteObject implements De
     }
 
     @Override
-    public List<detail_lihat_resep> getLihatResepDetail(String resep) throws RemoteException {
+    public List<detail_lihat_resep> getLihatResepDetail(String rekam) throws RemoteException {
         System.out.println("Client Melakukan Proses Get All");
 
         Statement statement = null;
         try{
           statement = DatabaseUtilities.getConnection().createStatement();
 
-          ResultSet result = statement.executeQuery("SELECT O.NAMA_OBAT, D.QTY_DETAIL_RESEP FROM detail_resep_obat AS D, obat AS O WHERE D.ID_DETAIL_RESEP = '"+resep+"' AND D.ID_OBAT = O.ID_OBAT");
+          ResultSet result = statement.executeQuery("SELECT O.NAMA_OBAT, D.QTY_DETAIL_RESEP FROM detail_resep_obat AS D, obat AS O WHERE D.ID_REKAM_MEDIS = '"+rekam+"' AND D.ID_OBAT = O.ID_OBAT");
 
           List<detail_lihat_resep> list = new ArrayList<detail_lihat_resep>();
 

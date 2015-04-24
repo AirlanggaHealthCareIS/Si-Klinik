@@ -47,8 +47,7 @@ public class TableModel_Resep extends AbstractTableModel{
         switch(column){
             case 0 : return "ID_Pasien";
             case 1 : return "ID_Rekam Medik";
-            case 2 : return "ID_Resep";    
-            case 3 : return "Tanggal";
+            case 2 : return "Tanggal";
 
             default: return null;
         }
@@ -59,15 +58,14 @@ public class TableModel_Resep extends AbstractTableModel{
     }
 
     public int getColumnCount() {
-        return 4;
+        return 3;
     }
     
     public Object getValueAt(int rowIndex, int columnIndex) {
         switch(columnIndex){
             case 0 : return list.get(rowIndex).getId_Pasien();
             case 1 : return list.get(rowIndex).getId_rekam_medik();
-            case 2 : return list.get(rowIndex).getId_resep();
-            case 3 : return list.get(rowIndex).getTanggal();
+            case 2 : return list.get(rowIndex).getTanggal();
                 
             default : return null;
         }
