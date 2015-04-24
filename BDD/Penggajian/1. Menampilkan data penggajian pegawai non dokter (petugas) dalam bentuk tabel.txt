@@ -1,0 +1,11 @@
+Feature : Staf klinik membuat laporan penggajian
+
+Scenario : Menampilkan data penggajian pegawai non dokter (petugas) dalam bentuk tabel
+
+	Given	Staf klinik sudah melakukan login
+	And		Semua data gaji pokok pegawai non dokter (petugas) sudah disimpan di dalam database
+	When	Staf klinik masuk ke fitur penggajian
+	And		Memilih pegawai non dokter pada combo box jenis pegawai
+	And	 	Memasukkan periode
+	And		Menekan tombol tampilkan
+	Then	Semua data penggajian pegawai non dokter (petugas) ditampilkan dalam bentuk tabel

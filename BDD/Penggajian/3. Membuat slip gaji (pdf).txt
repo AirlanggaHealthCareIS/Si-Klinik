@@ -1,0 +1,13 @@
+Feature : Staf klinik membuat laporan penggajian
+
+Scenario : Membuat slip gaji setiap pegawai dalam bentuk pdf
+
+	Given	Staf klinik sudah melakukan login
+	And		Semua data penggajian sudah disimpan di dalam database
+	When	Staf klinik masuk ke fitur penggajian
+	And		Memilih jenis pegawai pada combo box
+	And 	Memasukkan periode
+	And 	Menekan tombol tampilkan
+	Then	Semua data penggajian ditampilkan dalam bentuk tabel
+	When	Staf klinik menekan tombol cetak slip gaji
+	Then	Muncul slip gaji setiap pegawai dalam bentuk pdf

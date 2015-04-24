@@ -10,6 +10,7 @@ import ServerApplication.Service.Resep_Server;
 import ServerApplication.Service.Lihat_Resep_Server;
 import ServerApplication.Service.Detail_Lihat_Resep_Server;
 import ServerApplication.Service.Supplier_Server;
+import ServerApplication.Service.Penggajian_Server;
 import si_klinik_server.DatabaseUtilities;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -50,6 +51,7 @@ public class main {
         Lihat_Resep_Server lihatResepServer= new Lihat_Resep_Server();
         Detail_Lihat_Resep_Server detailLihatResepServer = new Detail_Lihat_Resep_Server();
         Supplier_Server supplierServer = new Supplier_Server();
+        Penggajian_Server penggajianServer = new Penggajian_Server();
         
         server.rebind("service1",   petugasServer);
         server.rebind("service2",   dokterServer);
@@ -61,7 +63,7 @@ public class main {
         server.rebind("service8", obatServer);
         server.rebind("service9", lihatResepServer);
         server.rebind("service10", detailLihatResepServer);
-        
+        server.rebind("service17", penggajianServer);
         
         
         System.out.println("Server Berhasil Tersambung");

@@ -29,6 +29,7 @@ import database.Service.Supplier_Service;
 import database.Service.Tindakan_Dokter_Service;
 import database.Service.Tindakan_Periksa_Service;
 import database.Service.Transaksi_Periksa_Service;
+import database.Service.Penggajian_Service;
 import database.entity.petugas;
 import database.entity.dokter;
 import java.awt.Color;
@@ -58,6 +59,7 @@ public class Login extends javax.swing.JFrame {
       public Transaksi_Periksa_Service service14;
       public RekamMedik_Service service15;
       public Penyakit_Service service16;
+      public Penggajian_Service service17;
       Registry registry;
       public SocketClient client;
       public int port;
@@ -234,6 +236,7 @@ public class Login extends javax.swing.JFrame {
 //        service14 = (Transaksi_Periksa_Service) registry.lookup("service14");
         service15 = (RekamMedik_Service) registry.lookup("service15");
         service16 = (Penyakit_Service )registry.lookup("service16");
+        service17 = (Penggajian_Service) registry.lookup("service17");
         
         if(!username.equals("")&&password.length>0){
             p = service1.getPetugas(username,b.toString());
