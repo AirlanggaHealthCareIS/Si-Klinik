@@ -6,18 +6,25 @@
 package database.entity;
 
 import java.util.List;
-
+import java.io.Serializable;
 /**
  *
- * @author asus
+ * @author alif
  */
-public class Pemesanan_Obat {
+public class Pemesanan_Obat implements Serializable{
     private List <detil_pesan_obat> list;
     private String id_pemesanan_obat;
     private String id_supplier;
+    private String nama_supplier;
     private String tgl_pemesanan;
     
     
+    public void setNama_supllier(String a){
+        nama_supplier = a;
+    }
+    public String getNama_supplier(){
+        return nama_supplier;
+    }
     public void setId_Pemesnan_obat(String a){
         id_pemesanan_obat = a;
     }

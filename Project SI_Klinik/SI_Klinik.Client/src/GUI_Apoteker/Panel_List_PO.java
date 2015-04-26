@@ -3,21 +3,50 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package form_Apoteker;
+package GUI_Apoteker;
 
+import Client_Application_Model.TabelModel_List_PO;
+import database.entity.Pemesanan_Obat;
+import database.Service.Obat_Service;
+import database.entity.detil_pesan_obat;
+import java.rmi.RemoteException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 /**
  *
- * @author asus
+ * @author alif
  */
 public class Panel_List_PO extends javax.swing.JPanel {
-
+    private TabelModel_List_PO tabel = new TabelModel_List_PO();
+    private List<Pemesanan_Obat> list;
+    private Pemesanan_Obat po;
+    private Obat_Service obs;
+    private GUI_Apoteker gui;
     /**
      * Creates new form Panel_List_PO
      */
-    public Panel_List_PO() {
+    public Panel_List_PO(GUI_Apoteker gui, List<Pemesanan_Obat> list) {
         initComponents();
+        obs = gui.obs;
+        this.list = list;    
+        this.gui = gui;
+         jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent e) {
+                int row = jTable1.getSelectedRow();
+                 if(row != -1){                   
+                   po= tabel.get(row);
+                 }
+            }
+        });
     }
 
+    public void updateTabel(){
+        tabel.setData(list);
+        jTable1.setModel(tabel);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -52,6 +81,11 @@ public class Panel_List_PO extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("Detil PO");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -100,6 +134,20 @@ public class Panel_List_PO extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Panel_Detil_PO panel = new Panel_Detil_PO(gui, po);
+        List<detil_pesan_obat> list1 = po.getList();
+        for (int i = 0; i < list1.size(); i++) {
+            try {
+                list1.get(i).setNama_obat(obs.getObat(list1.get(i).getId_obat()).getnama_obat());
+            } catch (RemoteException ex) {
+                Logger.getLogger(Panel_List_PO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        panel.updateTabel(po.getList());
+        gui.updatePanel(panel);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

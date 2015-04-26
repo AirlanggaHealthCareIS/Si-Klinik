@@ -15,8 +15,9 @@ import GUI_Apoteker.Form_ubah_pemesanan_obat;
 import database.Service.Supplier_Service;
 import database.entity.Supplier;
 import database.entity.detil_pesan_obat;
-import database.Service.pemesanan_obat_service;
+import database.Service.Pemesanan_Obat_Service;
 import database.entity.Pemesanan_Obat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
@@ -29,11 +30,11 @@ public class Panel_Generate_PO extends javax.swing.JPanel {
     //TabelModel_Generate_PO table = new TabelModel_Generate_PO();
     Obat_Service obs;
     obat_kritis ok;
-    pemesanan_obat_service pemesanan_obat_service;
+    Pemesanan_Obat_Service pemesanan_obat_service;
     Supplier_Service supplier2;
     GUI_Apoteker gui;
     List<obat_kritis> listob;
-    List<Pemesanan_Obat> listPO;
+    List<Pemesanan_Obat> listPO= new ArrayList<Pemesanan_Obat>();
     
     int index;
     
@@ -149,23 +150,23 @@ public class Panel_Generate_PO extends javax.swing.JPanel {
     }//GEN-LAST:event_UBAHActionPerformed
 
     public String getTanggal(){
-        Calendar cal = new GregorianCalendar();
-        String tanggal = "0";
-        if(cal.get(Calendar.DATE)<0){
-            tanggal = "0"+ cal.get(Calendar.DATE);
-        }
-        else{
-            tanggal = "0"+ cal.get(Calendar.DATE);
-        }
-        String bulan = "0";
-        if(cal.get(Calendar.MONTH)<0){
-            bulan = "0"+ cal.get(Calendar.MONTH);
-        }
-        else{
-            bulan = "0"+ cal.get(Calendar.MONTH);
-        }
-        String tahun = ""+cal.get(Calendar.YEAR);
-        tanggal = (tanggal+"-"+bulan+"-"+tahun);
+       Calendar cal = new GregorianCalendar();
+            String tanggal ="0";
+            if(cal.get(Calendar.DATE)<0){
+                tanggal="0"+cal.get(Calendar.DATE);
+            }
+            else{
+                tanggal=""+cal.get(Calendar.DATE);
+            }
+            String bulan="0";
+            if(cal.get(Calendar.MONTH)<10){
+                bulan="0"+(cal.get(Calendar.MONTH)+1);;
+            }
+            else{
+                bulan=""+(cal.get(Calendar.MONTH)+1);
+            }
+            String tahun= ""+cal.get(Calendar.YEAR);
+            tanggal = (tahun+"-"+bulan+"-"+tanggal);
         return tanggal;
     }
     
@@ -176,39 +177,78 @@ public class Panel_Generate_PO extends javax.swing.JPanel {
             size = listPO.size();
         } catch (RemoteException ex) {
             Logger.getLogger(Panel_Generate_PO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        Pemesanan_Obat pemesanan_obat = new Pemesanan_Obat();
-        pemesanan_obat.setId_Pemesnan_obat("PO"+(size+1));
-        try {
-            pemesanan_obat.setId_supplier(supplier2.getId_Supplier(listob.get(0).getNAMA_SUPPLIER()).getId_Supplier());
-        } catch (RemoteException ex) {
-            Logger.getLogger(Panel_Generate_PO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        pemesanan_obat.setTgl_Pemesanan(getTanggal());
-        listPO.add(pemesanan_obat);
-        
-        for(int i = 1; i<listob.size(); i++){
-            boolean ada= true;
-            for(int j = 0; j<listPO.size();j++){
+        }        
+        if(listob.size()>0){
+            Pemesanan_Obat po = new Pemesanan_Obat();
+            po.setId_Pemesnan_obat("PO"+(size+1));
+            try {
+                 po.setId_supplier(supplier2.getId_Supplier(listob.get(0).getNAMA_SUPPLIER()).getId_Supplier());
+            } catch (RemoteException ex) {
+                Logger.getLogger(Panel_Generate_PO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            po.setTgl_Pemesanan(getTanggal());           
+            po.setList(new ArrayList<detil_pesan_obat>());
+            size = size+1;
+            listPO.add(po);           
+            int index = 0;
+            for(int i = 0; i<listob.size(); i++){
+                boolean ada = false;
+                for(int j = 0; j<listPO.size();j++){
+                    try {
+                        if(supplier2.getSupplier(listPO.get(j).getId_supplier()).getNama_Supplier().equals(listob.get(i).getNAMA_SUPPLIER())){                                                         
+                            ada  = true;
+                            index = j;
+                        }
+                    } catch (RemoteException ex) {
+                        Logger.getLogger(Panel_Generate_PO.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                if(ada){
+                   detil_pesan_obat detail = new detil_pesan_obat();
+                   detail.setId_Pemesanan_obat(listPO.get(index).getId_Pemesanan_obat());
+                   detail.setId_obat(listob.get(i).getID_OBAT());
+                   detail.setJumlah_pesan(listob.get(i).getSELISIH());
+                   detail.setStatus(0);
+                    System.out.println(index);
+                   List<detil_pesan_obat>list = listPO.get(index).getList();
+                   list.add(detail);
+                   listPO.get(index).setList(list); 
+                }
+                else{
+                    po = new Pemesanan_Obat();
+                    po.setId_Pemesnan_obat("PO"+(size+1));
+                    try {
+                        po.setId_supplier(supplier2.getId_Supplier(listob.get(i).getNAMA_SUPPLIER()).getId_Supplier());
+                    } catch (RemoteException ex) {
+                        Logger.getLogger(Panel_Generate_PO.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    po.setList(new ArrayList<detil_pesan_obat>());
+                    po.setTgl_Pemesanan(getTanggal());
+                    listPO.add(po);           
+                    detil_pesan_obat detail = new detil_pesan_obat();
+                    detail.setId_Pemesanan_obat(listPO.get(listPO.size()-1).getId_Pemesanan_obat());
+                    detail.setId_obat(listob.get(i).getID_OBAT());
+                    detail.setJumlah_pesan(listob.get(i).getSELISIH());
+                    detail.setStatus(0);
+                    List<detil_pesan_obat>list = listPO.get(listPO.size()-1).getList();
+                    list.add(detail);
+                    listPO.get(listPO.size()-1).setList(list); 
+                }
+            }
+            for (int i = 0; i < listPO.size(); i++) {
                 try {
-                    if(supplier2.getSupplier(listPO.get(j).getId_supplier()).getNama_Supplier().equals(listob.get(i).getNAMA_SUPPLIER())){                             
-                        //nambah detail beli obat
-                        detil_pesan_obat detail = new detil_pesan_obat();
-                        detail.setId_Pemesanan_obat(listPO.get(i).getId_Pemesanan_obat());
-                        detail.setId_obat(listob.get(i).getID_OBAT());
-                        detail.setJumlah_pesan(listob.get(i).getSELISIH());
-                        detail.setStatus(0);
-                        
-                    }
-                    else{
-                        //nambah PO
-                        
-                    }
+                    listPO.get(i).setNama_supllier(supplier2.getSupplier(listPO.get(i).getId_supplier()).getNama_Supplier());                    
                 } catch (RemoteException ex) {
                     Logger.getLogger(Panel_Generate_PO.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-        }        
+            Panel_List_PO panel  = new Panel_List_PO (gui,listPO);
+            panel.updateTabel();
+            gui.updatePanel(panel);
+            
+            
+            System.out.println("ada "+listPO.size()+" supplier");
+        }
     }//GEN-LAST:event_generatePOActionPerformed
     
     public  void updatetable() throws RemoteException{

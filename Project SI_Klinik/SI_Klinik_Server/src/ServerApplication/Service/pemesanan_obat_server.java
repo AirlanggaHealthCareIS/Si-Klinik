@@ -5,7 +5,7 @@
  */
 package ServerApplication.Service;
 
-import database.Service.pemesanan_obat_service;
+import database.Service.Pemesanan_Obat_Service;
 import database.entity.Pemesanan_Obat;
 import si_klinik_server.DatabaseUtilities;
 import java.rmi.RemoteException;
@@ -20,7 +20,7 @@ import java.util.List;
  *
  * @author asus
  */
-public class pemesanan_obat_server extends UnicastRemoteObject implements pemesanan_obat_service{
+public class pemesanan_obat_server extends UnicastRemoteObject implements Pemesanan_Obat_Service{
 
     public pemesanan_obat_server () throws RemoteException{
         
@@ -59,7 +59,6 @@ public class pemesanan_obat_server extends UnicastRemoteObject implements pemesa
             }
         }    }
 
-    @Override
     public List<Pemesanan_Obat> getPO() throws RemoteException {
         System.out.println("apoteker Melakukan Proses Get All PO");
 

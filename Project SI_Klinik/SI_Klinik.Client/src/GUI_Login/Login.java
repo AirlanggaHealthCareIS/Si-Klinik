@@ -65,6 +65,8 @@ public class Login extends javax.swing.JFrame {
       public Detail_Lihat_Resep_Service service18;      
       public TransaksiObat_Service service19;
       public DetailTransaksiObat_Service service20;
+      public Pemesanan_Obat_Service service18;
+      
       Registry registry;
       public SocketClient client;
       public int port;
@@ -247,7 +249,7 @@ public class Login extends javax.swing.JFrame {
         service19 = (TransaksiObat_Service) registry.lookup("service19");
         service20 = (DetailTransaksiObat_Service) registry.lookup("service20"); 
         service21 = (Penggajian_Service) registry.lookup("service21");
-        
+        service18 = (Pemesanan_Obat_Service) registry.lookup("service18")
         if(!username.equals("")&&password.length>0){
             p = service1.getPetugas(username,b.toString());
             if(p==null){

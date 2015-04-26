@@ -4,17 +4,24 @@
  * and open the template in the editor.
  */
 package database.entity;
-
+import java.io.Serializable;
 /**
  *
  * @author asus
  */
-public class detil_pesan_obat {
+public class detil_pesan_obat implements Serializable{
     private String id_pemesanan_obat;
     private String id_obat;
     private int jumlah_pesan;
+    private String nama_obat;
     private int status;
     
+    public  void setNama_obat(String a){
+        nama_obat = a;
+    }
+    public String getNama_Obat(){
+        return nama_obat;
+    }
     public  void setId_Pemesanan_obat(String a){
         id_pemesanan_obat = a;
     }
