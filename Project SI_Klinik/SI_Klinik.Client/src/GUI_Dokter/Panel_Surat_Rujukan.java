@@ -50,7 +50,7 @@ public class Panel_Surat_Rujukan extends javax.swing.JPanel {
 
         setMinimumSize(new java.awt.Dimension(700, 450));
 
-        jLabel5.setFont(new java.awt.Font("Maiandra GD", 1, 14)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Maiandra GD", 1, 18)); // NOI18N
         jLabel5.setText("Surat Rujukan Pasien");
 
         jLabel6.setText("ID Dokter");
@@ -61,13 +61,13 @@ public class Panel_Surat_Rujukan extends javax.swing.JPanel {
 
         jLabel9.setText(":");
 
-        jLabel4.setFont(new java.awt.Font("Maiandra GD", 1, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Maiandra GD", 1, 16)); // NOI18N
         jLabel4.setText("Tujuan Rujukan");
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel10.setText("Rumah Sakit Rujukan");
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel11.setText("Dokter Rujukan");
 
         jScrollPane3.setViewportView(jTextPane3);
@@ -86,7 +86,7 @@ public class Panel_Surat_Rujukan extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(281, Short.MAX_VALUE)
+                .addContainerGap(246, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -146,7 +146,7 @@ public class Panel_Surat_Rujukan extends javax.swing.JPanel {
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(46, 46, 46)
                 .addComponent(jButton2)
-                .addContainerGap(92, Short.MAX_VALUE))
+                .addContainerGap(91, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
