@@ -25,10 +25,12 @@ public class Panel_Registrasi_Pasien extends javax.swing.JPanel {
     /**
      * Creates new form Panel_Profil_Apoteker
      */
-    public Panel_Registrasi_Pasien() {
+    public Panel_Registrasi_Pasien(GUI_StafKlinik gui) {
         initComponents();
+        ps = gui.pasienServer;
         
     }
+    
     private boolean CheckNumber(String a){
         char b;
         StringBuffer s;        

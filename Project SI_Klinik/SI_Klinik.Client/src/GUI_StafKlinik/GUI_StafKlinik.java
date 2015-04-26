@@ -9,8 +9,8 @@ import GUI_Login.Login;
 import database.Service.Dokter_Service;
 import database.Service.Laporan_Keuangan_Service;
 import database.Service.Petugas_Service;
-import database.Service.Penggajian_Service;
-import database.Service.Transaksi_Periksa_Service;
+import database.Service.Pasien_Service;
+import database.entity.Pasien;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
@@ -26,8 +26,7 @@ public class GUI_StafKlinik extends javax.swing.JFrame {
     Laporan_Keuangan_Service laporanServer;
     Petugas_Service petugasServer;
     Dokter_Service dokterServer;
-    Penggajian_Service penggajianServer;
-    Transaksi_Periksa_Service bpjs;
+    Pasien_Service pasienServer;
     public GUI_StafKlinik ( petugas p, Login l){
         super("Staf Klinik");
         initComponents();
@@ -37,9 +36,17 @@ public class GUI_StafKlinik extends javax.swing.JFrame {
         laporanServer = l.service5;
         dokterServer = l.service2;
         petugasServer = l.service1;
-        penggajianServer = l.service21;
-        bpjs = l.service14;
         jLabel3.setText(p.getNama_Petugas());
+        
+        
+    }
+    
+    public GUI_StafKlinik (Pasien ps) {
+        super ("Staf Klinik");
+        initComponents();
+        Panel_Registrasi_Pasien panel = new Panel_Registrasi_Pasien ();
+        
+        
     }
     
     @SuppressWarnings("unchecked")
@@ -55,7 +62,6 @@ public class GUI_StafKlinik extends javax.swing.JFrame {
         jButton12 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
         SUPPLIER = new javax.swing.JButton();
-        penggajian = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -111,13 +117,6 @@ public class GUI_StafKlinik extends javax.swing.JFrame {
             }
         });
 
-        penggajian.setText("PENGGAJIAN");
-        penggajian.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                penggajianActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -130,8 +129,7 @@ public class GUI_StafKlinik extends javax.swing.JFrame {
                     .addComponent(jButton13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
-                    .addComponent(SUPPLIER, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(penggajian, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(SUPPLIER, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -149,8 +147,6 @@ public class GUI_StafKlinik extends javax.swing.JFrame {
                 .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(SUPPLIER, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(penggajian, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -289,7 +285,7 @@ public class GUI_StafKlinik extends javax.swing.JFrame {
          jPanel4.removeAll();
          jPanel4.repaint();
          jPanel4.revalidate();                    
-         Panel_bpjs  panel = new Panel_bpjs(this);
+         Panel_bpjs  panel = new Panel_bpjs();
          panel.setVisible(true);
          jPanel4.add(panel);
          jPanel4.repaint();
@@ -330,18 +326,6 @@ public class GUI_StafKlinik extends javax.swing.JFrame {
         
        
     }//GEN-LAST:event_jButton11ActionPerformed
-
-    private void penggajianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_penggajianActionPerformed
-        // TODO add your handling code here:
-        jPanel4.removeAll();
-        jPanel4.repaint();
-        jPanel4.revalidate();
-        Panel_Penggajian  panel = new Panel_Penggajian(this);
-        panel.setVisible(true);
-        jPanel4.add(panel);
-        jPanel4.repaint();
-        jPanel4.revalidate();
-    }//GEN-LAST:event_penggajianActionPerformed
 
     /**
      * @param args the command line arguments
@@ -388,6 +372,5 @@ public class GUI_StafKlinik extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JButton penggajian;
     // End of variables declaration//GEN-END:variables
 }
