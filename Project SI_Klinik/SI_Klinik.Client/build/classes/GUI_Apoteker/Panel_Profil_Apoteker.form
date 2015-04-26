@@ -116,12 +116,10 @@
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="nama" alignment="0" max="32767" attributes="0"/>
                       <Component id="alamat" alignment="0" pref="297" max="32767" attributes="0"/>
-                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="agama" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jenkel" alignment="0" max="32767" attributes="0"/>
-                          <Component id="tanggallahir" alignment="0" pref="182" max="32767" attributes="0"/>
-                          <Component id="telp" alignment="0" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="agama" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jenkel" alignment="0" max="32767" attributes="0"/>
+                      <Component id="tanggallahir" alignment="0" pref="182" max="32767" attributes="0"/>
+                      <Component id="telp" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="104" max="32767" attributes="0"/>
               </Group>

@@ -14,9 +14,12 @@ import GUI_Dokter.GUI_Dokter;
 import GUI_Kasir.GUI_Kasir;
 import GUI_StafKlinik.GUI_StafKlinik;
 import database.Service.Assessment_Service;
+import database.Service.DetailTransaksiObat_Service;
+import database.Service.Detail_Lihat_Resep_Service;
 import database.Service.Detail_Resep_Service;
 import database.Service.Petugas_Service;
 import database.Service.Dokter_Service;
+import database.Service.Penggajian_Service;
 import database.Service.Jadwal_Service;
 import database.Service.Laporan_Keuangan_Service;
 import database.Service.Obat_Service;
@@ -28,15 +31,14 @@ import database.Service.Resep_Service;
 import database.Service.Supplier_Service;
 import database.Service.Tindakan_Dokter_Service;
 import database.Service.Tindakan_Periksa_Service;
+import database.Service.TransaksiObat_Service;
 import database.Service.Transaksi_Periksa_Service;
-import database.Service.Penggajian_Service;
+import database.Service.lihat_Resep_Service;
 import database.entity.petugas;
 import database.entity.dokter;
 import java.awt.Color;
 
 
-
-      
 /**
  * 
  *
@@ -59,7 +61,10 @@ public class Login extends javax.swing.JFrame {
       public Transaksi_Periksa_Service service14;
       public RekamMedik_Service service15;
       public Penyakit_Service service16;
-      public Penggajian_Service service17;
+      public lihat_Resep_Service service17;
+      public Detail_Lihat_Resep_Service service18;      
+      public TransaksiObat_Service service19;
+      public DetailTransaksiObat_Service service20;
       Registry registry;
       public SocketClient client;
       public int port;
@@ -71,6 +76,7 @@ public class Login extends javax.swing.JFrame {
       private petugas p;
       private dokter d;
       private boolean aktorIniDokter;
+      public Penggajian_Service service21;
       
     /**
      * Creates new form Login
@@ -225,7 +231,7 @@ public class Login extends javax.swing.JFrame {
         service3 = (Pendaftaran_Service) registry.lookup("service3");     
         service4 = (Pasien_Service) registry.lookup("service4");     
         service5 = (Laporan_Keuangan_Service) registry.lookup("service5");     
-//        service6 = (Tindakan_Dokter_Service) registry.lookup("service6");
+        service6 = (Tindakan_Dokter_Service) registry.lookup("service6");
         service7 = (Assessment_Service) registry.lookup("service7");
         service8 = (Detail_Resep_Service) registry.lookup("service8");
 //        service9 = (Jadwal_Service) registry.lookup("service9");
@@ -233,10 +239,14 @@ public class Login extends javax.swing.JFrame {
 //        service11 = (Resep_Service) registry.lookup("service11");
         service12 = (Supplier_Service) registry.lookup("service12");
         service13 = (Tindakan_Periksa_Service) registry.lookup("service13");
-//        service14 = (Transaksi_Periksa_Service) registry.lookup("service14");
+        service14 = (Transaksi_Periksa_Service) registry.lookup("service14");
         service15 = (RekamMedik_Service) registry.lookup("service15");
         service16 = (Penyakit_Service )registry.lookup("service16");
-        service17 = (Penggajian_Service) registry.lookup("service17");
+        service17 = (lihat_Resep_Service) registry.lookup("service17");
+        service18 = (Detail_Lihat_Resep_Service) registry.lookup("service18");
+        service19 = (TransaksiObat_Service) registry.lookup("service19");
+        service20 = (DetailTransaksiObat_Service) registry.lookup("service20"); 
+        service21 = (Penggajian_Service) registry.lookup("service21");
         
         if(!username.equals("")&&password.length>0){
             p = service1.getPetugas(username,b.toString());

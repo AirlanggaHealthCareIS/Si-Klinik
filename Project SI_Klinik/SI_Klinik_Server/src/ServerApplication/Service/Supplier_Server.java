@@ -62,7 +62,7 @@ public class Supplier_Server extends UnicastRemoteObject implements Supplier_Ser
         PreparedStatement statement = null;
         try {
             statement = DatabaseUtilities.getConnection().prepareStatement(
-            "UPDATE supplier SET  NAMA_SUPPLIER=?, ALAMAT_SUPPLIER=?, KOTA_SUPPLIER=?, TELEPON_SUPPLIER=?, NPWP_SUPPLIER=?, JENIS_PAJAK_SUPPLIER=?, KODE_SUPPLIER=? WHERE ID_SUPLIER=?");
+            "UPDATE supplier SET  NAMA_SUPPLIER=?, ALAMAT_SUPPLIER=?, KOTA_SUPPLIER=?, TELEPON_SUPPLIER=?, NPWP_SUPPLIER=?, JENIS_PAJAK_SUPPLIER=?, KODE_PAJAK_SUPPLIER=? WHERE ID_SUPPLIER=?");
             statement.setString(1, b.getNama_Supplier());
             statement.setString(2, b.getAlamat_Supplier());
             statement.setString(3, b.getKota_Supplier());

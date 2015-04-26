@@ -10,6 +10,7 @@ import database.Service.Dokter_Service;
 import database.Service.Laporan_Keuangan_Service;
 import database.Service.Petugas_Service;
 import database.Service.Penggajian_Service;
+import database.Service.Transaksi_Periksa_Service;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
@@ -26,6 +27,7 @@ public class GUI_StafKlinik extends javax.swing.JFrame {
     Petugas_Service petugasServer;
     Dokter_Service dokterServer;
     Penggajian_Service penggajianServer;
+    Transaksi_Periksa_Service bpjs;
     public GUI_StafKlinik ( petugas p, Login l){
         super("Staf Klinik");
         initComponents();
@@ -35,7 +37,8 @@ public class GUI_StafKlinik extends javax.swing.JFrame {
         laporanServer = l.service5;
         dokterServer = l.service2;
         petugasServer = l.service1;
-        penggajianServer = l.service17;
+        penggajianServer = l.service21;
+        bpjs = l.service14;
         jLabel3.setText(p.getNama_Petugas());
     }
     
@@ -286,7 +289,7 @@ public class GUI_StafKlinik extends javax.swing.JFrame {
          jPanel4.removeAll();
          jPanel4.repaint();
          jPanel4.revalidate();                    
-         Panel_bpjs  panel = new Panel_bpjs();
+         Panel_bpjs  panel = new Panel_bpjs(this);
          panel.setVisible(true);
          jPanel4.add(panel);
          jPanel4.repaint();

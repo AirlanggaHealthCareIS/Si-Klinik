@@ -23,6 +23,7 @@ public class Obat_Server extends UnicastRemoteObject implements Obat_Service {
     
     }
     
+    @Override
     public obat insertObat (obat obat) throws RemoteException {
 
         System.out.println("Apoteker Melakukan Proses Insert");
@@ -61,6 +62,7 @@ public class Obat_Server extends UnicastRemoteObject implements Obat_Service {
             }
         }
     }
+    @Override
  public void updateObat(obat obat) throws RemoteException {
 
         System.out.println("Apoteker Melakukan Proses Update");
@@ -68,21 +70,22 @@ public class Obat_Server extends UnicastRemoteObject implements Obat_Service {
         PreparedStatement statement = null;
         try{
          statement = DatabaseUtilities.getConnection().prepareStatement(
-                 "UPDATE obat SET NAMA_OBAT = ?" +
-                 ",DOSIS = ?, KETERANGAN_OBAT = ?, STOK_OBAT = ? , PABRIK_OBAT = ?, JENIS_OBAT = ?, KEMASAN = ? , HARGA_OBAT = ?" +
-                 "WHERE ID_OBAT = ?"
-         );
+                 "UPDATE obat SET NAMA_OBAT =?" +
+                 ",DOSIS =?, KETERANGAN_OBAT =?, STOK_OBAT =? , PABRIK_OBAT =?, JENIS_OBAT =?, KEMASAN =? , HARGA_OBAT =? " +
+                 "WHERE ID_OBAT =?"
+         );         
          
-        statement.setString(1, obat.getid_obat());
-        statement.setString(2, obat.getnama_obat());
-        statement.setFloat(3, obat.getdosis());
-        statement.setString(4, obat.getketerangan_obat());
-        statement.setInt(5, obat.getstok_obat());
-        statement.setString(6, obat.getpabrik_obat());
-        statement.setString(7, obat.getjenis_obat());
-        statement.setString(8, obat.getkemasan());
-        statement.setInt(9, obat.getharga_obat());
+        statement.setString(9, obat.getid_obat());
+        statement.setString(1, obat.getnama_obat());
+        statement.setFloat(2, obat.getdosis());
+        statement.setString(3, obat.getketerangan_obat());
+        statement.setInt(4, obat.getstok_obat());
+        statement.setString(5, obat.getpabrik_obat());
+        statement.setString(6, obat.getjenis_obat());
+        statement.setString(7, obat.getkemasan());
+        statement.setInt(8, obat.getharga_obat());
 
+            System.out.println(statement.toString());
         statement.executeUpdate();
         }
         catch(SQLException exception){
@@ -99,18 +102,18 @@ public class Obat_Server extends UnicastRemoteObject implements Obat_Service {
         }
     }
 
+    @Override
     public obat getObat(String id_obat) throws RemoteException {
 
-        System.out.println("Apoteker Melakukan Proses Get By Id");
-
-        PreparedStatement statement = null;
-        try{
+         System.out.println("Apoteker Melakukan Proses Get By Id");
+         PreparedStatement statement = null;
+         try {
             statement = DatabaseUtilities.getConnection().prepareStatement(
-                 "SELECT * FROM obat WHERE ID_OBAT = ?");
-
+                    "SELECT * FROM obat WHERE ID_OBAT =?");
+            statement.setString(1, id_obat);
             ResultSet result = statement.executeQuery();
 
-            obat obat = null;
+            obat obat = new obat();
 
             if(result.next()){
                 obat.setid_obat(result.getString("ID_OBAT"));
@@ -139,6 +142,8 @@ public class Obat_Server extends UnicastRemoteObject implements Obat_Service {
             }
         }
     }
+    
+    @Override
     public List<obat> getObatKritis() throws RemoteException {
         System.out.println("proses get obat kritis");
         Statement statement = null;
@@ -175,6 +180,96 @@ public class Obat_Server extends UnicastRemoteObject implements Obat_Service {
     }
     
 
+    @Override 
+    public List<obat> getAllObat () throws RemoteException{
+        System.out.println("Client Melakukan Proses Get All");
+
+        Statement statement = null;
+        try{
+          statement = DatabaseUtilities.getConnection().createStatement();
+
+          ResultSet result = statement.executeQuery("SELECT * FROM `obat`");
+
+          List<obat> list = new ArrayList();
+          
+          while(result.next()){
+              obat o = new obat();
+              o.setid_obat(result.getString("ID_OBAT"));
+              o.setnama_obat(result.getString("NAMA_OBAT"));
+              o.setstok_kritis(result.getInt("STOK_KRITIS"));
+              o.setdosis(result.getFloat("DOSIS"));
+              o.setketerangan_obat(result.getString("KETERANGAN_OBAT"));
+              o.setstok_obat(result.getInt("STOK_OBAT"));
+              o.setpabrik_obat(result.getString("PABRIK_OBAT"));
+              o.setjenis_obat(result.getString("JENIS_OBAT"));
+              o.setkemasan(result.getString("KEMASAN"));
+              o.setharga_obat(result.getInt("HARGA_OBAT"));
+            list.add(o);
+          }
+          
+          result.close();
+
+          return list;
+
+        }catch(SQLException exception){
+          exception.printStackTrace();
+          return null;
+        }finally{
+            if(statement != null){
+                try{
+                    statement.close();
+                }catch(SQLException exception){
+                   exception.printStackTrace();
+                }
+            }
+        }
+    }
+    
+    @Override 
+    public List<obat> getAllObatSort () throws RemoteException{
+        System.out.println("Client Melakukan Proses Get All");
+
+        Statement statement = null;
+        try{
+          statement = DatabaseUtilities.getConnection().createStatement();
+
+          ResultSet result = statement.executeQuery("SELECT * FROM `obat` ORDER BY NAMA_OBAT ASC");
+
+          List<obat> list = new ArrayList();
+          
+          while(result.next()){
+              obat o = new obat();
+              o.setid_obat(result.getString("ID_OBAT"));
+              o.setnama_obat(result.getString("NAMA_OBAT"));
+              o.setstok_kritis(result.getInt("STOK_KRITIS"));
+              o.setdosis(result.getFloat("DOSIS"));
+              o.setketerangan_obat(result.getString("KETERANGAN_OBAT"));
+              o.setstok_obat(result.getInt("STOK_OBAT"));
+              o.setpabrik_obat(result.getString("PABRIK_OBAT"));
+              o.setjenis_obat(result.getString("JENIS_OBAT"));
+              o.setkemasan(result.getString("KEMASAN"));
+              o.setharga_obat(result.getInt("HARGA_OBAT"));
+            list.add(o);
+          }
+          
+          result.close();
+
+          return list;
+
+        }catch(SQLException exception){
+          exception.printStackTrace();
+          return null;
+        }finally{
+            if(statement != null){
+                try{
+                    statement.close();
+                }catch(SQLException exception){
+                   exception.printStackTrace();
+                }
+            }
+        }
+    }
+    
     @Override
     public List getObatList(String nama) throws RemoteException {
         System.out.println("Client Melakukan Proses Get All by Name");

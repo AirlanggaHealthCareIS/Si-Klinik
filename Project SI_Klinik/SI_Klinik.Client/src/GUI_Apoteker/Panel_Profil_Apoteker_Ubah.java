@@ -207,7 +207,7 @@ public class Panel_Profil_Apoteker_Ubah extends javax.swing.JPanel {
             Logger.getLogger(Panel_Profil_Apoteker_Ubah.class.getName()).log(Level.SEVERE, null, ex);
         }
         Panel_Profil_Apoteker panel = new Panel_Profil_Apoteker(gui);
-        gui.repaintPanel(panel);
+        gui.updatePanel(panel);
     }//GEN-LAST:event_SAVEActionPerformed
 
     private void alamatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alamatActionPerformed

@@ -8,44 +8,48 @@ import database.entity.lihatResep;
 import database.Service.lihat_Resep_Service;
 import database.entity.petugas;
 import java.rmi.RemoteException;
-import java.rmi.registry.Registry;
-import java.rmi.NotBoundException;
-import java.rmi.registry.LocateRegistry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import database.Service.Resep_Service;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author tinot
  */
 public class Panel_Resep extends javax.swing.JPanel {
+    Resep_Service resep;
     private TableModel_Resep tableModelResep = new TableModel_Resep();
     private lihat_Resep_Service lihatResepService;
-    public String no;
-    private Registry registry;
-    /**
-     * Creates new form Panel_Resep
-     */
-    public Panel_Resep() throws NotBoundException {
-        this.lihatResepService = lihatResepService;
-        try{
-            registry = LocateRegistry.getRegistry("0.0.0.0", 9750);
-            lihatResepService = (lihat_Resep_Service) registry.lookup("service9"); 
-            tableModelResep.setData(this.lihatResepService.getLihatResep());
-        }catch(RemoteException exception){
-            exception.printStackTrace();
-        }
+    List<lihatResep> list = new ArrayList<>();
+    public String no;    
+    GUI_Apoteker gui;
+    lihatResep ll;
+    
+    public Panel_Resep(GUI_Apoteker gui) {
         initComponents();
-        tabel_resep.setModel(tableModelResep);
+        this.lihatResepService = gui.lrs;
+        jButton1.setEnabled(false);
+        try {                
+            list = lihatResepService.getLihatResep();
+            System.out.println(list.size());
+            tableModelResep.setData(this.lihatResepService.getLihatResep());
+            tabel_resep.setModel(tableModelResep);
+        } catch (RemoteException ex) {
+            Logger.getLogger(Panel_Resep.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.gui=gui;
         tabel_resep.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-
             public void valueChanged(ListSelectionEvent e) {
                 int row = tabel_resep.getSelectedRow();
                  if(row != -1){
-                   lihatResep ll = tableModelResep.get(row);
-                   no = ll.getId_rekam_medik();
+                   ll = tableModelResep.get(row);
+                   no = ll.getId_resep();
+                   jButton1.setEnabled(true);
                  }
             }
         });
@@ -119,21 +123,22 @@ public class Panel_Resep extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(51, 51, 51)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(275, 275, 275)
+                        .addComponent(jLabel4))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(292, 292, 292)
-                        .addComponent(jButton1))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(idpasien, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(275, 275, 275)
-                        .addComponent(jLabel4)))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                            .addGap(54, 54, 54)
+                            .addComponent(jLabel3)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(idpasien)
+                            .addGap(18, 18, 18)
+                            .addComponent(jButton2))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                            .addGap(51, 51, 51)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(58, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -148,8 +153,8 @@ public class Panel_Resep extends javax.swing.JPanel {
                     .addComponent(jButton2))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -157,20 +162,17 @@ public class Panel_Resep extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 722, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 450, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 20, Short.MAX_VALUE)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -179,41 +181,22 @@ public class Panel_Resep extends javax.swing.JPanel {
     }//GEN-LAST:event_idpasienFocusGained
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-//        Panel_DetailResep b;
-//        try {
-//            try {
-//                b = new Panel_DetailResep(no);
-//                b.setVisible(true);
-//            } catch (RemoteException ex) {
-//                Logger.getLogger(Panel_Resep.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//            
-//        } catch (NotBoundException ex) {
-//            Logger.getLogger(Panel_Resep.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-        petugas p = new petugas();
-        try {
-            Panel_DetailResep pd = new Panel_DetailResep(no);
-            GUI_Apoteker s = new GUI_Apoteker(p);
-        s.updatePanel(pd);
-        s.setVisible(true);
-        } catch (NotBoundException ex) {
-            Logger.getLogger(Panel_Resep.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (RemoteException ex) {
-            Logger.getLogger(Panel_Resep.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
+        Panel_DetailResep b = new Panel_DetailResep(no,gui);
+        gui.updatePanel(b);
+        jButton1.setEnabled(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
-            tableModelResep.setData(this.lihatResepService.getLihatResep(Integer.parseInt(idpasien.getText())));
-            tabel_resep.setModel(tableModelResep);
-            if (tabel_resep.getRowCount()==0) {
+            list = this.lihatResepService.getLihatResep(Integer.parseInt(idpasien.getText()));
+            if (list.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Data Tidak Ditemukan", "Pesan", JOptionPane.OK_OPTION);
                 tableModelResep.setData(this.lihatResepService.getLihatResep());
                 tabel_resep.setModel(tableModelResep);
+            }
+            else{
+                tableModelResep.setData(list);
+                tabel_resep.setModel(tableModelResep);    
             }
             idpasien.setText("Masukkan ID Pasien");
         } catch (RemoteException ex) {

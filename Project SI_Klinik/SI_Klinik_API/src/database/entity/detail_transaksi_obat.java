@@ -4,11 +4,13 @@
  */
 package database.entity;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Acer
  */
-public class detail_transaksi_obat {
+public class detail_transaksi_obat implements Serializable{
     private String id_detail_obat;
     private String id_transaksi_obat;
     private String id_obat;

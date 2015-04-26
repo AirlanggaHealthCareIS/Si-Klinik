@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package GUI_Apoteker;
-import Client_Application_Model.TabelModel_Generate_PO;
+//import Client_Application_Model.TabelModel_Generate_PO;
 import database.entity.obat_kritis;
 import database.Service.Obat_Service;
 import java.rmi.RemoteException;
@@ -26,7 +26,7 @@ import java.util.logging.Logger;
  * @author asus
  */
 public class Panel_Generate_PO extends javax.swing.JPanel {
-    TabelModel_Generate_PO table = new TabelModel_Generate_PO();
+    //TabelModel_Generate_PO table = new TabelModel_Generate_PO();
     Obat_Service obs;
     obat_kritis ok;
     pemesanan_obat_service pemesanan_obat_service;
@@ -42,9 +42,9 @@ public class Panel_Generate_PO extends javax.swing.JPanel {
      */
     public Panel_Generate_PO(GUI_Apoteker gui) {
         initComponents();
-        obs = gui.obs;
-        supplier2 = gui.supplier2;
-        pemesanan_obat_service = gui.pemesanan_obat;
+        obs = gui.os;
+        supplier2 = gui.ss;
+       // pemesanan_obat_service = gui.
         this.gui = gui;
         UBAH.setEnabled(false);
         jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -52,7 +52,7 @@ public class Panel_Generate_PO extends javax.swing.JPanel {
                 int row = jTable1.getSelectedRow();
                  if(row != -1){                   
                    UBAH.setEnabled(true);
-                   ok = table.get(row);
+                  // ok = table.get(row);
                    index = row;
                  }
             }
@@ -110,17 +110,21 @@ public class Panel_Generate_PO extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 269, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(281, 281, 281))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(UBAH, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(generatePO, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
-                .addGap(68, 68, 68))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(UBAH, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(generatePO, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
+                        .addGap(68, 68, 68))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -128,8 +132,8 @@ public class Panel_Generate_PO extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(127, 127, 127)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(UBAH)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(generatePO)
@@ -208,14 +212,14 @@ public class Panel_Generate_PO extends javax.swing.JPanel {
     }//GEN-LAST:event_generatePOActionPerformed
     
     public  void updatetable() throws RemoteException{
-        listob = obs.getObatKritis();
-        table.setData(listob);
-        jTable1.setModel(table);        
+        //listob = obs.getObatKritis();
+//        table.setData(listob);
+//        jTable1.setModel(table);        
     }
     
     public  void updatetable2() throws RemoteException{
-        table.setData(listob);
-        jTable1.setModel(table);        
+//        table.setData(listob);
+//        jTable1.setModel(table);        
     }
     
 

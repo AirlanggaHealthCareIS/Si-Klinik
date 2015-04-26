@@ -19,7 +19,7 @@ public class Panel_Profil_Apoteker extends javax.swing.JPanel {
     public Panel_Profil_Apoteker(GUI_Apoteker gui) {
         initComponents();
         this.gui=gui;
-        p = gui.p;
+        p = gui.p;        
         nama.setText(p.getNama_Petugas());
         alamat.setText(p.getAlamat());
         jenkel.setText(p.getJenKel());
@@ -224,7 +224,7 @@ public class Panel_Profil_Apoteker extends javax.swing.JPanel {
 
     private void TOMBOL_UBAHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TOMBOL_UBAHActionPerformed
         Panel_Profil_Apoteker_Ubah panel = new Panel_Profil_Apoteker_Ubah(this.gui);
-        gui.repaintPanel(panel);
+        gui.updatePanel(panel);
     }//GEN-LAST:event_TOMBOL_UBAHActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

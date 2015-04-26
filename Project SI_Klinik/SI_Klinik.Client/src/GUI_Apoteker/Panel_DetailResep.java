@@ -16,42 +16,38 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+
 public class Panel_DetailResep extends javax.swing.JPanel {
     private TableModel_Lihat_Resep tableModelResep = new TableModel_Lihat_Resep();
-    private Detail_Lihat_Resep_Service detailLihatResepService;
-    private Detail_Resep_Service detailResepService;
+    private Detail_Lihat_Resep_Service dlrs;
+    private Detail_Resep_Service drs;
     public String noID;
     private String temp;
-    private Registry registry;
+    private GUI_Apoteker gui;
+    List<detail_lihat_resep> listResep;
+    private List<detail_lihat_resep> list ;
     /**
      * Creates new form Panel_DetailResep
      */
-    public Panel_DetailResep(String no) throws NotBoundException, RemoteException {
-        this.detailLihatResepService = detailLihatResepService;
-        this.detailResepService = detailResepService;
+    public Panel_DetailResep(String no, GUI_Apoteker gui){
+        dlrs = gui.dlrs;
+        drs = gui.drs;
         noID = no;
-        temp = "";
-        List<detail_lihat_resep> list = new ArrayList<detail_lihat_resep>();
-        
+        temp = "";        
+        initComponents();
+        this.gui = gui;        
         try{
-            registry = LocateRegistry.getRegistry("0.0.0.0", 9750);
-            detailLihatResepService = (Detail_Lihat_Resep_Service) registry.lookup("service10"); 
-            detailResepService = (Detail_Resep_Service) registry.lookup("service7"); 
-            
-            tableModelResep.setData(this.detailLihatResepService.getLihatResepDetail(noID));
+            listResep = this.dlrs.getLihatResep(noID);
+            list = this.dlrs.getLihatResepDetail(noID);
+            tableModelResep.setData(list);
+            tabel_detail.setModel(tableModelResep);
         }catch(RemoteException exception){
             exception.printStackTrace();
-        }
-        initComponents();
-        list = detailLihatResepService.getLihatResep(noID);
-        tabel_detail.setModel(tableModelResep);
-        tanggal.setText(list.get(0).getTanggal());
-        temp = ""+list.get(0).getId_Pasien();
+        }        
+        tanggal.setText(listResep.get(0).getTanggal());
+        temp = ""+listResep.get(0).getId_Pasien();
         idPasien.setText(temp);
-        namaDokter.setText(list.get(0).getNama_Dokter());
-        nama.setText(list.get(0).getNamaPasien());
-        
-        
+        namaDokter.setText(listResep.get(0).getNama_Dokter());
     }
 
     /**
@@ -75,8 +71,6 @@ public class Panel_DetailResep extends javax.swing.JPanel {
         tanggal = new javax.swing.JLabel();
         idPasien = new javax.swing.JLabel();
         namaDokter = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        nama = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(700, 450));
 
@@ -105,6 +99,11 @@ public class Panel_DetailResep extends javax.swing.JPanel {
         jScrollPane2.setViewportView(tabel_detail);
 
         jButton3.setText("Kelola Penjualan");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Vani", 1, 18)); // NOI18N
         jLabel4.setText("Detail Resep");
@@ -115,10 +114,6 @@ public class Panel_DetailResep extends javax.swing.JPanel {
 
         namaDokter.setText("dokter");
 
-        jLabel1.setText("Nama Pasien           :");
-
-        nama.setText("nama");
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -126,33 +121,27 @@ public class Panel_DetailResep extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 656, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel6))
+                                    .addComponent(jLabel5))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(namaDokter)
-                                    .addComponent(idPasien)
-                                    .addComponent(tanggal)
-                                    .addComponent(nama)))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(286, 286, 286)
-                                .addComponent(jLabel4)))
-                        .addGap(0, 275, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 656, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton3)
-                .addGap(274, 274, 274))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(tanggal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(idPasien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(namaDokter, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(300, 300, 300)
+                        .addComponent(jButton3))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(286, 286, 286)
+                        .addComponent(jLabel4)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,19 +158,15 @@ public class Panel_DetailResep extends javax.swing.JPanel {
                     .addComponent(idPasien))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(nama))
-                .addGap(20, 20, 20)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(namaDokter))
-                .addGap(27, 27, 27)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton3)
-                .addGap(20, 20, 20))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -205,10 +190,16 @@ public class Panel_DetailResep extends javax.swing.JPanel {
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        Panel_PenjualanObat panel = new Panel_PenjualanObat(list,gui);
+        gui.updatePanel(panel); 
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel idPasien;
     private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel4;
@@ -216,7 +207,6 @@ public class Panel_DetailResep extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel nama;
     private javax.swing.JLabel namaDokter;
     private javax.swing.JTable tabel_detail;
     private javax.swing.JLabel tanggal;

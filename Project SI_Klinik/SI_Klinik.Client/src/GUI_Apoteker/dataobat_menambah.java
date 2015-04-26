@@ -360,7 +360,7 @@ public class dataobat_menambah extends javax.swing.JFrame {
             String ID = null;
             System.out.println("satu");
             try {
-                ID = "O"+(ss.getObat().size()+1);
+                ID = "O"+(ss.getAllObat().size()+1);
                 System.out.println(ID);
             } catch (RemoteException ex) {
                 Logger.getLogger(dataobat_menambah.class.getName()).log(Level.SEVERE, null, ex);
@@ -401,7 +401,7 @@ public class dataobat_menambah extends javax.swing.JFrame {
                             refresh();
                         }
                         else{
-                           a.repaintPanel(new dataobat_home(this.a));
+                           a.updatePanel(new dataobat_home(this.a));
                            this.dispose();
                         }
                     }
@@ -471,7 +471,7 @@ public class dataobat_menambah extends javax.swing.JFrame {
 
     private void tombol_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombol_backActionPerformed
         // TODO add your handling code here:
-        a.repaintPanel(new dataobat_home(this.a));
+        a.updatePanel(new dataobat_home(this.a));
         this.dispose();
     }//GEN-LAST:event_tombol_backActionPerformed
 

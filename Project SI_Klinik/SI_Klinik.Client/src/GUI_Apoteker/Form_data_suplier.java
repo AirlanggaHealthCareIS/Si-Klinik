@@ -161,11 +161,10 @@ public class Form_data_suplier extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void TOMBOL_UBAHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TOMBOL_UBAHActionPerformed
-        //        action = "update";
-        //        TOMBOL_UBAH.setEnabled(false);
-        //        UBAH f = new UBAH (this);
-        //        f.setVisible(true);
-        //        this.setVisible(false);
+                TOMBOL_UBAH.setEnabled(false);
+                Form_Data_Supplier_Ubah f= new Form_Data_Supplier_Ubah(gui,supplier);
+                f.setVisible(true);
+                this.setVisible(false);
     }//GEN-LAST:event_TOMBOL_UBAHActionPerformed
 
     private void TOMBOL_TAMBAHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TOMBOL_TAMBAHActionPerformed

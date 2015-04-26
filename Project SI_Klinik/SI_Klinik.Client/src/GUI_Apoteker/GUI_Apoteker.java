@@ -5,6 +5,15 @@
 package GUI_Apoteker;
 
 import GUI_Login.Login;
+import database.Service.DetailTransaksiObat_Service;
+import database.Service.Detail_Lihat_Resep_Service;
+import database.Service.Detail_Resep_Service;
+import database.Service.Obat_Service;
+import database.Service.Petugas_Service;
+import database.Service.Resep_Service;
+import database.Service.Supplier_Service;
+import database.Service.TransaksiObat_Service;
+import database.Service.lihat_Resep_Service;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
@@ -14,18 +23,80 @@ import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import database.entity.petugas;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import javax.swing.JPanel;
 
 public class GUI_Apoteker extends javax.swing.JFrame {
-    petugas p;
+    petugas p;    
+    Petugas_Service ps;
+    Supplier_Service ss;
+    Obat_Service os;
+    lihat_Resep_Service lrs;
+    Detail_Lihat_Resep_Service dlrs;
+    Resep_Service rs;
+    Detail_Resep_Service drs;
+    TransaksiObat_Service tos;
+    DetailTransaksiObat_Service dtos;
     
-    public GUI_Apoteker (petugas p){
+    public GUI_Apoteker (petugas p, Login l){
         super("Apoteker");
         initComponents();
-        Panel_Profil_Apoteker panel = new Panel_Profil_Apoteker();
-        jPanel4.add(panel);
         this.p= p;
+        ss = l.service12;
+        ps = l.service1;
+        lrs = l.service17;
+        os = l.service10;
+        dlrs = l.service18;
+        rs = l.service11;
+        tos = l.service19;
+        dtos = l.service20;
+        drs = l.service8;
         jLabel3.setText(p.getNama_Petugas());
+        Panel_Profil_Apoteker panel = new Panel_Profil_Apoteker(this);
+        jPanel4.add(panel);
+    }
+    
+     public String getTanggal(){
+        Calendar cal = new GregorianCalendar();
+            String tanggal ="0";
+            if(cal.get(Calendar.DATE)<0){
+                tanggal="0"+cal.get(Calendar.DATE);
+            }
+            else{
+                tanggal=""+cal.get(Calendar.DATE);
+            }
+            String bulan="0";
+            if(cal.get(Calendar.MONTH)<10){
+                bulan="0"+(cal.get(Calendar.MONTH)+1);;
+            }
+            else{
+                bulan=""+(cal.get(Calendar.MONTH)+1);
+            }
+            String tahun= ""+cal.get(Calendar.YEAR);
+            tanggal = (tahun+"-"+bulan+"-"+tanggal);
+            return tanggal;
+    }
+     
+     public String getTanggalView(){
+        Calendar cal = new GregorianCalendar();
+            String tanggal ="0";
+            if(cal.get(Calendar.DATE)<0){
+                tanggal="0"+cal.get(Calendar.DATE);
+            }
+            else{
+                tanggal=""+cal.get(Calendar.DATE);
+            }
+            String bulan="0";
+            if(cal.get(Calendar.MONTH)<10){
+                bulan="0"+(cal.get(Calendar.MONTH)+1);;
+            }
+            else{
+                bulan=""+(cal.get(Calendar.MONTH)+1);
+            }
+            String tahun= ""+cal.get(Calendar.YEAR);
+            tanggal = (tanggal+"-"+bulan+"-"+tahun);
+            return tanggal;
     }
     
     public void updatePanel(JPanel panel){
@@ -49,7 +120,6 @@ public class GUI_Apoteker extends javax.swing.JFrame {
         jButton11 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
         jButton13 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
@@ -98,13 +168,6 @@ public class GUI_Apoteker extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("RESEP PASIEN");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -112,7 +175,6 @@ public class GUI_Apoteker extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -133,8 +195,6 @@ public class GUI_Apoteker extends javax.swing.JFrame {
                 .addComponent(SUPPLIER, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -229,43 +289,26 @@ public class GUI_Apoteker extends javax.swing.JFrame {
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
         // TODO add your handling code here:
-         jPanel4.removeAll();
-         jPanel4.repaint();
-         jPanel4.revalidate();                    
-         Panel_Resep panel;
-        try {
-            panel = new Panel_Resep();
-            panel.setVisible(true);
-            jPanel4.add(panel);
-            jPanel4.repaint();
-            jPanel4.revalidate(); 
-        } catch (NotBoundException ex) {
-            Logger.getLogger(GUI_Apoteker.class.getName()).log(Level.SEVERE, null, ex);
-        }
+         Panel_Resep panel = new Panel_Resep(this);
+         updatePanel(panel);
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void SUPPLIERActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SUPPLIERActionPerformed
-         jPanel4.removeAll();
-         jPanel4.repaint();
-         jPanel4.revalidate();                    
-         Form_data_suplier panel = new Form_data_suplier();
-         panel.setVisible(true);
-         jPanel4.add(panel);
-         jPanel4.repaint();
-         jPanel4.revalidate();                
+
+        try {
+            Form_data_suplier panel = new Form_data_suplier(this);
+            updatePanel(panel);
+        } catch (RemoteException ex) {
+            Logger.getLogger(GUI_Apoteker.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NotBoundException ex) {
+            Logger.getLogger(GUI_Apoteker.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_SUPPLIERActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
-         jPanel4.removeAll();
-         jPanel4.repaint();
-         jPanel4.revalidate();                    
-         Panel_Profil_Apoteker panel = new Panel_Profil_Apoteker();
-         panel.setVisible(true);
-         jPanel4.add(panel);
-         jPanel4.repaint();
-         jPanel4.revalidate();  
-        
+         Panel_Profil_Apoteker panel = new Panel_Profil_Apoteker(this);
+         updatePanel(panel);
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
@@ -291,63 +334,16 @@ public class GUI_Apoteker extends javax.swing.JFrame {
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         // TODO add your handling code here:
-        
+        dataobat_home panel = new dataobat_home(this);
+        updatePanel(panel);
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton11ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        jPanel4.removeAll();
-         jPanel4.repaint();
-         jPanel4.revalidate();                    
-         Panel_Resep panel;
-        try {
-            panel = new Panel_Resep();
-            panel.setVisible(true);
-            jPanel4.add(panel);
-            jPanel4.repaint();
-            jPanel4.revalidate();
-        } catch (NotBoundException ex) {
-            Logger.getLogger(GUI_Apoteker.class.getName()).log(Level.SEVERE, null, ex);
-        }
-         
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GUI_Apoteker.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GUI_Apoteker.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GUI_Apoteker.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GUI_Apoteker.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-       
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton SUPPLIER;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;

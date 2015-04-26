@@ -293,7 +293,7 @@ public class Form_Data_Supplier_Ubah extends javax.swing.JFrame {
                try {                    
                     supplierservice.updateSupplier(supplier);
                     JOptionPane.showConfirmDialog(null, "Data Anda berhasil disimpan. Apakah Anda akan menambahkan data lagi?","", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
-                    gui.repaintPanel(new Form_data_suplier (gui));
+                    gui.updatePanel(new Form_data_suplier (gui));
                     this.dispose();
                 } catch (NotBoundException ex) {
                     Logger.getLogger(Form_Data_Supplier_Ubah.class.getName()).log(Level.SEVERE, null, ex);
@@ -337,7 +337,7 @@ public class Form_Data_Supplier_Ubah extends javax.swing.JFrame {
         Form_data_suplier o1;
         try {
             o1 = new Form_data_suplier(gui);
-            gui.repaintPanel(o1);
+            gui.updatePanel(o1);
                 this.dispose();
         } catch (RemoteException ex) {
             Logger.getLogger(Form_Data_Supplier_Tambah.class.getName()).log(Level.SEVERE, null, ex);

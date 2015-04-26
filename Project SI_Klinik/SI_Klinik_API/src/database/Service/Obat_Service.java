@@ -21,5 +21,11 @@ public interface Obat_Service extends Remote {
     
     List getObatList(String nama) throws RemoteException;
     
+    List<obat> getAllObat () throws RemoteException;
+    
+    List<obat> getAllObatSort () throws RemoteException;
+    
     String getIdObat(String nama) throws RemoteException;
+    
+    List<obat> getObatKritis() throws RemoteException;
 }

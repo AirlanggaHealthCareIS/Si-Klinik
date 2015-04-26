@@ -6,10 +6,12 @@ package GUI_Dokter;
 
 import database.Service.Penyakit_Service;
 import database.entity.Penyakit;
+import database.entity.detail_Assessment;
 import java.awt.Color;
 import java.awt.Component;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -35,6 +37,7 @@ public class PanelAssessment extends javax.swing.JPanel {
     public Vector listPPL = new Vector();
     GUI_Dokter gui;
     Panel_Rekam_Medik_Tambah a;
+    Panel_Rekam_Medik_Detail b;
     Penyakit_Service pes;
     public int index;
     /**
@@ -48,7 +51,50 @@ public class PanelAssessment extends javax.swing.JPanel {
         this.index =index ;
     }
     
-    public void updateLists(JList list, Vector a){
+    public PanelAssessment(GUI_Dokter gui, Panel_Rekam_Medik_Detail panel, int index, detail_Assessment d) {
+        initComponents();
+        this.gui = gui;
+        pes = gui.pes;
+        b = panel;
+        this.index =index ;
+        jButton1.setVisible(false);
+        jButton2.setVisible(false);
+        jButton3.setVisible(false);
+        jButton4.setVisible(false);
+        jButton5.setVisible(false);
+        jButton6.setVisible(false);
+        jButton7.setVisible(false);
+        jButton8.setVisible(false);
+        jButton9.setVisible(false);
+        jButton11.setVisible(false);
+        jComboBox1.setEditable(false);
+        jComboBox1.removeAllItems();
+        jComboBox1.addItem(d.getAssessment().toUpperCase());
+        jComboBox1.setSelectedIndex(0);
+        Vector pplVector = new Vector();
+        Vector dxVector  = new Vector();
+        Vector txVector  = new Vector();
+        Vector mxVector = new Vector();
+        Vector exVector = new Vector();
+        String[]pplS =d.getPPL().split("~");
+        String[]dxS=d.getDX().split("~");
+        String[]txS =d.getTX().split("~");
+        String[]mxS  =d.getMX().split("~");
+        String[]exS=d.getEX().split("~");
+        pplVector.addAll(Arrays.asList(pplS));
+        dxVector.addAll(Arrays.asList(dxS));
+        txVector.addAll(Arrays.asList(txS));
+        mxVector.addAll(Arrays.asList(mxS));
+        exVector.addAll(Arrays.asList(exS));
+        updateLists(ppl,pplVector);
+        updateLists(tx,txVector);
+        updateLists(mx,mxVector);
+        updateLists(dx,dxVector);
+        updateLists(ex,exVector);
+        
+    }
+    
+    private void updateLists(JList list, Vector a){
         list.removeAll();
         list.setListData(a);
     }
@@ -236,6 +282,11 @@ public class PanelAssessment extends javax.swing.JPanel {
             }
             public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
                 jComboBox1PopupMenuWillBecomeVisible(evt);
+            }
+        });
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
             }
         });
         jComboBox1.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -570,6 +621,13 @@ public class PanelAssessment extends javax.swing.JPanel {
         // TODO add your handling code here:
         jComboBox1.setBackground(Color.LIGHT_GRAY);
     }//GEN-LAST:event_jComboBox1MouseClicked
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+         if(jComboBox1.getItemCount()>=1&&!jComboBox1.getItemAt(0).equals("Pilih")){
+        Assessment = jComboBox1.getItemAt(jComboBox1.getSelectedIndex()).toString();
+         }
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList dx;

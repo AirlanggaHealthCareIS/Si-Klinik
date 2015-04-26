@@ -1,19 +1,28 @@
 
 package Form_Server;
-import ServerApplication.Service.Petugas_Server;
+import ServerApplication.Service.Penyakit_Server;
+import ServerApplication.Service.Rekam_Medis_Server;
+import ServerApplication.Service.Resep_Server;
+import ServerApplication.Service.Supplier_Server;
+import ServerApplication.Service.Tindakan_Dokter_Server;
+import ServerApplication.Service.Tindakan_Periksa_Server;
+import ServerApplication.Service.Transaksi_Periksa_Server;
+import ServerApplication.Service.Assessment_Server;
+import ServerApplication.Service.DetailTransaksiObat_Server;
+import ServerApplication.Service.Detail_Resep_Server;
 import ServerApplication.Service.Dokter_Server;
+import ServerApplication.Service.Jadwal_Server;
 import ServerApplication.Service.Pasien_Server;
 import ServerApplication.Service.Pendaftaran_Server;
 import ServerApplication.Service.Laporan_Keuangan_Server;
 import ServerApplication.Service.Obat_Server;
-import ServerApplication.Service.Resep_Server;
 import ServerApplication.Service.Lihat_Resep_Server;
 import ServerApplication.Service.Detail_Lihat_Resep_Server;
-import ServerApplication.Service.Supplier_Server;
+import ServerApplication.Service.Petugas_Server;
+import ServerApplication.Service.TransaksiObat_Server;
 import ServerApplication.Service.Penggajian_Server;
-import si_klinik_server.DatabaseUtilities;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import database.Service.Detail_Lihat_Resep_Service;
+import database.Service.Detail_Resep_Service;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -24,6 +33,7 @@ import java.util.GregorianCalendar;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
+
 
 /**
  *
@@ -46,25 +56,44 @@ public class main {
         Pendaftaran_Server pendaftaranServer = new Pendaftaran_Server();
         Pasien_Server pasienServer = new Pasien_Server();
         Laporan_Keuangan_Server laporanServer = new Laporan_Keuangan_Server();
-        Resep_Server resepServer= new Resep_Server();
-        Obat_Server obatServer= new Obat_Server();
-        Lihat_Resep_Server lihatResepServer= new Lihat_Resep_Server();
-        Detail_Lihat_Resep_Server detailLihatResepServer = new Detail_Lihat_Resep_Server();
-        Supplier_Server supplierServer = new Supplier_Server();
-        Penggajian_Server penggajianServer = new Penggajian_Server();
+        Tindakan_Dokter_Server tindakanServer = new Tindakan_Dokter_Server();
+        Assessment_Server assessmentServer = new Assessment_Server();
+//        Jadwal_Server jadwalServer = new Jadwal_Server();                
+        Obat_Server obatserver = new Obat_Server();
+        Supplier_Server suppServer = new Supplier_Server();
+        Tindakan_Periksa_Server tindakanpServer = new Tindakan_Periksa_Server();
+        Transaksi_Periksa_Server transaksiServer = new Transaksi_Periksa_Server();
+        Rekam_Medis_Server rekamServer = new Rekam_Medis_Server();
+        Penyakit_Server penyakitServer = new Penyakit_Server();
+        Resep_Server resepServer = new Resep_Server();
+        Detail_Resep_Server detailrServer = new Detail_Resep_Server();
+        Detail_Lihat_Resep_Server detaillihatresepServer = new Detail_Lihat_Resep_Server();        
+        Lihat_Resep_Server lihatresepServer = new Lihat_Resep_Server();       
+        TransaksiObat_Server toServer = new TransaksiObat_Server();
+        DetailTransaksiObat_Server dtoServer = new DetailTransaksiObat_Server();
+        Penggajian_Server gajiServer = new Penggajian_Server();
         
         server.rebind("service1",   petugasServer);
         server.rebind("service2",   dokterServer);
         server.rebind("service3",   pendaftaranServer);
         server.rebind("service4", pasienServer);
         server.rebind("service5", laporanServer);
-        server.rebind("service6", supplierServer);
-        server.rebind("service7", resepServer);
-        server.rebind("service8", obatServer);
-        server.rebind("service9", lihatResepServer);
-        server.rebind("service10", detailLihatResepServer);
-        server.rebind("service17", penggajianServer);
-        
+        server.rebind("service6", tindakanServer);
+        server.rebind("service7", assessmentServer);
+        server.rebind("service8", detailrServer);
+  //      server.rebind("service9", jadwalServer);
+        server.rebind("service10", obatserver);
+        server.rebind("service11", resepServer);
+        server.rebind("service12", suppServer);
+        server.rebind("service13", tindakanpServer);
+        server.rebind("service14", transaksiServer);
+        server.rebind("service15", rekamServer);
+        server.rebind("service16", penyakitServer);
+        server.rebind("service17", lihatresepServer);
+        server.rebind("service18", detaillihatresepServer);
+        server.rebind("service19", toServer);
+        server.rebind("service20", dtoServer);
+        server.rebind("service21", gajiServer);
         
         System.out.println("Server Berhasil Tersambung");
     }

@@ -88,8 +88,7 @@ public class Panel_Rekam_Medik_Tambah extends javax.swing.JPanel {
             riwayatkeluarga.setText(rm.getRiwayat_Keluarga());
             pekerjaan.setText(p.getPekerjaan());
             ketpekerjaan.setText(rm.getKeterangan_Pekerjaan());
-            kebiasaan.setText(rm.getKebiasaan());
-            
+            kebiasaan.setText(rm.getKebiasaan());            
         }
     }
     
@@ -1124,15 +1123,17 @@ public class Panel_Rekam_Medik_Tambah extends javax.swing.JPanel {
                 .add(18, 18, 18)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jLabel85)
-                            .add(jLabel7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jLabel7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                                .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(jLabel85)))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jLabel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jLabel8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jLabel86)))
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                                .add(jLabel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(jLabel86))))
                     .add(layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                             .add(jLabel12, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -1416,7 +1417,54 @@ public class Panel_Rekam_Medik_Tambah extends javax.swing.JPanel {
             }
             rm1.setTPL(temp);
             try {
-                rm = rs.insertRekamMedik(rm1);
+                rs.insertRekamMedik(rm1);
+                rm = rs.getLastRekamMedik(gui.getPasien().getId_Pasien());
+                System.out.println("Id RM terakhir ="+rm.getId_Rekam_Medis());
+                detail_Assessment assessment;
+                for (int i = 0; i < listpanel.size(); i++) {
+                    assessment = new detail_Assessment();
+                    String ppl="";
+                    String tx="";
+                    String mx="";
+                    String ex="";
+                    String dx="";
+                    if(i>0){
+                        for (int j = 0; j < listpanel.get(i).PPL.size(); j++) {
+                            ppl = ppl + "~"+ listpanel.get(i).PPL.get(j);                        
+                        }
+
+                        for (int j = 0; j < listpanel.get(i).Tx.size(); j++) {
+                            tx = tx + "~"+ listpanel.get(i).Tx.get(j);                        
+                        }
+
+                        for (int j = 0; j < listpanel.get(i).Mx.size(); j++) {
+                            mx = mx + "~"+ listpanel.get(i).Mx.get(j);                        
+                        }
+
+                        for (int j = 0; j < listpanel.get(i).Ex.size(); j++) {
+                            ex = ex + "~"+ listpanel.get(i).Ex.get(j);                        
+                        }
+
+                        for (int j = 0; j < listpanel.get(i).Dx.size(); j++) {
+                            dx = dx + "~"+ listpanel.get(i).Dx.get(j);                        
+                        }
+                    }
+                    else{
+                        ppl = listpanel.get(i).PPL.get(0).toString();                        
+                        tx = listpanel.get(i).Tx.get(0).toString();       
+                        mx = listpanel.get(i).Mx.get(0).toString();       
+                        ex= listpanel.get(i).Ex.get(0).toString();       
+                        dx = listpanel.get(i).Dx.get(0).toString();        
+                    }
+                    assessment.setAssessment(listpanel.get(i).Assessment);
+                    assessment.setDX(dx);
+                    assessment.setEX(ex);
+                    assessment.setMX(mx);
+                    assessment.setTX(tx);
+                    assessment.setPPL(ppl);
+                    assessment.setId_Rekam_Medis(rm.getId_Rekam_Medis());
+                    assessmentservice.insertAssessment(assessment);
+                }
             } catch (RemoteException ex) {
                 Logger.getLogger(Panel_Rekam_Medik_Tambah.class.getName()).log(Level.SEVERE, null, ex);
             }

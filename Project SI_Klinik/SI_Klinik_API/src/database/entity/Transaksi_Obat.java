@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 public class Transaksi_Obat implements Serializable{
     private String Id_Transaksi_Obat;
-    private String Id_Pemasukan;
     private String Tanggal_Jual;
     private int Subtotal_Transaksi_Obat;
     private float PPN_Transaksi_Obat;
@@ -25,15 +24,6 @@ public class Transaksi_Obat implements Serializable{
     public void setId_Transaksi_Obat(String Id_Transaksi_Obat) {
         this.Id_Transaksi_Obat = Id_Transaksi_Obat;
     }
-
-    public String getId_Pemasukan() {
-        return Id_Pemasukan;
-    }
-
-    public void setId_Pemasukan(String Id_Pemasukan) {
-        this.Id_Pemasukan = Id_Pemasukan;
-    }
-
      public String getTanggal_Jual() {
         return Tanggal_Jual;
     }

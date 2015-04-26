@@ -4,7 +4,7 @@
  */
 package GUI_StafKlinik;
 
-import Client_Application_Model.tabelmodel_fakbpjs;
+import Client_Application_Model.TableModel_fakbpjs;
 import database.Service.Transaksi_Periksa_Service;
 import database.entity.Transaksi_Periksa;
 import java.rmi.RemoteException;
@@ -46,7 +46,7 @@ import javax.swing.JFileChooser;
 public class Panel_bpjs extends javax.swing.JPanel {
     GUI_StafKlinik gui;
     Transaksi_Periksa_Service tps;
-    tabelmodel_fakbpjs tabel = new tabelmodel_fakbpjs();
+    TableModel_fakbpjs tabel = new TableModel_fakbpjs();
      private String pilihan;
      private Font font1 = new Font(FontFamily.HELVETICA,14,Font.BOLD);
      private Font font2 = new Font(FontFamily.HELVETICA,18,Font.BOLD);

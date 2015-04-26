@@ -200,9 +200,8 @@ public class dataobat_home extends javax.swing.JPanel {
     }//GEN-LAST:event_tombol_editActionPerformed
 
     public void UpdateTabel(){
-    
         try{
-            tablemodel_obat.setData(this.obat_service.getObat());            
+            tablemodel_obat.setData(this.obat_service.getAllObat());            
         }
         catch (RemoteException exception){
             exception.printStackTrace();

@@ -396,7 +396,7 @@ public class dataobat_mengubah extends javax.swing.JFrame {
                 try {                    
                     ss.updateObat(Obat);
                     JOptionPane.showConfirmDialog(null, "Data Anda berhasil disimpan. Apakah Anda akan menambahkan data lagi?","", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
-                    a.repaintPanel(new dataobat_home(this.a));
+                    a.updatePanel(new dataobat_home(this.a));
                     this.dispose();
                 }
                 catch(RemoteException exception){
@@ -448,7 +448,7 @@ public class dataobat_mengubah extends javax.swing.JFrame {
 
     private void tombol_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombol_backActionPerformed
         // TODO add your handling code here:
-        a.repaintPanel(new dataobat_home(this.a));
+        a.updatePanel(new dataobat_home(this.a));
         this.dispose();
     }//GEN-LAST:event_tombol_backActionPerformed
 

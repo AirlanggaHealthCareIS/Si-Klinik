@@ -303,7 +303,7 @@ public class Form_Data_Supplier_Tambah extends javax.swing.JFrame {
                     }
                     else{
                        try {
-                           gui.repaintPanel(new Form_data_suplier(this.gui));
+                           gui.updatePanel(new Form_data_suplier(this.gui));
                            this.dispose();
                        } catch (NotBoundException ex) {
                            Logger.getLogger(Form_Data_Supplier_Tambah.class.getName()).log(Level.SEVERE, null, ex);
@@ -356,7 +356,7 @@ public class Form_Data_Supplier_Tambah extends javax.swing.JFrame {
         Form_data_suplier o1;
         try {
             o1 = new Form_data_suplier(gui);
-            gui.repaintPanel(o1);
+            gui.updatePanel(o1);
                 this.dispose();
         } catch (RemoteException ex) {
             Logger.getLogger(Form_Data_Supplier_Tambah.class.getName()).log(Level.SEVERE, null, ex);
