@@ -19,8 +19,9 @@ public class Supplier implements Serializable{
     private String Kode_Pajak_Supplier;
     
             
+            
 
-    public String getId_Supplier() {
+     public String getId_Supplier() {
         return Id_Supplier;
     }
 
@@ -28,11 +29,11 @@ public class Supplier implements Serializable{
         this.Id_Supplier = Id_Supplier;
     }
     public String getAlamat_Supplier() {
-        return Id_Supplier;
+        return Alamat_Supplier;
     }
 
     public void setAlamat_Supplier(String Alamat_Supplier) {
-        this.Id_Supplier = Id_Supplier;
+        this.Alamat_Supplier = Alamat_Supplier;
     }
 
     public String getNama_Supplier() {

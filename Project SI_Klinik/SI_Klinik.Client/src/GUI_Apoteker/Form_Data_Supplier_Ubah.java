@@ -31,6 +31,7 @@ public class Form_Data_Supplier_Ubah extends javax.swing.JFrame {
         supplierservice = gui.ss;
         supplier = s;
         this.gui = gui;
+        nama1.setText(supplier.getId_Supplier());
         nama.setText(supplier.getNama_Supplier());
         alamat.setText(supplier.getAlamat_Supplier());
         kota.setText(supplier.getKota_Supplier());
@@ -67,6 +68,8 @@ public class Form_Data_Supplier_Ubah extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         OK = new javax.swing.JButton();
         alamat = new java.awt.TextArea();
+        jLabel10 = new javax.swing.JLabel();
+        nama1 = new javax.swing.JTextField();
         RESET1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -111,6 +114,10 @@ public class Form_Data_Supplier_Ubah extends javax.swing.JFrame {
             }
         });
 
+        jLabel10.setText("ID SUPPLIER ");
+
+        nama1.setEnabled(false);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -125,38 +132,45 @@ public class Form_Data_Supplier_Ubah extends javax.swing.JFrame {
                         .addComponent(jButton2))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
                             .addComponent(jLabel4)
                             .addComponent(jLabel5)
                             .addComponent(jLabel6)
                             .addComponent(jLabel7)
                             .addComponent(jLabel8)
-                            .addComponent(jLabel9))
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel10))
                         .addGap(68, 68, 68)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(nama, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(pajak, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(kota, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
                                 .addComponent(telp, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(npwp, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(kode, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addComponent(alamat, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(alamat, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(nama1, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(nama, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)))
                         .addGap(0, 25, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
+                .addContainerGap(29, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10)
+                    .addComponent(nama1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(nama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(25, 25, 25)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(alamat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                    .addComponent(alamat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(27, 27, 27)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -205,7 +219,7 @@ public class Form_Data_Supplier_Ubah extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -252,7 +266,6 @@ public class Form_Data_Supplier_Ubah extends javax.swing.JFrame {
         boolean isi5 = false;
         boolean isi6 = false;
         boolean isi7 = false;
-        
         
         if(!nama.getText().equals("")){
             isi1 = true;
@@ -316,9 +329,8 @@ public class Form_Data_Supplier_Ubah extends javax.swing.JFrame {
             if(!isi4){
                 telp.setBackground(Color.red);
             }
-       
             
-            if(!isi5){
+             if(!isi5){
                 npwp.setBackground(Color.red);
             }
             if(!isi6){
@@ -344,8 +356,7 @@ public class Form_Data_Supplier_Ubah extends javax.swing.JFrame {
         } catch (NotBoundException ex) {
             Logger.getLogger(Form_Data_Supplier_Tambah.class.getName()).log(Level.SEVERE, null, ex);
         }
-                
-        
+             
     }//GEN-LAST:event_RESET1ActionPerformed
 
     private void kodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kodeActionPerformed
@@ -358,6 +369,7 @@ public class Form_Data_Supplier_Ubah extends javax.swing.JFrame {
     private java.awt.TextArea alamat;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -370,6 +382,7 @@ public class Form_Data_Supplier_Ubah extends javax.swing.JFrame {
     private javax.swing.JTextField kode;
     private javax.swing.JTextField kota;
     private javax.swing.JTextField nama;
+    private javax.swing.JTextField nama1;
     private javax.swing.JTextField npwp;
     private javax.swing.JComboBox pajak;
     private javax.swing.JTextField telp;
