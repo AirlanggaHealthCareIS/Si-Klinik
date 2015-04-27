@@ -24,23 +24,21 @@ public class Detail_Lihat_Resep_Server extends UnicastRemoteObject implements De
     public Detail_Lihat_Resep_Server() throws RemoteException {
     
     }
-
-    @Override
-    public List<detail_lihat_resep> getLihatResep(String rekam) throws RemoteException {
+ @Override
+    public List<detail_lihat_resep> getLihatResep(String resep) throws RemoteException {
         System.out.println("Client Melakukan Proses Get By");
-
-        Statement statement = null;
-        try{
-          statement = DatabaseUtilities.getConnection().createStatement();
-
-          ResultSet result = statement.executeQuery("SELECT RM.ID_PASIEN, P.NAMA_PASIEN, D.NAMA_DOKTER, RM.TGL_REKAM_MEDIS FROM detail_resep_obat AS DRO, dokter AS D, rekam_medis AS RM, pasien AS P WHERE RM.ID_REKAM_MEDIS = '"+rekam+"' AND RM.ID_PASIEN = P.ID_PASIEN AND RM.ID_REKAM_MEDIS = DRO.ID_REKAM_MEDIS AND D.ID_DOKTER = RM.ID_DOKTER");
-
+        PreparedStatement statement = null;
+        try {
+            statement = DatabaseUtilities.getConnection().prepareStatement(
+                    "SELECT RM.ID_PASIEN, D.NAMA_DOKTER, RM.TGL_REKAM_MEDIS FROM detail_resep_obat AS DRO, dokter AS D, rekam_medis AS RM WHERE DRO.ID_DETAIL_RESEP =? AND RM.ID_REKAM_MEDIS = DRO.ID_REKAM_MEDIS AND D.ID_DOKTER = RM.ID_DOKTER");
+            statement.setString(1, resep);
+            System.out.println(statement.toString());
+            ResultSet result = statement.executeQuery();           
           List<detail_lihat_resep> list = new ArrayList<detail_lihat_resep>();
 
           while(result.next()){
                 detail_lihat_resep lihat_resep = new detail_lihat_resep();
                 lihat_resep.setId_Pasien(result.getInt("ID_PASIEN"));
-                lihat_resep.setNamaPasien(result.getString("NAMA_PASIEN"));
                 lihat_resep.setNama_Dokter(result.getString("NAMA_DOKTER"));
                 lihat_resep.setTanggal(result.getString("TGL_REKAM_MEDIS"));
                 list.add(lihat_resep);
@@ -65,19 +63,21 @@ public class Detail_Lihat_Resep_Server extends UnicastRemoteObject implements De
     }
 
     @Override
-    public List<detail_lihat_resep> getLihatResepDetail(String rekam) throws RemoteException {
+    public List<detail_lihat_resep> getLihatResepDetail(String resep) throws RemoteException {
         System.out.println("Client Melakukan Proses Get All");
-
-        Statement statement = null;
+        PreparedStatement statement = null;
         try{
-          statement = DatabaseUtilities.getConnection().createStatement();
-
-          ResultSet result = statement.executeQuery("SELECT O.NAMA_OBAT, D.QTY_DETAIL_RESEP FROM detail_resep_obat AS D, obat AS O WHERE D.ID_REKAM_MEDIS = '"+rekam+"' AND D.ID_OBAT = O.ID_OBAT");
+         statement = DatabaseUtilities.getConnection().prepareStatement(
+                 "select O.ID_OBAT,O.NAMA_OBAT, O.STOK_OBAT, D.QTY_DETAIL_RESEP FROM detail_resep_obat AS D, obat AS O WHERE D.ID_DETAIL_RESEP =? AND D.ID_OBAT = O.ID_OBAT");
+          statement.setString(1, resep);          
+            System.out.println(statement.toString());
+          ResultSet result = statement.executeQuery();
 
           List<detail_lihat_resep> list = new ArrayList<detail_lihat_resep>();
 
           while(result.next()){
                 detail_lihat_resep detail_resep = new detail_lihat_resep();
+                detail_resep.setIdObat(result.getString("ID_OBAT"));                
                 detail_resep.setObat(result.getString("NAMA_OBAT"));
                 detail_resep.setQty(result.getInt("QTY_DETAIL_RESEP"));
                 list.add(detail_resep);

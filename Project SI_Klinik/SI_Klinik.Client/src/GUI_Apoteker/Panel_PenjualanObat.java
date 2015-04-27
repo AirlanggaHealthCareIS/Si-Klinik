@@ -43,6 +43,33 @@ public class Panel_PenjualanObat extends javax.swing.JPanel {
     /**
      * Creates new form Panel_DetailResep
      */
+    public Panel_PenjualanObat(GUI_Apoteker gui){
+        obs = gui.os;
+        tos = gui.tos;
+        dtos = gui.dtos;
+        initComponents();
+        this.gui = gui;  
+        action = "";
+        edit.setEnabled(false);        
+        delete.setEnabled(false);
+        tabel.setData(listPenjualan);
+        tabel_detail.setModel(tabel);        
+        tanggal.setText(gui.getTanggalView());       
+        jLabel7.setText("0");
+        jLabel2.setText("0");
+        jLabel9.setText("0");
+         tabel_detail.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent e){
+                row = tabel_detail.getSelectedRow();
+                if (row !=-1&&(!action.equals("insert")||(!action.equals("")))){
+                    edit.setEnabled(true);
+                    delete.setEnabled(true);
+                    p = tabel.get(row);
+                }
+            }
+        });
+    }
+    
     public Panel_PenjualanObat(List<detail_lihat_resep> list, GUI_Apoteker gui){    
         obs = gui.os;
         tos = gui.tos;
@@ -146,10 +173,7 @@ public class Panel_PenjualanObat extends javax.swing.JPanel {
 
         tabel_detail.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
@@ -288,7 +312,7 @@ public class Panel_PenjualanObat extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 700, Short.MAX_VALUE)
+            .addGap(0, 705, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(5, 5, 5)
@@ -336,7 +360,7 @@ public class Panel_PenjualanObat extends javax.swing.JPanel {
         // TODO add your handling code here:
         Transaksi_Obat to = new Transaksi_Obat();
         int id;
-        try {
+        try {            
             to.setTanggal_Jual(gui.getTanggal());
             to.setSubtotal_Transaksi_Obat(Integer.parseInt(jLabel7.getText()));
             to.setPPN_Transaksi_Obat(Integer.parseInt(jLabel9.getText()));

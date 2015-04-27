@@ -69,7 +69,7 @@ public class Panel_Penggajian extends javax.swing.JPanel {
      public Panel_Penggajian(GUI_StafKlinik gui) {
         initComponents();
         tabel = new TableModel_Penggajian();
-        penggajianService = gui.penggajianServer;       
+        penggajianService = gui.penggajianServer;
     }
      
     /**

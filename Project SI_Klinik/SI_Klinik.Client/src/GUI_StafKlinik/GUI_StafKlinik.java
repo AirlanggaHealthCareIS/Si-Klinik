@@ -10,6 +10,7 @@ import database.Service.Dokter_Service;
 import database.Service.Laporan_Keuangan_Service;
 import database.Service.Petugas_Service;
 import database.Service.Pasien_Service;
+import database.Service.Penggajian_Service;
 import database.entity.Pasien;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -20,21 +21,26 @@ import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import database.entity.petugas;
+import database.Service.Transaksi_Periksa_Service;
 
 public class GUI_StafKlinik extends javax.swing.JFrame {
     petugas p;
     Laporan_Keuangan_Service laporanServer;
     Petugas_Service petugasServer;
+    Penggajian_Service penggajianServer;    
     Dokter_Service dokterServer;
     Pasien_Service pasienServer;
+    Transaksi_Periksa_Service  bpjs;
     public GUI_StafKlinik ( petugas p, Login l){
         super("Staf Klinik");
         initComponents();
         Panel_Profil_StafKlinik panel = new Panel_Profil_StafKlinik();
         jPanel4.add(panel);
         this.p = p;
+        bpjs = l.service14;
         laporanServer = l.service5;
         dokterServer = l.service2;
+        penggajianServer=l.service21;
         petugasServer = l.service1;
         jLabel3.setText(p.getNama_Petugas());
         
@@ -44,7 +50,7 @@ public class GUI_StafKlinik extends javax.swing.JFrame {
     public GUI_StafKlinik (Pasien ps) {
         super ("Staf Klinik");
         initComponents();
-        Panel_Registrasi_Pasien panel = new Panel_Registrasi_Pasien ();
+        Panel_Registrasi_Pasien panel = new Panel_Registrasi_Pasien (this);
         
         
     }
@@ -258,7 +264,7 @@ public class GUI_StafKlinik extends javax.swing.JFrame {
          jPanel4.removeAll();
          jPanel4.repaint();
          jPanel4.revalidate();                    
-         Panel_Registrasi_Pasien panel = new Panel_Registrasi_Pasien();
+         Panel_Registrasi_Pasien panel = new Panel_Registrasi_Pasien(this);
          panel.setVisible(true);
          jPanel4.add(panel);
          jPanel4.repaint();
@@ -285,7 +291,7 @@ public class GUI_StafKlinik extends javax.swing.JFrame {
          jPanel4.removeAll();
          jPanel4.repaint();
          jPanel4.revalidate();                    
-         Panel_bpjs  panel = new Panel_bpjs();
+         Panel_bpjs  panel = new Panel_bpjs(this);
          panel.setVisible(true);
          jPanel4.add(panel);
          jPanel4.repaint();

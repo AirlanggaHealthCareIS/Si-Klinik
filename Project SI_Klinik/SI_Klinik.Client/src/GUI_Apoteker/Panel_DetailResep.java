@@ -33,6 +33,7 @@ public class Panel_DetailResep extends javax.swing.JPanel {
         dlrs = gui.dlrs;
         drs = gui.drs;
         noID = no;
+        System.out.println(no);
         temp = "";        
         initComponents();
         this.gui = gui;        

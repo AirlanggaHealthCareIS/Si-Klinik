@@ -21,8 +21,10 @@ import ServerApplication.Service.Detail_Lihat_Resep_Server;
 import ServerApplication.Service.Petugas_Server;
 import ServerApplication.Service.TransaksiObat_Server;
 import ServerApplication.Service.Penggajian_Server;
+import ServerApplication.Service.pemesanan_obat_server;
 import database.Service.Detail_Lihat_Resep_Service;
 import database.Service.Detail_Resep_Service;
+import database.Service.pemesanan_obat_service;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -72,6 +74,8 @@ public class main {
         TransaksiObat_Server toServer = new TransaksiObat_Server();
         DetailTransaksiObat_Server dtoServer = new DetailTransaksiObat_Server();
         Penggajian_Server gajiServer = new Penggajian_Server();
+        pemesanan_obat_server pesanServer = new pemesanan_obat_server();
+        
         
         server.rebind("service1",   petugasServer);
         server.rebind("service2",   dokterServer);
@@ -94,6 +98,7 @@ public class main {
         server.rebind("service19", toServer);
         server.rebind("service20", dtoServer);
         server.rebind("service21", gajiServer);
+        server.rebind("service22", pesanServer);
         
         System.out.println("Server Berhasil Tersambung");
     }

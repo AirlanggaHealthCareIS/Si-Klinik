@@ -30,7 +30,7 @@ public class Panel_List_PO extends javax.swing.JPanel {
      */
     public Panel_List_PO(GUI_Apoteker gui, List<Pemesanan_Obat> list) {
         initComponents();
-        obs = gui.obs;
+        obs = gui.os;
         this.list = list;    
         this.gui = gui;
          jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {

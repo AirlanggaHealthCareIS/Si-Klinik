@@ -11,9 +11,9 @@ import java.rmi.RemoteException;
 import java.util.List;
 /**
  *
- * @author alif
+ * @author asus
  */
-public interface Pemesanan_Obat_Service extends Remote{
+public interface pemesanan_obat_service extends Remote{
     Pemesanan_Obat insertPemesananObat(Pemesanan_Obat PO) throws RemoteException;
     List<Pemesanan_Obat>getPO() throws RemoteException;
 }

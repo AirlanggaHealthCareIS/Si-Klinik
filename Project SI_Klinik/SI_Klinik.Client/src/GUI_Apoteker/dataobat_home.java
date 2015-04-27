@@ -33,14 +33,12 @@ public class dataobat_home extends javax.swing.JPanel {
         initComponents();
         GUI = a;
         obat_service = a.os;
-        tombol_add.setEnabled(false);
         tombol_edit.setEnabled(false);
         action = "";
         jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e){
                 int row = jTable1.getSelectedRow();
-                if (row !=-1&&(!action.equals("insert")||(!action.equals("")))){
-                    tombol_add.setEnabled(true);
+                if (row !=-1&&(!action.equals("insert")||(!action.equals("")))){                    
                     tombol_edit.setEnabled(true);
                     Obat = tablemodel_obat.get(row);
                 }
@@ -178,7 +176,6 @@ public class dataobat_home extends javax.swing.JPanel {
         // TODO add your handling code here:
         action = "add";
         tombol_edit.setEnabled(false);
-        tombol_add.setEnabled(false);
         dataobat_menambah a = new dataobat_menambah(GUI);        
         a.setVisible(true);
         this.setVisible(true);
@@ -192,7 +189,6 @@ public class dataobat_home extends javax.swing.JPanel {
         // TODO add your handling code here:
         action = "update";
         tombol_edit.setEnabled(false);
-        tombol_add.setEnabled(false);
         dataobat_mengubah b = new dataobat_mengubah(GUI,Obat);
         b.setVisible(true);
         this.setVisible(true);

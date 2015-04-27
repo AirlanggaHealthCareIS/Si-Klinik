@@ -27,7 +27,7 @@ public class Panel_generatetagihanpasien extends javax.swing.JPanel {
     private TableModel_TransaksiPeriksa tablemodel = new TableModel_TransaksiPeriksa();
     private Transaksi_Periksa_Service tp;
     private List<Transaksi_Periksa> list;
-    private Panel_transaksiperiksa ptp;
+    //private Panel_transaksiperiksa ptp;
     
     public Panel_generatetagihanpasien() {
         initComponents();
@@ -152,7 +152,7 @@ public class Panel_generatetagihanpasien extends javax.swing.JPanel {
          if(tabeltagihan.getSelectedRow()==0){
                 JOptionPane.showMessageDialog(null, "Pilih transaksi yang ingin dibayarkan terlebih dahulu", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
-        ptp = new Panel_transaksiperiksa(list, tabeltagihan.getSelectedRow());
+       // ptp = new Panel_transaksiperiksa(list, tabeltagihan.getSelectedRow());
     }//GEN-LAST:event_jButton2ActionPerformed
 
     public void cektagihan(String idpasien){

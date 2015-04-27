@@ -103,7 +103,6 @@
                           <Component id="jButton14" max="32767" attributes="0"/>
                           <Component id="jButton11" alignment="1" pref="149" max="32767" attributes="0"/>
                           <Component id="SUPPLIER" alignment="0" max="32767" attributes="0"/>
-                          <Component id="penggajian" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -124,8 +123,6 @@
                       <Component id="jButton11" min="-2" pref="32" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="SUPPLIER" min="-2" pref="32" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="penggajian" min="-2" pref="32" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -178,14 +175,6 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SUPPLIERActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="penggajian">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="PENGGAJIAN"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="penggajianActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

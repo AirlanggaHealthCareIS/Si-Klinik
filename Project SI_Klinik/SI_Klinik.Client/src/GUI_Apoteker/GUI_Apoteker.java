@@ -14,6 +14,7 @@ import database.Service.Resep_Service;
 import database.Service.Supplier_Service;
 import database.Service.TransaksiObat_Service;
 import database.Service.lihat_Resep_Service;
+import database.Service.pemesanan_obat_service;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
@@ -38,6 +39,7 @@ public class GUI_Apoteker extends javax.swing.JFrame {
     Detail_Resep_Service drs;
     TransaksiObat_Service tos;
     DetailTransaksiObat_Service dtos;
+    pemesanan_obat_service pos;
     
     public GUI_Apoteker (petugas p, Login l){
         super("Apoteker");
@@ -51,6 +53,7 @@ public class GUI_Apoteker extends javax.swing.JFrame {
         rs = l.service11;
         tos = l.service19;
         dtos = l.service20;
+        pos = l.service22;
         drs = l.service8;
         jLabel3.setText(p.getNama_Petugas());
         Panel_Profil_Apoteker panel = new Panel_Profil_Apoteker(this);
@@ -335,6 +338,7 @@ public class GUI_Apoteker extends javax.swing.JFrame {
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         // TODO add your handling code here:
         dataobat_home panel = new dataobat_home(this);
+        panel.UpdateTabel();
         updatePanel(panel);
     }//GEN-LAST:event_jButton12ActionPerformed
 
