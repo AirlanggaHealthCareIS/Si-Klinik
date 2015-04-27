@@ -48,6 +48,7 @@ public class Panel_DetailResep extends javax.swing.JPanel {
         tanggal.setText(listResep.get(0).getTanggal());
         temp = ""+listResep.get(0).getId_Pasien();
         idPasien.setText(temp);
+        nama.setText(listResep.get(0).getNama_Pasien());
         namaDokter.setText(listResep.get(0).getNama_Dokter());
     }
 
@@ -72,6 +73,8 @@ public class Panel_DetailResep extends javax.swing.JPanel {
         tanggal = new javax.swing.JLabel();
         idPasien = new javax.swing.JLabel();
         namaDokter = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        nama = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(700, 450));
 
@@ -115,6 +118,10 @@ public class Panel_DetailResep extends javax.swing.JPanel {
 
         namaDokter.setText("dokter");
 
+        jLabel1.setText("Nama Pasien           :");
+
+        nama.setText("nama");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -130,12 +137,14 @@ public class Panel_DetailResep extends javax.swing.JPanel {
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5))
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel1))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(tanggal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(idPasien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(namaDokter, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)))))
+                                    .addComponent(namaDokter, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                                    .addComponent(nama)))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(300, 300, 300)
                         .addComponent(jButton3))
@@ -157,14 +166,18 @@ public class Panel_DetailResep extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel31)
                     .addComponent(idPasien))
+                .addGap(15, 15, 15)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(nama))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(namaDokter))
-                .addGap(18, 18, 18)
+                .addGap(41, 41, 41)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton3)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -201,6 +214,7 @@ public class Panel_DetailResep extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel idPasien;
     private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel4;
@@ -208,6 +222,7 @@ public class Panel_DetailResep extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel nama;
     private javax.swing.JLabel namaDokter;
     private javax.swing.JTable tabel_detail;
     private javax.swing.JLabel tanggal;

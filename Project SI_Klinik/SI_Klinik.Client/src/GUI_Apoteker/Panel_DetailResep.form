@@ -69,12 +69,14 @@
                                       <Component id="jLabel33" alignment="0" min="-2" pref="130" max="-2" attributes="0"/>
                                       <Component id="jLabel31" alignment="0" min="-2" pref="109" max="-2" attributes="0"/>
                                       <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="tanggal" alignment="0" max="32767" attributes="0"/>
                                       <Component id="idPasien" alignment="0" max="32767" attributes="0"/>
                                       <Component id="namaDokter" alignment="0" pref="147" max="32767" attributes="0"/>
+                                      <Component id="nama" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -107,15 +109,20 @@
                       <Component id="jLabel31" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="idPasien" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="nama" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="namaDokter" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                   <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane2" min="-2" pref="212" max="-2" attributes="0"/>
+                  <Component id="jScrollPane2" min="-2" pref="160" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jButton3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
@@ -197,6 +204,16 @@
         <Component class="javax.swing.JLabel" name="namaDokter">
           <Properties>
             <Property name="text" type="java.lang.String" value="dokter"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Nama Pasien           :"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="nama">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="nama"/>
           </Properties>
         </Component>
       </SubComponents>

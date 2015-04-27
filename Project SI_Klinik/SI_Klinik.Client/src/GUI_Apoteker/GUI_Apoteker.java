@@ -11,10 +11,14 @@ import database.Service.Detail_Resep_Service;
 import database.Service.Obat_Service;
 import database.Service.Petugas_Service;
 import database.Service.Resep_Service;
+import database.Service.RekamMedik_Service;
 import database.Service.Supplier_Service;
 import database.Service.TransaksiObat_Service;
 import database.Service.lihat_Resep_Service;
 import database.Service.pemesanan_obat_service;
+import database.Service.Pendaftaran_Service;
+import database.Service.Pasien_Service;
+import database.entity.Pasien;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
@@ -30,16 +34,20 @@ import javax.swing.JPanel;
 
 public class GUI_Apoteker extends javax.swing.JFrame {
     petugas p;    
+    Pasien pasi;
     Petugas_Service ps;
     Supplier_Service ss;
     Obat_Service os;
     lihat_Resep_Service lrs;
     Detail_Lihat_Resep_Service dlrs;
     Resep_Service rs;
+    RekamMedik_Service rm; 
     Detail_Resep_Service drs;
     TransaksiObat_Service tos;
     DetailTransaksiObat_Service dtos;
     pemesanan_obat_service pos;
+    public Pasien_Service pas;
+    public Pendaftaran_Service pds;
     
     public GUI_Apoteker (petugas p, Login l){
         super("Apoteker");
@@ -55,9 +63,20 @@ public class GUI_Apoteker extends javax.swing.JFrame {
         dtos = l.service20;
         pos = l.service22;
         drs = l.service8;
+        pas = l.service4;
+        pds= l.service3;
+        rm= l.service15;
         jLabel3.setText(p.getNama_Petugas());
         Panel_Profil_Apoteker panel = new Panel_Profil_Apoteker(this);
         jPanel4.add(panel);
+    }
+    
+    public void setPasien (Pasien pasi){
+        this.pasi = pasi;
+    } 
+    
+    public Pasien getPasien(){
+        return pasi;
     }
     
      public String getTanggal(){

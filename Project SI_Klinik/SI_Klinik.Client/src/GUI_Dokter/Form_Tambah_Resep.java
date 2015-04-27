@@ -14,7 +14,7 @@ import java.rmi.RemoteException;
 import java.rmi.MarshalException;
 import database.Service.Detail_Resep_Service;
 import database.Service.Obat_Service;
-import database.entity.detail_resep_obat;
+import database.entity.detail_lihat_resep;
 import java.awt.Color;
 import java.util.List;
 import javax.swing.event.ListSelectionEvent;
@@ -29,15 +29,17 @@ public class Form_Tambah_Resep extends javax.swing.JFrame {
     private Detail_Resep_Service service3;
     private Obat_Service service4;
     private Panel_Resep pp;
+    private detail_lihat_resep lr;
     Registry registry;
     /**
      * Creates new form resepObat
      */
-    public Form_Tambah_Resep() throws RemoteException, NotBoundException {
+    public Form_Tambah_Resep(Panel_Resep pp) throws RemoteException, NotBoundException {
         initComponents();
         registry = LocateRegistry.getRegistry("0.0.0.0", 9750);
         service3 = (Detail_Resep_Service) registry.lookup("service3");        
         service4 = (Obat_Service) registry.lookup("service4");
+        this.pp = pp;
         namaObat.setVisible(false);
         jml.setVisible(false);
     }
@@ -206,46 +208,50 @@ public class Form_Tambah_Resep extends javax.swing.JFrame {
 
         }
         else{
-            String ID = null;
-            
-            try {
-                ID = "RES"+service3.getResep().size();
-                nama = String.valueOf(namaObat.getSelectedItem()).toString();
-                //hasil = service4.getIdObat(nama);
-            } catch (RemoteException ex) {
-                Logger.getLogger(Form_Tambah_Resep.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            try {
-               detail_resep_obat resep = new detail_resep_obat();
-               resep.setid_detail_resep(ID);
-               resep.setid_rekam_medis("rk01");     //perlu DIGANTI !!!!
-               resep.setid_obat(hasil);
-               resep.setqty_detail_resep(Integer.parseInt(String.valueOf(jml.getValue())));
-               
-                if(service3.insertResep(resep)!=null){
-                    
-                    int opsi = JOptionPane.showConfirmDialog(null, "Data Anda berhasil disimpan. Apakah Anda akan menambahkan data lagi?","", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
-                    if(opsi==0){
-                        refresh();
-                    }
-//                    else{
-//                        Panel_Rekam_Medik_Tambah a = new Panel_Rekam_Medik_Tambah();
-//                        a.setVisible(true);
-//                        this.dispose();
+            lr = new detail_lihat_resep();
+            lr.setObat(namaObat.getSelectedItem().toString());
+            lr.setQty(Integer.parseInt(String.valueOf(jml.getValue())));
+            pp.list.add(lr);
+//            String ID = null;
+//            
+//            try {
+//                ID = "RES"+service3.getResep().size();
+//                nama = String.valueOf(namaObat.getSelectedItem()).toString();
+//                //hasil = service4.getIdObat(nama);
+//            } catch (RemoteException ex) {
+//                Logger.getLogger(Form_Tambah_Resep.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//            try {
+//               detail_resep_obat resep = new detail_resep_obat();
+//               resep.setid_detail_resep(ID);
+//               resep.setid_rekam_medis("rk01");     //perlu DIGANTI !!!!
+//               resep.setid_obat(hasil);
+//               resep.setqty_detail_resep(Integer.parseInt(String.valueOf(jml.getValue())));
+//               
+//                if(service3.insertResep(resep)!=null){
+//                    
+//                    int opsi = JOptionPane.showConfirmDialog(null, "Data Anda berhasil disimpan. Apakah Anda akan menambahkan data lagi?","", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+//                    if(opsi==0){
+//                        refresh();
 //                    }
-                }
-                else{
-                    JOptionPane.showMessageDialog(null, "Input Data Eror", "PESAN", JOptionPane.ERROR_MESSAGE);
-                }
-                
-                
-            }
-            catch(RemoteException exception){
-                exception.printStackTrace();
-            }
-//            Panel_Rekam_Medik_Tambah a = new Panel_Rekam_Medik_Tambah();
-//            a.setVisible(true);
-//            this.dispose();
+////                    else{
+////                        Panel_Rekam_Medik_Tambah a = new Panel_Rekam_Medik_Tambah();
+////                        a.setVisible(true);
+////                        this.dispose();
+////                    }
+//                }
+//                else{
+//                    JOptionPane.showMessageDialog(null, "Input Data Eror", "PESAN", JOptionPane.ERROR_MESSAGE);
+//                }
+//                
+//                
+//            }
+//            catch(RemoteException exception){
+//                exception.printStackTrace();
+//            }
+////            Panel_Rekam_Medik_Tambah a = new Panel_Rekam_Medik_Tambah();
+////            a.setVisible(true);
+////            this.dispose();
         }
         
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -269,43 +275,7 @@ public class Form_Tambah_Resep extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Form_Tambah_Resep.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Form_Tambah_Resep.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Form_Tambah_Resep.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Form_Tambah_Resep.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new Form_Tambah_Resep().setVisible(true);
-                } catch (RemoteException ex) {
-                    Logger.getLogger(Form_Tambah_Resep.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (NotBoundException ex) {
-                    Logger.getLogger(Form_Tambah_Resep.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
