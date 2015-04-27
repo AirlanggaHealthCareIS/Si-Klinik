@@ -65,12 +65,12 @@ public class Form_Data_Supplier_Ubah extends javax.swing.JFrame {
         npwp = new javax.swing.JTextField();
         pajak = new javax.swing.JComboBox();
         kode = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        CANCEL = new javax.swing.JButton();
         OK = new javax.swing.JButton();
         alamat = new java.awt.TextArea();
         jLabel10 = new javax.swing.JLabel();
         nama1 = new javax.swing.JTextField();
-        RESET1 = new javax.swing.JButton();
+        BACK = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -99,10 +99,10 @@ public class Form_Data_Supplier_Ubah extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("CANCEL");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        CANCEL.setText("CANCEL");
+        CANCEL.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                CANCELActionPerformed(evt);
             }
         });
 
@@ -129,7 +129,7 @@ public class Form_Data_Supplier_Ubah extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(OK)
                         .addGap(193, 193, 193)
-                        .addComponent(jButton2))
+                        .addComponent(CANCEL))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
@@ -194,15 +194,15 @@ public class Form_Data_Supplier_Ubah extends javax.swing.JFrame {
                             .addComponent(kode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(OK))
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(CANCEL, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(17, 17, 17))
         );
 
-        RESET1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Previous-32.png"))); // NOI18N
-        RESET1.setText("BACK");
-        RESET1.addActionListener(new java.awt.event.ActionListener() {
+        BACK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Previous-32.png"))); // NOI18N
+        BACK.setText("BACK");
+        BACK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RESET1ActionPerformed(evt);
+                BACKActionPerformed(evt);
             }
         });
 
@@ -214,7 +214,7 @@ public class Form_Data_Supplier_Ubah extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(107, 107, 107)
-                .addComponent(RESET1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(BACK, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
@@ -226,7 +226,7 @@ public class Form_Data_Supplier_Ubah extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(RESET1)
+                    .addComponent(BACK)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -253,9 +253,18 @@ public class Form_Data_Supplier_Ubah extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void CANCELActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CANCELActionPerformed
+        Form_data_suplier o1;
+        try {
+            o1 = new Form_data_suplier(gui);
+            gui.updatePanel(o1);
+                this.dispose();
+        } catch (RemoteException ex) {
+            Logger.getLogger(Form_Data_Supplier_Tambah.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NotBoundException ex) {
+            Logger.getLogger(Form_Data_Supplier_Tambah.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_CANCELActionPerformed
 
     private void OKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKActionPerformed
         // TODO add your handling code here:
@@ -344,7 +353,7 @@ public class Form_Data_Supplier_Ubah extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_OKActionPerformed
 
-    private void RESET1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RESET1ActionPerformed
+    private void BACKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BACKActionPerformed
         // TODO add your handling code here:
         Form_data_suplier o1;
         try {
@@ -357,17 +366,17 @@ public class Form_Data_Supplier_Ubah extends javax.swing.JFrame {
             Logger.getLogger(Form_Data_Supplier_Tambah.class.getName()).log(Level.SEVERE, null, ex);
         }
              
-    }//GEN-LAST:event_RESET1ActionPerformed
+    }//GEN-LAST:event_BACKActionPerformed
 
     private void kodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kodeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_kodeActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BACK;
+    private javax.swing.JButton CANCEL;
     private javax.swing.JButton OK;
-    private javax.swing.JButton RESET1;
     private java.awt.TextArea alamat;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;

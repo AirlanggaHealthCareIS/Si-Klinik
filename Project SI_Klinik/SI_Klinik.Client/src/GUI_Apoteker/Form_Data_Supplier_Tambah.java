@@ -13,6 +13,7 @@ import database.Service.Supplier_Service;
 import java.rmi.NotBoundException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -270,6 +271,18 @@ public class Form_Data_Supplier_Tambah extends javax.swing.JFrame {
         if(!KODEPAJAK.getText().equals("")){
             isi7 = true;
         }
+         boolean ada = false;
+        try {
+            List<Supplier> list = ss.getSupliers();
+            for (int i = 0; i < list.size(); i++) {
+                if(list.get(i).getNama_Supplier().equalsIgnoreCase(NAMA.getText())){
+                    ada = true;
+                }
+            }
+        } catch (RemoteException ex) {
+            Logger.getLogger(Form_Data_Supplier_Tambah.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (!ada){
         if(isi1&&isi2&&isi3&&isi4&&isi5&&isi6&&isi7)    {
             String N = NAMA.getText();
             String A = ALAMAT.getText();
@@ -315,7 +328,8 @@ public class Form_Data_Supplier_Tambah extends javax.swing.JFrame {
             catch(RemoteException exception){
                 exception.printStackTrace();
             }
-        }
+        } 
+        
         else{
             if(!isi1){
                 NAMA.setBackground(Color.red);
@@ -344,6 +358,10 @@ public class Form_Data_Supplier_Tambah extends javax.swing.JFrame {
             }
             JOptionPane.showMessageDialog(null, "Ada kesalahan pada kolom isian Anda. Mohon memperbaiki field yang berwarna merah untuk melanjutkan.", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
+        }
+        else{
+        JOptionPane.showMessageDialog(null, "Nama Supplier sudah ada!", "ERROR", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_OKActionPerformed
 
     private void RESETActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RESETActionPerformed
