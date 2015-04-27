@@ -107,7 +107,7 @@ public class Resep_Server extends UnicastRemoteObject implements Detail_Resep_Se
             detail_resep_obat detail_resep = null;
 
             if(result.next()){
-                detail_resep.setid_detail_resep(result.getString("ID_DETAIL_"));
+                detail_resep.setid_detail_resep(result.getString("ID_DETAIL_RESEP"));
                 detail_resep.setid_rekam_medis(result.getString("ID_REKAM_MEDIS"));
                 detail_resep.setid_obat(result.getString("ID_OBAT"));
                 detail_resep.setqty_detail_resep(result.getInt("QTY_DETAIL_RESEP"));

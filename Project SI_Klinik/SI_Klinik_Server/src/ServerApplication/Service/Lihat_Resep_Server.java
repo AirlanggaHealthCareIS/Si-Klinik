@@ -38,7 +38,7 @@ public class Lihat_Resep_Server extends UnicastRemoteObject implements lihat_Res
 
           while(result.next()){
                 lihatResep resep = new lihatResep();
-                resep.setId_resep(result.getString("ID_DETAIL_RESEP"));
+                resep.setId_resep(result.getString("ID_DETAIL_RESEP"));                
                 resep.setId_Pasien(result.getInt("ID_PASIEN"));
                 resep.setId_rekam_medik(result.getString("ID_REKAM_MEDIS"));
                 resep.setTanggal(result.getString("TGL_REKAM_MEDIS"));

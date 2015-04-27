@@ -69,6 +69,7 @@ public class Login extends javax.swing.JFrame {
       public Penggajian_Service service21;
       public pemesanan_obat_service service22;
       
+      
       Registry registry;
       public SocketClient client;
       public int port;

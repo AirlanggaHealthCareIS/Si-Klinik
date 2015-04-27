@@ -37,7 +37,8 @@ public class Detail_Lihat_Resep_Server extends UnicastRemoteObject implements De
           List<detail_lihat_resep> list = new ArrayList<detail_lihat_resep>();
 
           while(result.next()){
-                detail_lihat_resep lihat_resep = new detail_lihat_resep();
+                detail_lihat_resep lihat_resep = new detail_lihat_resep();                
+                
                 lihat_resep.setId_Pasien(result.getInt("ID_PASIEN"));
                 lihat_resep.setNama_Dokter(result.getString("NAMA_DOKTER"));
                 lihat_resep.setTanggal(result.getString("TGL_REKAM_MEDIS"));

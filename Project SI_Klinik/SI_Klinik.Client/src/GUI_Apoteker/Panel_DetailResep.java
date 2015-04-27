@@ -24,7 +24,7 @@ public class Panel_DetailResep extends javax.swing.JPanel {
     public String noID;
     private String temp;
     private GUI_Apoteker gui;
-    List<detail_lihat_resep> listResep;
+    List<detail_lihat_resep> listResep = new ArrayList<detail_lihat_resep>();
     private List<detail_lihat_resep> list ;
     /**
      * Creates new form Panel_DetailResep
