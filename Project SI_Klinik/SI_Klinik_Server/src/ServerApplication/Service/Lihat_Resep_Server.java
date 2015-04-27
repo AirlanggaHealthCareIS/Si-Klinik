@@ -32,13 +32,16 @@ public class Lihat_Resep_Server extends UnicastRemoteObject implements lihat_Res
         try{
           statement = DatabaseUtilities.getConnection().createStatement();
 
-          ResultSet result = statement.executeQuery("SELECT DISTINCT DRO.ID_DETAIL_RESEP,RM.ID_PASIEN, RM.ID_REKAM_MEDIS, RM.TGL_REKAM_MEDIS FROM detail_resep_obat AS DRO, rekam_medis AS RM WHERE DRO.ID_REKAM_MEDIS = RM.ID_REKAM_MEDIS");
+          ResultSet result = statement.executeQuery("SELECT DISTINCT RM.ID_PASIEN, RM.ID_REKAM_MEDIS, RM.TGL_REKAM_MEDIS FROM detail_resep_obat AS DRO, rekam_medis AS RM WHERE DRO.ID_REKAM_MEDIS = RM.ID_REKAM_MEDIS");
 
           List<lihatResep> list = new ArrayList<lihatResep>();
 
           while(result.next()){
                 lihatResep resep = new lihatResep();
+<<<<<<< .mine
+=======
                 resep.setId_resep(result.getString("ID_DETAIL_RESEP"));                
+>>>>>>> .r163
                 resep.setId_Pasien(result.getInt("ID_PASIEN"));
                 resep.setId_rekam_medik(result.getString("ID_REKAM_MEDIS"));
                 resep.setTanggal(result.getString("TGL_REKAM_MEDIS"));
