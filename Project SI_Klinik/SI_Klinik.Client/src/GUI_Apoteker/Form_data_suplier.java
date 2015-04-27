@@ -33,13 +33,15 @@ public class Form_data_suplier extends javax.swing.JPanel {
     public Form_data_suplier(GUI_Apoteker gui) throws RemoteException, NotBoundException {
         this.ss = gui.ss;
         this.gui=gui;        
-        initComponents();        
+        initComponents(); 
+         TOMBOL_UBAH.setEnabled(false);
         tabelSupplier.setData(this.ss.getSupliers());
         tabelSup.setModel(tabelSupplier);
         tabelSup.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             public void valueChanged (ListSelectionEvent e){
                 int row = tabelSup.getSelectedRow();
                 if (row != -1) {
+                    TOMBOL_UBAH.setEnabled(true);
                    supplier = tabelSupplier.get(row);
                 }
             }

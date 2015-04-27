@@ -305,7 +305,7 @@ public class Form_Data_Supplier_Ubah extends javax.swing.JFrame {
                supplier.setKode_Pajak_Supplier(KP);
                try {                    
                     supplierservice.updateSupplier(supplier);
-                    JOptionPane.showConfirmDialog(null, "Data Anda berhasil disimpan. Apakah Anda akan menambahkan data lagi?","", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+                    JOptionPane.showConfirmDialog(null, "Data Anda berhasil disimpan. Apakah Anda ingin mengubah data lagi?","", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
                     gui.updatePanel(new Form_data_suplier (gui));
                     this.dispose();
                 } catch (NotBoundException ex) {
