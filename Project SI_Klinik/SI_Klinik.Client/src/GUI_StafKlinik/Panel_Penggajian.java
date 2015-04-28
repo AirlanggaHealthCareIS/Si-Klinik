@@ -48,6 +48,7 @@ public class Panel_Penggajian extends javax.swing.JPanel {
     Penggajian_Service penggajianService;
     TableModel_Penggajian tabel;
     Penggajian p = new Penggajian();
+    Laporan_Keuangan lk = new Laporan_Keuangan();
     int baris;
     String tanggal1;
     String tanggal2;
@@ -69,7 +70,7 @@ public class Panel_Penggajian extends javax.swing.JPanel {
      public Panel_Penggajian(GUI_StafKlinik gui) {
         initComponents();
         tabel = new TableModel_Penggajian();
-        penggajianService = gui.penggajianServer;
+        penggajianService = gui.penggajianServer;        
     }
      
     /**
@@ -287,12 +288,16 @@ public class Panel_Penggajian extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Mohon isikan periode", "ERROR",JOptionPane.ERROR_MESSAGE);
         }
         else{
+            Date tanggal3 =(Date) jDateChooser1.getDate();
+            tanggal1 = new java.text.SimpleDateFormat("yyyy-MM-dd").format(tanggal3);
+            tanggal3 =(Date) jDateChooser2.getDate();
+            tanggal2 = new java.text.SimpleDateFormat("yyyy-MM-dd").format(tanggal3);
+            
             if(pegawaiList.getSelectedItem().equals("Non Dokter")){
-                Date tanggal3 =(Date) jDateChooser1.getDate();
-                tanggal1 = new java.text.SimpleDateFormat("yyyy-MM-dd").format(tanggal3);
-                tanggal3 =(Date) jDateChooser2.getDate();
-                tanggal2 = new java.text.SimpleDateFormat("yyyy-MM-dd").format(tanggal3);
                 refreshNonDokter(tanggal1, tanggal2);
+            }
+            else if (pegawaiList.getSelectedItem().equals("Dokter")){
+                refreshDokter(tanggal1, tanggal2);
             }
         }
     }//GEN-LAST:event_tampilButtonActionPerformed
@@ -316,54 +321,65 @@ public class Panel_Penggajian extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_pegawaiListActionPerformed
 
-//    private void refreshSemuaPegawai(String tanggal1, String tanggal2){
-//        int totalGaji;
-//        int gajiPeriksa;
-//        int totalPeriksa;
-//        int tarifPeriksa;
-//        int gajiPokok;
-//        
-//        List<Penggajian> list = new ArrayList<>();
-//        try {
-//            list = penggajianService.getPenggajianSemuaPegawai(tanggal1, tanggal2);
-//            if (list.size()>0){
-//                for(int i=0;i<list.size();i++ ){
-//                    if(list.get(i).getIdPegawai().startsWith("PET")){
-//                        System.out.println("list PETUGAS");
-//                        totalGaji = list.get(i).getGajiPokok();
-//                        list.get(i).setGajiTambahan(0);
-//                        list.get(i).setTotalGaji(totalGaji);
-//                        System.out.println("ID Pegawai : "+list.get(i).getIdPegawai()+"\tGaji Pokok : "+list.get(i).getGajiPokok()+"\tGaji Tambahan : "+0+"\tTotal Gaji : "+totalGaji);
-//                    }
-//                    else if (list.get(i).getIdPegawai().startsWith("DOK")){
-//                        System.out.println("list DOKTER");
-//                        totalPeriksa = list.get(i).getTotalPeriksa();
-//                        System.out.println("periksa "+totalPeriksa);
-//                        tarifPeriksa = list.get(i).getTarifPeriksa();
-//                        System.out.println("tarif "+tarifPeriksa);
-//                        gajiPeriksa = totalPeriksa * tarifPeriksa;
-//                        gajiPokok = list.get(i).getGajiPokok();
-//                        totalGaji = gajiPokok + gajiPeriksa;
-//                        list.get(i).setGajiTambahan(gajiPeriksa);
-//                        list.get(i).setTotalGaji(totalGaji);
-//                        System.out.println("ID Pegawai : "+list.get(i).getIdPegawai()+"\tGaji Pokok : "+gajiPokok+"\tGaji Tambahan : "+gajiPeriksa+"\tTotal Gaji : "+totalGaji);
-//                    }
-//                }
-//                tabel.setData(list);
-//                tabelPenggajian.setModel(tabel);
-//            }
-//        } catch (RemoteException ex) {
-//            Logger.getLogger(Panel_Penggajian.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        
-//    }
-    
     private void refreshNonDokter(String tanggal1, String tanggal2){
+        int penggajianNonDokter = 0;
         List<Penggajian> list = new ArrayList<>();
         try {
             list = penggajianService.getPenggajianNonDokter(tanggal1, tanggal2);
             tabel.setData(list);
             tabelPenggajian.setModel(tabel);
+            
+//            if(list.size()>0){
+//                for (int i = 0; i < list.size(); i++) {
+//                    penggajianNonDokter = penggajianNonDokter + list.get(i).getTotalGaji();
+//                    p.setPenggajianNonDokter(penggajianNonDokter);
+//                    lk.setPengeluaran(penggajianNonDokter);
+//                    lk.setKeterangan("Penggajian");
+//                }
+//            }
+        } catch (RemoteException ex) {
+            Logger.getLogger(Panel_Penggajian.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void refreshDokter(String tanggal1, String tanggal2){
+        int gajiPeriksa;
+        int gajiPokok;
+        int totalGaji;
+        String id_dokter = "";
+        Penggajian penggajian = new Penggajian();
+        
+        List<Penggajian> list = new ArrayList<>();
+        List<Penggajian> list1 = new ArrayList<>();
+        try {
+            list = penggajianService.getPenggajianDokter(tanggal1, tanggal2);
+                for (int i=0; i<list.size(); i++){
+                    gajiPeriksa = list.get(i).getGajiTambahan();
+                    gajiPokok = list.get(i).getGajiPokok();
+                    String gajiTambah = ""+list.get(i).getGajiTambahan();
+                    if(gajiTambah.startsWith("NULL")){
+                        gajiPeriksa = 0;
+                    }
+                    totalGaji = gajiPokok + gajiPeriksa;
+                    list.get(i).setGajiTambahan(gajiPeriksa);
+                    list.get(i).setTotalGaji(totalGaji);
+                    
+                    id_dokter = list.get(i).getIdPegawai();
+                    list1 = penggajianService.getGajiDokter(tanggal1, tanggal2, id_dokter);
+                    
+                    for (int j=0; j<list1.size(); j++){
+                        String id_gaji = list1.get(j).getIdPenggajian();
+                        String tanggal = list1.get(j).getTanggal();
+                        list.get(i).setTanggal(tanggal);
+                        list.get(i).setIdPenggajian(id_gaji);
+                    }
+//                    penggajianDokter = penggajianDokter + totalGaji;
+//                    p.setPenggajianDokter(penggajianDokter);
+//                    lk.setPengeluaran(penggajianDokter);
+//                    lk.setKeterangan("Penggajian");
+                }
+                tabel.setData(list);
+                tabelPenggajian.setModel(tabel);
         } catch (RemoteException ex) {
             Logger.getLogger(Panel_Penggajian.class.getName()).log(Level.SEVERE, null, ex);
         }
