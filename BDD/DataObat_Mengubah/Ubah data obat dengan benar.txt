@@ -1,0 +1,11 @@
+Feature		:	Mengubah data obat
+Scenario	:	Ubah data obat dengan benar
+-	Given	Apoteker berada pada halaman data obat
+-	When	Apoteker memilih row pada tabel data obat  yang akan diubah
+-	And	Apoteker menekan tombol EDIT
+-	Then	Apoteker dihadapkan pada form untuk update data obat
+-	When	Apoteker mengubah nama obat misalnya “Paracetamol” menjadi “ Amoxcilin”
+-	And	Apoteker menekan tombol SAVE
+-	Then	Apoteker mendapat pesan bahwa update data obat  yang telah diinputkan berhasil tersimpan 
+-	And	Apoteker berada pada halaman data obat
+-	And	Apoteker dapat melihat data obat sebelumnya yang telah ada dan data obat yang baru saja di ubah

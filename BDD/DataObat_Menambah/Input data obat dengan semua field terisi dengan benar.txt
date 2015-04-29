@@ -1,0 +1,12 @@
+﻿FEATURE 	: Menambah Data Obat
+SCENARIO	: Input data obat, dengan kondisi semua field terisi dengan benar.
+
+- Given	 Apoteker berada pada halaman data obat
+- When	 Apoteker menekan tombol ADD
+- Then	 Apoteker dihadapkan pada form untuk pengisian data obat
+- When 	 Apoteker memasukkan nama obat misalnya “Paracetamol”
+- And	 Apoteker mengisi semua filed dengan benar dan lengkap
+- And	 Apoteker menekan tombol SAVE  untuk menyimpan data yang telah diinputkan
+- Then	 Apoteker mendapat pesan bahwa data yang telah diinputkan berhasil tersimpan
+- And	 Apoteker berada pada halaman data obat
+- And	 Apoteker dapat melihat data obat yang telah ada sebelumnya dan data obat yang baru saja diinputkan

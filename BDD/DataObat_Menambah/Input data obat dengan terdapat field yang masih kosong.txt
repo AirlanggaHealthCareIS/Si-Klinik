@@ -1,0 +1,17 @@
+﻿FEATURE 	: Menambah Data Obat
+SCENARIO	: Input data obat, dengan kondisi terdapat field yang masih kosong
+
+- Given	Apoteker berada pada halaman data obat
+- When	Apoteker menekan tombol ADD
+- Then	Apoteker dihadapkan pada form untuk pengisian data obat
+- When 	Apoteker memasukkan nama obat misalnya “Paracetamol”
+- And	Apoteker mengisi filed dengan tidak lengkap (terdapat field yang kosong)
+- And	Apoteker menekan tombol SAVE untuk menyimpan data yang telah diinputkan
+- Then	Apoteker mendapat pesan peringatan bahwa terdapat field yang masih kosong
+- When	Apoteker menekan tombol  SAVE 
+- Then	Apoteker dapat melihat field mana yang masih kosong atau belum diisi
+- When	Apoteker mengisi data pada field yang masih kosong
+- And	Apoteker menekan tombol SAVE
+- Then	Apoteker mendapat pesan bahwa data yang telah diinputkan berhasil tersimpan
+- And	Apoteker berada pada halaman data SAVE
+- And	Apoteker dapat melihat data SAVE sebelumnya yang telah ada dan data SAVE yang baru saja diinputkan
