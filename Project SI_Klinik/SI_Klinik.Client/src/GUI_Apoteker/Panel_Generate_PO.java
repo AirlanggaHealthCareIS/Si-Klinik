@@ -15,7 +15,7 @@ import GUI_Apoteker.Form_ubah_pemesanan_obat;
 import database.Service.Supplier_Service;
 import database.entity.Supplier;
 import database.entity.detil_pesan_obat;
-import database.Service.pemesanan_obat_service;
+import database.Service.Pemesanan_Obat_Service;
 import database.entity.Pemesanan_Obat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -30,7 +30,7 @@ public class Panel_Generate_PO extends javax.swing.JPanel {
     //TabelModel_Generate_PO table = new TabelModel_Generate_PO();
     Obat_Service obs;
     obat_kritis ok;
-    pemesanan_obat_service pos;
+    Pemesanan_Obat_Service pos;
     Supplier_Service supplier2;
     GUI_Apoteker gui;
     List<obat_kritis> listob;
@@ -172,12 +172,13 @@ public class Panel_Generate_PO extends javax.swing.JPanel {
     
     private void generatePOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generatePOActionPerformed
         int size = 0;
+        List<Pemesanan_Obat> listPo = null;
         try {
-            List<Pemesanan_Obat> listPo = pos.getPO();
-            size = listPo.size();
+            listPo = pos.getPO();
         } catch (RemoteException ex) {
             Logger.getLogger(Panel_Generate_PO.class.getName()).log(Level.SEVERE, null, ex);
-        }        
+        }
+        size = listPo.size();        
         if(listob.size()>0){
             Pemesanan_Obat po = new Pemesanan_Obat();
             po.setId_Pemesnan_obat("PO"+(size+1));

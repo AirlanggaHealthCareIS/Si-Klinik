@@ -15,7 +15,7 @@ import database.Service.RekamMedik_Service;
 import database.Service.Supplier_Service;
 import database.Service.TransaksiObat_Service;
 import database.Service.lihat_Resep_Service;
-import database.Service.pemesanan_obat_service;
+import database.Service.Pemesanan_Obat_Service;
 import database.Service.Pendaftaran_Service;
 import database.Service.Pasien_Service;
 import database.entity.Pasien;
@@ -45,7 +45,7 @@ public class GUI_Apoteker extends javax.swing.JFrame {
     Detail_Resep_Service drs;
     TransaksiObat_Service tos;
     DetailTransaksiObat_Service dtos;
-    pemesanan_obat_service pos;
+    Pemesanan_Obat_Service pos;
     public Pasien_Service pas;
     public Pendaftaran_Service pds;
     
