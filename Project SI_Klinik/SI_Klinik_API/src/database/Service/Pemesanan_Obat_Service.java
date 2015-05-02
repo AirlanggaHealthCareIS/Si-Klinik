@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author asus
  */
-public interface pemesanan_obat_service extends Remote{
+public interface Pemesanan_Obat_Service extends Remote{
     Pemesanan_Obat insertPemesananObat(Pemesanan_Obat PO) throws RemoteException;
     List<Pemesanan_Obat>getPO() throws RemoteException;
 }

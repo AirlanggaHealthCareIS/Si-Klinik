@@ -24,7 +24,7 @@ import ServerApplication.Service.Penggajian_Server;
 import ServerApplication.Service.pemesanan_obat_server;
 import database.Service.Detail_Lihat_Resep_Service;
 import database.Service.Detail_Resep_Service;
-import database.Service.pemesanan_obat_service;
+import database.Service.Pemesanan_Obat_Service;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
