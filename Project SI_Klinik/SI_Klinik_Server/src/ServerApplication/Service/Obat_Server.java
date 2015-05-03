@@ -200,6 +200,7 @@ public class Obat_Server extends UnicastRemoteObject implements Obat_Service {
               o.setdosis(result.getFloat("DOSIS"));
               o.setketerangan_obat(result.getString("KETERANGAN_OBAT"));
               o.setstok_obat(result.getInt("STOK_OBAT"));
+              
               o.setpabrik_obat(result.getString("PABRIK_OBAT"));
               o.setjenis_obat(result.getString("JENIS_OBAT"));
               o.setkemasan(result.getString("KEMASAN"));
