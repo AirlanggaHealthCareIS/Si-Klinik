@@ -32,6 +32,7 @@ public class Rekam_Medis implements Serializable{
     private String TPL;
     private String Rujukan_Dokter;
     private List<detail_Assessment>list;
+    private int flag;
     
             
     public String getId_Rekam_Medis() {
@@ -183,6 +184,14 @@ public class Rekam_Medis implements Serializable{
      
      public void setNadi(int Nadi) {
         this.Nadi= Nadi;
+    }
+     
+      public int getFlag() {
+        return flag;
+    }
+     
+     public void setFlag(int flag) {
+        this.flag=flag;
     }
      
      public int getRR() {
