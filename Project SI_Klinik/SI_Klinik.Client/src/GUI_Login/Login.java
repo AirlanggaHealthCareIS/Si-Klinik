@@ -38,6 +38,7 @@ import database.Service.Pemesanan_Obat_Service;
 import database.entity.petugas;
 import database.entity.dokter;
 import java.awt.Color;
+import java.awt.Component;
 
 
 /**
@@ -68,19 +69,17 @@ public class Login extends javax.swing.JFrame {
       public DetailTransaksiObat_Service service20;
       public Penggajian_Service service21;
       public Pemesanan_Obat_Service service22;
-      
-      
       Registry registry;
       public SocketClient client;
       public int port;
       public String serverAddr, username;
-      private String jabatan;
+      public String jabatan;
       private Thread clientThread;
       private DefaultListModel model;
       private File file;
       private petugas p;
       private dokter d;
-      private boolean aktorIniDokter;      
+      public boolean aktorIniDokter;      
       
     /**
      * Creates new form Login
@@ -93,6 +92,7 @@ public class Login extends javax.swing.JFrame {
         aktorIniDokter = false;
         jLabel7.setVisible(false);
         jLabel8.setVisible(false);
+        registry = LocateRegistry.getRegistry("0.0.0.0", 9750);        
    }
 
     @SuppressWarnings("unchecked")
@@ -224,14 +224,8 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    private boolean startReg() throws RemoteException, NotBoundException {
-        username = nama.getText();       
-        char[] password = pass.getPassword();
-        StringBuilder b = new StringBuilder();
-        b.append(password,0,password.length);
-        registry = LocateRegistry.getRegistry("0.0.0.0", 9750);        
-        service1 = (Petugas_Service) registry.lookup("service1");        
-        service2 = (Dokter_Service) registry.lookup("service2");     
+    
+    public void startRegistry() throws RemoteException, NotBoundException{    
         service3 = (Pendaftaran_Service) registry.lookup("service3");     
         service4 = (Pasien_Service) registry.lookup("service4");     
         service5 = (Laporan_Keuangan_Service) registry.lookup("service5");     
@@ -252,10 +246,20 @@ public class Login extends javax.swing.JFrame {
         service20 = (DetailTransaksiObat_Service) registry.lookup("service20"); 
         service21 = (Penggajian_Service) registry.lookup("service21");
         service22 = (Pemesanan_Obat_Service) registry.lookup("service22");
-        if(!username.equals("")&&password.length>0){
-            p = service1.getPetugas(username,b.toString());
+    }
+            
+            
+    public boolean ValidateLogin() throws RemoteException, NotBoundException {
+        username = nama.getText();       
+        nama.setBackground(Color.white);
+        pass.setBackground(Color.white);
+        String password = getPassword();
+        service1 = (Petugas_Service) registry.lookup("service1");        
+        service2 = (Dokter_Service) registry.lookup("service2");  
+        if(!username.equals("")&&password.length()>0){
+            p = service1.getPetugas(username,password);
             if(p==null){
-                d = service2.getDokter(username,b.toString());
+                d = service2.getDokter(username,password);
                 if(d==null){
                     if(service1.getPetugas(username)!=null||service2.getDokter(username)!=null){
                         pass.setBackground(Color.red);
@@ -281,12 +285,13 @@ public class Login extends javax.swing.JFrame {
             }
         }
         else{
-            JOptionPane.showMessageDialog(null, "Ada field yang kosong. Mohon masukkan username dan password dengan benar", "ERROR",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Ada field yang kosong. Mohon masukkan username dan password dengan benar", "ERROR",JOptionPane.ERROR_MESSAGE);            
             if(username.equals("")){
-                nama.setBackground(Color.red);
+                System.out.println("masuk");
+                nama.setBackground(Color.red);                
                 jLabel8.setVisible(true);     
             }
-            if(password.length==0){
+            if(password.length()==0){
                 pass.setBackground(Color.red);
                 jLabel7.setVisible(true);     
             }
@@ -294,10 +299,10 @@ public class Login extends javax.swing.JFrame {
         }
     }
     
-    private void masukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_masukActionPerformed
-        
+    private void StartGUI(){
          try {
-             if(startReg()){
+             if(ValidateLogin()){
+                startRegistry(); 
                 if(aktorIniDokter)   {
                     GUI_Dokter panggil = new GUI_Dokter(d,this);
                     panggil.show();
@@ -331,8 +336,42 @@ public class Login extends javax.swing.JFrame {
           } catch (NotBoundException ex) {
               Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
           }
+}
+        
+    private void masukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_masukActionPerformed
+        StartGUI();
     }//GEN-LAST:event_masukActionPerformed
 
+    
+    public Color getColorNama(){
+        return nama.getBackground();
+    }
+            
+    public Color getColorPass(){
+        return pass.getBackground();
+    }
+    
+    public boolean getBooleanjLabel7(){
+        return jLabel7.isVisible();
+    }
+    
+    public boolean getBooleanjLabel8(){
+        return jLabel8.isVisible();
+    }
+    
+    public String getPassword(){
+        char[] password = pass.getPassword();
+        StringBuilder b = new StringBuilder();
+        b.append(password,0,password.length);     
+        return b.toString();
+    }
+    
+    public void setUsernamePassword(String Username, String password){
+        nama.setText(Username);
+        pass.setText(password);
+        System.out.println(Username);
+        System.out.println(password);
+    }
     
     private void namaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namaActionPerformed
         // TODO add your handling code here:

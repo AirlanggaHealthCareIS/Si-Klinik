@@ -25,7 +25,10 @@ import ServerApplication.Service.pemesanan_obat_server;
 import database.Service.Detail_Lihat_Resep_Service;
 import database.Service.Detail_Resep_Service;
 import database.Service.Pemesanan_Obat_Service;
+import java.rmi.AccessException;
+import java.rmi.AlreadyBoundException;
 import java.rmi.NotBoundException;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -43,10 +46,11 @@ import javax.swing.Timer;
  */
 public class main {
     Registry server;
+    int port = 9750;
 
 
     public void start() throws RemoteException {
-        Registry server = LocateRegistry.createRegistry(9750);
+        server = LocateRegistry.createRegistry(port);
         
         /*
          TEMAN-TEMAN, TOLONG JANGAN NGERUBAH CODINGAN INI YA. 
@@ -102,9 +106,35 @@ public class main {
         
         System.out.println("Server Berhasil Tersambung");
     }
-    public void stop(Registry server) throws RemoteException, NotBoundException{      
-        System.out.println("Server Terputus");
-        server = null;
+    public void stop() throws RemoteException, NotBoundException{      
+        System.out.println("Server Terputus");        
+        server = new Registry() {
+
+            @Override
+            public Remote lookup(String name) throws RemoteException, NotBoundException, AccessException {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+
+            @Override
+            public void bind(String name, Remote obj) throws RemoteException, AlreadyBoundException, AccessException {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+
+            @Override
+            public void unbind(String name) throws RemoteException, NotBoundException, AccessException {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+
+            @Override
+            public void rebind(String name, Remote obj) throws RemoteException, AccessException {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+
+            @Override
+            public String[] list() throws RemoteException, AccessException {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+        };
 }
     /**
      * @param args the command line arguments

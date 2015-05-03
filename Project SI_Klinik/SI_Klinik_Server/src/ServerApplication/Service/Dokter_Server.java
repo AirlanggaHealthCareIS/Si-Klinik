@@ -129,6 +129,7 @@ public class Dokter_Server extends UnicastRemoteObject implements Dokter_Service
                 a.setalamat_dokter(result.getString("ALAMAT_DOKTER"));                
                 a.settelepon_dokter(result.getString("TELEPON_DOKTER"));
                 a.setjenis_kelamin_dokter(result.getString("JENIS_KELAMIN_DOKTER"));
+                a.settgl_lahir_dokter(result.getString("TGL_LAHIR_DOKTER"));
                 a.setagama_dokter(result.getString("AGAMA_DOKTER"));                
                 a.setpassword_dokter(result.getString("PASSWORD_DOKTER"));
                 a.setno_ijin(result.getString("NO_IJIN"));                
