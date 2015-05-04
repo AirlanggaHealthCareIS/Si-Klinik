@@ -199,8 +199,7 @@ public class Obat_Server extends UnicastRemoteObject implements Obat_Service {
               o.setstok_kritis(result.getInt("STOK_KRITIS"));
               o.setdosis(result.getFloat("DOSIS"));
               o.setketerangan_obat(result.getString("KETERANGAN_OBAT"));
-              o.setstok_obat(result.getInt("STOK_OBAT"));
-              
+              o.setstok_obat(result.getInt("STOK_OBAT"));    
               o.setpabrik_obat(result.getString("PABRIK_OBAT"));
               o.setjenis_obat(result.getString("JENIS_OBAT"));
               o.setkemasan(result.getString("KEMASAN"));
@@ -325,6 +324,50 @@ public class Obat_Server extends UnicastRemoteObject implements Obat_Service {
           result.close();
 
           return hasil;
+
+        }catch(SQLException exception){
+          exception.printStackTrace();
+          return null;
+        }finally{
+            if(statement != null){
+                try{
+                    statement.close();
+                }catch(SQLException exception){
+                   exception.printStackTrace();
+                }
+            }
+        }
+    }
+    @Override 
+    public obat getLastObat () throws RemoteException{
+        System.out.println("Client Melakukan Proses Get All");
+
+        Statement statement = null;
+        try{
+          statement = DatabaseUtilities.getConnection().createStatement();
+
+          ResultSet result = statement.executeQuery("SELECT * FROM `obat`");
+
+          obat o = null;
+          
+          while(result.next()){
+              o = new obat();
+              o.setid_obat(result.getString("ID_OBAT"));
+              o.setnama_obat(result.getString("NAMA_OBAT"));
+              o.setstok_kritis(result.getInt("STOK_KRITIS"));
+              o.setdosis(result.getFloat("DOSIS"));
+              o.setketerangan_obat(result.getString("KETERANGAN_OBAT"));
+              o.setstok_obat(result.getInt("STOK_OBAT"));    
+              o.setpabrik_obat(result.getString("PABRIK_OBAT"));
+              o.setjenis_obat(result.getString("JENIS_OBAT"));
+              o.setkemasan(result.getString("KEMASAN"));
+              o.setharga_obat(result.getInt("HARGA_OBAT"));
+            
+          }
+          
+          result.close();
+
+          return o;
 
         }catch(SQLException exception){
           exception.printStackTrace();

@@ -28,4 +28,6 @@ public interface Obat_Service extends Remote {
     String getIdObat(String nama) throws RemoteException;
     
     List<obat> getObatKritis() throws RemoteException;
+    
+    obat getLastObat() throws RemoteException;
 }
