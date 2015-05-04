@@ -170,6 +170,44 @@ public class Supplier_Server extends UnicastRemoteObject implements Supplier_Ser
     }
 
     @Override
+    public Supplier getLastSupplier() throws RemoteException {
+        System.out.println("proses get ALL SUPPLIER");
+        Statement statement = null;
+        
+        try {
+            statement = DatabaseUtilities.getConnection().createStatement();
+            ResultSet result = statement.executeQuery("SELECT * FROM supplier ORDER BY ID_SUPPLIER DESC LIMIT 1");
+            Supplier a = null;
+            while(result.next()){
+                a = new Supplier();
+                a.setId_Supplier((result.getString("ID_SUPPLIER")));
+                a.setNama_Supplier(result.getString("NAMA_SUPPLIER"));
+                a.setAlamat_Supplier(result.getString("ALAMAT_SUPPLIER"));
+                a.setKota_Supplier(result.getString("KOTA_SUPPLIER"));
+                a.setTelepon_Supplier(result.getString("TELEPON_SUPPLIER"));
+                a.setNPWP_Supplier(result.getString("NPWP_SUPPLIER"));
+                a.setJenis_pajak_Supplier(result.getString("JENIS_PAJAK_SUPPLIER"));
+                a.setKode_Pajak_Supplier(result.getString("KODE_PAJAK_SUPPLIER"));
+            }    
+            result.close();
+            return a;
+        } 
+        catch (SQLException exception) {
+            exception.printStackTrace();
+            return null;
+        }
+        finally{
+            if(statement!=null){
+                try {
+                    statement.close();
+                } catch (SQLException  exception) {
+                    exception.printStackTrace();
+                }
+            }
+        }
+    }
+    
+    @Override
     public Supplier getId_Supplier(String Nama_Supplier) throws RemoteException {
          System.out.println("melakukan proses getId_supplier by NAMA_SUPPLIER");
         
