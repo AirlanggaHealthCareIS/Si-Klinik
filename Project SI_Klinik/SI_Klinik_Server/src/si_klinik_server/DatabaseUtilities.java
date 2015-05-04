@@ -21,7 +21,7 @@ public class DatabaseUtilities {
         if(connection == null){
             try{
                 DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-                connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/si_klinik", "root", "");
+                connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/cis", "root", "");
                 System.out.println("Database terhubung");
             }
             catch (SQLException ex){

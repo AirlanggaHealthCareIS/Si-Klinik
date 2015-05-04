@@ -25,6 +25,9 @@ public class Form_Data_Supplier_Tambah extends javax.swing.JFrame {
     private Supplier_Service ss;     
     private GUI_Apoteker gui;
     private Form_data_suplier f;
+    public Form_Data_Supplier_Tambah() {
+        
+    }
     
     public Form_Data_Supplier_Tambah(GUI_Apoteker gui) {
         initComponents();
@@ -364,6 +367,7 @@ public class Form_Data_Supplier_Tambah extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_OKActionPerformed
 
+    
     private void RESETActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RESETActionPerformed
         // TODO add your handling code here:
         refresh();   
