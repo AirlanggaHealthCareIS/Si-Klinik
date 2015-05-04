@@ -16,6 +16,7 @@ import static org.junit.Assert.*;
  * @author JESSICA
  */
 public class Test_PetugasEntity {
+    
     petugas p;
     public Test_PetugasEntity() {
         p = new petugas();
@@ -39,7 +40,9 @@ public class Test_PetugasEntity {
     
     @Test
     public void testSetGetIDPetugas(){
+       
         String idPetugas = "PET001";
+   
         p.setId_Petugas(idPetugas);
         assertEquals(idPetugas, p.getId_Petugas());
     }
