@@ -14,6 +14,9 @@ import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import database.Service.Resep_Service;
+import java.rmi.NotBoundException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +32,14 @@ public class Panel_Resep extends javax.swing.JPanel {
     public String no;    
     GUI_Apoteker gui;
     lihatResep ll;
+    Registry registry;
+    
+    public Panel_Resep(int id) throws RemoteException, NotBoundException{
+        registry = LocateRegistry.getRegistry("0.0.0.0", 9750);      
+        lihatResepService = (lihat_Resep_Service) registry.lookup("service17");
+        initComponents();
+        idpasien.setText(""+id);
+    }
     
     public Panel_Resep(GUI_Apoteker gui) {
         initComponents();
@@ -217,7 +228,15 @@ public class Panel_Resep extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        try {
+        ceks();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    public TableModel_Resep getTabel(){
+        return tableModelResep;
+    }
+    
+    public void ceks(){
+    try {
             list = this.lihatResepService.getLihatResep(Integer.parseInt(idpasien.getText()));
             if (list.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Data Tidak Ditemukan", "Pesan", JOptionPane.OK_OPTION);
@@ -232,8 +251,8 @@ public class Panel_Resep extends javax.swing.JPanel {
         } catch (RemoteException ex) {
             Logger.getLogger(Panel_Resep.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
-
+    }
+    
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         Panel_PenjualanObat panel = new Panel_PenjualanObat(gui);
