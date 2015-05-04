@@ -30,6 +30,8 @@ public class Panel_generatetagihanpasien extends javax.swing.JPanel {
     private TableModel_TransaksiPeriksa tablemodel = new TableModel_TransaksiPeriksa();
     private Transaksi_Periksa_Service service14;
     private List<Transaksi_Periksa> list;
+    private String id_pasien;
+    private int selectedIndex;
     Registry registry;
     //private Panel_transaksiperiksa ptp;
     
@@ -80,6 +82,11 @@ public class Panel_generatetagihanpasien extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tabeltagihan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabeltagihanMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabeltagihan);
 
         jButton2.setText("Tagihkan");
@@ -147,22 +154,50 @@ public class Panel_generatetagihanpasien extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(idpasien.getText()==""){
-            JOptionPane.showMessageDialog(null, "Silahkan isi ID Pasien terlebih dahulu", "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
-        cektagihan(idpasien.getText());
+        setId_pasien(idpasien.getText());
+        validateIdPasien();
+        cektagihan();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-         if(tabeltagihan.getSelectedRow()==0){
-                JOptionPane.showMessageDialog(null, "Pilih transaksi yang ingin dibayarkan terlebih dahulu", "ERROR", JOptionPane.ERROR_MESSAGE);
-            }
        // ptp = new Panel_transaksiperiksa(list, tabeltagihan.getSelectedRow());
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    public void cektagihan(String idpasien){
+    private void tabeltagihanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabeltagihanMouseClicked
+        setSelectedRow(tabeltagihan.getSelectedRow());
+    }//GEN-LAST:event_tabeltagihanMouseClicked
+
+    public void setId_pasien(String id){
+        id_pasien = id;
+    }
+    
+    public boolean validateSelectedRow(){
+        if(selectedIndex==0){
+            JOptionPane.showMessageDialog(null, "Pilih transaksi yang ingin dibayarkan terlebih dahulu", "ERROR", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+    
+    public boolean validateIdPasien(){
+        if(idpasien.getText()==""){
+            JOptionPane.showMessageDialog(null, "Silahkan isi ID Pasien terlebih dahulu", "ERROR", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+    
+    public void setSelectedRow(int x){
+        selectedIndex = x;
+    }
+    
+    public void cektagihan(){
         try {
-            list = service14.getTransaksis(idpasien);
+            list = service14.getTransaksis(id_pasien);
             tablemodel.setData(list);
             tabeltagihan.setModel(tablemodel);
             
