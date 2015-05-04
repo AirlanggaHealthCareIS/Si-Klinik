@@ -11,7 +11,6 @@ import java.util.ArrayList;
 public class Transaksi_Periksa implements Serializable{
     private String Id_Transaksi_Periksa;
     private String Id_Dokter;
-    private String Id_Pemasukan;
     private String Id_Pasien;
     private String Subtotal_Transaksi_Periksa;
     private String PPN_Transaksi_Periksa;
@@ -36,14 +35,6 @@ public class Transaksi_Periksa implements Serializable{
 
     public void setId_Dokter(String Id_Dokter) {
         this.Id_Dokter = Id_Dokter;
-    }
-
-     public String getId_Pemasukan() {
-        return Id_Pemasukan;
-    }
-
-    public void setId_Pemasukan(String Id_Pemasukan) {
-        this.Id_Pemasukan = Id_Pemasukan;
     }
     
      public String getId_Pasien() {

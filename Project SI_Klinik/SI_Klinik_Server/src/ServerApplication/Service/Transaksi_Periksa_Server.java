@@ -63,14 +63,15 @@ public class Transaksi_Periksa_Server extends UnicastRemoteObject implements Tra
     
     @Override
     public List<Transaksi_Periksa> getTransaksis(String id_pasien) throws RemoteException {
-        
+        System.out.println("bomb");
         PreparedStatement statement = null;
         try{
             statement = DatabaseUtilities.getConnection().prepareStatement(
-                "SELECT * FROM transaksi_periksa WHEN id_pasien =?"
+                "SELECT * FROM transaksi_periksa WHERE id_pasien =?"
             );
         
             statement.setString(1, id_pasien);
+            System.out.println(id_pasien);
             ResultSet result = statement.executeQuery();
             List<Transaksi_Periksa> list = new ArrayList<Transaksi_Periksa>();
         
@@ -79,7 +80,6 @@ public class Transaksi_Periksa_Server extends UnicastRemoteObject implements Tra
                 
                 x.setId_Dokter(result.getString("id_dokter"));
                 x.setId_Pasien(result.getString("id_pasien"));
-                x.setId_Pemasukan(result.getString("id_pemasukan"));
                 x.setId_Transaksi_Periksa(result.getString("id_transaksi_periksa"));
                 x.setKlaim_BPJS(result.getString("klaim_bpjs"));
                 x.setNo_Kartu_Transaksi(result.getString("no_kartu_transaksi"));
@@ -124,7 +124,6 @@ public class Transaksi_Periksa_Server extends UnicastRemoteObject implements Tra
         if (result.next()){
             x.setId_Dokter(result.getString("id_dokter"));
             x.setId_Pasien(result.getString("id_pasien"));
-            x.setId_Pemasukan(result.getString("id_pemasukan"));
             x.setId_Transaksi_Periksa(result.getString("id_transaksi_periksa"));
             x.setKlaim_BPJS(result.getString("klaim_bpjs"));
             x.setNo_Kartu_Transaksi(result.getString("no_kartu_transaksi"));
@@ -168,7 +167,6 @@ public class Transaksi_Periksa_Server extends UnicastRemoteObject implements Tra
                 
                 x.setId_Dokter(result.getString("id_dokter"));
                 x.setId_Pasien(result.getString("id_pasien"));
-                x.setId_Pemasukan(result.getString("id_pemasukan"));
                 x.setId_Transaksi_Periksa(result.getString("id_transaksi_periksa"));
                 x.setKlaim_BPJS(result.getString("klaim_bpjs"));
                 x.setNo_Kartu_Transaksi(result.getString("no_kartu_transaksi"));

@@ -9,7 +9,10 @@ import Client_Application_Model.TableModel_TransaksiPeriksa;
 import javax.swing.JOptionPane;
 import database.Service.Transaksi_Periksa_Service;
 import database.entity.Transaksi_Periksa;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,13 +28,15 @@ public class Panel_generatetagihanpasien extends javax.swing.JPanel {
     
     
     private TableModel_TransaksiPeriksa tablemodel = new TableModel_TransaksiPeriksa();
-    private Transaksi_Periksa_Service tp;
+    private Transaksi_Periksa_Service service14;
     private List<Transaksi_Periksa> list;
+    Registry registry;
     //private Panel_transaksiperiksa ptp;
     
-    public Panel_generatetagihanpasien() {
+    public Panel_generatetagihanpasien() throws RemoteException, NotBoundException{
         initComponents();
-
+        registry = LocateRegistry.getRegistry("0.0.0.0", 9750);
+        service14 = (Transaksi_Periksa_Service) registry.lookup("service14");
     }
 
 
@@ -157,7 +162,7 @@ public class Panel_generatetagihanpasien extends javax.swing.JPanel {
 
     public void cektagihan(String idpasien){
         try {
-            list = tp.getTransaksis(idpasien);
+            list = service14.getTransaksis(idpasien);
             tablemodel.setData(list);
             tabeltagihan.setModel(tablemodel);
             

@@ -47,30 +47,41 @@ public class TableModel_TransaksiPeriksa extends AbstractTableModel{
     @Override
     public String getColumnName(int column) {
         switch(column){
-            case 0 : return "Tanggal";
-            case 1 : return "ID Transaksi Periksa";
-            case 2 : return "Total";
+            case 0 : return "ID Dokter";
+            case 1 : return "ID Pasien";
+            case 2 : return "ID Transaksi";
+            case 3 : return "Klaim BPJS";
+            case 4 : return "No Kartu";
+            case 5 : return "PPN";
+            case 6 : return "Subtotal";
+            case 7 : return "Tanggal";
+            case 8 : return "Total";
                 
             default: return null;
         }
     }
 
     public int getRowCount() {
-       return list.size();
-         }    
+        return list.size();
+    }    
 
     @Override
     public int getColumnCount() {
-    return 2;
+        return 9;
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
        switch(columnIndex){
-            case 0 : return list.get(rowIndex).getTanggal_Transaksi_Periksa(); 
-            case 1 : return list.get(rowIndex).getId_Transaksi_Periksa();
-            case 2 : return list.get(rowIndex).getId_Dokter();
-            case 3 : return list.get(rowIndex).getTotal_Transaksi_Periksa();
+            case 0 : return list.get(rowIndex).getId_Dokter(); 
+            case 1 : return list.get(rowIndex).getId_Pasien();
+            case 2 : return list.get(rowIndex).getId_Transaksi_Periksa();
+            case 3 : return list.get(rowIndex).getKlaim_BPJS();
+            case 4 : return list.get(rowIndex).getNo_Kartu_Transaksi();
+            case 5 : return list.get(rowIndex).getPPN_Transaksi_Periksa();
+            case 6 : return list.get(rowIndex).getSubtotal_Transaksi_Periksa();
+            case 7 : return list.get(rowIndex).getTanggal_Transaksi_Periksa();
+            case 8 : return list.get(rowIndex).getTotal_Transaksi_Periksa();
             
             default : return null;
         } 
