@@ -174,15 +174,21 @@ public class GUI_Kasir extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        // TODO add your handling code here:   
-         jPanel4.removeAll();
-         jPanel4.repaint();
-         jPanel4.revalidate();                    
-         Panel_generatetagihanpasien panel = new Panel_generatetagihanpasien();
-         panel.setVisible(true);
-         jPanel4.add(panel);
-         jPanel4.repaint();
-         jPanel4.revalidate();
+        try {
+            // TODO add your handling code here:
+            jPanel4.removeAll();
+            jPanel4.repaint();
+            jPanel4.revalidate();
+            Panel_generatetagihanpasien panel = new Panel_generatetagihanpasien();
+            panel.setVisible(true);
+            jPanel4.add(panel);
+            jPanel4.repaint();
+            jPanel4.revalidate();
+        } catch (RemoteException ex) {
+            Logger.getLogger(GUI_Kasir.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NotBoundException ex) {
+            Logger.getLogger(GUI_Kasir.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
