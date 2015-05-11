@@ -43,6 +43,10 @@ public class Panel_Input_Tindakan_Medis extends javax.swing.JPanel {
       List<Tindakan_Dokter> list = new ArrayList<Tindakan_Dokter>();
       public GUI_Dokter gui;
       public String a = "";
+
+      public Panel_Input_Tindakan_Medis (){
+          
+      }
       
       public String getTanggal(){
         Calendar cal = new GregorianCalendar();
