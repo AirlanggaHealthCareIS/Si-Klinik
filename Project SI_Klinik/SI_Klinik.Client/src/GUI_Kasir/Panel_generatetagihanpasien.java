@@ -29,7 +29,7 @@ public class Panel_generatetagihanpasien extends javax.swing.JPanel {
     
     private TableModel_TransaksiPeriksa tablemodel = new TableModel_TransaksiPeriksa();
     private Transaksi_Periksa_Service service14;
-    private List<Transaksi_Periksa> list;
+    public List<Transaksi_Periksa> list;
     private String id_pasien;
     private int selectedIndex;
     Registry registry;
@@ -172,7 +172,7 @@ public class Panel_generatetagihanpasien extends javax.swing.JPanel {
     }
     
     public boolean validateSelectedRow(){
-        if(selectedIndex==0){
+        if(selectedIndex<0){
             JOptionPane.showMessageDialog(null, "Pilih transaksi yang ingin dibayarkan terlebih dahulu", "ERROR", JOptionPane.ERROR_MESSAGE);
             return false;
         }
@@ -182,7 +182,7 @@ public class Panel_generatetagihanpasien extends javax.swing.JPanel {
     }
     
     public boolean validateIdPasien(){
-        if(idpasien.getText()==""){
+        if("".equals(selectedIndex)){
             JOptionPane.showMessageDialog(null, "Silahkan isi ID Pasien terlebih dahulu", "ERROR", JOptionPane.ERROR_MESSAGE);
             return false;
         }
