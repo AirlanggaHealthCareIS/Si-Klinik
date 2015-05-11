@@ -38,6 +38,9 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import database.entity.petugas;
+import java.rmi.NotBoundException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 
 /**
  *
@@ -57,10 +60,17 @@ public class Panel_Laporan_Keuangan extends javax.swing.JPanel {
     private Font font5 = new Font(Font.FontFamily.HELVETICA,11);
     private Font font4 = new Font(Font.FontFamily.HELVETICA,9);
     private Font font6 = new Font(Font.FontFamily.HELVETICA,9,Font.BOLD);
-    
+    private List<Laporan_Keuangan> list;
     /**
      * Creates new form FormLaporanKeuangan
      */
+    public Panel_Laporan_Keuangan() throws RemoteException, NotBoundException{
+        initComponents();
+        tabel = new TableModel_LaporanKeuangan();
+        Registry registry = LocateRegistry.getRegistry("0.0.0.0", 9750);        
+        laporanServer =(Laporan_Keuangan_Service) registry.lookup("service5");     
+    }
+    
     public Panel_Laporan_Keuangan(GUI_StafKlinik gui) {
         initComponents();
         tabel = new TableModel_LaporanKeuangan();
@@ -281,9 +291,13 @@ public class Panel_Laporan_Keuangan extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jDateChooser1MouseClicked
 
-    private void refresh(String tanggal1, String tanggal2){
+    public List<Laporan_Keuangan> getlaporan(){
+        return list;
+    }
+    
+    public void refresh(String tanggal1, String tanggal2){
         try{
-            List<Laporan_Keuangan> list= new ArrayList<>();
+            list= new ArrayList<>();
             list = laporanServer.getLaporanKeuangan(tanggal1, tanggal2);
 //            baris = list.size();
             if(list.size()>0){                       
@@ -325,6 +339,8 @@ public class Panel_Laporan_Keuangan extends javax.swing.JPanel {
          }
         
     }
+    
+    
     
     private void refresh1(String tanggal1, String tanggal2){
         try{
@@ -371,34 +387,34 @@ public class Panel_Laporan_Keuangan extends javax.swing.JPanel {
         
     }
      
-    private void refresh(){
-        try{
-            List<Laporan_Keuangan> list= new ArrayList<>();
-            list = laporanServer.getLaporanKeuangan();            
-            if(list.size()>0){                        
-                
-            for(int i=0;i<list.size();i++ ){
-                if(list.get(i).getRef().startsWith("B-")){
-                    int temp = list.get(i).getPemasukan();
-                    list.get(i).setPemasukan(0);
-                    list.get(i).setPengeluaran(temp);
-                }
-                if(list.get(i).getRef().startsWith("B-")){
-                    list.get(i).setKeterangan("Membeli Obat dari supplier");
-                }
-                else if (list.get(i).getRef().startsWith("Pe-")){
-                    list.get(i).setKeterangan("Pemasukan dari tindakan pemeriksaan dokter");
-                }
-                else if(list.get(i).getRef().startsWith("O-")){
-                    list.get(i).setKeterangan("Pemasukan dari penjualan obat");
-                }
-            }
-             tabel.setData(list);
-             jTable1.setModel(tabel);     }
-         }catch(RemoteException exception){
-             exception.printStackTrace();
-         }
-    }
+//    private void refresh(){
+//        try{
+//            List<Laporan_Keuangan> list= new ArrayList<>();
+//            list = laporanServer.getLaporanKeuangan();            
+//            if(list.size()>0){                        
+//                
+//            for(int i=0;i<list.size();i++ ){
+//                if(list.get(i).getRef().startsWith("B-")){
+//                    int temp = list.get(i).getPemasukan();
+//                    list.get(i).setPemasukan(0);
+//                    list.get(i).setPengeluaran(temp);
+//                }
+//                if(list.get(i).getRef().startsWith("B-")){
+//                    list.get(i).setKeterangan("Membeli Obat dari supplier");
+//                }
+//                else if (list.get(i).getRef().startsWith("Pe-")){
+//                    list.get(i).setKeterangan("Pemasukan dari tindakan pemeriksaan dokter");
+//                }
+//                else if(list.get(i).getRef().startsWith("O-")){
+//                    list.get(i).setKeterangan("Pemasukan dari penjualan obat");
+//                }
+//            }
+//             tabel.setData(list);
+//             jTable1.setModel(tabel);     }
+//         }catch(RemoteException exception){
+//             exception.printStackTrace();
+//         }
+//    }
      
     private void createPdf(List<Laporan_Keuangan> list){
         JFileChooser saveFile = new JFileChooser();

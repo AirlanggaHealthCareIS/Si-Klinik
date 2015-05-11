@@ -92,10 +92,10 @@ public class Panel_Penggajian extends javax.swing.JPanel {
         tampilButton = new javax.swing.JToggleButton();
         refreshButton = new javax.swing.JToggleButton();
         cetakSlipGajiButton = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tabelPenggajian = new javax.swing.JTable();
         pegawaiList = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabelPenggajian = new javax.swing.JTable();
 
         jLabel15.setFont(new java.awt.Font("Maiandra GD", 0, 36)); // NOI18N
         jLabel15.setText("Laporan Keuangan");
@@ -150,6 +150,16 @@ public class Panel_Penggajian extends javax.swing.JPanel {
             }
         });
 
+        pegawaiList.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "[pilih]", "Dokter", "Non Dokter" }));
+        pegawaiList.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pegawaiListActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Maiandra GD", 0, 14)); // NOI18N
+        jLabel5.setText("Jenis Pegawai :");
+
         tabelPenggajian.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -165,78 +175,59 @@ public class Panel_Penggajian extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tabelPenggajian);
 
-        pegawaiList.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "[pilih]", "Dokter", "Non Dokter" }));
-        pegawaiList.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pegawaiListActionPerformed(evt);
-            }
-        });
-
-        jLabel5.setFont(new java.awt.Font("Maiandra GD", 0, 14)); // NOI18N
-        jLabel5.setText("Jenis Pegawai :");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(264, 264, 264)
-                                .addComponent(cetakSlipGajiButton))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel5)
-                                .addGap(18, 18, 18)
-                                .addComponent(pegawaiList, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addComponent(pegawaiList, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel3))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
-                                .addComponent(tampilButton, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(refreshButton)))))
+                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                        .addComponent(tampilButton, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(refreshButton)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cetakSlipGajiButton)
+                .addGap(249, 249, 249))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(pegawaiList, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tampilButton)
+                        .addComponent(refreshButton))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(pegawaiList, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(tampilButton)
-                                .addComponent(refreshButton))
+                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(43, 43, 43)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addComponent(cetakSlipGajiButton)
-                .addContainerGap())
+                .addGap(31, 31, 31)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -258,7 +249,7 @@ public class Panel_Penggajian extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel16)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -276,7 +267,8 @@ public class Panel_Penggajian extends javax.swing.JPanel {
             tanggal1 = new java.text.SimpleDateFormat("yyyy-MM-dd").format(tanggal3);
             tanggal3 =(Date) jDateChooser2.getDate();
             tanggal2 = new java.text.SimpleDateFormat("yyyy-MM-dd").format(tanggal3);
-//            refresh1(tanggal1, tanggal2);
+            refreshDokter1(tanggal1, tanggal2);
+            refreshNonDokter1(tanggal1, tanggal2);
         }
         else{
             JOptionPane.showMessageDialog(null, "Mohon isikan periode", "ERROR",JOptionPane.ERROR_MESSAGE);
@@ -328,15 +320,6 @@ public class Panel_Penggajian extends javax.swing.JPanel {
             list = penggajianService.getPenggajianNonDokter(tanggal1, tanggal2);
             tabel.setData(list);
             tabelPenggajian.setModel(tabel);
-            
-//            if(list.size()>0){
-//                for (int i = 0; i < list.size(); i++) {
-//                    penggajianNonDokter = penggajianNonDokter + list.get(i).getTotalGaji();
-//                    p.setPenggajianNonDokter(penggajianNonDokter);
-//                    lk.setPengeluaran(penggajianNonDokter);
-//                    lk.setKeterangan("Penggajian");
-//                }
-//            }
         } catch (RemoteException ex) {
             Logger.getLogger(Panel_Penggajian.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -373,10 +356,6 @@ public class Panel_Penggajian extends javax.swing.JPanel {
                         list.get(i).setTanggal(tanggal);
                         list.get(i).setIdPenggajian(id_gaji);
                     }
-//                    penggajianDokter = penggajianDokter + totalGaji;
-//                    p.setPenggajianDokter(penggajianDokter);
-//                    lk.setPengeluaran(penggajianDokter);
-//                    lk.setKeterangan("Penggajian");
                 }
                 tabel.setData(list);
                 tabelPenggajian.setModel(tabel);
@@ -385,7 +364,200 @@ public class Panel_Penggajian extends javax.swing.JPanel {
         }
     }
     
+    private void refreshNonDokter1(String tanggal1, String tanggal2){
+        int penggajianNonDokter = 0;
+        List<Penggajian> list = new ArrayList<>();
+        try {
+            list = penggajianService.getPenggajianNonDokter(tanggal1, tanggal2);
+            createPdf(list);
+        } catch (RemoteException ex) {
+            Logger.getLogger(Panel_Penggajian.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void refreshDokter1(String tanggal1, String tanggal2){
+        int gajiPeriksa;
+        int gajiPokok;
+        int totalGaji;
+        String id_dokter = "";
+        Penggajian penggajian = new Penggajian();
+        
+        List<Penggajian> list = new ArrayList<>();
+        List<Penggajian> list1 = new ArrayList<>();
+        try {
+            list = penggajianService.getPenggajianDokter(tanggal1, tanggal2);
+                for (int i=0; i<list.size(); i++){
+                    gajiPeriksa = list.get(i).getGajiTambahan();
+                    gajiPokok = list.get(i).getGajiPokok();
+                    String gajiTambah = ""+list.get(i).getGajiTambahan();
+                    if(gajiTambah.startsWith("NULL")){
+                        gajiPeriksa = 0;
+                    }
+                    totalGaji = gajiPokok + gajiPeriksa;
+                    list.get(i).setGajiTambahan(gajiPeriksa);
+                    list.get(i).setTotalGaji(totalGaji);
+                    
+                    id_dokter = list.get(i).getIdPegawai();
+                    list1 = penggajianService.getGajiDokter(tanggal1, tanggal2, id_dokter);
+                    
+                    for (int j=0; j<list1.size(); j++){
+                        String id_gaji = list1.get(j).getIdPenggajian();
+                        String tanggal = list1.get(j).getTanggal();
+                        list.get(i).setTanggal(tanggal);
+                        list.get(i).setIdPenggajian(id_gaji);
+                    }
+                }
+                createPdf(list);
+        } catch (RemoteException ex) {
+            Logger.getLogger(Panel_Penggajian.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void createPdf(List<Penggajian> list){
+        JFileChooser saveFile = new JFileChooser();
+        saveFile.setSelectedFile(new File("D:/document/Slip Gaji.pdf"));        
+        String result = null;        
+        if (saveFile.showSaveDialog(null)== JFileChooser.APPROVE_OPTION) {
+              result= saveFile.getSelectedFile().toString();
+        } else {
+            System.out.println("No Selection ");
+            }
+        try {            
+            Document document = new Document();
+            try {
+                PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(result));                
+                document.open();
+                PdfContentByte canvas = writer.getDirectContent();
+                Rectangle rect = new Rectangle (50,800,550,700);
+                rect.setBorder(Rectangle.BOX);
+                rect.setBorderWidth(0);
+                rect.setBorderColor(BaseColor.BLACK);
+                canvas.rectangle(rect);
+                Paragraph preface;
+                preface = getPreface("Slip Gaji");                
+                document.add(preface);
+                document.add(Chunk.NEWLINE);
+                document.add(Chunk.NEWLINE);
+                document.add(createTableLaporan(list));
+                document.close();
+                open(result);                
+            } catch (DocumentException ex) {
+                Logger.getLogger(Panel_Laporan_Keuangan.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Panel_Laporan_Keuangan.class.getName()).log(Level.SEVERE, null, ex);
+        }       
+    }
+    
+    private PdfPTable createTableLaporan(List<Penggajian> list){
+        PdfPTable tabel = new PdfPTable(2);   
+        PdfPCell cell;
 
+        for(int i=0;i<list.size();i++){ 
+            cell = new PdfPCell(new Phrase(("ID Pegawai"), font6));
+            cell.setVerticalAlignment(Element.ALIGN_TOP);
+            cell.setColspan(1);
+            cell.setBorder(Rectangle.BOX);
+            cell.setBorderWidth(1);
+            tabel.addCell(cell); 
+            
+            cell = new PdfPCell(new Phrase((""+list.get(i).getIdPegawai()),font5));
+            cell.setVerticalAlignment(Element.ALIGN_TOP);
+            cell.setBorderWidth(1);
+            tabel.addCell(cell);
+            
+            cell = new PdfPCell(new Phrase(("Nama Pegawai"), font6));
+            cell.setVerticalAlignment(Element.ALIGN_TOP);
+            cell.setColspan(1);
+            cell.setBorder(Rectangle.BOX);
+            cell.setBorderWidth(1);
+            tabel.addCell(cell); 
+        
+            cell = new PdfPCell(new Phrase((""+list.get(i).getNamaPegawai()),font5));
+            cell.setVerticalAlignment(Element.ALIGN_TOP); 
+            cell.setBorderWidth(1);
+            tabel.addCell(cell);
+            
+            cell = new PdfPCell(new Phrase(("Gaji Pokok"), font6));
+            cell.setVerticalAlignment(Element.ALIGN_TOP);
+            cell.setColspan(1);
+            cell.setBorder(Rectangle.BOX);
+            cell.setBorderWidth(1);
+            tabel.addCell(cell); 
+        
+            cell = new PdfPCell(new Phrase((""+list.get(i).getGajiPokok()),font5));
+            cell.setVerticalAlignment(Element.ALIGN_TOP);
+            cell.setBorderWidth(1);
+            tabel.addCell(cell);
+            
+            cell = new PdfPCell(new Phrase(("Gaji Tambahan"), font6));
+            cell.setVerticalAlignment(Element.ALIGN_TOP);
+            cell.setColspan(1);
+            cell.setBorder(Rectangle.BOX);
+            cell.setBorderWidth(1);
+            tabel.addCell(cell); 
+            
+            cell = new PdfPCell(new Phrase((""+list.get(i).getGajiTambahan()),font5));
+            cell.setVerticalAlignment(Element.ALIGN_TOP);
+            cell.setBorderWidth(1);
+            tabel.addCell(cell);
+            
+            cell = new PdfPCell(new Phrase(("Total Gaji"), font6));
+            cell.setVerticalAlignment(Element.ALIGN_TOP);
+            cell.setColspan(1);
+            cell.setBorder(Rectangle.BOX);
+            cell.setBorderWidth(1);
+            tabel.addCell(cell); 
+        
+            cell = new PdfPCell(new Phrase((""+list.get(i).getTotalGaji()),font5));
+            cell.setVerticalAlignment(Element.ALIGN_TOP);
+            cell.setBorderWidth(1);
+            tabel.addCell(cell);
+        }
+        return tabel;
+    }
+    
+    private Paragraph getPreface(String status){
+        Paragraph preface =new Paragraph();
+        Calendar cal = new GregorianCalendar();
+        String tanggal ="0";
+        if(cal.get(Calendar.DATE)<0){
+            tanggal="0"+cal.get(Calendar.DATE);
+        }
+        else{
+            tanggal=""+cal.get(Calendar.DATE);
+        }
+        int bulan=(cal.get(Calendar.MONTH))+1;;                
+        int tahun= cal.get(Calendar.YEAR);
+        preface.setAlignment(Element.ALIGN_CENTER);     
+        Chunk chunk = new Chunk("Slip Gaji",font1);
+        preface.add(Chunk.NEWLINE);
+        preface.add(chunk);
+        chunk = new Chunk("SI Klinik",font2);
+        preface.add(Chunk.NEWLINE);
+        preface.add(chunk);
+        chunk = new Chunk("Periode : "+tanggal1+" s/d "+tanggal2,font3);
+        preface.add(Chunk.NEWLINE);
+        preface.add(chunk);
+        chunk = new Chunk("Diambil pada tanggal "+tanggal+"/"+bulan+"/"+tahun,font5);
+        preface.add(Chunk.NEWLINE);
+        preface.add(chunk);
+        return preface;
+    }
+    
+     public void open(String url) {
+        try {
+            Desktop desktop = Desktop.getDesktop();
+            if (desktop.isSupported(Desktop.Action.OPEN)) {
+                desktop.open(new File(url));
+            } else {
+                System.out.println("Open is not supported");
+            }
+        } catch (IOException exp) {
+            exp.printStackTrace();
+        }
+    }
+     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cetakSlipGajiButton;
     private com.toedter.calendar.JDateChooser jDateChooser1;
