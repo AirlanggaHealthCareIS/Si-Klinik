@@ -57,6 +57,14 @@ public class obatTest {
     /**
      * Test of getnama_obat method, of class obat.
      */
+    
+    @Test
+    public void testGetid_supplier() {
+     String id_supplier = "SUP003";
+     obt.setIdSupplier (id_supplier);
+     assertEquals(id_supplier, obt.getIdSupplier());
+    }
+     
     @Test
     public void testGetnama_obat() {
      String nama_obat = "IBUPROFEN";

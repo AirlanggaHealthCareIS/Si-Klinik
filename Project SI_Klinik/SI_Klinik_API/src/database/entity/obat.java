@@ -13,6 +13,7 @@ import java.util.ArrayList;
  */
 public class obat implements Serializable{ 
     private String id_obat;
+    private String id_supplier;
     private String nama_obat;
     private float dosis;
     private String keterangan_obat;
@@ -32,7 +33,9 @@ public class obat implements Serializable{
     public void setid_obat(String id_obat) {
         this.id_obat = id_obat;
     }
-
+    public void setnama_supplier(String n){
+        this.NamaSupplier = n;
+    }
     public String getnama_obat() {
         return nama_obat;
     }
@@ -48,6 +51,13 @@ public class obat implements Serializable{
          return NamaSupplier;
      }
 
+      public String getIdSupplier(){
+         return id_supplier;
+     }
+      public void setIdSupplier(String n){
+          this.id_supplier = n;
+      }
+      
     public void setdosis(float dosis) {
         this.dosis = dosis;
     }

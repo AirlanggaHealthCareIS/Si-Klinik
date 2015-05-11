@@ -392,11 +392,18 @@ public class dataobat_mengubah extends javax.swing.JFrame {
             Obat.setstok_kritis(SK);
             Obat.setpabrik_obat(PB);
             Obat.setkemasan(KM);
-            Obat.setjenis_obat(JN);                
+            Obat.setjenis_obat(JN);
+            try {
+                Obat.setIdSupplier(supplierservice.getId_Supplier(PB).getId_Supplier());
+            } catch (RemoteException ex) {
+                Logger.getLogger(dataobat_mengubah.class.getName()).log(Level.SEVERE, null, ex);
+            }
                 try {                    
                     ss.updateObat(Obat);
                     JOptionPane.showConfirmDialog(null, "Data Anda berhasil disimpan. Apakah Anda akan menambahkan data lagi?","", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
-                    a.updatePanel(new dataobat_home(this.a));
+                    dataobat_home baru = new dataobat_home(a);
+                    a.updatePanel(baru);
+                    baru.UpdateTabel();
                     this.dispose();
                 }
                 catch(RemoteException exception){

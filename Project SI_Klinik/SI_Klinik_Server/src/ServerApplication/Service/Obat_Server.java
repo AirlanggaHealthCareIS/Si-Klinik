@@ -31,18 +31,19 @@ public class Obat_Server extends UnicastRemoteObject implements Obat_Service {
         PreparedStatement statement = null;
         try{
         statement = DatabaseUtilities.getConnection().prepareStatement(
-            "INSERT INTO petugas (ID_OBAT, NAMA_OBAT, DOSIS, KETERANGAN_OBAT, STOCK_OBAT, PABRIK_OBAT, JENIS_OBAT, KEMASAN, HARGA_OBAT) values(?, ?, ?, ?, ?, ?, ?, ?, ?)"
+            "INSERT INTO obat (ID_OBAT, ID_SUPPLIER, NAMA_OBAT, DOSIS, KETERANGAN_OBAT, STOK_OBAT, PABRIK_OBAT, JENIS_OBAT, KEMASAN, HARGA_OBAT) values(?,?, ?, ?, ?, ?, ?, ?, ?, ?)"
         );
         
         statement.setString(1, obat.getid_obat());
-        statement.setString(2, obat.getnama_obat());
-        statement.setFloat(3, obat.getdosis());
-        statement.setString(4, obat.getketerangan_obat());
-        statement.setInt(5, obat.getstok_obat());
-        statement.setString(6, obat.getpabrik_obat());
-        statement.setString(7, obat.getjenis_obat());
-        statement.setString(8, obat.getkemasan());
-        statement.setInt(9, obat.getharga_obat());
+        statement.setString(2, obat.getIdSupplier());
+        statement.setString(3, obat.getnama_obat());
+        statement.setFloat(4, obat.getdosis());
+        statement.setString(5, obat.getketerangan_obat());
+        statement.setInt(6, obat.getstok_obat());
+        statement.setString(7, obat.getpabrik_obat());
+        statement.setString(8, obat.getjenis_obat());
+        statement.setString(9, obat.getkemasan());
+        statement.setInt(10, obat.getharga_obat());
        
         statement.executeUpdate();
         
@@ -70,20 +71,21 @@ public class Obat_Server extends UnicastRemoteObject implements Obat_Service {
         PreparedStatement statement = null;
         try{
          statement = DatabaseUtilities.getConnection().prepareStatement(
-                 "UPDATE obat SET NAMA_OBAT =?" +
+                 "UPDATE obat SET ID_SUPPLIER = ?, NAMA_OBAT =?" +
                  ",DOSIS =?, KETERANGAN_OBAT =?, STOK_OBAT =? , PABRIK_OBAT =?, JENIS_OBAT =?, KEMASAN =? , HARGA_OBAT =? " +
                  "WHERE ID_OBAT =?"
          );         
          
-        statement.setString(9, obat.getid_obat());
-        statement.setString(1, obat.getnama_obat());
-        statement.setFloat(2, obat.getdosis());
-        statement.setString(3, obat.getketerangan_obat());
-        statement.setInt(4, obat.getstok_obat());
-        statement.setString(5, obat.getpabrik_obat());
-        statement.setString(6, obat.getjenis_obat());
-        statement.setString(7, obat.getkemasan());
-        statement.setInt(8, obat.getharga_obat());
+        statement.setString(10, obat.getid_obat());
+        statement.setString(1, obat.getIdSupplier());
+        statement.setString(2, obat.getnama_obat());
+        statement.setFloat(3, obat.getdosis());
+        statement.setString(4, obat.getketerangan_obat());
+        statement.setInt(5, obat.getstok_obat());
+        statement.setString(6, obat.getpabrik_obat());
+        statement.setString(7, obat.getjenis_obat());
+        statement.setString(8, obat.getkemasan());
+        statement.setInt(9, obat.getharga_obat());
 
             System.out.println(statement.toString());
         statement.executeUpdate();
@@ -117,6 +119,7 @@ public class Obat_Server extends UnicastRemoteObject implements Obat_Service {
 
             if(result.next()){
                 obat.setid_obat(result.getString("ID_OBAT"));
+                obat.setIdSupplier(result.getString("ID_SUPPLIER"));
                 obat.setnama_obat(result.getString("NAMA_OBAT"));
                 obat.setdosis(result.getFloat("DOSIS"));
                 obat.setketerangan_obat(result.getString("KETERANGAN_OBAT"));
@@ -143,41 +146,6 @@ public class Obat_Server extends UnicastRemoteObject implements Obat_Service {
         }
     }
     
-    @Override
-    public List<obat> getObatKritis() throws RemoteException {
-        System.out.println("proses get obat kritis");
-        Statement statement = null;
-        
-        try {
-            statement = DatabaseUtilities.getConnection().createStatement();
-            ResultSet result = statement.executeQuery("SELECT * FROM OBAT WHERE STOK_OBAT <= STOK_KRITIS");
-            List<obat> list = new ArrayList<obat>();
-            
-            while(result.next()){
-                obat obat = new obat();
-                obat.setid_obat(result.getString("ID_OBAT"));
-                obat.setnama_obat(result.getString("NAMA_OBAT"));
-              
-               
-                //list.add(a);
-            }
-            result.close();
-            return list;
-        } 
-        catch (SQLException exception) {
-            exception.printStackTrace();
-            return null;
-        }
-        finally{
-            if(statement!=null){
-                try {
-                    statement.close();
-                } catch (SQLException  exception) {
-                    exception.printStackTrace();
-                }
-            }
-        }
-    }
     
 
     @Override 
@@ -195,6 +163,7 @@ public class Obat_Server extends UnicastRemoteObject implements Obat_Service {
           while(result.next()){
               obat o = new obat();
               o.setid_obat(result.getString("ID_OBAT"));
+              o.setIdSupplier(result.getString("ID_SUPPLIER"));
               o.setnama_obat(result.getString("NAMA_OBAT"));
               o.setstok_kritis(result.getInt("STOK_KRITIS"));
               o.setdosis(result.getFloat("DOSIS"));
@@ -233,13 +202,14 @@ public class Obat_Server extends UnicastRemoteObject implements Obat_Service {
         try{
           statement = DatabaseUtilities.getConnection().createStatement();
 
-          ResultSet result = statement.executeQuery("SELECT * FROM `obat` ORDER BY NAMA_OBAT ASC");
+          ResultSet result = statement.executeQuery("SELECT o.ID_OBAT, o.NAMA_OBAT, s.NAMA_SUPPLIER, o.DOSIS, o.KETERANGAN_OBAT, o.STOK_OBAT, o.STOK_KRITIS, o.PABRIK_OBAT, o.JENIS_OBAT, o.KEMASAN, o.HARGA_OBAT from obat as o, supplier as s where s.ID_SUPPLIER = o.ID_SUPPLIER ORDER BY NAMA_OBAT ASC");
 
           List<obat> list = new ArrayList();
           
           while(result.next()){
               obat o = new obat();
               o.setid_obat(result.getString("ID_OBAT"));
+              o.setnama_supplier(result.getString("NAMA_SUPPLIER"));
               o.setnama_obat(result.getString("NAMA_OBAT"));
               o.setstok_kritis(result.getInt("STOK_KRITIS"));
               o.setdosis(result.getFloat("DOSIS"));
@@ -362,7 +332,7 @@ public class Obat_Server extends UnicastRemoteObject implements Obat_Service {
               o.setjenis_obat(result.getString("JENIS_OBAT"));
               o.setkemasan(result.getString("KEMASAN"));
               o.setharga_obat(result.getInt("HARGA_OBAT"));
-            
+              o.setnama_supplier(result.getString("NAMA_SUPPLIER"));
           }
           
           result.close();
@@ -382,5 +352,6 @@ public class Obat_Server extends UnicastRemoteObject implements Obat_Service {
             }
         }
     }
+
     }
 

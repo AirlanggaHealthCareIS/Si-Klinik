@@ -3,20 +3,27 @@
  * and open the template in the editor.
  */
 
+import GUI_Apoteker.dataobat_menambah;
+import GUI_Login.Login;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import static junit.framework.Assert.assertEquals;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import junit.framework.TestCase;
 
 /**
  *
  * @author Administrator
  */
-public class test_dataobat_menambah {
-    
+public class test_dataobat_menambah extends TestCase{
+    dataobat_menambah add;
     public test_dataobat_menambah() {
+        
     }
     
     @BeforeClass
@@ -39,4 +46,5 @@ public class test_dataobat_menambah {
     //
     // @Test
     // public void hello() {}
+   
 }

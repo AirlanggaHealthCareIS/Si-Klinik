@@ -39,7 +39,7 @@ public class obat_kritis implements Serializable{
     public void setNAMA_OBAT(String a){
         NAMA_OBAT = a;
     }
-    public int getSELISIH(){
+    public int getSELISIH(){ 
         return SELISIH;
 }
     public void setSELISIH(int a){
