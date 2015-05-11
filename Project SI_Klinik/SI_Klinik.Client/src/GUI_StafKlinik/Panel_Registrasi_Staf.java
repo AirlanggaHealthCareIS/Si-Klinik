@@ -574,35 +574,8 @@ public class Panel_Registrasi_Staf extends javax.swing.JPanel {
     }//GEN-LAST:event_ijinFieldActionPerformed
 
     private void simpanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simpanButtonActionPerformed
-//       
-//        if (!idDokterField.getText().equals("") && !idPoliField1.getText().equals("") && !namaField.getText().equals("") && !alamatField.getText().equals("") && !tanggalchooser.getDate().equals("") && teleponField.getText().equals("") && agamaField.getText().equals("") && ijinField.getText().equals("") && tarifField.getText().equals("")){
-//            Date tanggal1 = (Date) tanggalchooser.getDate();
-//            tanggalDokter = new java.text.SimpleDateFormat("yyyy-MM-dd").format(tanggal1);
-//            Date tanggal2 = (Date) tanggalchooser.getDate();
-//            tanggalPetugas = new java.text.SimpleDateFormat("yyyy-MM-dd").format(tanggal2);
-//            try {
-//                System.out.println("aa");
-//            dokter dr = new dokter ();
-//        
-//            dr.setid_dokter(idDokterField.getText());
-//            dr.setid_poli(idPoliField1.getText());
-//            dr.setnama_dokter(namaField.getText());
-//            dr.setalamat_dokter(alamatField.getText());
-//            dr.setjenis_kelamin_dokter(jkBox.getSelectedItem().toString());
-//            dr.settgl_lahir_dokter(tanggalDokter);
-//            dr.settelepon_dokter(teleponField.getText());
-//            dr.setagama_dokter(agamaField.getText());
-//            dr.setno_ijin(ijinField.getText());
-//            dr.settarif_dokter(Integer.parseInt(tarifField.getText()));
-//            
-//            ds.insertDokter(dr);
-//            JOptionPane.showMessageDialog(null, "Data berhasil disimpan");
-//            refresh();
-//            } catch (RemoteException ex) {
-//                Logger.getLogger(Panel_Registrasi_Staf.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
-                boolean isi1 = false;// nama
+
+        boolean isi1 = false;// nama
         boolean isi2 = false;//alamat
         boolean isi3 = false;
         boolean isi4 = false;//tanggallahir
@@ -736,14 +709,7 @@ private void refresh(){
         agamaField.setText("");
         ijinField.setText("");
         tarifField.setText("");
-       // jComboBox1.removeAllItems();
-        //jComboBox2.removeAllItems();
-        //jComboBox1.addItem("Pilih");
-        //jComboBox1.setSelectedIndex(0);        
-        //jComboBox2.addItem("Pilih");
-        //jComboBox2.setSelectedIndex(0);        
-        //jComboBox1.setBackground(Color.GRAY);        
-        //jComboBox2.setBackground(Color.GRAY);
+      
         
 }
 
