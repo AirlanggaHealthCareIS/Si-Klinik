@@ -32,17 +32,19 @@ public class Panel_Resep extends javax.swing.JPanel {
     private Detail_Resep_Service service3;
     private Obat_Service service4;
     Registry registry;
-    ArrayList <detail_lihat_resep> list= new ArrayList <detail_lihat_resep>();
+    ArrayList <detail_lihat_resep> list= new ArrayList <detail_lihat_resep>();    
     GUI_Dokter gui;
+    String id;
     /**
      * Creates new form Panel_Resep
      */
-    public Panel_Resep(GUI_Dokter gui) throws RemoteException, NotBoundException{
+    public Panel_Resep(GUI_Dokter gui, String id_rekam) throws RemoteException, NotBoundException{
         initComponents();
         registry = LocateRegistry.getRegistry("0.0.0.0", 9750);
-        service3 = (Detail_Resep_Service) registry.lookup("service3");        
-        service4 = (Obat_Service) registry.lookup("service4");
+        service3 = (Detail_Resep_Service) registry.lookup("service8");        
+        service4 = (Obat_Service) registry.lookup("service10");
         this.gui= gui;
+        id=id_rekam;
         detResepService = gui.drs;
     }
     
@@ -65,8 +67,8 @@ public class Panel_Resep extends javax.swing.JPanel {
         jList1 = new javax.swing.JList();
         jButton1 = new javax.swing.JButton();
 
-        setMinimumSize(new java.awt.Dimension(500, 300));
-        setPreferredSize(new java.awt.Dimension(675, 175));
+        setMinimumSize(new java.awt.Dimension(700, 450));
+        setPreferredSize(new java.awt.Dimension(700, 450));
 
         tambah.setText("Tambah");
         tambah.addActionListener(new java.awt.event.ActionListener() {
@@ -158,16 +160,17 @@ public class Panel_Resep extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(28, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addGap(23, 23, 23))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(74, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -194,16 +197,11 @@ public class Panel_Resep extends javax.swing.JPanel {
     }//GEN-LAST:event_hapusActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String nama = "";
         String hasil = "";
-        
-        String ID = null;
         try {
-            ID = "RES"+service3.getResep().size();
             hasil = list.get(0).getIdObat();
             detail_resep_obat resep = new detail_resep_obat();
-            resep.setid_detail_resep(ID);
-            resep.setid_rekam_medis("rk01");     //perlu DIGANTI !!!!
+            resep.setid_rekam_medis(id);
             resep.setid_obat(hasil);
             resep.setqty_detail_resep(list.get(0).getQty());
             service3.insertResep(resep);

@@ -52,7 +52,7 @@ public class Test_Panel_Laporan_Keuangan {
         String tanggal1 = "2015-04-01";
         String tanggal2 = "2015-04-05";
         panel.refresh(tanggal1, tanggal2);
-        List<Laporan_Keuangan> output= panel.getlaporan();
+        List<Laporan_Keuangan> output= panel.getLaporan();
         List<Laporan_Keuangan> target = new ArrayList<>();
         
         Laporan_Keuangan ambil = new Laporan_Keuangan();
@@ -85,7 +85,7 @@ public class Test_Panel_Laporan_Keuangan {
         String tanggal1 = "2015-04-01";
         String tanggal2 = "2015-04-05";
         panel.refresh(tanggal1, tanggal2);
-        List<Laporan_Keuangan> output= panel.getlaporan();
+        List<Laporan_Keuangan> output= panel.getLaporan();
         List<Laporan_Keuangan> target = new ArrayList<>();
         
         Laporan_Keuangan ambil = new Laporan_Keuangan();

@@ -13,9 +13,6 @@ public class Tindakan_Dokter implements Serializable{
     private String Tindakan_Dokter;
     private int Biaya_Tindakan_Dokter;
     
-    
-            
-
     public String getId_Tindakan_Dokter() {
         return Id_Tindakan_Dokter;
     }

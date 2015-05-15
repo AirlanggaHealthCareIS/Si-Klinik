@@ -172,38 +172,45 @@ public class Panel_Input_Tindakan_Medis extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-        jButton4.setVisible(false);
-        int jumlah = 0;
-        for (int i = 0; i < list.size(); i++) {
-            jumlah = jumlah + list.get(i).getBiaya_Tindakan_Dokter();
-        }
-        Transaksi_Periksa transaksiperiksa = new Transaksi_Periksa();
-        transaksiperiksa.setId_Dokter(gui.d.getid_dokter());
-        transaksiperiksa.setId_Pasien(gui.getPasien().getId_Pasien());
-        transaksiperiksa.setPPN_Transaksi_Periksa(""+(double)jumlah/10);
-        transaksiperiksa.setSubtotal_Transaksi_Periksa(""+jumlah);
-        transaksiperiksa.setTotal_Transaksi_Periksa(""+(jumlah+(jumlah/10)));
-        transaksiperiksa.setTanggal_Transaksi_Periksa(getTanggal());
-        try {
-            transaksi.insertTransaksi(transaksiperiksa);
-            transaksiperiksa = transaksi.getLastTransaksi();
+        try {                                         
+            // TODO add your handling code here:
+            jButton4.setVisible(false);
+            int jumlah = 0;
+            
+            List<Tindakan_Dokter> list = service6.getAllTindakan_Dokter();
             for (int i = 0; i < list.size(); i++) {
-                Tindakan_Periksa tindakan = new Tindakan_Periksa();
-                tindakan.setId_Transaksi_Periksa(transaksiperiksa.getId_Transaksi_Periksa());
-                tindakan.setId_Rekam_Medis(""+id);
-                tindakan.setId_Tindakan_Dokter(list.get(i).getId_Tindakan_Dokter());
-                System.out.println(list.get(i).getTindakan_Dokter());                
-                tinper.insertTindakan_Periksa(tindakan);
+                jumlah = jumlah + list.get(i).getBiaya_Tindakan_Dokter();
+            }
+            Transaksi_Periksa transaksiperiksa = new Transaksi_Periksa();
+            transaksiperiksa.setId_Dokter(gui.d.getid_dokter());
+            transaksiperiksa.setId_Pasien(gui.getPasien().getId_Pasien());
+            transaksiperiksa.setPPN_Transaksi_Periksa(""+(double)jumlah/10);
+            transaksiperiksa.setSubtotal_Transaksi_Periksa(""+jumlah);
+            transaksiperiksa.setTotal_Transaksi_Periksa(""+(jumlah+(jumlah/10)));
+            transaksiperiksa.setTanggal_Transaksi_Periksa(getTanggal());
+            try {
+                transaksi.insertTransaksi(transaksiperiksa);
+                transaksiperiksa = transaksi.getLastTransaksi();
+                for (int i = 0; i < list.size(); i++) {
+                    Tindakan_Periksa tindakan = new Tindakan_Periksa();
+                    tindakan.setId_Transaksi_Periksa(transaksiperiksa.getId_Transaksi_Periksa());
+                    tindakan.setId_Rekam_Medis(""+id);
+                    tindakan.setId_Tindakan_Dokter(list.get(i).getId_Tindakan_Dokter());
+                    System.out.println(list.get(i).getTindakan_Dokter());
+                    tinper.insertTindakan_Periksa(tindakan);
+                }
+            } catch (RemoteException ex) {
+                Logger.getLogger(Panel_Input_Tindakan_Medis.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                Panel_Resep panel = new Panel_Resep(this.gui,id);
+                
+            } catch (RemoteException ex) {
+                Logger.getLogger(Panel_Input_Tindakan_Medis.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (NotBoundException ex) {
+                Logger.getLogger(Panel_Input_Tindakan_Medis.class.getName()).log(Level.SEVERE, null, ex);
             }
         } catch (RemoteException ex) {
-            Logger.getLogger(Panel_Input_Tindakan_Medis.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            Panel_Resep panel = new Panel_Resep(this.gui);
-        } catch (RemoteException ex) {
-            Logger.getLogger(Panel_Input_Tindakan_Medis.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NotBoundException ex) {
             Logger.getLogger(Panel_Input_Tindakan_Medis.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -240,7 +247,7 @@ public class Panel_Input_Tindakan_Medis extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public void updateLists(JList list, Vector a){
-        list.removeAll();
+    list.removeAll();
         list.setListData(a);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

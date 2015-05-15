@@ -6,6 +6,7 @@ package GUI_Dokter;
 
 import GUI_Dokter.Panel_Input_Tindakan_Medis;
 import database.entity.Tindakan_Dokter;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,12 +15,13 @@ import java.util.List;
  */
 public class Form_Tambah_TindakanMedis extends javax.swing.JFrame {
     Panel_Input_Tindakan_Medis  panel;
-    List< Tindakan_Dokter> temp;
+    List<Tindakan_Dokter> temp = new ArrayList<>();
     
     public Form_Tambah_TindakanMedis(Panel_Input_Tindakan_Medis panel, List temp) {
         initComponents();
         this.panel = panel;
-        this.temp = temp;        
+        this.temp = temp;  
+        System.out.println(temp.size());
     }
     
     private void initiateComboBox(List<Tindakan_Dokter> temp){
@@ -49,8 +51,8 @@ public class Form_Tambah_TindakanMedis extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setMaximumRowCount(100);
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pilih" }));
+        jComboBox1.setAutoscrolls(true);
         jComboBox1.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
             }
@@ -65,27 +67,27 @@ public class Form_Tambah_TindakanMedis extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 83, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(66, 66, 66))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(100, 100, 100))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3)
-                .addGap(18, 18, 18)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
+                .addGap(36, 36, 36)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );

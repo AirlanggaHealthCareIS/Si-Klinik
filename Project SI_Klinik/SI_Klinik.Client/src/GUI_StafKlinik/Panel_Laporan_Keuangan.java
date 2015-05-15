@@ -7,6 +7,7 @@
 package GUI_StafKlinik;
 
 import Client_Application_Model.TableModel_LaporanKeuangan;
+import ServerApplication.Service.Laporan_Keuangan_Server;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -53,6 +54,8 @@ public class Panel_Laporan_Keuangan extends javax.swing.JPanel {
     int baris;
     String tanggal1;
     String tanggal2;
+    Registry registry;
+    List<Laporan_Keuangan> list;
     
     private Font font1 = new Font(Font.FontFamily.HELVETICA,14,Font.BOLD);
     private Font font2 = new Font(Font.FontFamily.HELVETICA,18,Font.BOLD);
@@ -60,7 +63,7 @@ public class Panel_Laporan_Keuangan extends javax.swing.JPanel {
     private Font font5 = new Font(Font.FontFamily.HELVETICA,11);
     private Font font4 = new Font(Font.FontFamily.HELVETICA,9);
     private Font font6 = new Font(Font.FontFamily.HELVETICA,9,Font.BOLD);
-    private List<Laporan_Keuangan> list;
+    
     /**
      * Creates new form FormLaporanKeuangan
      */
@@ -73,6 +76,7 @@ public class Panel_Laporan_Keuangan extends javax.swing.JPanel {
     
     public Panel_Laporan_Keuangan(GUI_StafKlinik gui) {
         initComponents();
+        list = new ArrayList<>();
         tabel = new TableModel_LaporanKeuangan();
         laporanServer = gui.laporanServer;        
     }
@@ -290,14 +294,15 @@ public class Panel_Laporan_Keuangan extends javax.swing.JPanel {
     private void jDateChooser1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDateChooser1MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jDateChooser1MouseClicked
-
-    public List<Laporan_Keuangan> getlaporan(){
+    public List<Laporan_Keuangan> getLaporan(){
         return list;
     }
     
     public void refresh(String tanggal1, String tanggal2){
+
         try{
             list= new ArrayList<>();
+
             list = laporanServer.getLaporanKeuangan(tanggal1, tanggal2);
 //            baris = list.size();
             if(list.size()>0){                       
@@ -339,12 +344,9 @@ public class Panel_Laporan_Keuangan extends javax.swing.JPanel {
          }
         
     }
-    
-    
-    
     private void refresh1(String tanggal1, String tanggal2){
+
         try{
-            List<Laporan_Keuangan> list= new ArrayList<>();
             list = laporanServer.getLaporanKeuangan(tanggal1, tanggal2);
 //            baris = list.size();
             if(list.size()>0){                       
@@ -386,7 +388,34 @@ public class Panel_Laporan_Keuangan extends javax.swing.JPanel {
          }
         
     }
-     
+    private void refresh(){
+        try{
+            list = laporanServer.getLaporanKeuangan();            
+            if(list.size()>0){                        
+                
+            for(int i=0;i<list.size();i++ ){
+                if(list.get(i).getRef().startsWith("B-")){
+                    int temp = list.get(i).getPemasukan();
+                    list.get(i).setPemasukan(0);
+                    list.get(i).setPengeluaran(temp);
+                }
+                if(list.get(i).getRef().startsWith("B-")){
+                    list.get(i).setKeterangan("Membeli Obat dari supplier");
+                }
+                else if (list.get(i).getRef().startsWith("Pe-")){
+                    list.get(i).setKeterangan("Pemasukan dari tindakan pemeriksaan dokter");
+                }
+                else if(list.get(i).getRef().startsWith("O-")){
+                    list.get(i).setKeterangan("Pemasukan dari penjualan obat");
+                }
+            }
+             tabel.setData(list);
+             jTable1.setModel(tabel);     }
+         }catch(RemoteException exception){
+             exception.printStackTrace();
+         }
+    }
+
 //    private void refresh(){
 //        try{
 //            List<Laporan_Keuangan> list= new ArrayList<>();

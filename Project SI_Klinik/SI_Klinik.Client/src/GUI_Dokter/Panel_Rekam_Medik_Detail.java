@@ -111,6 +111,7 @@ public class Panel_Rekam_Medik_Detail extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
         jPanel2 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -134,6 +135,7 @@ public class Panel_Rekam_Medik_Detail extends javax.swing.JPanel {
         agamapasien = new javax.swing.JLabel();
         sukupasien = new javax.swing.JLabel();
         statuspasien = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
         jPanel6 = new javax.swing.JPanel();
         jLabel31 = new javax.swing.JLabel();
         riwayatsekarang = new java.awt.TextArea();
@@ -186,7 +188,9 @@ public class Panel_Rekam_Medik_Detail extends javax.swing.JPanel {
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         jLabel67 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
         jPanel7 = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
 
         setMinimumSize(new java.awt.Dimension(1135, 578));
@@ -340,7 +344,9 @@ public class Panel_Rekam_Medik_Detail extends javax.swing.JPanel {
                 .addContainerGap(142, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Identitas", jPanel2);
+        jScrollPane2.setViewportView(jPanel2);
+
+        jTabbedPane1.addTab("Identitas", jScrollPane2);
 
         jLabel31.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel31.setText("ANAMNESIS");
@@ -676,7 +682,9 @@ public class Panel_Rekam_Medik_Detail extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("SOAP", jPanel6);
+        jScrollPane3.setViewportView(jPanel6);
+
+        jTabbedPane1.addTab("SOAP", jScrollPane3);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -689,7 +697,9 @@ public class Panel_Rekam_Medik_Detail extends javax.swing.JPanel {
             .addGap(0, 392, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Tindakan Medis", jPanel7);
+        jScrollPane4.setViewportView(jPanel7);
+
+        jTabbedPane1.addTab("Tindakan Medis", jScrollPane4);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -702,7 +712,9 @@ public class Panel_Rekam_Medik_Detail extends javax.swing.JPanel {
             .addGap(0, 392, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Resep", jPanel1);
+        jScrollPane5.setViewportView(jPanel1);
+
+        jTabbedPane1.addTab("Resep", jScrollPane5);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -808,6 +820,10 @@ public class Panel_Rekam_Medik_Detail extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JLabel jenkelpasien;

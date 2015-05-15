@@ -245,11 +245,7 @@ public class Panel_History_RekamMedik extends javax.swing.JPanel {
         jButton2.setEnabled(false);
         action ="detail";
         jButton2.setEnabled(false);  
-        try {
-            gui.updatePanel(new Panel_Rekam_Medik_Tambah(gui));
-        } catch (RemoteException ex) {
-            Logger.getLogger(Panel_History_RekamMedik.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        gui.updatePanel(new Panel_Rekam_Medik_Detail(gui,r));
     }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -99,14 +99,14 @@ public class Tindakan_Dokter_Server extends UnicastRemoteObject implements Tinda
     @Override
     public Tindakan_Dokter getTindakan_Dokter(String Tindakan_Dokter) throws RemoteException {
         System.out.println("Client Melakukan Proses Get by ID");
-        
+
+                
         PreparedStatement statement = null;
         try{
         statement = DatabaseUtilities.getConnection().prepareStatement(
-                    "SELECT * FROM dokter WHERE ID_TINDAKAN_DOKTER = ?");
-        
+                  "SELECT * FROM tindakan_dokter WHERE ID_TINDAKAN_DOKTER =?");
+        statement.setString(1, Tindakan_Dokter);
         ResultSet result = statement.executeQuery();
-        
         Tindakan_Dokter dokter = null;
         
         if (result.next()){
@@ -145,7 +145,7 @@ public class Tindakan_Dokter_Server extends UnicastRemoteObject implements Tinda
         ResultSet result = statement.executeQuery();
         
         List<Tindakan_Dokter> list = new ArrayList<Tindakan_Dokter>() ;
-        if (result.next()){
+        while (result.next()){
             Tindakan_Dokter td = new Tindakan_Dokter();
             td.setId_Tindakan_Dokter(result.getString("ID_TINDAKAN_DOKTER"));
             td.setTindakan_Dokter(result.getString("TINDAKAN_DOKTER"));
