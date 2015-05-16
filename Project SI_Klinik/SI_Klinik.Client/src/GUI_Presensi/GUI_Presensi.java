@@ -14,17 +14,33 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.Timer;
 import database.entity.petugas;
+import java.rmi.AccessException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.swing.JPanel;
 
 public class GUI_Presensi extends javax.swing.JFrame {
-    petugas p;    
     String date = "";
+    private Presensi_Service ps;
+    List<Presensi> list = new ArrayList<>();
+    Registry registry;
     
-    public GUI_Presensi (){
+    public GUI_Presensi () throws RemoteException{
         initComponents();
+        registry = LocateRegistry.getRegistry("0.0.0.0", 9750);
+        try {
+            ps = (Presensi_Service) registry.lookup("service23");
+        } catch (NotBoundException ex) {
+            Logger.getLogger(GUI_Presensi.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (AccessException ex) {
+            Logger.getLogger(GUI_Presensi.class.getName()).log(Level.SEVERE, null, ex);
+        }
         date = getTanggal();
         tanggal.setText(date);
     }
@@ -71,6 +87,40 @@ public class GUI_Presensi extends javax.swing.JFrame {
             tanggal = (tanggal+"-"+bulan+"-"+tahun);
             return tanggal;
     }
+     
+     public String getTime(){
+        String nolJam = "";
+        String nolMenit = "";
+        String nolDetik = "";
+        
+        Date dt = new Date();
+        
+        int nilaiJam = dt.getHours();
+        int nilaiMenit = dt.getMinutes();
+        int nilaiDetik = dt.getSeconds();
+        
+        // Jika nilai JAM lebih kecil dari 10 (hanya 1 digit)
+        if (nilaiJam <= 9) {
+          // Tambahkan "0" didepannya
+          nolJam = "0";
+        }
+        // Jika nilai MENIT lebih kecil dari 10 (hanya 1 digit)
+        if (nilaiMenit <= 9) {
+          // Tambahkan "0" didepannya
+          nolMenit = "0";
+        }
+        // Jika nilai DETIK lebih kecil dari 10 (hanya 1 digit)
+        if (nilaiDetik <= 9) {
+          // Tambahkan "0" didepannya
+          nolDetik = "0";
+        }
+        
+        String jam = nolJam + Integer.toString(nilaiJam);
+        String menit = nolMenit + Integer.toString(nilaiMenit);
+        String detik = nolDetik + Integer.toString(nilaiDetik);
+        
+        return jam+":"+menit+":"+detik;
+     }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -87,7 +137,8 @@ public class GUI_Presensi extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        pesan = new javax.swing.JTextArea();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -153,10 +204,22 @@ public class GUI_Presensi extends javax.swing.JFrame {
         jLabel1.setText("ID Pegawai     :");
 
         jButton1.setText("PRESENSI");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        pesan.setColumns(20);
+        pesan.setRows(5);
+        jScrollPane1.setViewportView(pesan);
+
+        jButton2.setText("refresh");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -167,12 +230,16 @@ public class GUI_Presensi extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(99, 99, 99))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,7 +248,8 @@ public class GUI_Presensi extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(id)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(58, 58, 58)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(135, Short.MAX_VALUE))
@@ -242,6 +310,45 @@ public class GUI_Presensi extends javax.swing.JFrame {
         id.setText("");
     }//GEN-LAST:event_idFocusGained
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        try {
+            System.out.println(id.getText());
+            list = ps.getPegawaiCek(id.getText());
+            String nama = "";
+            System.out.println(list.size());
+            if(!list.isEmpty()&&ps.getPegawaiFromPresensi(id.getText(), getTanggal())==null){
+                Presensi p = new Presensi();
+                p.setTanggal_masuk(getTanggal());
+                p.setId_pegawai(id.getText());
+                p.setJam_masuk(getTime());
+                p.setJam_keluar(getTime());
+                ps.insertPresensi(p);
+                nama = ps.getPegawai(id.getText());
+                pesan.setText("Selamat datang \b"+nama+"\nSelamat Bekerja");
+            }
+            else if(list.isEmpty()){
+                JOptionPane.showMessageDialog(null, "ID tidak Ditemukan, Silahkan Coba Lagi", "Pesan", JOptionPane.OK_OPTION);
+            }
+            else if(!list.isEmpty()&&ps.getPegawaiFromPresensi(id.getText(), getTanggal())!=null){
+                nama = ps.getPegawai(id.getText());
+                Presensi p = new Presensi();
+                p.setId_pegawai(id.getText());
+                p.setJam_keluar(getTime());
+                ps.updatePresensi(p);
+                pesan.setText("Terima Kasih \b"+nama+"\nSelamat Pulang");
+            }
+            
+        } catch (RemoteException ex) {
+            Logger.getLogger(GUI_Presensi.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        pesan.setText("");
+        id.setText("Masukkan ID Anda");
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -270,7 +377,11 @@ public class GUI_Presensi extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                try {
                     new GUI_Presensi().setVisible(true);
+                } catch (RemoteException ex) {
+                    Logger.getLogger(GUI_Presensi.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
 
         });
@@ -279,6 +390,7 @@ public class GUI_Presensi extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField id;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -287,7 +399,7 @@ public class GUI_Presensi extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea pesan;
     private javax.swing.JLabel tanggal;
     // End of variables declaration//GEN-END:variables
 }

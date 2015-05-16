@@ -12,7 +12,10 @@ import java.util.List;
  * @author tinot
  */
 public interface Presensi_Service extends Remote{
-    Presensi insertPresensi(Presensi supplier) throws RemoteException;
-    Presensi getPegawai (String ID_Pegawai) throws RemoteException;
+    Presensi insertPresensi(Presensi presensi) throws RemoteException;
+    void updatePresensi(Presensi presensi) throws RemoteException;
+    String getPegawai (String ID_Pegawai) throws RemoteException;
+    Presensi getPegawaiFromPresensi (String ID_Pegawai, String tanggal) throws RemoteException;
     Presensi getDokter (String ID_Pegawai) throws RemoteException;
+    List<Presensi> getPegawaiCek(String ID) throws RemoteException;
 }

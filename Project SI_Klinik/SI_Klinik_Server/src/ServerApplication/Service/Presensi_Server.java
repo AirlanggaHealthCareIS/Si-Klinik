@@ -36,6 +36,8 @@ public class Presensi_Server extends UnicastRemoteObject implements Presensi_Ser
             statement.setString(2, presensi.getId_pegawai());
             statement.setString(3, presensi.getJam_masuk());
             statement.setString(4, presensi.getJam_keluar());
+            System.out.println(statement.toString());
+            statement.execute();
             return presensi;
         }
         catch(SQLException exception){
@@ -51,14 +53,15 @@ public class Presensi_Server extends UnicastRemoteObject implements Presensi_Ser
         }
     }
 
+    
     @Override
-    public Presensi getPegawai(String ID_Pegawai) throws RemoteException {
+    public String getPegawai(String ID_Pegawai) throws RemoteException {
         System.out.println("melakukan proses getby ID_PEGAWAI");
         
         PreparedStatement statement = null;
         try {
             statement = DatabaseUtilities.getConnection().prepareStatement(
-                    "SELECT NAMA_PEGAWAI FROM petugas WHERE ID_PEGAWAI = ?");
+                    "SELECT NAMA_PETUGAS FROM petugas WHERE ID_PETUGAS = ?");
             statement.setString(1, ID_Pegawai);
             ResultSet result = statement.executeQuery();
             
@@ -66,9 +69,9 @@ public class Presensi_Server extends UnicastRemoteObject implements Presensi_Ser
             
             if(result.next()){
                 a = new Presensi();
-                a.setNama_Pegawai((result.getString("NAMA_PEGAWAI")));
+                a.setNama_Pegawai((result.getString("NAMA_PETUGAS")));
             }
-            return a;
+            return a.getNama_Pegawai().toString();
             
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -122,6 +125,105 @@ public class Presensi_Server extends UnicastRemoteObject implements Presensi_Ser
             
         }
 
+    }
+
+    @Override
+    public void updatePresensi(Presensi p) throws RemoteException {
+        System.out.println("proses update Presensi");
+        
+        PreparedStatement statement = null;
+        try {
+            statement = DatabaseUtilities.getConnection().prepareStatement(
+            "UPDATE presensi SET JAM_KELUAR=? WHERE ID=?");
+            statement.setString(1, p.getJam_keluar());
+            statement.setString(2, p.getId_pegawai());
+            statement.executeUpdate();  
+        }
+        catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        finally{
+            if(statement != null){
+                try {
+                    statement.close();
+                } catch (SQLException exception) {
+                    exception.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
+    public Presensi getPegawaiFromPresensi(String ID_Pegawai, String tanggal) throws RemoteException {
+        System.out.println("melakukan proses getAll Presensi");
+        
+        PreparedStatement statement = null;
+        try {
+            statement = DatabaseUtilities.getConnection().prepareStatement(
+                    "SELECT * FROM presensi WHERE ID = ? AND TANGGAL_MASUK = ?");
+            statement.setString(1, ID_Pegawai);
+            statement.setString(2, tanggal);
+            ResultSet result = statement.executeQuery();
+            
+            Presensi a = null;
+            
+            if(result.next()){
+                a = new Presensi();
+                a.setId_pegawai((result.getString("ID")));
+                a.setTanggal_masuk((result.getString("TANGGAL_MASUK")));
+                a.setJam_masuk((result.getString("JAM_MASUK")));
+                a.setJam_keluar((result.getString("JAM_KELUAR")));
+            }
+            return a;
+            
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            return null;
+        }
+        finally{
+            if(statement != null){
+                try{
+                    statement.close();
+                }
+                catch(SQLException exception){
+                    exception.printStackTrace();
+                }
+            }
+            
+        }
+    }
+
+    @Override
+    public List<Presensi> getPegawaiCek(String ID) throws RemoteException {
+        System.out.println("proses get Pegawai");
+        Statement statement = null;
+        
+        try {
+            statement = DatabaseUtilities.getConnection().createStatement();
+            ResultSet result = statement.executeQuery("SELECT ID_PETUGAS FROM petugas WHERE ID_PETUGAS = '"+ID+"'");
+            List<Presensi> list = new ArrayList<Presensi>();
+            
+            while(result.next()){
+                Presensi a = new Presensi();
+                a.setId_pegawai((result.getString("ID_PETUGAS")));
+                list.add(a);
+            }
+            result.close();
+            return list;
+        } 
+        catch (SQLException exception) {
+            exception.printStackTrace();
+            return null;
+        }
+        finally{
+            if(statement!=null){
+                try {
+                    statement.close();
+                } catch (SQLException  exception) {
+                    exception.printStackTrace();
+                }
+            }
+        }
     }
     
 }
