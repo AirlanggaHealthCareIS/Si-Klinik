@@ -11,6 +11,9 @@ import database.entity.obat;
 import java.awt.Color;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -21,8 +24,9 @@ import javax.swing.JOptionPane;
  */
 public class Form_Data_Supplier_Ubah extends javax.swing.JFrame {
     GUI_Apoteker gui;
-    Supplier supplier;
+    public Supplier supplier;
     Supplier_Service supplierservice;
+    Registry registry;
     /**
      * Creates new form TAMBAH
      */
@@ -32,14 +36,21 @@ public class Form_Data_Supplier_Ubah extends javax.swing.JFrame {
         supplier = s;
         this.gui = gui;
         nama1.setText(supplier.getId_Supplier());
-        nama.setText(supplier.getNama_Supplier());
-        alamat.setText(supplier.getAlamat_Supplier());
-        kota.setText(supplier.getKota_Supplier());
-        kode.setText(supplier.getKode_Pajak_Supplier());
-        telp.setText(supplier.getTelepon_Supplier());
-        npwp.setText(supplier.getNPWP_Supplier());        
+        NAMA.setText(supplier.getNama_Supplier());
+        ALAMAT.setText(supplier.getAlamat_Supplier());
+        KOTA.setText(supplier.getKota_Supplier());
+        KODEPAJAK.setText(supplier.getKode_Pajak_Supplier());
+        TELEPON.setText(supplier.getTelepon_Supplier());
+        NPWP.setText(supplier.getNPWP_Supplier());        
     }
-
+    
+    
+    public Form_Data_Supplier_Ubah() throws RemoteException, NotBoundException {
+        initComponents();
+        registry = LocateRegistry.getRegistry("0.0.0.0", 9750);
+        supplierservice = (Supplier_Service) registry.lookup("service12");
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -59,15 +70,15 @@ public class Form_Data_Supplier_Ubah extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        nama = new javax.swing.JTextField();
-        kota = new javax.swing.JTextField();
-        telp = new javax.swing.JTextField();
-        npwp = new javax.swing.JTextField();
-        pajak = new javax.swing.JComboBox();
-        kode = new javax.swing.JTextField();
+        NAMA = new javax.swing.JTextField();
+        KOTA = new javax.swing.JTextField();
+        TELEPON = new javax.swing.JTextField();
+        NPWP = new javax.swing.JTextField();
+        JENISPAJAK = new javax.swing.JComboBox();
+        KODEPAJAK = new javax.swing.JTextField();
         CANCEL = new javax.swing.JButton();
         OK = new javax.swing.JButton();
-        alamat = new java.awt.TextArea();
+        ALAMAT = new java.awt.TextArea();
         jLabel10 = new javax.swing.JLabel();
         nama1 = new javax.swing.JTextField();
         BACK = new javax.swing.JButton();
@@ -91,11 +102,11 @@ public class Form_Data_Supplier_Ubah extends javax.swing.JFrame {
 
         jLabel9.setText("KODE PAJAK");
 
-        pajak.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pilihan", " " }));
+        JENISPAJAK.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pilihan", " " }));
 
-        kode.addActionListener(new java.awt.event.ActionListener() {
+        KODEPAJAK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                kodeActionPerformed(evt);
+                KODEPAJAKActionPerformed(evt);
             }
         });
 
@@ -143,15 +154,15 @@ public class Form_Data_Supplier_Ubah extends javax.swing.JFrame {
                         .addGap(68, 68, 68)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(pajak, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(kota, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
-                                .addComponent(telp, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(npwp, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(kode, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addComponent(alamat, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(JENISPAJAK, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(KOTA, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
+                                .addComponent(TELEPON, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(NPWP, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(KODEPAJAK, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(ALAMAT, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(nama1, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(nama, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)))
+                                .addComponent(NAMA, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)))
                         .addGap(0, 25, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -165,33 +176,33 @@ public class Form_Data_Supplier_Ubah extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(nama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(NAMA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(alamat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ALAMAT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addGap(27, 27, 27)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(kota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(KOTA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
-                            .addComponent(telp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(TELEPON, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
-                            .addComponent(npwp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(NPWP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
-                            .addComponent(pajak, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(JENISPAJAK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9)
-                            .addComponent(kode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(KODEPAJAK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(OK))
                     .addComponent(CANCEL, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -266,8 +277,52 @@ public class Form_Data_Supplier_Ubah extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_CANCELActionPerformed
 
-    private void OKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKActionPerformed
-        // TODO add your handling code here:
+    public void setNama (String a){
+        NAMA.setText(a);
+    }
+    
+    public void setAlamat (String a){
+        ALAMAT.setText(a);
+    }
+    
+    public void setKota (String a){
+        KOTA.setText(a);
+    }
+    
+    public void setTelp (String a){
+        TELEPON.setText(a);
+    }
+    
+    
+    public void setNPWP (String a){
+        NPWP.setText(a);
+    }
+    
+    public void setJenisPajak (String i){
+        JENISPAJAK.addItem(i);
+        JENISPAJAK.setSelectedIndex(JENISPAJAK.getItemCount()-1);
+    }
+    
+    public void setKodePajak (String a){
+        KODEPAJAK.setText(a);
+    }
+    
+     public boolean cekNamaSupplierSudahAda(){
+        boolean ada = false;
+        try {
+            List<Supplier> list = supplierservice.getSupliers();
+            for (int i = 0; i < list.size(); i++) {
+                if(list.get(i).getNama_Supplier().equalsIgnoreCase(NAMA.getText())){
+                    ada = true;
+                }
+            }
+        } catch (RemoteException ex) {
+            Logger.getLogger(Form_Data_Supplier_Tambah.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ada;
+    }
+    
+    public boolean UbahSupplier(){
         boolean isi1 = false;
         boolean isi2 = false;
         boolean isi3 = false;
@@ -275,82 +330,103 @@ public class Form_Data_Supplier_Ubah extends javax.swing.JFrame {
         boolean isi5 = false;
         boolean isi6 = false;
         boolean isi7 = false;
-        
-        if(!nama.getText().equals("")){
+        boolean sukses = false;
+        if(!NAMA.getText().equals("")){
             isi1 = true;
+            System.out.println("isi1");
         }
-        if(!alamat.getText().equals("")){
+        if(!ALAMAT.getText().equals("")){
             isi2 = true;
+            System.out.println("isi2");
         }
-        if(!kota.getText().equals("")){
+        if(!KOTA.getText().equals("")){
             isi3 = true;
+            System.out.println("isi3");
         }
-        if(!telp.getText().equals("")){
+        if(!TELEPON.getText().equals("")){
             isi4 = true;
+            System.out.println("isi4");
         }
-        if(!npwp.getText().equals("")){
+        if(!NPWP.getText().equals("")){
             isi5 = true;
+            System.out.println("isi5");
         }
-        if(!pajak.getItemAt(pajak.getSelectedIndex()).toString().equals("")) {
+        if(!JENISPAJAK.getItemAt(JENISPAJAK.getSelectedIndex()).toString().equals("")) {
             isi6 = true;
+            System.out.println("isi6");
         }
-        if(!kode.getText().equals("")){
+        if(!KODEPAJAK.getText().equals("")){
             isi7 = true;
+            System.out.println("isi7");
         }
-        if(isi1&&isi2&&isi3&&isi4&&isi5&&isi6&&isi7)    {
-            String N = nama.getText();
-            String A = alamat.getText();
-            String K = kota.getText();
-            String T = telp.getText();
-            String NP = npwp.getText();
-            String JP = pajak.getItemAt(pajak.getSelectedIndex()).toString();
-            String KP = kode.getText();                                         
+        boolean nama = false;
+        if(!supplier.getNama_Supplier().equals(NAMA.getText())){ 
+            nama = cekNamaSupplierSudahAda();
+            System.out.println(NAMA.getText());
+        }
+        if(!nama&&isi1&&isi2&&isi3&&isi4&&isi5&&isi6&&isi7)    {
+            String N = NAMA.getText();
+            String A = ALAMAT.getText();
+            String K = KOTA.getText();
+            String T = TELEPON.getText();
+            String NP = NPWP.getText();
+            String JP = JENISPAJAK.getItemAt(JENISPAJAK.getSelectedIndex()).toString();
+            String KP = KODEPAJAK.getText();                                         
                supplier.setNama_Supplier(N);
                supplier.setAlamat_Supplier(A);
                supplier.setKota_Supplier(K);
                supplier.setTelepon_Supplier(T);
                supplier.setNPWP_Supplier(NP);
-               //s.setJenis_pajak_Supplier(JP);
+               supplier.setJenis_pajak_Supplier(JP);
                supplier.setKode_Pajak_Supplier(KP);
                try {                    
                     supplierservice.updateSupplier(supplier);
+                    sukses = true;
                     JOptionPane.showConfirmDialog(null, "Data Anda berhasil disimpan. Apakah Anda ingin mengubah data lagi?","", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+                    if(gui!=null){
                     gui.updatePanel(new Form_data_suplier (gui));
-                    this.dispose();
+                    this.dispose();}
                 } catch (NotBoundException ex) {
                     Logger.getLogger(Form_Data_Supplier_Ubah.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 catch(RemoteException exception){
                     exception.printStackTrace();
-                }
+                }       
         }
         else{
             if(!isi1){
-                nama.setBackground(Color.red);
+                NAMA.setBackground(Color.red);
             }
             if(!isi2){
-                alamat.setBackground(Color.red);
+                ALAMAT.setBackground(Color.red);
             }
             if(!isi3){
-                kota.setBackground(Color.red);
+                KOTA.setBackground(Color.red);
             }
 
             if(!isi4){
-                telp.setBackground(Color.red);
+                TELEPON.setBackground(Color.red);
             }
             
              if(!isi5){
-                npwp.setBackground(Color.red);
+                NPWP.setBackground(Color.red);
             }
             if(!isi6){
-                pajak.setBackground(Color.red);
+                JENISPAJAK.setBackground(Color.red);
             }
 
             if(!isi7){
-                kode.setBackground(Color.red);
+                KODEPAJAK.setBackground(Color.red);
             }
             JOptionPane.showMessageDialog(null, "Ada kesalahan pada kolom isian Anda. Mohon memperbaiki field yang berwarna merah untuk melanjutkan.", "ERROR", JOptionPane.ERROR_MESSAGE);
+    
         }
+        return sukses;
+    }
+    
+    private void OKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKActionPerformed
+        // TODO add your handling code here:
+        
     }//GEN-LAST:event_OKActionPerformed
 
     private void BACKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BACKActionPerformed
@@ -368,15 +444,21 @@ public class Form_Data_Supplier_Ubah extends javax.swing.JFrame {
              
     }//GEN-LAST:event_BACKActionPerformed
 
-    private void kodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kodeActionPerformed
+    private void KODEPAJAKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KODEPAJAKActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_kodeActionPerformed
+    }//GEN-LAST:event_KODEPAJAKActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private java.awt.TextArea ALAMAT;
     private javax.swing.JButton BACK;
     private javax.swing.JButton CANCEL;
+    private javax.swing.JComboBox JENISPAJAK;
+    private javax.swing.JTextField KODEPAJAK;
+    private javax.swing.JTextField KOTA;
+    private javax.swing.JTextField NAMA;
+    private javax.swing.JTextField NPWP;
     private javax.swing.JButton OK;
-    private java.awt.TextArea alamat;
+    private javax.swing.JTextField TELEPON;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
@@ -388,12 +470,6 @@ public class Form_Data_Supplier_Ubah extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField kode;
-    private javax.swing.JTextField kota;
-    private javax.swing.JTextField nama;
     private javax.swing.JTextField nama1;
-    private javax.swing.JTextField npwp;
-    private javax.swing.JComboBox pajak;
-    private javax.swing.JTextField telp;
     // End of variables declaration//GEN-END:variables
 }

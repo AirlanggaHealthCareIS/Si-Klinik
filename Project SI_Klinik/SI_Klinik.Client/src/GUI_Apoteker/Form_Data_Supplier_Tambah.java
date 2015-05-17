@@ -10,6 +10,7 @@ import java.rmi.RemoteException;
 import javax.swing.JOptionPane;
 import database.entity.Supplier;
 import database.Service.Supplier_Service;
+import database.Service.Transaksi_Periksa_Service;
 import java.rmi.NotBoundException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -25,14 +26,18 @@ public class Form_Data_Supplier_Tambah extends javax.swing.JFrame {
     private Supplier_Service ss;     
     private GUI_Apoteker gui;
     private Form_data_suplier f;
-    public Form_Data_Supplier_Tambah() {
-        
-    }
+    private Registry registry;
     
     public Form_Data_Supplier_Tambah(GUI_Apoteker gui) {
         initComponents();
         ss = gui.ss;
         this.gui = gui;
+    }
+    
+    public Form_Data_Supplier_Tambah() throws RemoteException, NotBoundException {
+        initComponents();
+        registry = LocateRegistry.getRegistry("0.0.0.0", 9750);
+        ss = (Supplier_Service) registry.lookup("service12");
     }
     
  private void refresh(){
@@ -242,39 +247,8 @@ public class Form_Data_Supplier_Tambah extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void OKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKActionPerformed
-        // TODO add your handling code here:
-        boolean isi1 = false;
-        boolean isi2 = false;
-        boolean isi3 = false;
-        boolean isi4 = false;
-        boolean isi5 = false;
-        boolean isi6 = false;
-        boolean isi7 = false;
-        
-        
-        if(!NAMA.getText().equals("")){
-            isi1 = true;
-        }
-        if(!ALAMAT.getText().equals("")){
-            isi2 = true;
-        }
-        if(!KOTA.getText().equals("")){
-            isi3 = true;
-        }
-        if(!TELEPON.getText().equals("")){
-            isi4 = true;
-        }
-        if(!NPWP.getText().equals("")){
-            isi5 = true;
-        }
-        if(!JENISPAJAK.getItemAt(JENISPAJAK.getSelectedIndex()).toString().equals("")) {
-            isi6 = true;
-        }
-        if(!KODEPAJAK.getText().equals("")){
-            isi7 = true;
-        }
-         boolean ada = false;
+    public boolean cekNamaSupplierSudahAda(){
+        boolean ada = false;
         try {
             List<Supplier> list = ss.getSupliers();
             for (int i = 0; i < list.size(); i++) {
@@ -285,8 +259,80 @@ public class Form_Data_Supplier_Tambah extends javax.swing.JFrame {
         } catch (RemoteException ex) {
             Logger.getLogger(Form_Data_Supplier_Tambah.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if (!ada){
+        return ada;
+    }
+    
+    public void setNama (String a){
+        NAMA.setText(a);
+    }
+    
+    public void setAlamat (String a){
+        ALAMAT.setText(a);
+    }
+    
+    public void setKota (String a){
+        KOTA.setText(a);
+    }
+    
+    public void setTelp (String a){
+        TELEPON.setText(a);
+    }
+    
+    
+    public void setNPWP (String a){
+        NPWP.setText(a);
+    }
+    
+    public void setJenisPajak (String i){
+        JENISPAJAK.addItem(i);
+        JENISPAJAK.setSelectedIndex(JENISPAJAK.getItemCount()-1);
+    }
+    
+    public void setKodePajak (String a){
+        KODEPAJAK.setText(a);
+    }
+    public boolean TambahSupplier(){
+        boolean isi1 = false;
+        boolean isi2 = false;
+        boolean isi3 = false;
+        boolean isi4 = false;
+        boolean isi5 = false;
+        boolean isi6 = false;
+        boolean isi7 = false;
+        boolean sukses = false;
+        
+        if(!NAMA.getText().equals("")){
+            System.out.println("isi1");
+            isi1 = true;
+        }
+        if(!ALAMAT.getText().equals("")){
+            System.out.println("isi2");
+            isi2 = true;
+        }
+        if(!KOTA.getText().equals("")){
+            System.out.println("isi3");
+            isi3 = true;
+        }
+        if(!TELEPON.getText().equals("")){
+            System.out.println("isi4");
+            isi4 = true;
+        }
+        if(!NPWP.getText().equals("")){
+            System.out.println("isi5");
+            isi5 = true;
+        }
+        if(!JENISPAJAK.getItemAt(JENISPAJAK.getSelectedIndex()).toString().equals("")) {
+            System.out.println("isi6");
+            isi6 = true;
+        }
+        if(!KODEPAJAK.getText().equals("")){
+            System.out.println("isi7");
+            isi7 = true;
+        }
+        
+        if (!cekNamaSupplierSudahAda()){
         if(isi1&&isi2&&isi3&&isi4&&isi5&&isi6&&isi7)    {
+            
             String N = NAMA.getText();
             String A = ALAMAT.getText();
             String K = KOTA.getText();
@@ -296,7 +342,7 @@ public class Form_Data_Supplier_Tambah extends javax.swing.JFrame {
             String KP = KODEPAJAK.getText();
             String ID = null;
             try {
-                ID = "SUP"+ss.getSupliers().size();
+                ID = "SUP"+(ss.getSupliers().size()+1);
             } catch (RemoteException ex) {
                 Logger.getLogger(Form_Data_Supplier_Tambah.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -308,21 +354,24 @@ public class Form_Data_Supplier_Tambah extends javax.swing.JFrame {
                s.setKota_Supplier(K);
                s.setTelepon_Supplier(T);
                s.setNPWP_Supplier(NP);
-               //s.setJenis_pajak_Supplier(JP);
+               s.setJenis_pajak_Supplier(JP);
                s.setKode_Pajak_Supplier(KP);
                
                if(ss.insertSupplier(s)!=null){
+                   sukses = true;
                     System.out.println("masuk");
-                    int opsi = JOptionPane.showConfirmDialog(null, "Data Anda berhasil disimpan. Apakah Anda akan menambahkan data lagi?","", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+                    int opsi = JOptionPane.showConfirmDialog(null, "Data Anda berhasil disimpan. Apakah Anda akan menambahkan data lagi?","", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);                    
                     if(opsi==0){
                         refresh();
                     }
                     else{
                        try {
-                           gui.updatePanel(new Form_data_suplier(this.gui));
-                           this.dispose();
+                           if(gui!=null){
+                               gui.updatePanel(new Form_data_suplier(this.gui));
+                               this.dispose();
+                           }
                        } catch (NotBoundException ex) {
-                           Logger.getLogger(Form_Data_Supplier_Tambah.class.getName()).log(Level.SEVERE, null, ex);
+                           
                        }
                     }
                 }
@@ -331,6 +380,7 @@ public class Form_Data_Supplier_Tambah extends javax.swing.JFrame {
             catch(RemoteException exception){
                 exception.printStackTrace();
             }
+            
         } 
         
         else{
@@ -360,11 +410,21 @@ public class Form_Data_Supplier_Tambah extends javax.swing.JFrame {
                 KODEPAJAK.setBackground(Color.red);
             }
             JOptionPane.showMessageDialog(null, "Ada kesalahan pada kolom isian Anda. Mohon memperbaiki field yang berwarna merah untuk melanjutkan.", "ERROR", JOptionPane.ERROR_MESSAGE);
+            
         }
+        
         }
         else{
         JOptionPane.showMessageDialog(null, "Nama Supplier sudah ada!", "ERROR", JOptionPane.ERROR_MESSAGE);
+        
     }
+        return sukses;
+    }
+    
+    
+    private void OKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKActionPerformed
+        // TODO add your handling code here:
+        TambahSupplier();
     }//GEN-LAST:event_OKActionPerformed
 
     
