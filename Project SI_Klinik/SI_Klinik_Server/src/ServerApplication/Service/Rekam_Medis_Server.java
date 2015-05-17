@@ -86,8 +86,8 @@ public class Rekam_Medis_Server extends UnicastRemoteObject implements RekamMedi
         PreparedStatement statement = null;
         try{
          statement = DatabaseUtilities.getConnection().prepareStatement(
-                 "UPDATE `rekam_medis` SET `ID_DOKTER`=?, `ID_PASIEN`=?,`TGL_REKAM_MEDIS`=?,`ALERGI_OBAT`=?,`RIWAYAT_SEKARANG`=?,`RIWAYAT_DAHULU`=?,`RIWAYAT_KELUARGA`=?,`KETERANGAN_PEKERJAAN`=?,`KEBIASAAN`=?,`KEADAAN_UMUM`=?,`GCS`=?,`KESADARAN`=?,`TENSI`=?,`NADI`=?,`RR`=?,`TEMPERATURE`=?,`PEMERIKSAAN_LAIN`=?,`TPL`=?,`RUJUKAN_DOKTER`=?, `FLAG`=?"
-                 + "WHERE `ID_REKAM_MEDIS`= ?"
+                 "UPDATE rekam_medis SET ID_DOKTER=?, ID_PASIEN=?, TGL_REKAM_MEDIS=?,ALERGI_OBAT=?,RIWAYAT_SEKARANG=?,RIWAYAT_DAHULU=?,RIWAYAT_KELUARGA=?,KETERANGAN_PEKERJAAN=?,KEBIASAAN=?,KEADAAN_UMUM=?,GCS=?,KESADARAN=?,TENSI=?,NADI=?,RR=?,TEMPERATURE=?,PEMERIKSAAN_LAIN=?,TPL=?,RUJUKAN_DOKTER=?,FLAG=?"
+                 + " WHERE ID_REKAM_MEDIS=?"
          );
          
         statement.setString(1, rekam.getId_Dokter());
@@ -112,6 +112,7 @@ public class Rekam_Medis_Server extends UnicastRemoteObject implements RekamMedi
         statement.setInt(20, rekam.getFlag());
         statement.setString(21, rekam.getId_Rekam_Medis());
          
+            System.out.println(statement.toString());
         statement.executeUpdate();
 
         }
