@@ -7,7 +7,6 @@
 package ServerApplication.Service;
 
 import database.entity.Penggajian;
-import database.entity.Laporan_Keuangan;
 import database.Service.Penggajian_Service;
 import si_klinik_server.DatabaseUtilities;
 import java.rmi.RemoteException;
@@ -211,7 +210,7 @@ public class Penggajian_Server extends UnicastRemoteObject implements Penggajian
         PreparedStatement statement = null;
         try{
             statement = DatabaseUtilities.getConnection().prepareStatement(
-                    "SELECT G.id_gaji AS ID_Gaji, G.tanggal_gaji AS tanggal\n" +
+                    "SELECT DISTINCT G.id_gaji AS ID_Gaji, G.tanggal_gaji AS tanggal\n" +
                     "FROM penggajian AS G, dokter AS D\n" +
                     "WHERE G.tanggal_gaji>=? AND G.tanggal_gaji<=? AND G.ID_Pegawai = ?"
             );

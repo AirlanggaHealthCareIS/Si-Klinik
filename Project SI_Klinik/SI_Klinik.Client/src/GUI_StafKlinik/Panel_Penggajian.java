@@ -49,6 +49,8 @@ public class Panel_Penggajian extends javax.swing.JPanel {
     TableModel_Penggajian tabel;
     Penggajian p = new Penggajian();
     Laporan_Keuangan lk = new Laporan_Keuangan();
+    List<Penggajian> list;
+    List<Penggajian> list2;
     int baris;
     String tanggal1;
     String tanggal2;
@@ -300,7 +302,7 @@ public class Panel_Penggajian extends javax.swing.JPanel {
         jDateChooser1.setDate(null);
         jDateChooser2.setDate(null);
         pegawaiList.setSelectedItem("[pilih]");
-        List list = new ArrayList<>();
+        list = new ArrayList<>();
         tabel.setData(list);
         tabelPenggajian.setModel(tabel);
     }//GEN-LAST:event_refreshButtonActionPerformed
@@ -313,10 +315,17 @@ public class Panel_Penggajian extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_pegawaiListActionPerformed
 
-    private void refreshNonDokter(String tanggal1, String tanggal2){
-        int penggajianNonDokter = 0;
-        List<Penggajian> list = new ArrayList<>();
+    public List<Penggajian> getPenggajianNonDokter(){
+        return list;
+    }
+    
+    public List<Penggajian> getPenggajianDokter(){
+        return list2;
+    }
+    
+    public void refreshNonDokter(String tanggal1, String tanggal2){
         try {
+            list = new ArrayList<>();
             list = penggajianService.getPenggajianNonDokter(tanggal1, tanggal2);
             tabel.setData(list);
             tabelPenggajian.setModel(tabel);
@@ -325,39 +334,39 @@ public class Panel_Penggajian extends javax.swing.JPanel {
         }
     }
     
-    private void refreshDokter(String tanggal1, String tanggal2){
+    public void refreshDokter(String tanggal1, String tanggal2){
         int gajiPeriksa;
         int gajiPokok;
         int totalGaji;
         String id_dokter = "";
         Penggajian penggajian = new Penggajian();
         
-        List<Penggajian> list = new ArrayList<>();
-        List<Penggajian> list1 = new ArrayList<>();
         try {
-            list = penggajianService.getPenggajianDokter(tanggal1, tanggal2);
-                for (int i=0; i<list.size(); i++){
-                    gajiPeriksa = list.get(i).getGajiTambahan();
-                    gajiPokok = list.get(i).getGajiPokok();
-                    String gajiTambah = ""+list.get(i).getGajiTambahan();
+            list2 = new ArrayList<>();
+            List<Penggajian> list1 = new ArrayList<>();
+            list2 = penggajianService.getPenggajianDokter(tanggal1, tanggal2);
+                for (int i=0; i<list2.size(); i++){
+                    gajiPeriksa = list2.get(i).getGajiTambahan();
+                    gajiPokok = list2.get(i).getGajiPokok();
+                    String gajiTambah = ""+list2.get(i).getGajiTambahan();
                     if(gajiTambah.startsWith("NULL")){
                         gajiPeriksa = 0;
                     }
                     totalGaji = gajiPokok + gajiPeriksa;
-                    list.get(i).setGajiTambahan(gajiPeriksa);
-                    list.get(i).setTotalGaji(totalGaji);
+                    list2.get(i).setGajiTambahan(gajiPeriksa);
+                    list2.get(i).setTotalGaji(totalGaji);
                     
-                    id_dokter = list.get(i).getIdPegawai();
+                    id_dokter = list2.get(i).getIdPegawai();
                     list1 = penggajianService.getGajiDokter(tanggal1, tanggal2, id_dokter);
                     
                     for (int j=0; j<list1.size(); j++){
                         String id_gaji = list1.get(j).getIdPenggajian();
                         String tanggal = list1.get(j).getTanggal();
-                        list.get(i).setTanggal(tanggal);
-                        list.get(i).setIdPenggajian(id_gaji);
+                        list2.get(i).setTanggal(tanggal);
+                        list2.get(i).setIdPenggajian(id_gaji);
                     }
                 }
-                tabel.setData(list);
+                tabel.setData(list2);
                 tabelPenggajian.setModel(tabel);
         } catch (RemoteException ex) {
             Logger.getLogger(Panel_Penggajian.class.getName()).log(Level.SEVERE, null, ex);
@@ -545,6 +554,140 @@ public class Panel_Penggajian extends javax.swing.JPanel {
         return preface;
     }
     
+    private Paragraph getIsi(List<Penggajian>  list) throws RemoteException{
+        Paragraph preface =new Paragraph();       
+        preface.setAlignment(Element.ALIGN_LEFT);     
+        Chunk chunk = new Chunk("Slip Gaji",font3);
+//            preface.add(Chunk.NEWLINE);
+//            preface.add(chunk);
+//            chunk = new Chunk("Nama : "+penggajianService.getPenggajianSemuaPegawai(tanggal1, tanggal2).get(0).getnama_Pasien(),font3);
+//            preface.add(Chunk.NEWLINE);
+//            preface.add(chunk);
+//            chunk = new Chunk("alamat : "+ps.getPasien().get(0).getalamat().getjalan()+","+ps.getPasien().get(0).getalamat().getkota()+","+ps.getPasien().get(0).getalamat().getprovinsi(),font3);
+//            preface.add(Chunk.NEWLINE);
+//            preface.add(chunk);
+//            chunk = new Chunk("Jenis kelamin : "+ps.getPasien().get(0).getjenis_kelamin(),font3);
+//            preface.add(Chunk.NEWLINE);
+//            preface.add(chunk);
+//            chunk = new Chunk("Tanggal Lahir : "+ps.getPasien().get(0).gettanggal_Lahir(),font3);
+//            preface.add(Chunk.NEWLINE);
+//            preface.add(chunk);
+//            chunk = new Chunk("Status Pernikahan : "+ps.getPasien().get(0).getstatus_pernikahan(),font3);
+//            preface.add(Chunk.NEWLINE);
+//            preface.add(chunk);
+//            chunk = new Chunk("Pekerjaan : "+ps.getPasien().get(0).getpekerjaan(),font3);
+//            preface.add(Chunk.NEWLINE);
+//            preface.add(chunk);
+//            chunk = new Chunk("Tanggal Daftar : "+ps.getPasien().get(0).gettanggal_daftar(),font3);
+//            preface.add(Chunk.NEWLINE);
+//            preface.add(chunk);
+//            chunk = new Chunk("=======================================================================",font3);
+//            preface.add(Chunk.NEWLINE);
+//            preface.add(chunk);
+//            
+//            chunk = new Chunk("Hasil pemeriksaan:",font3);
+//            preface.add(Chunk.NEWLINE);
+//            preface.add(chunk);
+//            
+//            chunk = new Chunk("",font3);
+//            preface.add(Chunk.NEWLINE);
+//            preface.add(chunk);
+        for(int i = 0; i<list.size();i++){           
+            chunk = new Chunk("ID Pegawai : "+list.get(i).getIdPegawai(),font3);
+            preface.add(Chunk.NEWLINE);
+            preface.add(chunk);
+         
+            chunk = new Chunk("Nama Pegawai :"+list.get(i).getNamaPegawai(),font3);
+            preface.add(Chunk.NEWLINE);
+            preface.add(chunk);
+            chunk = new Chunk("GAJI :",font3);
+            preface.add(Chunk.NEWLINE);
+            preface.add(chunk);  
+            chunk = new Chunk("Gaji Pokok :"+list.get(i).getGajiPokok(),font3);
+            preface.add(Chunk.NEWLINE);
+            preface.add(chunk);
+            chunk = new Chunk("Gaji Tambahan :"+list.get(i).getGajiTambahan(),font3);
+            preface.add(Chunk.NEWLINE);
+            preface.add(chunk);
+            chunk = new Chunk("Gaji Total :"+list.get(i).getTotalGaji(),font3);
+            preface.add(Chunk.NEWLINE);
+            preface.add(chunk);
+//            String keluhan = "" ;
+//            ArrayList Keluhan = list.get(i).getdetail().getkeluhan();
+//            for(int j = 0; j<Keluhan.size();j++){
+//                if(j==0){
+//                        keluhan=Keluhan.get(j).toString();
+//                    }
+//                    else{
+//                   keluhan=keluhan+", "+Keluhan.get(j).toString();}
+//            }
+//                
+//            chunk = new Chunk("Keluhan : "+keluhan,font4);
+//            preface.add(Chunk.NEWLINE);
+//            preface.add(chunk);
+//            
+//            String diagnosa = "" ;
+//            ArrayList Diagnosa = list.get(i).getdetail().getdiagnosa();
+//            System.out.println(Diagnosa.size());
+//            for(int j = 0; j<Diagnosa.size();j++){
+//                if(j==0){
+//                        diagnosa=Diagnosa.get(j).toString();
+//                    }
+//                    else{
+//                   diagnosa=diagnosa+", "+Diagnosa.get(j).toString();}
+//            }
+//                
+//            chunk = new Chunk("Diagnosa : "+diagnosa,font4);
+//            preface.add(Chunk.NEWLINE);
+//            preface.add(chunk);
+//            
+//            String penyakit = "" ;
+//            ArrayList Penyakit = list.get(i).getdetail().getpenyakit();
+//            for(int j = 0; j<Penyakit.size();j++){
+//                    if(j==0){
+//                        try {
+//                            penyakit=pen.getPenyakit(Penyakit.get(j).toString()).getNama_Penyakit();
+//                        } catch (RemoteException ex) {
+//                            Logger.getLogger(Form_RekamMedik_Tambah.class.getName()).log(Level.SEVERE, null, ex);
+//                        }
+//                    }
+//                    else{
+//                        try {
+//                            penyakit=penyakit+", "+pen.getPenyakit(Penyakit.get(j).toString()).getNama_Penyakit();
+//                        } catch (RemoteException ex) {
+//                            Logger.getLogger(Form_RekamMedik_Tambah.class.getName()).log(Level.SEVERE, null, ex);
+//                        }
+//                    }
+//            }
+//             chunk = new Chunk("Penyakit : "+penyakit,font4);
+//            preface.add(Chunk.NEWLINE);
+//            preface.add(chunk);
+//            chunk = new Chunk("RESEP :",font3);
+//            preface.add(Chunk.NEWLINE);
+//            preface.add(chunk);
+//            chunk = new Chunk("Nama Obat :"+ob.getObatFromID(list.get(i).getdetail().getResep().getid_Obat()).getNama_Obat(),font4);
+//            preface.add(Chunk.NEWLINE);
+//            preface.add(chunk);
+//            chunk = new Chunk("Aturan Pemakaian : "+list.get(i).getdetail().getResep().getaturan_pemakaian(),font4);
+//            preface.add(Chunk.NEWLINE);
+//            preface.add(chunk);
+//            chunk = new Chunk("Jumlah : "+list.get(i).getdetail().getResep().getjumlah(),font4);
+//            preface.add(Chunk.NEWLINE);
+//            preface.add(chunk);
+//            chunk = new Chunk("Satuan : "+list.get(i).getdetail().getResep().getsatuan(),font4);
+//            preface.add(Chunk.NEWLINE);
+//            preface.add(chunk);
+//            chunk = new Chunk("",font4);
+//            preface.add(Chunk.NEWLINE);
+//            preface.add(chunk);
+//            chunk = new Chunk("",font4);
+//            preface.add(Chunk.NEWLINE);
+//            preface.add(chunk);
+        }
+        
+        return preface;
+    }
+
      public void open(String url) {
         try {
             Desktop desktop = Desktop.getDesktop();
