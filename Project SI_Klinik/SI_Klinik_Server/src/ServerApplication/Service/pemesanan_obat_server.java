@@ -94,5 +94,38 @@ public class pemesanan_obat_server extends UnicastRemoteObject implements Pemesa
                 }
             }
         }}
+    @Override
+    public Pemesanan_Obat getLastPO() throws RemoteException {
+        System.out.println("proses get LAST PO");
+        Statement statement = null;
+        
+        try {
+            statement = DatabaseUtilities.getConnection().createStatement();
+            ResultSet result = statement.executeQuery("SELECT * FROM PEMESANAN_OBAT ORDER BY ID_PEMESANAN_OBAT DESC LIMIT 1");
+            Pemesanan_Obat a = null;
+            while(result.next()){
+                a = new Pemesanan_Obat();
+                a.setId_Pemesnan_obat((result.getString("ID_PEMESANAN_OBAT")));
+                a.setId_supplier(result.getString("ID_SUPPLIER"));
+                a.setTgl_Pemesanan(result.getString("TGL_PEMESANAN_OBAT"));
+            }    
+            result.close();
+            return a;
+        } 
+        catch (SQLException exception) {
+            exception.printStackTrace();
+            return null;
+        }
+        finally{
+            if(statement!=null){
+                try {
+                    statement.close();
+                } catch (SQLException  exception) {
+                    exception.printStackTrace();
+                }
+            }
+        }
+    }
+    
     
 }
