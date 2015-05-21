@@ -28,6 +28,53 @@ public class Transaksi_Periksa_Server extends UnicastRemoteObject implements Tra
     }
     
     @Override
+    public Transaksi_Periksa getTagihan(String id_transaksi) throws RemoteException {
+        System.out.println("getTagihan");
+        PreparedStatement statement = null;
+        try{
+            statement = DatabaseUtilities.getConnection().prepareStatement(
+                "SELECT * FROM transaksi_periksa WHERE id_transaksi_periksa =?"
+            );
+        
+            statement.setString(1, id_transaksi);
+            System.out.println(id_transaksi);
+            ResultSet result = statement.executeQuery();
+            Transaksi_Periksa x = new Transaksi_Periksa();
+        
+            while(result.next()){                
+                x.setId_Dokter(result.getString("id_dokter"));
+                x.setId_Pasien(result.getString("id_pasien"));
+                x.setId_Transaksi_Periksa(result.getString("id_transaksi_periksa"));
+                x.setKlaim_BPJS(result.getString("klaim_bpjs"));
+                x.setNo_Kartu_Transaksi(result.getString("no_kartu_transaksi"));
+                x.setPPN_Transaksi_Periksa(result.getString("ppn_transaksi_periksa"));
+                x.setSubtotal_Transaksi_Periksa(result.getString("subtotal_transaksi_periksa"));
+                x.setTanggal_Transaksi_Periksa(result.getString("tanggal_transaksi_periksa"));
+                x.setTotal_Transaksi_Periksa(result.getString("total_transaksi_periksa"));
+            }
+            result.close();
+            System.out.println(x.getSubtotal_Transaksi_Periksa());
+            return x;
+        }
+
+        catch(SQLException exception){
+            exception.printStackTrace();
+            return null;
+        }
+        finally{
+            if(statement != null){
+                try{
+                   statement.close();
+                }catch(SQLException exception){
+
+                }
+            }
+        }
+        
+
+    }
+    
+    @Override
     public Transaksi_Periksa insertTransaksi (Transaksi_Periksa a)throws RemoteException {
         System.out.println("proses insert Transaksi periksa");
         PreparedStatement statement = null;

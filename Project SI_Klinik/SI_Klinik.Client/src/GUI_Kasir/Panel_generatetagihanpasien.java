@@ -16,6 +16,7 @@ import java.rmi.registry.Registry;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 /**
  *
  * @author Indyka
@@ -25,22 +26,19 @@ public class Panel_generatetagihanpasien extends javax.swing.JPanel {
     /**
      * Creates new form Panel_generatetagihankasir
      */
-    
-    
     private TableModel_TransaksiPeriksa tablemodel = new TableModel_TransaksiPeriksa();
     private Transaksi_Periksa_Service service14;
     public List<Transaksi_Periksa> list;
     private String id_pasien;
     private int selectedIndex;
     Registry registry;
-    //private Panel_transaksiperiksa ptp;
-    
-    public Panel_generatetagihanpasien() throws RemoteException, NotBoundException{
+    private Frame_tagihanperiksapasien ftp;
+
+    public Panel_generatetagihanpasien() throws RemoteException, NotBoundException {
         initComponents();
         registry = LocateRegistry.getRegistry("0.0.0.0", 9750);
         service14 = (Transaksi_Periksa_Service) registry.lookup("service14");
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -160,52 +158,57 @@ public class Panel_generatetagihanpasien extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       // ptp = new Panel_transaksiperiksa(list, tabeltagihan.getSelectedRow());
+        try {
+            ftp = new Frame_tagihanperiksapasien((String) tabeltagihan.getValueAt(selectedIndex, 2));
+            ftp.setVisible(true);
+        } catch (RemoteException ex) {
+            Logger.getLogger(Panel_generatetagihanpasien.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NotBoundException ex) {
+            Logger.getLogger(Panel_generatetagihanpasien.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println((String) tabeltagihan.getValueAt(selectedIndex, 2));
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void tabeltagihanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabeltagihanMouseClicked
         setSelectedRow(tabeltagihan.getSelectedRow());
     }//GEN-LAST:event_tabeltagihanMouseClicked
 
-    public void setId_pasien(String id){
+    public void setId_pasien(String id) {
         id_pasien = id;
     }
-    
-    public boolean validateSelectedRow(){
-        if(selectedIndex<0){
+
+    public boolean validateSelectedRow() {
+        if (selectedIndex < 0) {
             JOptionPane.showMessageDialog(null, "Pilih transaksi yang ingin dibayarkan terlebih dahulu", "ERROR", JOptionPane.ERROR_MESSAGE);
             return false;
-        }
-        else{
+        } else {
             return true;
         }
     }
-    
-    public boolean validateIdPasien(){
-        if("".equals(selectedIndex)){
+
+    public boolean validateIdPasien() {
+        if ("".equals(selectedIndex)) {
             JOptionPane.showMessageDialog(null, "Silahkan isi ID Pasien terlebih dahulu", "ERROR", JOptionPane.ERROR_MESSAGE);
             return false;
-        }
-        else{
+        } else {
             return true;
         }
     }
-    
-    public void setSelectedRow(int x){
+
+    public void setSelectedRow(int x) {
         selectedIndex = x;
     }
-    
-    public void cektagihan(){
+
+    public void cektagihan() {
         try {
             list = service14.getTransaksis(id_pasien);
             tablemodel.setData(list);
             tabeltagihan.setModel(tablemodel);
-            
+
         } catch (RemoteException ex) {
             Logger.getLogger(Panel_generatetagihanpasien.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
