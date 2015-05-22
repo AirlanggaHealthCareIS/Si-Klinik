@@ -2,7 +2,6 @@
 package Form_Server;
 import ServerApplication.Service.Penyakit_Server;
 import ServerApplication.Service.Rekam_Medis_Server;
-import ServerApplication.Service.Resep_Server;
 import ServerApplication.Service.Supplier_Server;
 import ServerApplication.Service.Tindakan_Dokter_Server;
 import ServerApplication.Service.Tindakan_Periksa_Server;
@@ -72,7 +71,6 @@ public class main {
         Transaksi_Periksa_Server transaksiServer = new Transaksi_Periksa_Server();
         Rekam_Medis_Server rekamServer = new Rekam_Medis_Server();
         Penyakit_Server penyakitServer = new Penyakit_Server();
-        Resep_Server resepServer = new Resep_Server();
         Detail_Resep_Server detailrServer = new Detail_Resep_Server();
         Detail_Lihat_Resep_Server detaillihatresepServer = new Detail_Lihat_Resep_Server();        
         Lihat_Resep_Server lihatresepServer = new Lihat_Resep_Server();       
@@ -93,7 +91,6 @@ public class main {
         server.rebind("service8", detailrServer);
   //      server.rebind("service9", jadwalServer);
         server.rebind("service10", obatserver);
-        server.rebind("service11", resepServer);
         server.rebind("service12", suppServer);
         server.rebind("service13", tindakanpServer);
         server.rebind("service14", transaksiServer);

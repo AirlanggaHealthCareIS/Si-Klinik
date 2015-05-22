@@ -1300,6 +1300,11 @@ public class Panel_Rekam_Medik_Tambah extends javax.swing.JPanel {
         
     }//GEN-LAST:event_jButton12ActionPerformed
 
+    
+    public void tabBaru(String judul, JPanel panel, int index){
+        jTabbedPane1.addTab(judul,panel);
+        jTabbedPane1.setSelectedIndex(index);
+}
     private void jTabbedPane2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane2MouseClicked
         // TODO add your handling code here:
         if(jTabbedPane2.getSelectedIndex()==jTabbedPane2.getTabCount()-1){
@@ -1477,8 +1482,8 @@ public class Panel_Rekam_Medik_Tambah extends javax.swing.JPanel {
                 Logger.getLogger(Panel_Rekam_Medik_Tambah.class.getName()).log(Level.SEVERE, null, ex);
             }
             jButton13.setVisible(false);
-            jTabbedPane1.addTab("Tindakan Medis",new Panel_Input_Tindakan_Medis(gui,rm.getId_Rekam_Medis()));
-            jTabbedPane1.setSelectedIndex(2);
+            Panel_Input_Tindakan_Medis panel = new Panel_Input_Tindakan_Medis(gui,this,rm.getId_Rekam_Medis());
+            tabBaru("tindakan medis",panel,2);
         }
         else{
             if(!isi1){

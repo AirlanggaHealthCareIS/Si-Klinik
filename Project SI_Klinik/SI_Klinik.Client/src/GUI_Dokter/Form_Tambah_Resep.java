@@ -37,8 +37,8 @@ public class Form_Tambah_Resep extends javax.swing.JFrame {
     public Form_Tambah_Resep(Panel_Resep pp) throws RemoteException, NotBoundException {
         initComponents();
         registry = LocateRegistry.getRegistry("0.0.0.0", 9750);
-        service3 = (Detail_Resep_Service) registry.lookup("service3");        
-        service4 = (Obat_Service) registry.lookup("service4");
+        service3 = (Detail_Resep_Service) registry.lookup("service8");        
+        service4 = (Obat_Service) registry.lookup("service10");
         this.pp = pp;
         namaObat.setVisible(false);
         jml.setVisible(false);
@@ -194,9 +194,7 @@ public class Form_Tambah_Resep extends javax.swing.JFrame {
     }//GEN-LAST:event_kodeObatFocusGained
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-//        Panel_Rekam_Medik_Tambah a = new Panel_Rekam_Medik_Tambah();
-//        a.setVisible(true);
-//        this.dispose();
+        pp.gui.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -209,9 +207,23 @@ public class Form_Tambah_Resep extends javax.swing.JFrame {
         }
         else{
             lr = new detail_lihat_resep();
-            lr.setObat(namaObat.getSelectedItem().toString());
-            lr.setQty(Integer.parseInt(String.valueOf(jml.getValue())));
-            pp.list.add(lr);
+            try {
+                lr.setIdObat(service4.getIdObat(namaObat.getSelectedItem().toString()));
+                lr.setObat(namaObat.getSelectedItem().toString());
+                lr.setQty(Integer.parseInt(String.valueOf(jml.getValue())));
+                pp.list.add(lr);
+                pp.updateTable(pp.list);
+                this.dispose();
+            } catch (RemoteException ex) {
+                Logger.getLogger(Form_Tambah_Resep.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            
+//            pp.list.add(lr);
+//            pp.listResep.add(lr.getObat());
+//            pp.nama = namaObat.getSelectedItem().toString();
+//            pp.updateResep();
+//            pp.gui.setVisible(true);
 //            String ID = null;
 //            
 //            try {
@@ -261,14 +273,14 @@ public class Form_Tambah_Resep extends javax.swing.JFrame {
         namaObat.setVisible(true);
         jml.setVisible(true);
         String kode = kodeObat.getText();
-//        try {
-//     //       List a = service4.getObatList(kode);
-////            for (int i = 0; i < a.size(); i++) {
-////                namaObat.addItem(a.get(i).toString());
-//            }
-//        } catch (RemoteException ex) {
-//            Logger.getLogger(Form_Tambah_Resep.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        try {
+            List a = service4.getObatList(kode);
+            for (int i = 0; i < a.size(); i++) {
+                namaObat.addItem(a.get(i).toString());
+            }
+        } catch (RemoteException ex) {
+            Logger.getLogger(Form_Tambah_Resep.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }//GEN-LAST:event_jButton1ActionPerformed
 

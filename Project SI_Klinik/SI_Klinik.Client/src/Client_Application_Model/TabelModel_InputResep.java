@@ -3,7 +3,8 @@
  * and open the template in the editor.
  */
 package Client_Application_Model;
-import database.entity.lihatResep;
+import database.entity.detail_lihat_resep;
+import database.entity.detail_resep_obat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -11,20 +12,20 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author tinot
  */
-public class TableModel_Resep extends AbstractTableModel{
-    private List<lihatResep> list = new ArrayList<lihatResep>(); //ambil list Customers dari bridge
+public class TabelModel_InputResep extends AbstractTableModel{
+    private List<detail_lihat_resep> list = new ArrayList<detail_lihat_resep>(); //ambil list Customers dari bridge
     
-    public TableModel_Resep(){
+    public TabelModel_InputResep(){
     
     }
     
-    public void insert(lihatResep resep){
-        list.add(resep);
+    public void insert(detail_lihat_resep supplier){
+        list.add(supplier);
         fireTableDataChanged();
         }
 
-    public void update(int row,lihatResep resep){
-        list.set(row, resep);
+    public void update(int row,detail_lihat_resep supplier){
+        list.set(row, supplier);
         fireTableDataChanged();
     }
 
@@ -33,11 +34,11 @@ public class TableModel_Resep extends AbstractTableModel{
         fireTableDataChanged();
     }
     
-    public lihatResep get(int row){
+    public detail_lihat_resep get(int row){
         return list.get(row);
     }
     
-    public void setData(List<lihatResep> list){
+    public void setData(List<detail_lihat_resep> list){
         this.list = list;
         fireTableDataChanged();
     }
@@ -45,9 +46,9 @@ public class TableModel_Resep extends AbstractTableModel{
      @Override
      public String getColumnName(int column) {
         switch(column){
-            case 0 : return "ID PASIEN";
-            case 1 : return "ID REKAM MEDIK";
-            case 2 : return "TANGGAL EKAM MEDIK";
+            case 0 : return "Kode Obat";
+            case 1 : return "Nama Obat";
+            case 2 : return "QTY Obat";
 
             default: return null;
         }
@@ -63,9 +64,9 @@ public class TableModel_Resep extends AbstractTableModel{
     
     public Object getValueAt(int rowIndex, int columnIndex) {
         switch(columnIndex){
-            case 0 : return list.get(rowIndex).getId_Pasien();
-            case 1 : return list.get(rowIndex).getId_rekam_medik();
-            case 2 : return list.get(rowIndex).getTanggal();
+            case 0 : return list.get(rowIndex).getIdObat();
+            case 1 : return list.get(rowIndex).getObat();
+            case 2 : return list.get(rowIndex).getQty();
                 
             default : return null;
         }
