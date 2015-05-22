@@ -91,13 +91,13 @@ public class Presensi_Server extends UnicastRemoteObject implements Presensi_Ser
     }
 
     @Override
-    public Presensi getDokter(String ID_Dokter) throws RemoteException {
+    public String getDokter(String ID_Dokter) throws RemoteException {
         System.out.println("melakukan proses getby ID_DOKTER");
         
         PreparedStatement statement = null;
         try {
             statement = DatabaseUtilities.getConnection().prepareStatement(
-                    "SELECT NAMA_DOKTER FROM petugas WHERE ID_DOKTER = ?");
+                    "SELECT NAMA_DOKTER FROM dokter WHERE ID_DOKTER = ?");
             statement.setString(1, ID_Dokter);
             ResultSet result = statement.executeQuery();
             
@@ -107,7 +107,7 @@ public class Presensi_Server extends UnicastRemoteObject implements Presensi_Ser
                 a = new Presensi();
                 a.setNama_Dokter((result.getString("NAMA_DOKTER")));
             }
-            return a;
+            return a.getNama_Dokter().toString();
             
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -134,9 +134,10 @@ public class Presensi_Server extends UnicastRemoteObject implements Presensi_Ser
         PreparedStatement statement = null;
         try {
             statement = DatabaseUtilities.getConnection().prepareStatement(
-            "UPDATE presensi SET JAM_KELUAR=? WHERE ID=?");
+            "UPDATE presensi SET JAM_KELUAR=? WHERE ID=? AND TANGGAL_MASUK=? ");
             statement.setString(1, p.getJam_keluar());
             statement.setString(2, p.getId_pegawai());
+            statement.setString(3, p.getTanggal_masuk());
             statement.executeUpdate();  
         }
         catch (SQLException exception) {
@@ -210,6 +211,40 @@ public class Presensi_Server extends UnicastRemoteObject implements Presensi_Ser
             }
             result.close();
             return list;
+        } 
+        catch (SQLException exception) {
+            exception.printStackTrace();
+            return null;
+        }
+        finally{
+            if(statement!=null){
+                try {
+                    statement.close();
+                } catch (SQLException  exception) {
+                    exception.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
+    public Presensi getLastPresensi() throws RemoteException {
+        System.out.println("proses get ALL SUPPLIER");
+        Statement statement = null;
+        
+        try {
+            statement = DatabaseUtilities.getConnection().createStatement();
+            ResultSet result = statement.executeQuery("SELECT * FROM presensi ORDER BY TANGGAL_MASUK DESC LIMIT 1");
+            Presensi a = null;
+            while(result.next()){
+                a = new Presensi();
+                a.setTanggal_masuk((result.getString("TANGGAL_MASUK")));
+                a.setId_pegawai(result.getString("ID"));
+                a.setJam_masuk(result.getString("JAM_MASUK"));
+                a.setJam_keluar(result.getString("JAM_KELUAR"));
+            }    
+            result.close();
+            return a;
         } 
         catch (SQLException exception) {
             exception.printStackTrace();
