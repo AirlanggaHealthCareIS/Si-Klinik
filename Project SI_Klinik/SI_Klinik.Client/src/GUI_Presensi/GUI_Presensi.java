@@ -314,9 +314,19 @@ public class GUI_Presensi extends javax.swing.JFrame {
         
         try {
             System.out.println(id.getText());
-            list = ps.getPegawaiCek(id.getText());
             String nama = "";
-            System.out.println(list.size());
+            String status = "";
+            status = id.getText().substring(0, 3);
+            
+            if (status.equalsIgnoreCase("PET")) {
+                nama = ps.getPegawai(id.getText());
+                list = ps.getPegawaiCek(id.getText());
+            }
+            else {
+                nama = ps.getDokter(id.getText());
+                list = ps.getDokterCek(id.getText());
+            }
+            
             if(!list.isEmpty()&&ps.getPegawaiFromPresensi(id.getText(), getTanggal())==null){
                 Presensi p = new Presensi();
                 p.setTanggal_masuk(getTanggal());
@@ -324,12 +334,6 @@ public class GUI_Presensi extends javax.swing.JFrame {
                 p.setJam_masuk(getTime());
                 p.setJam_keluar(getTime());
                 ps.insertPresensi(p);
-                if (id.getText().equalsIgnoreCase("DOK")) {
-                    nama = ps.getDokter(id.getText());
-                }
-                else{
-                    nama = ps.getPegawai(id.getText());
-                }
                 
                 pesan.setText("Selamat datang \b"+nama+"\nSelamat Bekerja");
             }
@@ -337,13 +341,8 @@ public class GUI_Presensi extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "ID tidak Ditemukan, Silahkan Coba Lagi", "Pesan", JOptionPane.OK_OPTION);
             }
             else if(!list.isEmpty()&&ps.getPegawaiFromPresensi(id.getText(), getTanggal())!=null){
-                if (id.getText().equalsIgnoreCase("DOK")) {
-                    nama = ps.getDokter(id.getText());
-                }
-                else{
-                    nama = ps.getPegawai(id.getText());
-                }
-                nama = ps.getPegawai(id.getText());
+                
+                //nama = ps.getPegawai(id.getText());
                 Presensi p = new Presensi();
                 p.setId_pegawai(id.getText());
                 p.setJam_keluar(getTime());

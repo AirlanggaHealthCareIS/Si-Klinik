@@ -34,7 +34,7 @@ public class GUI_PresensiTest {
     public void testGetTanggal() throws RemoteException {
         System.out.println("getTanggal");
         GUI_Presensi instance = new GUI_Presensi();
-        String expResult = "";
+        String expResult = "2015-05-23";
         String result = instance.getTanggal();
         assertEquals(expResult, result);
     }
@@ -46,7 +46,7 @@ public class GUI_PresensiTest {
     public void testGetTanggalView() throws RemoteException {
         System.out.println("getTanggalView");
         GUI_Presensi instance = new GUI_Presensi();
-        String expResult = "";
+        String expResult = "23-05-2015";
         String result = instance.getTanggalView();
         assertEquals(expResult, result);
     }
@@ -58,18 +58,9 @@ public class GUI_PresensiTest {
     public void testGetTime() throws RemoteException {
         System.out.println("getTime");
         GUI_Presensi instance = new GUI_Presensi();
-        String expResult = "";
+        String expResult = "21:33:33";
         String result = instance.getTime();
         assertEquals(expResult, result);
     }
 
-    /**
-     * Test of main method, of class GUI_Presensi.
-     */
-    @Test
-    public void testMain() {
-        System.out.println("main");
-        String[] args = null;
-        GUI_Presensi.main(args);
-    }
 }

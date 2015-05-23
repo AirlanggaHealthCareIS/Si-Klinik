@@ -11,17 +11,17 @@ import java.io.Serializable;
  * @author Acer
  */
 public class detail_resep_obat implements Serializable{
-    private String id_detail_resep;
+    private int id_detail_resep;
     private String id_rekam_medis;
     private String id_obat;
     private int qty_detail_resep;
     
     
-    public String getid_detail_resep() {
+    public int getid_detail_resep() {
         return id_detail_resep;
     }
 
-    public void setid_detail_resep(String id_detail_resep) {
+    public void setid_detail_resep(int id_detail_resep) {
         this.id_detail_resep = id_detail_resep;
     }
     

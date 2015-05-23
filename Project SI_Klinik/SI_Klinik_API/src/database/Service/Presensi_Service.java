@@ -18,5 +18,6 @@ public interface Presensi_Service extends Remote{
     Presensi getPegawaiFromPresensi (String ID_Pegawai, String tanggal) throws RemoteException;
     String getDokter (String ID_Pegawai) throws RemoteException;
     List<Presensi> getPegawaiCek(String ID) throws RemoteException;
+    List<Presensi> getDokterCek(String ID) throws RemoteException;
     Presensi getLastPresensi() throws RemoteException;
 }

@@ -33,7 +33,7 @@ public class Test_detail_resep_obat {
      */
     @Test
     public void testSetGetid_detail_resep() {
-        String idDetailResep = "RES01";
+        int idDetailResep = 20;
         dro.setid_detail_resep(idDetailResep);
         assertEquals(idDetailResep, dro.getid_detail_resep());
     }

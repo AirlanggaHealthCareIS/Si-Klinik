@@ -229,7 +229,7 @@ public class Presensi_Server extends UnicastRemoteObject implements Presensi_Ser
 
     @Override
     public Presensi getLastPresensi() throws RemoteException {
-        System.out.println("proses get ALL SUPPLIER");
+        System.out.println("proses get ALL PRESENSI");
         Statement statement = null;
         
         try {
@@ -245,6 +245,39 @@ public class Presensi_Server extends UnicastRemoteObject implements Presensi_Ser
             }    
             result.close();
             return a;
+        } 
+        catch (SQLException exception) {
+            exception.printStackTrace();
+            return null;
+        }
+        finally{
+            if(statement!=null){
+                try {
+                    statement.close();
+                } catch (SQLException  exception) {
+                    exception.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
+    public List<Presensi> getDokterCek(String ID) throws RemoteException {
+        System.out.println("proses get Dokter");
+        Statement statement = null;
+        
+        try {
+            statement = DatabaseUtilities.getConnection().createStatement();
+            ResultSet result = statement.executeQuery("SELECT ID_DOKTER FROM dokter WHERE ID_DOKTER = '"+ID+"'");
+            List<Presensi> list = new ArrayList<Presensi>();
+            
+            while(result.next()){
+                Presensi a = new Presensi();
+                a.setId_pegawai((result.getString("ID_DOKTER")));
+                list.add(a);
+            }
+            result.close();
+            return list;
         } 
         catch (SQLException exception) {
             exception.printStackTrace();

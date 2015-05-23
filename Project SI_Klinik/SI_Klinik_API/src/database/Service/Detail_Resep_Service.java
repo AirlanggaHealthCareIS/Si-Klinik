@@ -14,9 +14,5 @@ import java.util.List;
 public interface Detail_Resep_Service extends Remote{
     detail_resep_obat insertResep(detail_resep_obat resep) throws RemoteException;
 
-    void updateResep(detail_resep_obat resep) throws RemoteException;
-
-    detail_resep_obat getResep (String ID_rekam) throws RemoteException;
-    
-    List<detail_resep_obat> getResep() throws RemoteException;
+    detail_resep_obat getLastResep () throws RemoteException;
 }
