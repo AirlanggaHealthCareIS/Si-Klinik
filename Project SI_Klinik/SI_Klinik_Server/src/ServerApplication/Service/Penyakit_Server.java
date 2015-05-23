@@ -26,7 +26,98 @@ public class Penyakit_Server extends UnicastRemoteObject implements Penyakit_Ser
     public Penyakit_Server() throws RemoteException {    
     }
     
-    @Override
+   
+    public Penyakit insertPenyakit(Penyakit a) throws RemoteException {
+        System.out.println("proses insert PENYAKIT");
+        PreparedStatement statement = null;
+        try{
+            statement = DatabaseUtilities.getConnection().prepareStatement(
+            "INSERT INTO penyakit(ID_PENYAKIT, NAMA_PENYAKIT) values(?,?)");
+            
+            statement.setString(1, a.getId_Penyakit());
+            statement.setString(2, a.getNama_Penyakit());
+            System.out.println(statement.toString());
+            statement.execute();
+            return a;
+        }
+        catch(SQLException exception){
+            return null;
+        }
+        finally{
+            if(statement != null){
+                try {
+                    statement.close();
+                } catch (SQLException exception) {
+                }
+            }
+        }
+        
+     }
+    
+    public void updatePenyakit(Penyakit b) throws RemoteException {
+        System.out.println("proses update PENYAKIT");
+        
+        PreparedStatement statement = null;
+        try {
+            statement = DatabaseUtilities.getConnection().prepareStatement(
+            "UPDATE penyakit SET  NAMA_PENYAKIT=? WHERE ID_PENYAKIT=?");
+            statement.setString(1, b.getNama_Penyakit());
+            statement.setString(8, b.getId_Penyakit());
+            statement.executeUpdate();  
+        }
+        catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        finally{
+            if(statement != null){
+                try {
+                    statement.close();
+                } catch (SQLException exception) {
+                    exception.printStackTrace();
+                }
+            }
+        }
+    }
+    
+    
+    public Penyakit getPenyakit(String IdSuplier) throws RemoteException {
+        System.out.println("melakukan proses getby ID_PENYAKIT");
+        
+        PreparedStatement statement = null;
+        try {
+            statement = DatabaseUtilities.getConnection().prepareStatement(
+                    "SELECT * FROM penyakit WHERE ID_PENYAKIT = ?");
+            statement.setString(1, IdSuplier);
+            ResultSet result = statement.executeQuery();
+            
+            Penyakit a = null;
+            
+            if(result.next()){
+                a = new Penyakit();
+                a.setId_Penyakit((result.getString("ID_PENYAKIT")));
+                a.setNama_Penyakit(result.getString("NAMA_PENYAKIT"));
+               
+                
+            }
+            return a;
+            
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            return null;
+        }
+        finally{
+            if(statement != null){
+                try{
+                    statement.close();
+                }
+                catch(SQLException exception){
+                    exception.printStackTrace();
+                }
+            }
+            
+        }
+    }
+     @Override
     public List<Penyakit> getPenyakitAll() throws RemoteException {
         System.out.println("Client Melakukan Proses Get All");
 
@@ -62,5 +153,15 @@ public class Penyakit_Server extends UnicastRemoteObject implements Penyakit_Ser
                 }
             }
         }
+    }
+
+    @Override
+    public Penyakit getId_Penyakit(String Nama_Penyakit) throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Penyakit getLastPenyakit() throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
