@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 3.2.4
+-- version 3.5.2.2
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: May 18, 2015 at 09:53 
--- Server version: 5.1.41
--- PHP Version: 5.3.1
+-- Host: 127.0.0.1
+-- Generation Time: May 25, 2015 at 04:30 AM
+-- Server version: 5.5.27
+-- PHP Version: 5.4.7
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -35,11 +36,6 @@ CREATE TABLE IF NOT EXISTS `beli` (
   PRIMARY KEY (`ID_BELI`),
   KEY `FK_DARI1` (`ID_SUPPLIER`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `beli`
---
-
 
 -- --------------------------------------------------------
 
@@ -95,11 +91,6 @@ CREATE TABLE IF NOT EXISTS `detail_beli` (
   KEY `FK_BERISI5` (`ID_OBAT`),
   KEY `FK_TERDIRI6` (`ID_BELI`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `detail_beli`
---
-
 
 -- --------------------------------------------------------
 
@@ -204,11 +195,6 @@ CREATE TABLE IF NOT EXISTS `jadwal` (
   KEY `FK_MEMILIH2` (`ID_DOKTER`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `jadwal`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -223,11 +209,6 @@ CREATE TABLE IF NOT EXISTS `kadaluarsa_obat` (
   KEY `FK_MEMILIKI2` (`ID_OBAT`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `kadaluarsa_obat`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -241,11 +222,6 @@ CREATE TABLE IF NOT EXISTS `kepuasan_pelanggan` (
   `satisfied` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `kepuasan_pelanggan`
---
-
 
 -- --------------------------------------------------------
 
@@ -272,17 +248,17 @@ CREATE TABLE IF NOT EXISTS `obat` (
 --
 
 INSERT INTO `obat` (`ID_OBAT`, `NAMA_OBAT`, `DOSIS`, `KETERANGAN_OBAT`, `STOK_OBAT`, `STOK_KRITIS`, `PABRIK_OBAT`, `JENIS_OBAT`, `KEMASAN`, `HARGA_OBAT`) VALUES
-('O1', 'IBUPROFEN', '200', NULL, 10, 5, 'PT COMBIPHAR', 'TABLET', 'BOTOL', 17000),
-('O10', 'alif', '12', 'asadad', 2, 0, 'sdsd', 'sdsd', 'adasa', 12144),
-('O11', 'BEDAK SALISIL', '2', NULL, 10, 5, 'PT HENSON FARMA', 'SERBUK', 'BEDAK', 17000),
-('O2', 'IBUPROFEN', '400', NULL, 10, 5, 'PT COMBIPHAR', 'TABLET', 'BOTOL', 20000),
-('O3', 'PARASETAMOL', '500', NULL, 10, 5, 'PT KIMIA FARMA', 'TABLET', 'KOTAK', 11000),
-('O4', 'PARASETAMOL', '120', NULL, 10, 5, 'PT KIMIA FARMA', 'SIRUP', 'BOTOL', 18000),
-('O5', 'AMOXCILIN', '500', NULL, 15, 5, 'PT SANBE FARMA', 'TABLET', 'KOTAK', 13000),
-('O6', 'AMOXCILIN', '125', NULL, 10, 5, 'PT SANBE FARMA', 'SIRUP', 'BOTOL', 15000),
-('O7', 'BETAMETASON', '10', NULL, 10, 5, 'PT PHAROS', 'KRIM', 'SALEP', 11000),
-('O8', 'SERUM ANTITETANUS', '200', NULL, 10, 5, 'PT PHAROS', 'CAIR', 'BOTOL', 22000),
-('O9', 'PROPANOLOL', '10', NULL, 10, 5, 'PT HENSON FARMA', 'TABLET', 'KOTAK', 13000);
+('O1', 'IBUPROFEN', 200, NULL, 10, 5, 'PT COMBIPHAR', 'TABLET', 'BOTOL', 17000),
+('O10', 'alif', 12, 'asadad', 2, 0, 'sdsd', 'sdsd', 'adasa', 12144),
+('O11', 'BEDAK SALISIL', 2, NULL, 10, 5, 'PT HENSON FARMA', 'SERBUK', 'BEDAK', 17000),
+('O2', 'IBUPROFEN', 400, NULL, 10, 5, 'PT COMBIPHAR', 'TABLET', 'BOTOL', 20000),
+('O3', 'PARASETAMOL', 500, NULL, 10, 5, 'PT KIMIA FARMA', 'TABLET', 'KOTAK', 11000),
+('O4', 'PARASETAMOL', 120, NULL, 10, 5, 'PT KIMIA FARMA', 'SIRUP', 'BOTOL', 18000),
+('O5', 'AMOXCILIN', 500, NULL, 15, 5, 'PT SANBE FARMA', 'TABLET', 'KOTAK', 13000),
+('O6', 'AMOXCILIN', 125, NULL, 10, 5, 'PT SANBE FARMA', 'SIRUP', 'BOTOL', 15000),
+('O7', 'BETAMETASON', 10, NULL, 10, 5, 'PT PHAROS', 'KRIM', 'SALEP', 11000),
+('O8', 'SERUM ANTITETANUS', 200, NULL, 10, 5, 'PT PHAROS', 'CAIR', 'BOTOL', 22000),
+('O9', 'PROPANOLOL', 10, NULL, 10, 5, 'PT HENSON FARMA', 'TABLET', 'KOTAK', 13000);
 
 -- --------------------------------------------------------
 
@@ -396,7 +372,8 @@ CREATE TABLE IF NOT EXISTS `pengeluaran` (
 
 INSERT INTO `pengeluaran` (`ID_Transaksi`, `Tanggal`, `Jumlah`, `Saldo`, `Flag`) VALUES
 ('B-1', '2015-03-25', 100000, 2404000, 2),
-('B-2', '2015-04-11', 200000, 2400000, 5);
+('B-2', '2015-04-11', 200000, 2400000, 5),
+('G001', '2015-05-23', 3000000, 200000, 1);
 
 -- --------------------------------------------------------
 
@@ -405,33 +382,63 @@ INSERT INTO `pengeluaran` (`ID_Transaksi`, `Tanggal`, `Jumlah`, `Saldo`, `Flag`)
 --
 
 CREATE TABLE IF NOT EXISTS `penggajian` (
-  `id_gaji` varchar(6) NOT NULL,
+  `id_gaji` int(11) NOT NULL AUTO_INCREMENT,
   `id_pegawai` varchar(6) NOT NULL,
   `tanggal_gaji` date NOT NULL,
+  `nama_pegawai` varchar(30) NOT NULL,
+  `gaji_pokok` int(11) NOT NULL,
+  `gaji_tambahan` int(11) NOT NULL,
+  `total_gaji` int(11) NOT NULL,
   PRIMARY KEY (`id_gaji`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=47 ;
 
 --
 -- Dumping data for table `penggajian`
 --
 
-INSERT INTO `penggajian` (`id_gaji`, `id_pegawai`, `tanggal_gaji`) VALUES
-('G001', 'DOK001', '2015-04-01'),
-('G002', 'DOK002', '2015-04-06'),
-('G003', 'PET007', '2015-04-06'),
-('G004', 'DOK003', '2015-04-06'),
-('G005', 'DOK004', '2015-04-08'),
-('G006', 'PET001', '2015-04-08'),
-('G007', 'PET002', '2015-04-09'),
-('G008', 'PET003', '2015-04-09'),
-('G009', 'PET004', '2015-04-13'),
-('G010', 'PET005', '2015-04-14'),
-('G011', 'PET006', '2015-04-16'),
-('G012', 'PET008', '2015-04-06'),
-('G013', 'DOK005', '2015-04-14'),
-('G014', 'DOK006', '2015-04-22'),
-('G015', 'DOK007', '2015-04-09'),
-('G016', 'DOK008', '2015-04-14');
+INSERT INTO `penggajian` (`id_gaji`, `id_pegawai`, `tanggal_gaji`, `nama_pegawai`, `gaji_pokok`, `gaji_tambahan`, `total_gaji`) VALUES
+(1, 'PET001', '2015-05-23', 'JESSICA', 2000000, 0, 2000000),
+(2, 'PET002', '2015-05-23', 'ALIF', 2000000, 0, 2000000),
+(3, 'PET003', '2015-05-23', 'YULIASTI', 2500000, 0, 2500000),
+(4, 'PET004', '2015-05-23', 'MELLA', 2500000, 0, 2500000),
+(5, 'PET005', '2015-05-23', 'INDYKA', 2500000, 0, 2500000),
+(6, 'PET006', '2015-05-23', 'MERRY', 3000000, 0, 3000000),
+(7, 'PET007', '2015-05-23', 'TRIYAH', 3000000, 30000, 3030000),
+(8, 'PET008', '2015-05-23', 'MELINDA', 3000000, 0, 3000000),
+(9, 'DOK001', '2015-05-23', 'DR. RETNO WISASTI, S', 1000000, 0, 1000000),
+(10, 'DOK002', '2015-05-23', 'DR. FADJAR ARIBOWO', 1000000, 0, 1000000),
+(11, 'DOK003', '2015-05-23', 'DRG. DYAH AYU R. W.', 1000000, 0, 1000000),
+(12, 'DOK004', '2015-05-23', 'DRG. BACHTIAR EFFEND', 1000000, 0, 1000000),
+(13, 'DOK005', '2015-05-23', 'DR. NUGROHO TJANDRA ', 25000000, 0, 25000000),
+(14, 'DOK006', '2015-05-23', 'DR. I NYOMAN ADNYANA', 1000000, 0, 1000000),
+(15, 'DOK007', '2015-05-23', 'DR. BUDIARTO, SP. PK', 10000000, 0, 10000000),
+(16, 'DOK008', '2015-05-23', 'DR. MARIANA HAROEN, ', 400000, 0, 400000),
+(17, 'DOK009', '2015-05-23', 'DR. RAHARDJO ARIYO M', 30000000, 30000, 30030000),
+(18, 'DOK010', '2015-05-23', 'DR. HERI KABULLAH, S', 20000000, 0, 20000000),
+(19, 'PET001', '2015-05-25', 'JESSICA', 2000000, 0, 2000000),
+(20, 'PET002', '2015-05-25', 'ALIF', 2000000, 0, 2000000),
+(21, 'PET003', '2015-05-25', 'YULIASTI', 2500000, 0, 2500000),
+(22, 'PET004', '2015-05-25', 'MELLA', 2500000, 0, 2500000),
+(23, 'PET005', '2015-05-25', 'INDYKA', 2500000, 0, 2500000),
+(24, 'PET006', '2015-05-25', 'MERRY', 3000000, 0, 3000000),
+(25, 'PET007', '2015-05-25', 'TRIYAH', 3000000, 30000, 3030000),
+(26, 'PET008', '2015-05-25', 'MELINDA', 3000000, 0, 3000000),
+(31, 'DOK005', '2015-05-25', 'DR. NUGROHO TJANDRA ', 25000000, 0, 25000000),
+(32, 'DOK006', '2015-05-25', 'DR. I NYOMAN ADNYANA', 1000000, 0, 1000000),
+(33, 'DOK007', '2015-05-25', 'DR. BUDIARTO, SP. PK', 10000000, 0, 10000000),
+(34, 'DOK008', '2015-05-25', 'DR. MARIANA HAROEN, ', 400000, 0, 400000),
+(35, 'DOK009', '2015-05-25', 'DR. RAHARDJO ARIYO M', 30000000, 30000, 30030000),
+(36, 'DOK010', '2015-05-25', 'DR. HERI KABULLAH, S', 20000000, 0, 20000000),
+(37, 'DOK001', '2015-05-25', 'DR. RETNO WISASTI, S', 1000000, 0, 1000000),
+(38, 'DOK002', '2015-05-25', 'DR. FADJAR ARIBOWO', 1000000, 0, 1000000),
+(39, 'DOK003', '2015-05-25', 'DRG. DYAH AYU R. W.', 1000000, 0, 1000000),
+(40, 'DOK004', '2015-05-25', 'DRG. BACHTIAR EFFEND', 1000000, 0, 1000000),
+(41, 'DOK005', '2015-05-25', 'DR. NUGROHO TJANDRA ', 25000000, 0, 25000000),
+(42, 'DOK006', '2015-05-25', 'DR. I NYOMAN ADNYANA', 1000000, 0, 1000000),
+(43, 'DOK007', '2015-05-25', 'DR. BUDIARTO, SP. PK', 10000000, 0, 10000000),
+(44, 'DOK008', '2015-05-25', 'DR. MARIANA HAROEN, ', 400000, 0, 400000),
+(45, 'DOK009', '2015-05-25', 'DR. RAHARDJO ARIYO M', 30000000, 30000, 30030000),
+(46, 'DOK010', '2015-05-25', 'DR. HERI KABULLAH, S', 20000000, 0, 20000000);
 
 -- --------------------------------------------------------
 
@@ -557,6 +564,11 @@ CREATE TABLE IF NOT EXISTS `presensi` (
 -- Dumping data for table `presensi`
 --
 
+INSERT INTO `presensi` (`TANGGAL_MASUK`, `ID`, `JAM_MASUK`, `JAM_KELUAR`) VALUES
+('2015-04-01', 'PET007', '07.30', '17.00'),
+('2015-04-06', 'DOK002', '07.30', '17.00'),
+('2015-04-06', 'PET007', '07.30', '17.00'),
+('2015-04-01', 'DOK002', '07.30', '17.00');
 
 -- --------------------------------------------------------
 
@@ -599,18 +611,18 @@ INSERT INTO `rekam_medis` (`ID_REKAM_MEDIS`, `ID_DOKTER`, `ID_PASIEN`, `TGL_REKA
 ('1-1', 'DOK009', 1, '2015-04-15', '-', 'hipertensi', '-', 'hipertensi', 'supir truk 12 jam menyetir non stop', 'merokok 10 batang/hari', 'pucat', 100, 'normal', '170/110', 80, 100, 37, '-', 'Hipertensi', '-', 1),
 ('1-2', 'DOK001', 1, '2015-04-19', '-', 'a', '-\nRiwayat pemeriksaan tanggal 2015-04-15 pasien didiagnosa: Hipertensi', 'hipertensi', 'supir truk 12 jam menyetir non stop', 'merokok 10 batang/hari', 'b', 10, 'c', '100/110', 100, 80, 34, '-', 'a', NULL, 2),
 ('1-3', 'DOK001', 1, '2015-04-26', '-', 'penderita mengeluhkan sakit perut yang berulang-ulang ketika bangun tidur', '-\nRiwayat pemeriksaan tanggal 2015-04-15 pasien didiagnosa: Hipertensi\nRiwayat pemeriksaan tanggal 2015-04-19 pasien didiagnosa: ', 'hipertensi', 'sering begadang larut malam', '-', 'normal', 1, 'normal', '10/10', 10, 1, 4, '-', 'hepatits C', NULL, 3),
-('1-4', 'DOK001', 1, '2015-05-11', '-', '-', '-\nRiwayat pemeriksaan tanggal 2015-04-15 pasien didiagnosa: Hipertensi\nRiwayat pemeriksaan tanggal 2015-04-19 pasien didiagnosa: \nRiwayat pemeriksaan tanggal 2015-04-26 pasien didiagnosa: ', 'hipertensi', 'sering begadang larut malam', '-', 'normal', 90, 'normal', '100', 80, 100, 34, '-', 'tpl1~tpl2', NULL, 4),
-('1-5', 'DOK001', 1, '2015-05-11', '-', '-', '-\nRiwayat pemeriksaan tanggal 2015-04-15 pasien didiagnosa: Hipertensi\nRiwayat pemeriksaan tanggal 2015-04-19 pasien didiagnosa: \nRiwayat pemeriksaan tanggal 2015-04-26 pasien didiagnosa: \nRiwayat pemeriksaan tanggal 2015-05-11 pasien didiagnosa: ABRUPSIO PLASENTA', 'hipertensi', 'sering begadang larut malam', '-', '-', 0, '-', '0', 0, 0, 0, '-', '1', NULL, 5),
+('1-4', 'DOK001', 1, '2015-04-02', '-', '-', '-\nRiwayat pemeriksaan tanggal 2015-04-15 pasien didiagnosa: Hipertensi\nRiwayat pemeriksaan tanggal 2015-04-19 pasien didiagnosa: \nRiwayat pemeriksaan tanggal 2015-04-26 pasien didiagnosa: ', 'hipertensi', 'sering begadang larut malam', '-', 'normal', 90, 'normal', '100', 80, 100, 34, '-', 'tpl1~tpl2', NULL, 4),
+('1-5', 'DOK001', 1, '2015-04-03', '-', '-', '-\nRiwayat pemeriksaan tanggal 2015-04-15 pasien didiagnosa: Hipertensi\nRiwayat pemeriksaan tanggal 2015-04-19 pasien didiagnosa: \nRiwayat pemeriksaan tanggal 2015-04-26 pasien didiagnosa: \nRiwayat pemeriksaan tanggal 2015-05-11 pasien didiagnosa: ABRUPSIO PLASENTA', 'hipertensi', 'sering begadang larut malam', '-', '-', 0, '-', '0', 0, 0, 0, '-', '1', NULL, 5),
 ('2-1', 'DOK001', 2, '2015-04-26', '-', 'faringitis', '-', '-', '-', '-', 'normal', 0, '-', '-', 0, 0, 0, '-', 'a;b;c', NULL, 1),
 ('2-2', 'DOK001', 2, '2015-04-26', '- tidak ada', 'masih batuk dengan rasa sakit di dada dan perut', '- \nRiwayat pemeriksaan tanggal 2015-04-26 pasien didiagnosa: mengalami batuk TBC', '- tidak ada', '- menjadi sekretaris	', '-merokok', 'sehat', 23, 'tampak sehat', '70', 160, 234, 37, '	-	', '1;2', NULL, 2),
-('2-3', 'DOK001', 2, '2015-05-11', '- tidak ada', '-	', '- \nRiwayat pemeriksaan tanggal 2015-04-26 pasien didiagnosa: mengalami batuk TBC\nRiwayat pemeriksaan tanggal 2015-04-26 pasien didiagnosa: ', '- tidak ada', '- menjadi sekretaris	', '-merokok', '-', 100, '-', '-', 90, 90, 78, '-', '1', NULL, 3),
-('2-4', 'DOK001', 2, '2015-05-11', '- tidak ada', '-', '- \nRiwayat pemeriksaan tanggal 2015-04-26 pasien didiagnosa: mengalami batuk TBC\nRiwayat pemeriksaan tanggal 2015-04-26 pasien didiagnosa: \nRiwayat pemeriksaan tanggal 2015-05-11 pasien didiagnosa: ABSES KEPALA & LEHER', '- tidak ada', '- menjadi sekretaris	', '-merokok', 'norrm', 0, '0', '0', 0, 0, 0, '0', '-', NULL, 4),
+('2-3', 'DOK001', 2, '2015-04-04', '- tidak ada', '-	', '- \nRiwayat pemeriksaan tanggal 2015-04-26 pasien didiagnosa: mengalami batuk TBC\nRiwayat pemeriksaan tanggal 2015-04-26 pasien didiagnosa: ', '- tidak ada', '- menjadi sekretaris	', '-merokok', '-', 100, '-', '-', 90, 90, 78, '-', '1', NULL, 3),
+('2-4', 'DOK001', 2, '2015-04-01', '- tidak ada', '-', '- \nRiwayat pemeriksaan tanggal 2015-04-26 pasien didiagnosa: mengalami batuk TBC\nRiwayat pemeriksaan tanggal 2015-04-26 pasien didiagnosa: \nRiwayat pemeriksaan tanggal 2015-05-11 pasien didiagnosa: ABSES KEPALA & LEHER', '- tidak ada', '- menjadi sekretaris	', '-merokok', 'norrm', 0, '0', '0', 0, 0, 0, '0', '-', NULL, 4),
 ('5-1', 'DOK001', 5, '2015-04-26', '-', 'pusing', 'migrain', '-', '-	-', '-', 'normal', 0, 'normal', '100/110', 80, 90, 35, '-', 'a;b;;d;e', NULL, 1),
 ('5-2', 'DOK001', 5, '2015-04-26', '-', '-', 'migrain\nRiwayat pemeriksaan tanggal 2015-04-26 pasien didiagnosa: ', '-', '-	-', '-', 'normal', 10, 'normal', '100/110', 80, 10, 37, '-', '1', NULL, 2),
-('5-3', 'DOK001', 5, '2015-05-11', '-', '-	', 'migrain\nRiwayat pemeriksaan tanggal 2015-04-26 pasien didiagnosa: \nRiwayat pemeriksaan tanggal 2015-04-26 pasien didiagnosa: ', '-', '-	-', '-', 'NORMAL', 90, 'NORMAL', '100', 90, 90, 37, '-', 'A~B', NULL, 3),
-('5-4', 'DOK001', 5, '2015-05-11', '-', '-', 'migrain\nRiwayat pemeriksaan tanggal 2015-04-26 pasien didiagnosa: \nRiwayat pemeriksaan tanggal 2015-04-26 pasien didiagnosa: \nRiwayat pemeriksaan tanggal 2015-05-11 pasien didiagnosa: ABSES ABDOMEN', '-', '-	-', '-', 'normal', 90, 'normal', '100', 90, 80, 37, '-', 'tpl1', NULL, 4),
-('5-5', 'DOK001', 5, '2015-05-11', '-', '-', 'migrain\nRiwayat pemeriksaan tanggal 2015-04-26 pasien didiagnosa: \nRiwayat pemeriksaan tanggal 2015-04-26 pasien didiagnosa: \nRiwayat pemeriksaan tanggal 2015-05-11 pasien didiagnosa: ABSES ABDOMEN\nRiwayat pemeriksaan tanggal 2015-05-11 pasien didiagnosa: ABSES ABDOMEN', '-', '-	-', '-', '-', 90, '-', '-', 90, 90, 34, '-', 'tpl1', NULL, 5),
-('5-6', 'DOK001', 5, '2015-05-18', '-', 'ddqd', 'migrain\nRiwayat pemeriksaan tanggal 2015-04-26 pasien didiagnosa: \nRiwayat pemeriksaan tanggal 2015-04-26 pasien didiagnosa: \nRiwayat pemeriksaan tanggal 2015-05-11 pasien didiagnosa: ABSES ABDOMEN\nRiwayat pemeriksaan tanggal 2015-05-11 pasien didiagnosa: ABSES ABDOMEN\nRiwayat pemeriksaan tanggal 2015-05-11 pasien didiagnosa: ABRUPSIO PLASENTA', '-', '-	-', '-', 'x', 1, 'a', 'sd', 3, 2, 13, '	sdsf', 'sdf', NULL, 6);
+('5-3', 'DOK001', 5, '2015-04-02', '-', '-	', 'migrain\nRiwayat pemeriksaan tanggal 2015-04-26 pasien didiagnosa: \nRiwayat pemeriksaan tanggal 2015-04-26 pasien didiagnosa: ', '-', '-	-', '-', 'NORMAL', 90, 'NORMAL', '100', 90, 90, 37, '-', 'A~B', NULL, 3),
+('5-4', 'DOK001', 5, '2015-04-03', '-', '-', 'migrain\nRiwayat pemeriksaan tanggal 2015-04-26 pasien didiagnosa: \nRiwayat pemeriksaan tanggal 2015-04-26 pasien didiagnosa: \nRiwayat pemeriksaan tanggal 2015-05-11 pasien didiagnosa: ABSES ABDOMEN', '-', '-	-', '-', 'normal', 90, 'normal', '100', 90, 80, 37, '-', 'tpl1', NULL, 4),
+('5-5', 'DOK001', 5, '2015-04-04', '-', '-', 'migrain\nRiwayat pemeriksaan tanggal 2015-04-26 pasien didiagnosa: \nRiwayat pemeriksaan tanggal 2015-04-26 pasien didiagnosa: \nRiwayat pemeriksaan tanggal 2015-05-11 pasien didiagnosa: ABSES ABDOMEN\nRiwayat pemeriksaan tanggal 2015-05-11 pasien didiagnosa: ABSES ABDOMEN', '-', '-	-', '-', '-', 90, '-', '-', 90, 90, 34, '-', 'tpl1', NULL, 5),
+('5-6', 'DOK002', 5, '2015-04-01', '-', 'ddqd', 'migrain\nRiwayat pemeriksaan tanggal 2015-04-26 pasien didiagnosa: \nRiwayat pemeriksaan tanggal 2015-04-26 pasien didiagnosa: \nRiwayat pemeriksaan tanggal 2015-05-11 pasien didiagnosa: ABSES ABDOMEN\nRiwayat pemeriksaan tanggal 2015-05-11 pasien didiagnosa: ABSES ABDOMEN\nRiwayat pemeriksaan tanggal 2015-05-11 pasien didiagnosa: ABRUPSIO PLASENTA', '-', '-	-', '-', 'x', 1, 'a', 'sd', 3, 2, 13, '	sdsf', 'sdf', NULL, 6);
 
 -- --------------------------------------------------------
 
@@ -710,11 +722,6 @@ CREATE TABLE IF NOT EXISTS `tindakan_periksa` (
   KEY `FK_TERDIRI4` (`ID_TRANSAKSI_PERIKSA`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `tindakan_periksa`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -735,13 +742,13 @@ CREATE TABLE IF NOT EXISTS `transaksi_obat` (
 --
 
 INSERT INTO `transaksi_obat` (`ID_TRANSAKSI_OBAT`, `TANGGAL_JUAL`, `SUBTOTAL_TRANSAKSI_OBAT`, `PPN_TRANSAKSI_OBAT`, `TOTAL_TRANSAKSI_OBAT`) VALUES
-(1, '2015-04-12', 10000, '1000', 11000),
-(2, '2015-04-26', 50000, '5000', 55000),
-(3, '2015-04-26', 50000, '5000', 55000),
-(4, '2015-04-26', 50000, '5000', 55000),
-(5, '2015-04-26', 50000, '5000', 55000),
-(6, '2015-04-26', 50000, '5000', 55000),
-(7, '2015-04-26', 0, '0', 0);
+(1, '2015-04-12', 10000, 1000, 11000),
+(2, '2015-04-26', 50000, 5000, 55000),
+(3, '2015-04-26', 50000, 5000, 55000),
+(4, '2015-04-26', 50000, 5000, 55000),
+(5, '2015-04-26', 50000, 5000, 55000),
+(6, '2015-04-26', 50000, 5000, 55000),
+(7, '2015-04-26', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -769,12 +776,12 @@ CREATE TABLE IF NOT EXISTS `transaksi_periksa` (
 --
 
 INSERT INTO `transaksi_periksa` (`ID_TRANSAKSI_PERIKSA`, `ID_DOKTER`, `ID_PASIEN`, `SUBTOTAL_TRANSAKSI_PERIKSA`, `PPN_TRANSAKSI_PERIKSA`, `TOTAL_TRANSAKSI_PERIKSA`, `KLAIM_BPJS`, `NO_KARTU_TRANSAKSI`, `TANGGAL_TRANSAKSI_PERIKSA`) VALUES
-(1, 'DOK002', 0, 100000, '10000', 110000, '0', NULL, '2015-04-10'),
-(2, 'DOK001', 1, 5380000, '538000', 5918000, NULL, NULL, '2015-05-11'),
-(3, 'DOK001', 5, 5380000, '538000', 5918000, NULL, NULL, '2015-05-11'),
-(4, 'DOK001', 2, 5380000, '538000', 5918000, NULL, NULL, '2015-05-11'),
-(5, 'DOK001', 2, 5380000, '538000', 5918000, NULL, NULL, '2015-05-11'),
-(6, 'DOK001', 1, 5380000, '538000', 5918000, NULL, NULL, '2015-05-11');
+(1, 'DOK002', 0, 100000, 10000, 110000, '0', NULL, '2015-04-10'),
+(2, 'DOK001', 1, 5380000, 538000, 5918000, NULL, NULL, '2015-05-11'),
+(3, 'DOK001', 5, 5380000, 538000, 5918000, NULL, NULL, '2015-05-11'),
+(4, 'DOK001', 2, 5380000, 538000, 5918000, NULL, NULL, '2015-05-11'),
+(5, 'DOK001', 2, 5380000, 538000, 5918000, NULL, NULL, '2015-05-11'),
+(6, 'DOK001', 1, 5380000, 538000, 5918000, NULL, NULL, '2015-05-11');
 
 --
 -- Constraints for dumped tables

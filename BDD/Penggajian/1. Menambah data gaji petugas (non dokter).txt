@@ -1,0 +1,13 @@
+Feature : Staf klinik membuat laporan penggajian
+
+Scenario : Menambah data gaji petugas (non dokter)
+
+	Given	Staf klinik sudah melakukan login
+	And		Semua data gaji pokok pegawai non dokter (petugas) dan presensi sudah disimpan di dalam database
+	When	Staf klinik masuk ke fitur penggajian
+	And		Memilih pegawai non dokter pada combo box jenis pegawai
+	And	 	Memasukkan periode
+	And		Menekan tombol tampilkan
+	Then	Semua data mengenai total gaji yang harus dibayarkan keluar di dalam tabel
+	When	Menekan tombol bayar gaji
+	Then	Total gaji semua petugas yang sudah dibayar masuk ke dalam database penggajian dan laporan keuangan
