@@ -18,6 +18,7 @@ import database.Service.lihat_Resep_Service;
 import database.Service.Pemesanan_Obat_Service;
 import database.Service.Pendaftaran_Service;
 import database.Service.Pasien_Service;
+import database.Service.List_PO_Service;
 import database.entity.Pasien;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -46,6 +47,7 @@ public class GUI_Apoteker extends javax.swing.JFrame {
     TransaksiObat_Service tos;
     DetailTransaksiObat_Service dtos;
     Pemesanan_Obat_Service pos;
+    List_PO_Service listPO;
     public Pasien_Service pas;
     public Pendaftaran_Service pds;
     
@@ -62,6 +64,7 @@ public class GUI_Apoteker extends javax.swing.JFrame {
         tos = l.service19;
         dtos = l.service20;
         pos = l.service22;
+        listPO = l.service24;
         drs = l.service8;
         pas = l.service4;
         pds= l.service3;
@@ -362,7 +365,13 @@ public class GUI_Apoteker extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        // TODO add your handling code here:
+        Panel_Generate_PO panel = new Panel_Generate_PO(this);
+        try {
+            panel.updatetable();
+        } catch (RemoteException ex) {
+            Logger.getLogger(GUI_Apoteker.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        updatePanel(panel);
     }//GEN-LAST:event_jButton11ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -35,6 +35,8 @@ import database.Service.TransaksiObat_Service;
 import database.Service.Transaksi_Periksa_Service;
 import database.Service.lihat_Resep_Service;
 import database.Service.Pemesanan_Obat_Service;
+import database.Service.List_PO_Service;
+import database.entity.detil_pesan_obat;
 import database.entity.petugas;
 import database.entity.dokter;
 import java.awt.Color;
@@ -69,6 +71,7 @@ public class Login extends javax.swing.JFrame {
       public DetailTransaksiObat_Service service20;
       public Penggajian_Service service21;
       public Pemesanan_Obat_Service service22;
+      public List_PO_Service service24;
       Registry registry;
       public SocketClient client;
       public int port;
@@ -246,6 +249,7 @@ public class Login extends javax.swing.JFrame {
         service20 = (DetailTransaksiObat_Service) registry.lookup("service20"); 
         service21 = (Penggajian_Service) registry.lookup("service21");
         service22 = (Pemesanan_Obat_Service) registry.lookup("service22");
+        service24 = (List_PO_Service) registry.lookup("service24");
     }
             
             

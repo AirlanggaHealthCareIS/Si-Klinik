@@ -14,10 +14,10 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author aliffahri
  */
-public class TabelModel_Detail_List_PO extends AbstractTableModel{
+public class TableModel_Detail_List_PO extends AbstractTableModel{
         private List<detil_pesan_obat> list = new ArrayList<detil_pesan_obat>();
     
-    public TabelModel_Detail_List_PO(){
+    public TableModel_Detail_List_PO(){
         
     }
     public detil_pesan_obat get(int row){

@@ -3,20 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+//yg baru
 package GUI_Apoteker;
-//import Client_Application_Model.TabelModel_Generate_PO;
+import Client_Application_Model.TableModel_Generate_PO;
+import GUI_Apoteker.Form_ubah_pemesanan_obat;
+import database.Service.List_PO_Service;
 import database.entity.obat_kritis;
+import database.entity.Supplier;
+import database.entity.detil_pesan_obat;
+import database.entity.Pemesanan_Obat;
 import database.Service.Obat_Service;
+import database.Service.Supplier_Service;
+import database.Service.Pemesanan_Obat_Service;
 import java.rmi.RemoteException;
 import java.util.List;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import GUI_Apoteker.Form_ubah_pemesanan_obat;
-import database.Service.Supplier_Service;
-import database.entity.Supplier;
-import database.entity.detil_pesan_obat;
-import database.Service.Pemesanan_Obat_Service;
-import database.entity.Pemesanan_Obat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -27,10 +29,11 @@ import java.util.logging.Logger;
  * @author asus
  */
 public class Panel_Generate_PO extends javax.swing.JPanel {
-    //TabelModel_Generate_PO table = new TabelModel_Generate_PO();
+    TableModel_Generate_PO table = new TableModel_Generate_PO();
     Obat_Service obs;
     obat_kritis ok;
     Pemesanan_Obat_Service pos;
+    List_PO_Service lpos;
     Supplier_Service supplier2;
     GUI_Apoteker gui;
     List<obat_kritis> listob;
@@ -45,7 +48,8 @@ public class Panel_Generate_PO extends javax.swing.JPanel {
         initComponents();
         obs = gui.os;
         supplier2 = gui.ss;
-       // pemesanan_obat_service = gui.
+        pos = gui.pos;
+        lpos = gui.listPO;
         this.gui = gui;
         UBAH.setEnabled(false);
         jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -53,7 +57,7 @@ public class Panel_Generate_PO extends javax.swing.JPanel {
                 int row = jTable1.getSelectedRow();
                  if(row != -1){                   
                    UBAH.setEnabled(true);
-                  // ok = table.get(row);
+                   ok = table.get(row);
                    index = row;
                  }
             }
@@ -213,6 +217,7 @@ public class Panel_Generate_PO extends javax.swing.JPanel {
                     System.out.println(index);
                    List<detil_pesan_obat>list = listPO.get(index).getList();
                    list.add(detail);
+                   lpos.insertListPO(detail);
                    listPO.get(index).setList(list); 
                 }
                 else{
@@ -225,7 +230,12 @@ public class Panel_Generate_PO extends javax.swing.JPanel {
                     }
                     po.setList(new ArrayList<detil_pesan_obat>());
                     po.setTgl_Pemesanan(getTanggal());
-                    listPO.add(po);           
+                    listPO.add(po);
+                    try {
+                        pos.insertPemesananObat(po);
+                    } catch (RemoteException ex) {
+                        Logger.getLogger(Panel_Generate_PO.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     detil_pesan_obat detail = new detil_pesan_obat();
                     detail.setId_Pemesanan_obat(listPO.get(listPO.size()-1).getId_Pemesanan_obat());
                     detail.setId_obat(listob.get(i).getID_OBAT());
@@ -253,14 +263,18 @@ public class Panel_Generate_PO extends javax.swing.JPanel {
     }//GEN-LAST:event_generatePOActionPerformed
     
     public  void updatetable() throws RemoteException{
-        //listob = obs.getObatKritis();
-//        table.setData(listob);
-//        jTable1.setModel(table);        
+        listob = obs.getObatKritis();
+        for (int i = 0; i < listob.size(); i++) {
+            listob.get(i).setNo(i+1);
+        }
+        System.out.println(listob.size());
+        table.setData(listob);
+        jTable1.setModel(table);        
     }
     
     public  void updatetable2() throws RemoteException{
-//        table.setData(listob);
-//        jTable1.setModel(table);        
+        table.setData(listob);
+        jTable1.setModel(table);        
     }
     
 

@@ -5,7 +5,7 @@
  */
 package GUI_Apoteker;
 
-import Client_Application_Model.TabelModel_List_PO;
+import Client_Application_Model.TableModel_List_PO;
 import database.entity.Pemesanan_Obat;
 import database.Service.Obat_Service;
 import database.entity.detil_pesan_obat;
@@ -20,7 +20,7 @@ import javax.swing.event.ListSelectionListener;
  * @author alif
  */
 public class Panel_List_PO extends javax.swing.JPanel {
-    private TabelModel_List_PO tabel = new TabelModel_List_PO();
+    private TableModel_List_PO tabel = new TableModel_List_PO();
     private List<Pemesanan_Obat> list;
     private Pemesanan_Obat po;
     private Obat_Service obs;

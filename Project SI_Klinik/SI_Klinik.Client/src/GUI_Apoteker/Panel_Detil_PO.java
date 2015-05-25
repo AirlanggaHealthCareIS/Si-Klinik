@@ -5,7 +5,7 @@
  */
 package GUI_Apoteker;
 
-import Client_Application_Model.TabelModel_Detail_List_PO;
+import Client_Application_Model.TableModel_Detail_List_PO;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -40,7 +40,7 @@ import javax.swing.JFileChooser;
  */
 public class Panel_Detil_PO extends javax.swing.JPanel {
     Pemesanan_Obat po;
-    TabelModel_Detail_List_PO tabel  = new TabelModel_Detail_List_PO();
+    TableModel_Detail_List_PO tabel  = new TableModel_Detail_List_PO();
     List<detil_pesan_obat> list = new ArrayList<>();
     private Font font1 = new Font(Font.FontFamily.HELVETICA,14,Font.BOLD);
     private Font font2 = new Font(Font.FontFamily.HELVETICA,18,Font.BOLD);
