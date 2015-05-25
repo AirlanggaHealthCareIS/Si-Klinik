@@ -85,5 +85,33 @@ public class Test_Transaksi_Periksa_Server extends TestCase{
         }  
         
     }
-    
+   @Test    
+    public void testlapbpjs() throws RemoteException, NotBoundException{
+        
+        tps = new Transaksi_Periksa_Server();
+        String tgltransaksi = "04";
+        List<Transaksi_Periksa> output = tps.getTransaksis(tgltransaksi);
+        List<Transaksi_Periksa> target = new ArrayList<Transaksi_Periksa>();
+        Transaksi_Periksa x = new Transaksi_Periksa();
+       // x.setId_Dokter("DOK002");
+        x.setId_Pasien("0");
+        x.setId_Transaksi_Periksa("1");
+        x.setKlaim_BPJS("0");
+        //x.setNo_Kartu_Transaksi(null);
+        //x.setPPN_Transaksi_Periksa("10000");
+        //x.setSubtotal_Transaksi_Periksa("100000");
+        x.setTanggal_Transaksi_Periksa("2015-04-10");
+        x.setTotal_Transaksi_Periksa("110000");
+        target.add(x);
+        for (int i = 0; i < 1; i++) {
+          //  assertEquals(target.get(i).getId_Dokter(), output.get(i).getId_Dokter());
+            assertEquals(target.get(i).getId_Pasien(), output.get(i).getId_Pasien());
+            assertEquals(target.get(i).getId_Transaksi_Periksa(), output.get(i).getId_Transaksi_Periksa());
+            assertEquals(target.get(i).getKlaim_BPJS(), output.get(i).getKlaim_BPJS());
+            //assertEquals(target.get(i).getNo_Kartu_Transaksi(), output.get(i).getNo_Kartu_Transaksi());
+            //assertEquals(target.get(i).getPPN_Transaksi_Periksa(), output.get(i).getPPN_Transaksi_Periksa());
+            //assertEquals(target.get(i).getSubtotal_Transaksi_Periksa(), output.get(i).getSubtotal_Transaksi_Periksa());
+            assertEquals(target.get(i).getTanggal_Transaksi_Periksa(), output.get(i).getTanggal_Transaksi_Periksa());
+            assertEquals(target.get(i).getTotal_Transaksi_Periksa(), output.get(i).getTotal_Transaksi_Periksa());
+        }  }
 }
