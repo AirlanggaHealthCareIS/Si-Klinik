@@ -72,7 +72,7 @@ public class Frame_tagihanperiksapasien extends javax.swing.JFrame {
     }
     
     public void getTagihan() throws RemoteException{
-        tagihan = service14.getTagihan(idtransaksi);
+      //  tagihan = service14.getTagihan(idtransaksi);
     }
     
     public void textboxSetter(){

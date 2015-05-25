@@ -71,8 +71,8 @@ public class GUI_Admin extends javax.swing.JFrame {
         pds= l.service3;
         rm= l.service15;
         jLabel3.setText(p.getNama_Petugas());
-        Panel_Profil_Admin panel = new Panel_Profil_Admin(this);
-        jPanel4.add(panel);
+        //Panel_Profil_Admin panel = new Panel_Profil_Admin(this);
+      //  jPanel4.add(panel);
     }
     
     public void setPasien (Pasien pasi){
@@ -305,8 +305,8 @@ public class GUI_Admin extends javax.swing.JFrame {
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
-         Panel_Profil_Admin panel = new Panel_Profil_Admin(this);
-         updatePanel(panel);
+        // Panel_Profil_Admin panel = new Panel_Profil_Admin(this);
+        // updatePanel(panel);
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged

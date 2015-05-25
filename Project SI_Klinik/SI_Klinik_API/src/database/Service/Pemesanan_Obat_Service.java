@@ -16,4 +16,5 @@ import java.util.List;
 public interface Pemesanan_Obat_Service extends Remote{
     Pemesanan_Obat insertPemesananObat(Pemesanan_Obat PO) throws RemoteException;
     List<Pemesanan_Obat>getPO() throws RemoteException;
+    public Pemesanan_Obat getLastPO() throws RemoteException;
 }

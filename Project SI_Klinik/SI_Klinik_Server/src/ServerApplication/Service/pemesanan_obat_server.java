@@ -94,6 +94,7 @@ public class pemesanan_obat_server extends UnicastRemoteObject implements Pemesa
                 }
             }
         }}
+    
     @Override
     public Pemesanan_Obat getLastPO() throws RemoteException {
         System.out.println("proses get LAST PO");

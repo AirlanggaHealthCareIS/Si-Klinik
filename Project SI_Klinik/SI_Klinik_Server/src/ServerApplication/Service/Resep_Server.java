@@ -5,7 +5,7 @@
 package ServerApplication.Service;
 import database.entity.detail_resep_obat;
 import database.entity.Rekam_Medis;
-import database.Service.Detail_Resep_Service;
+import database.Service.Resep_Service;
 import si_klinik_server.DatabaseUtilities;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -19,7 +19,7 @@ import java.util.List;
  *
  * @author tinot
  */
-public class Resep_Server extends UnicastRemoteObject implements Detail_Resep_Service{
+public class Resep_Server extends UnicastRemoteObject implements Resep_Service{
 
     public Resep_Server() throws RemoteException {
     
@@ -34,7 +34,7 @@ public class Resep_Server extends UnicastRemoteObject implements Detail_Resep_Se
                 + " VALUES (?, ?, ?, ?)"
         );
         
-        statement.setString(1, resep.getid_detail_resep());
+        statement.setInt(1, resep.getid_detail_resep());
         statement.setString(2, resep.getid_rekam_medis());
         statement.setString(3, resep.getid_obat());
         statement.setInt(4, resep.getqty_detail_resep());
@@ -71,7 +71,7 @@ public class Resep_Server extends UnicastRemoteObject implements Detail_Resep_Se
          );
          
         statement.setInt(1, resep.getqty_detail_resep());
-        statement.setString(2, resep.getid_detail_resep());
+        statement.setInt(2, resep.getid_detail_resep());
 
         statement.executeUpdate();
 
@@ -107,7 +107,7 @@ public class Resep_Server extends UnicastRemoteObject implements Detail_Resep_Se
             detail_resep_obat detail_resep = null;
 
             if(result.next()){
-                detail_resep.setid_detail_resep(result.getString("ID_DETAIL_RESEP"));
+                detail_resep.setid_detail_resep(result.getInt("ID_DETAIL_RESEP"));
                 detail_resep.setid_rekam_medis(result.getString("ID_REKAM_MEDIS"));
                 detail_resep.setid_obat(result.getString("ID_OBAT"));
                 detail_resep.setqty_detail_resep(result.getInt("QTY_DETAIL_RESEP"));
