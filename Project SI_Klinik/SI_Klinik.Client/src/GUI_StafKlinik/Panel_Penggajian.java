@@ -69,7 +69,6 @@ public class Panel_Penggajian extends javax.swing.JPanel {
      */
     public Panel_Penggajian() {
         initComponents();
-        cetakSlipGaji.setEnabled(false);
     }
 
      public Panel_Penggajian(GUI_StafKlinik gui) {
@@ -101,7 +100,6 @@ public class Panel_Penggajian extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelPenggajian = new javax.swing.JTable();
-        cetakSlipGaji = new javax.swing.JButton();
 
         jLabel15.setFont(new java.awt.Font("Maiandra GD", 0, 36)); // NOI18N
         jLabel15.setText("Laporan Keuangan");
@@ -148,8 +146,8 @@ public class Panel_Penggajian extends javax.swing.JPanel {
         });
 
         bayarGaji.setFont(new java.awt.Font("Maiandra GD", 0, 14)); // NOI18N
-        bayarGaji.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/detail.jpg"))); // NOI18N
-        bayarGaji.setText("Bayar Gaji");
+        bayarGaji.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/agt_print-32.png"))); // NOI18N
+        bayarGaji.setText("Bayar dan Cetak Slip Gaji");
         bayarGaji.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bayarGajiActionPerformed(evt);
@@ -181,15 +179,6 @@ public class Panel_Penggajian extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tabelPenggajian);
 
-        cetakSlipGaji.setFont(new java.awt.Font("Maiandra GD", 0, 14)); // NOI18N
-        cetakSlipGaji.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/agt_print-32.png"))); // NOI18N
-        cetakSlipGaji.setText("Cetak Slip Gaji");
-        cetakSlipGaji.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cetakSlipGajiActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -214,12 +203,10 @@ public class Panel_Penggajian extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(pegawaiList, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(184, 184, 184)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(bayarGaji)
-                .addGap(32, 32, 32)
-                .addComponent(cetakSlipGaji)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(223, 223, 223))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -242,11 +229,9 @@ public class Panel_Penggajian extends javax.swing.JPanel {
                             .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(42, 42, 42)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bayarGaji)
-                    .addComponent(cetakSlipGaji))
-                .addGap(23, 23, 23))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addComponent(bayarGaji)
+                .addGap(22, 22, 22))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -281,7 +266,6 @@ public class Panel_Penggajian extends javax.swing.JPanel {
     private void bayarGajiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bayarGajiActionPerformed
         // TODO add your handling code here:
         if(!jDateChooser1.getDate().toString().isEmpty()&&!jDateChooser2.getDate().toString().isEmpty()){
-            cetakSlipGaji.setEnabled(true);
             Date tanggal3 =(Date) jDateChooser1.getDate();
             tanggal1 = new java.text.SimpleDateFormat("yyyy-MM-dd").format(tanggal3);
             tanggal3 =(Date) jDateChooser2.getDate();
@@ -336,10 +320,6 @@ public class Panel_Penggajian extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_pegawaiListActionPerformed
 
-    private void cetakSlipGajiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cetakSlipGajiActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cetakSlipGajiActionPerformed
-
     public String tanggalSekarang(){
         Calendar cal = new GregorianCalendar();
         int nilaiTanggal = cal.get(Calendar.DAY_OF_MONTH);
@@ -353,7 +333,7 @@ public class Panel_Penggajian extends javax.swing.JPanel {
     
     public void setGajiNonDokter(String tanggal1, String tanggal2){
         int uangMakan;
-        int totalGaji;
+        int totalGaji=0;
         int gajiPokok;
         String id;
         String nama;
@@ -368,12 +348,10 @@ public class Panel_Penggajian extends javax.swing.JPanel {
             list1 = penggajianService.getPresensi(tanggal1, tanggal2);
             System.out.println("list : "+list.size());
             System.out.println("list1 : "+list1.size());
-            
             for (int i=0; i<list.size(); i++){
                 gajiPokok = list.get(i).getGajiPokok();
                 nama = list.get(i).getNamaPegawai();
                 id = list.get(i).getIdPegawai();
-                
                 p.setTanggal(tgl);
                 System.out.println(tgl);
                 p.setNamaPegawai(nama);
@@ -381,40 +359,57 @@ public class Panel_Penggajian extends javax.swing.JPanel {
                 p.setIdPegawai(id);
                 System.out.println(id);
                 p.setGajiPokok(gajiPokok);
-                
-                for (int j = 0; j < list1.size(); j++) {
-                    if (list1.get(j).getIdPegawai().equals(list.get(i).getIdPegawai())) {
-                        masuk = list1.get(j).getPresensi();
-                        uangMakan = masuk*15000;
-                        gajiTambahan = uangMakan;
-                        totalGaji = gajiPokok + gajiTambahan;
-                        
-                        p.setGajiTambahan(gajiTambahan);
-                        System.out.println(gajiTambahan);
-                        p.setTotalGaji(totalGaji);
-                        System.out.println(totalGaji);
+                if (list1.size()>0) {
+                    for (int j = 0; j < list1.size(); j++) {
+                        if (list1.get(j).getIdPegawai().equals(list.get(i).getIdPegawai())) {
+                            masuk = list1.get(j).getPresensi();
+                            uangMakan = masuk*15000;
+                            gajiTambahan = uangMakan;
+                            totalGaji = gajiPokok + gajiTambahan;
+                            
+                            list.get(i).setGajiTambahan(gajiTambahan);
+                            list.get(i).setTotalGaji(totalGaji);
+                            p.setGajiTambahan(gajiTambahan);
+                            System.out.println(gajiTambahan);
+                            p.setTotalGaji(totalGaji);
+                            System.out.println(totalGaji);
+                        }
+                        else{
+                            gajiTambahan = 0;
+                            totalGaji = gajiPokok;
+
+                            list.get(i).setGajiTambahan(gajiTambahan);
+                            list.get(i).setTotalGaji(totalGaji);
+                            p.setGajiTambahan(gajiTambahan);
+                            p.setTotalGaji(totalGaji);
+                            System.out.println(totalGaji);
+                        }
                     }
-                    else{
-                        gajiTambahan = 0;
-                        totalGaji = gajiPokok;
-                        
-                        p.setGajiTambahan(gajiTambahan);
-                        p.setTotalGaji(totalGaji);
-                        System.out.println(totalGaji);
-                    }
-                    penggajian = penggajian+totalGaji;
-                    System.out.println("penggajian : "+penggajian);
                 }
+                else{
+                    gajiTambahan = 0;
+                    totalGaji = gajiPokok;
+                    
+                    list.get(i).setGajiTambahan(gajiTambahan);
+                    list.get(i).setTotalGaji(totalGaji);
+                    p.setGajiTambahan(gajiTambahan);
+                    p.setTotalGaji(totalGaji);
+                    System.out.println(totalGaji);
+                }
+                penggajian = penggajian+totalGaji;
+                System.out.println("penggajian : "+penggajian);
                 penggajianService.insertGaji(p);
             }
-            lk.setTanggal(tgl);
-            System.out.println("tgl lk : "+tgl);
-            lk.setId(idTransaksi);
-            System.out.println("id tran : "+idTransaksi);
-            lk.setPengeluaran(penggajian);
-            System.out.println("kluar : "+penggajian);
-            laporanKeuanganService.insertPengeluaran(lk);
-        } catch (RemoteException ex) {
+            createPdf(list);
+//            lk.setTanggal(tgl);
+//            System.out.println("tgl lk : "+tgl);
+//            lk.setId(idTransaksi);
+//            System.out.println("id tran : "+idTransaksi);
+//            lk.setPengeluaran(penggajian);
+//            System.out.println("kluar : "+penggajian);
+//            laporanKeuanganService.insertPengeluaran(lk);
+        } 
+        catch (RemoteException ex) {
             Logger.getLogger(Panel_Penggajian.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -432,7 +427,6 @@ public class Panel_Penggajian extends javax.swing.JPanel {
         String nama;
         String tgl = tanggalSekarang();
         String idTransaksi = "GD"+tgl.replace("-", "");
-        
         try {
             list = new ArrayList<>();
             list1 = new ArrayList<>();
@@ -443,12 +437,10 @@ public class Panel_Penggajian extends javax.swing.JPanel {
             System.out.println("list : "+list.size());
             System.out.println("list1 : "+list1.size());
             System.out.println("list2 : "+list2.size());
-            
             for (int i=0; i<list.size(); i++){
                 gajiPokok = list.get(i).getGajiPokok();
                 nama = list.get(i).getNamaPegawai();
                 id = list.get(i).getIdPegawai();
-                
                 p.setTanggal(tgl);
                 System.out.println(tgl);
                 p.setNamaPegawai(nama);
@@ -456,78 +448,69 @@ public class Panel_Penggajian extends javax.swing.JPanel {
                 p.setIdPegawai(id);
                 System.out.println(id);
                 p.setGajiPokok(gajiPokok);
-                
-                for (int j = 0; j < list1.size(); j++) {
-                    for (int k = 0; k < list2.size(); k++) {
-                        System.out.println("id : "+list.get(i).getIdPegawai()+" = "+list1.get(j).getIdPegawai()+" = "+list2.get(k).getIdPegawai());
-                        if(list1.get(j).getIdPegawai().equals(list.get(i).getIdPegawai()) && list2.get(k).getIdPegawai().equals(list.get(i).getIdPegawai())){
+                if (list1.size()>0) {
+                    for (int j = 0; j < list1.size(); j++) {
+                        if (list1.get(j).getIdPegawai().equals(list.get(i).getIdPegawai())) {
                             masuk = list1.get(j).getPresensi();
                             System.out.println("masuk : "+masuk);
                             uangMakan = masuk*15000;
-                            periksa = list2.get(k).getTotalPeriksa();
-                            System.out.println("periksa : "+periksa);
-                            tarif = list2.get(k).getTarifPeriksa();
-                            gajiPeriksa = tarif * periksa;
-                            
-                            gajiTambahan = gajiPeriksa+uangMakan;
-                            totalGaji = gajiPokok+gajiTambahan;
-                            
-                            p.setGajiTambahan(gajiTambahan);
-                            System.out.println(gajiTambahan);
-                            p.setTotalGaji(totalGaji);
-                            System.out.println(totalGaji);
+                            if (list2.size()>0) {
+                                for (int k = 0; k < list2.size(); k++) {
+                                    if (list2.get(k).getIdPegawai().equals(list1.get(j).getIdPegawai())) {
+                                        periksa = list2.get(k).getTotalPeriksa();
+                                        tarif = list2.get(k).getTarifPeriksa();
+                                        gajiPeriksa = tarif * periksa;
+                                        gajiTambahan = gajiPeriksa+uangMakan;
+                                        totalGaji = gajiPokok+gajiTambahan;
+                                        
+                                        list.get(i).setGajiTambahan(gajiTambahan);
+                                        list.get(i).setTotalGaji(totalGaji);
+                                        p.setGajiTambahan(gajiTambahan);
+                                        System.out.println(gajiTambahan);
+                                        p.setTotalGaji(totalGaji);
+                                        System.out.println(totalGaji);
+                                    }
+                                }
+                            }
+                            else{
+                                gajiTambahan = uangMakan;
+                                totalGaji = gajiPokok+gajiTambahan;
+                                
+                                list.get(i).setGajiTambahan(gajiTambahan);
+                                list.get(i).setTotalGaji(totalGaji);
+                                p.setGajiTambahan(gajiTambahan);
+                                System.out.println(gajiTambahan);
+                                p.setTotalGaji(totalGaji);
+                                System.out.println(totalGaji);
+                            }
                         }
-                        else if (!list1.get(j).getIdPegawai().equals(list.get(i).getIdPegawai()) && list2.get(k).getIdPegawai().equals(list.get(i).getIdPegawai())) {
-                            periksa = list2.get(k).getTotalPeriksa();
-                            System.out.println("periksa : "+periksa);
-                            tarif = list2.get(k).getTarifPeriksa();
-                            gajiPeriksa = tarif * periksa;
-                            
-                            gajiTambahan = gajiPeriksa;
-                            totalGaji = gajiPokok + gajiTambahan;
-                            
-                            p.setGajiTambahan(gajiTambahan);
-                            System.out.println(gajiTambahan);
-                            p.setTotalGaji(totalGaji);
-                            System.out.println(totalGaji);
-                        }
-                        else if (list1.get(j).getIdPegawai().equals(list.get(i).getIdPegawai()) && !list2.get(k).getIdPegawai().equals(list.get(i).getIdPegawai())) {
-                            masuk = list1.get(j).getPresensi();
-                            System.out.println("masuk : "+masuk);
-                            uangMakan = masuk*15000;
-                            
-                            gajiTambahan = uangMakan;
-                            totalGaji = gajiPokok+gajiTambahan;
-                            
-                            p.setGajiTambahan(gajiTambahan);
-                            System.out.println(gajiTambahan);
-                            p.setTotalGaji(totalGaji);
-                            System.out.println(totalGaji);
-                        }
-                        else{
-                            gajiTambahan = 0;
-                            totalGaji = gajiPokok;
-                            
-                            p.setGajiTambahan(gajiTambahan);
-                            System.out.println(gajiTambahan);
-                            p.setTotalGaji(totalGaji);
-                            System.out.println(totalGaji);
-                        }
-                        
-                        penggajian = penggajian + totalGaji;
-                        System.out.println("penggajian : "+penggajian);
                     }
                 }
+                else{
+                    gajiTambahan = 0;
+                    totalGaji = gajiPokok;
+                    
+                    list.get(i).setGajiTambahan(gajiTambahan);
+                    list.get(i).setTotalGaji(totalGaji);
+                    p.setGajiTambahan(gajiTambahan);
+                    System.out.println(gajiTambahan);
+                    p.setTotalGaji(totalGaji);
+                    System.out.println(totalGaji);
+                }
                 penggajianService.insertGaji(p);
+                penggajian = penggajian + totalGaji;
+                System.out.println("penggajian : "+penggajian);
             }
-            lk.setTanggal(tgl);
-            System.out.println("tgl lk : "+tgl);
-            lk.setId(idTransaksi);
-            System.out.println("id tran : "+idTransaksi);
-            lk.setPengeluaran(penggajian);
-            System.out.println("kluar : "+penggajian);
-            laporanKeuanganService.insertPengeluaran(lk);
-        } catch (RemoteException ex) {
+            createPdf(list);
+//            lk.setTanggal(tgl);
+//            System.out.println("tgl lk : "+tgl);
+//            lk.setId(idTransaksi);
+//            System.out.println("id tran : "+idTransaksi);
+//            lk.setPengeluaran(penggajian);
+//            System.out.println("kluar : "+penggajian);
+//            laporanKeuanganService.insertPengeluaran(lk);
+        } 
+        catch (RemoteException ex) {
             Logger.getLogger(Panel_Penggajian.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -537,7 +520,6 @@ public class Panel_Penggajian extends javax.swing.JPanel {
         int totalGaji;
         int gajiPokok;
         int gajiTambahan;
-        
         try {
             list = new ArrayList<>();
             list1 = new ArrayList<>();
@@ -545,29 +527,37 @@ public class Panel_Penggajian extends javax.swing.JPanel {
             list1 = penggajianService.getPresensi(tanggal1, tanggal2);
             System.out.println("list : "+list.size());
             System.out.println("list1 : "+list1.size());
-            
             for (int i=0; i<list.size(); i++){
                 gajiPokok = list.get(i).getGajiPokok();
-                for (int j = 0; j < list1.size(); j++) {
-                    if (list1.get(j).getIdPegawai().equals(list.get(i).getIdPegawai())) {
-                        masuk = list1.get(j).getPresensi();
-                        uangMakan = masuk*15000;
-                        gajiTambahan = uangMakan;
-                        totalGaji = gajiPokok + gajiTambahan;
-                        list.get(i).setGajiTambahan(gajiTambahan);
-                        list.get(i).setTotalGaji(totalGaji);
+                if (list1.size()>0) {
+                    for (int j = 0; j < list1.size(); j++) {
+                        if (list1.get(j).getIdPegawai().equals(list.get(i).getIdPegawai())) {
+                            masuk = list1.get(j).getPresensi();
+                            uangMakan = masuk*15000;
+                            gajiTambahan = uangMakan;
+                            totalGaji = gajiPokok + gajiTambahan;
+                            list.get(i).setGajiTambahan(gajiTambahan);
+                            list.get(i).setTotalGaji(totalGaji);
+                        }
+                        else{
+                            gajiTambahan = 0;
+                            totalGaji = gajiPokok;
+                            list.get(i).setGajiTambahan(gajiTambahan);
+                            list.get(i).setTotalGaji(totalGaji);
+                        }
                     }
-                    else{
-                        gajiTambahan = 0;
-                        totalGaji = gajiPokok;
-                        list.get(i).setGajiTambahan(gajiTambahan);
-                        list.get(i).setTotalGaji(totalGaji);
-                    }
+                }
+                else{
+                    gajiTambahan = 0;
+                    totalGaji = gajiPokok;
+                    list.get(i).setGajiTambahan(gajiTambahan);
+                    list.get(i).setTotalGaji(totalGaji);
                 }
             }
             tabel.setData(list);
             tabelPenggajian.setModel(tabel);
-        } catch (RemoteException ex) {
+        }
+        catch (RemoteException ex) {
             Logger.getLogger(Panel_Penggajian.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -580,7 +570,6 @@ public class Panel_Penggajian extends javax.swing.JPanel {
         int totalGaji = 0;
         int gajiPokok;
         int gajiTambahan=0;
-        
         try {
             list = new ArrayList<>();
             list1 = new ArrayList<>();
@@ -591,63 +580,50 @@ public class Panel_Penggajian extends javax.swing.JPanel {
             System.out.println("list : "+list.size());
             System.out.println("list1 : "+list1.size());
             System.out.println("list2 : "+list2.size());
-            
             for (int i=0; i<list.size(); i++){
                 gajiPokok = list.get(i).getGajiPokok();
-                for (int j = 0; j < list1.size(); j++) {
-                    for (int k = 0; k < list2.size(); k++) {
-                        System.out.println("id : "+list.get(i).getIdPegawai()+" = "+list1.get(j).getIdPegawai()+" = "+list2.get(k).getIdPegawai());
-                        if(list1.get(j).getIdPegawai().equals(list.get(i).getIdPegawai()) && list2.get(k).getIdPegawai().equals(list.get(i).getIdPegawai())){
+                if (list1.size()>0) {
+                    for (int j = 0; j < list1.size(); j++) {
+                        if (list1.get(j).getIdPegawai().equals(list.get(i).getIdPegawai())) {
                             masuk = list1.get(j).getPresensi();
                             System.out.println("masuk : "+masuk);
                             uangMakan = masuk*15000;
-                            periksa = list2.get(k).getTotalPeriksa();
-                            System.out.println("periksa : "+periksa);
-                            tarif = list2.get(k).getTarifPeriksa();
-                            gajiPeriksa = tarif * periksa;
-                            
-                            gajiTambahan = gajiPeriksa+uangMakan;
-                            totalGaji = gajiPokok+gajiTambahan;
-                            list.get(i).setGajiTambahan(gajiTambahan);
-                            System.out.println("gajiTambahan1 : "+gajiTambahan);
-                            list.get(i).setTotalGaji(totalGaji);
-                        }
-                        else if (!list1.get(j).getIdPegawai().equals(list.get(i).getIdPegawai()) && list2.get(k).getIdPegawai().equals(list.get(i).getIdPegawai())) {
-                            periksa = list2.get(k).getTotalPeriksa();
-                            System.out.println("periksa : "+periksa);
-                            tarif = list2.get(k).getTarifPeriksa();
-                            gajiPeriksa = tarif * periksa;
-                            
-                            gajiTambahan = gajiPeriksa;
-                            totalGaji = gajiPokok + gajiTambahan;
-                            list.get(i).setGajiTambahan(gajiTambahan);
-                            System.out.println("gajiTambahan2 : "+gajiTambahan);
-                            list.get(i).setTotalGaji(totalGaji);
-                        }
-                        else if (list1.get(j).getIdPegawai().equals(list.get(i).getIdPegawai()) && !list2.get(k).getIdPegawai().equals(list.get(i).getIdPegawai())) {
-                            masuk = list1.get(j).getPresensi();
-                            System.out.println("masuk : "+masuk);
-                            uangMakan = masuk*15000;
-                            
-                            gajiTambahan = uangMakan;
-                            totalGaji = gajiPokok+gajiTambahan;
-                            list.get(i).setGajiTambahan(gajiTambahan);
-                            System.out.println("gajiTambahan3 : "+gajiTambahan);
-                            list.get(i).setTotalGaji(totalGaji);
-                        }
-                        else{
-                            gajiTambahan = 0;
-                            totalGaji = gajiPokok;
-                            list.get(i).setGajiTambahan(gajiTambahan);
-                            System.out.println("gajiTambahan4 : "+gajiTambahan);
-                            list.get(i).setTotalGaji(totalGaji);
+                            if (list2.size()>0) {
+                                for (int k = 0; k < list2.size(); k++) {
+                                    if (list2.get(k).getIdPegawai().equals(list1.get(j).getIdPegawai())) {
+                                        periksa = list2.get(k).getTotalPeriksa();
+                                        tarif = list2.get(k).getTarifPeriksa();
+                                        gajiPeriksa = tarif * periksa;
+                                        gajiTambahan = gajiPeriksa+uangMakan;
+                                        totalGaji = gajiPokok+gajiTambahan;
+                                        list.get(i).setGajiTambahan(gajiTambahan);
+                                        System.out.println("id : "+list.get(i).getIdPegawai()+ " periksa : "+periksa+ " gajiTambahan1 : "+gajiTambahan);
+                                        list.get(i).setTotalGaji(totalGaji);
+                                    }
+                                }
+                            }
+                            else{
+                                gajiTambahan = uangMakan;
+                                totalGaji = gajiPokok+gajiTambahan;
+                                list.get(i).setGajiTambahan(gajiTambahan);
+                                System.out.println("id : "+list.get(i).getIdPegawai()+" gajiTambahan2 : "+gajiTambahan);
+                                list.get(i).setTotalGaji(totalGaji);
+                            }
                         }
                     }
+                }
+                else{
+                    gajiTambahan = 0;
+                    totalGaji = gajiPokok;
+                    list.get(i).setGajiTambahan(gajiTambahan);
+                    System.out.println("id : "+list.get(i).getIdPegawai()+" gajiTambahan5 : "+gajiTambahan);
+                    list.get(i).setTotalGaji(totalGaji);
                 }
             }
             tabel.setData(list);
             tabelPenggajian.setModel(tabel);
-        } catch (RemoteException ex) {
+        } 
+        catch (RemoteException ex) {
             Logger.getLogger(Panel_Penggajian.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -828,7 +804,6 @@ public class Panel_Penggajian extends javax.swing.JPanel {
      
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bayarGaji;
-    private javax.swing.JButton cetakSlipGaji;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel15;

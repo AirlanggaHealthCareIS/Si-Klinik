@@ -2,7 +2,6 @@ Feature : Staf klinik membuat laporan penggajian
 
 Scenario : Membuat slip gaji setiap pegawai (baik dokter maupun non dokter) dalam bentuk pdf
 
-	Given	Staf klinik sudah menekan tombol bayar gaji (baik untuk dokter maupun non dokter)
-	And		Semua data penggajian (baik dokter maupun non dokter) sudah disimpan di dalam database
-	When	Staf klinik menekan tombol cetak slip gaji
-	Then	Muncul slip gaji setiap pegawai dalam bentuk pdf
+	Given	Semua data penggajian sudah disimpan di dalam database
+	When	Staf klinik sudah menekan tombol bayar gaji dan cetak slip gaji(baik untuk dokter maupun non dokter)
+	Then	Muncul slip gaji setiap pegawai dalam bentuk pdf sesuai periode dan jenis pegawai
