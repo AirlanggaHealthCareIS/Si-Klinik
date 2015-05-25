@@ -28,6 +28,38 @@ public class Laporan_Keuangan_Server extends UnicastRemoteObject implements Lapo
         
     }
     
+    public Laporan_Keuangan insertPengeluaran(Laporan_Keuangan lk) throws RemoteException {
+        System.out.println("proses insert Penggajian");
+        PreparedStatement statement = null;
+        try{
+            statement = DatabaseUtilities.getConnection().prepareStatement(
+                    "INSERT INTO `pengeluaran`(`ID_Transaksi`, `Tanggal`, `Jumlah`, `Saldo`, `Flag`)\n"+
+                    "VALUES (?,?,?,0,0)"
+            );
+            System.out.println(statement.toString());
+            
+            statement.setString(1, lk.getId());
+            statement.setString(2, lk.getTanggal());
+            statement.setInt(3, lk.getPengeluaran());
+            statement.setInt(4, lk.getSaldo());
+            statement.setInt(5, lk.getFlag());
+            System.out.println(statement.toString());
+            statement.execute();
+            return lk;
+        }
+        catch(SQLException exception){
+            return null;
+        }
+        finally{
+            if(statement != null){
+                try {
+                    statement.close();
+                } catch (SQLException exception) {
+                }
+            }
+        }
+     }
+    
      public List<Laporan_Keuangan> getLaporanKeuangan (String tanggal1, String tanggal2) throws RemoteException {
         System.out.println("Client Melakukan Proses Get By Periode tanggal");
 

@@ -16,8 +16,9 @@ import java.util.List;
  * @author Windows 8.1
  */
 public interface Penggajian_Service extends Remote {
-   List<Penggajian> getPenggajianSemuaPegawai (String tanggal1, String tanggal2) throws RemoteException;
-   List<Penggajian> getPenggajianNonDokter (String tanggal1, String tanggal2) throws RemoteException;
-   List<Penggajian> getPenggajianDokter (String tanggal1, String tanggal2) throws RemoteException;
-   List<Penggajian> getGajiDokter (String tanggal1, String tanggal2, String id_dokter) throws RemoteException;
+   Penggajian insertGaji(Penggajian penggajian) throws RemoteException;
+   List<Penggajian> getPenggajianNonDokter () throws RemoteException;
+   List<Penggajian> getPenggajianDokter () throws RemoteException;
+   List<Penggajian> getPresensi(String tanggal1, String tanggal2)throws RemoteException;
+   List<Penggajian> getGajiPeriksa(String tanggal1, String tanggal2)throws RemoteException;
 }

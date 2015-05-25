@@ -13,6 +13,7 @@ import java.io.Serializable;
  * @author Windows 8.1
  */
 public class Laporan_Keuangan implements Serializable{
+    String id;
     String tanggal;
     String keterangan;
     String ref;
@@ -20,6 +21,14 @@ public class Laporan_Keuangan implements Serializable{
     int pengeluaran;
     int saldo;
     int flag;
+    
+    public void setId (String id){
+        this.id = id;
+    }
+    
+    public String getId(){
+        return id;
+    }
     
     public void setTanggal (String tanggal){
         this.tanggal = tanggal;

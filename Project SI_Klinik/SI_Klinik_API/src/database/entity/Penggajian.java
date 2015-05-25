@@ -21,7 +21,9 @@ public class Penggajian implements Serializable{
     int tarifPeriksa;
     int gajiPokok;
     int gajiTambahan;
+    int gajiPeriksa;
     int totalGaji;
+    int presensi;
     
     public void setTanggal (String tanggal){
         this.tanggal = tanggal;
@@ -93,5 +95,21 @@ public class Penggajian implements Serializable{
     
     public void setTotalGaji (int totalGaji){
         this.totalGaji = totalGaji;
+    }
+    
+    public int getPresensi () {
+        return presensi;
+    }
+    
+    public void setPresensi (int presensi){
+        this.presensi = presensi;
+    }
+    
+    public int getGajiPeriksa () {
+        return gajiPeriksa;
+    }
+    
+    public void setGajiPeriksa (int gajiPeriksa){
+        this.gajiPeriksa = gajiPeriksa;
     }
 }
