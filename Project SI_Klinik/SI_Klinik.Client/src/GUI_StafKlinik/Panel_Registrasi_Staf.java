@@ -82,30 +82,32 @@ public class Panel_Registrasi_Staf extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         idPoliField1 = new javax.swing.JTextField();
         jkBox = new javax.swing.JComboBox();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jPanel7 = new javax.swing.JPanel();
-        jLabel22 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jPanel1 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        agamaPetugasField = new javax.swing.JTextField();
-        teleponPetugasField = new javax.swing.JTextField();
-        jabatanField = new javax.swing.JTextField();
-        alamatPetugasField = new javax.swing.JTextField();
         namaPetugasField = new javax.swing.JTextField();
-        simpanPetugas = new javax.swing.JButton();
-        ttlPetugas = new com.toedter.calendar.JDateChooser();
-        jkPetugasBox = new javax.swing.JComboBox();
-        jLabel17 = new javax.swing.JLabel();
         idPetugasField = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        alamatPetugasField = new javax.swing.JTextField();
+        jkPetugasBox = new javax.swing.JComboBox();
+        jabatanField = new javax.swing.JTextField();
+        ttlPetugas = new com.toedter.calendar.JDateChooser();
+        teleponPetugasField = new javax.swing.JTextField();
+        agamaPetugasField = new javax.swing.JTextField();
+        simpanPetugas = new javax.swing.JButton();
         resetbutton = new javax.swing.JButton();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(700, 450));
+
+        jTabbedPane1.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
 
         jPanel6.setMinimumSize(new java.awt.Dimension(700, 450));
         jPanel6.setPreferredSize(new java.awt.Dimension(700, 450));
@@ -328,43 +330,26 @@ public class Panel_Registrasi_Staf extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Dokter", jScrollPane1);
 
-        jPanel7.setMinimumSize(new java.awt.Dimension(700, 450));
-
-        jLabel22.setFont(new java.awt.Font("Cambria Math", 0, 18)); // NOI18N
-        jLabel22.setText("Data Diri Staff Klinik");
-
         jLabel13.setFont(new java.awt.Font("Cambria Math", 0, 14)); // NOI18N
         jLabel13.setText("Nama Staff Kinik ");
 
-        jLabel14.setFont(new java.awt.Font("Cambria Math", 0, 14)); // NOI18N
-        jLabel14.setText("Alamat ");
-
-        jLabel15.setFont(new java.awt.Font("Cambria Math", 0, 14)); // NOI18N
-        jLabel15.setText("Jenis Kelamin ");
-
-        jLabel21.setFont(new java.awt.Font("Cambria Math", 0, 14)); // NOI18N
-        jLabel21.setText("Jabatan");
-
-        jLabel18.setFont(new java.awt.Font("Cambria Math", 0, 14)); // NOI18N
-        jLabel18.setText("Tanggal Lahir");
-
-        jLabel19.setFont(new java.awt.Font("Cambria Math", 0, 14)); // NOI18N
-        jLabel19.setText("Nomor Telepon");
-
-        jLabel20.setFont(new java.awt.Font("Cambria Math", 0, 14)); // NOI18N
-        jLabel20.setText("Agama");
-
-        teleponPetugasField.addActionListener(new java.awt.event.ActionListener() {
+        namaPetugasField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                teleponPetugasFieldActionPerformed(evt);
+                namaPetugasFieldActionPerformed(evt);
             }
         });
 
-        jabatanField.addActionListener(new java.awt.event.ActionListener() {
+        idPetugasField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jabatanFieldActionPerformed(evt);
+                idPetugasFieldActionPerformed(evt);
             }
         });
+
+        jLabel17.setFont(new java.awt.Font("Cambria Math", 0, 14)); // NOI18N
+        jLabel17.setText("ID Petugas");
+
+        jLabel22.setFont(new java.awt.Font("Cambria Math", 0, 18)); // NOI18N
+        jLabel22.setText("Data Diri Staff Klinik");
 
         alamatPetugasField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -372,9 +357,21 @@ public class Panel_Registrasi_Staf extends javax.swing.JPanel {
             }
         });
 
-        namaPetugasField.addActionListener(new java.awt.event.ActionListener() {
+        jkPetugasBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "[pilih]", "P", "L" }));
+
+        jabatanField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                namaPetugasFieldActionPerformed(evt);
+                jabatanFieldActionPerformed(evt);
+            }
+        });
+
+        ttlPetugas.setDateFormatString("yyyy-MM-dd");
+        ttlPetugas.setMaxSelectableDate(null);
+        ttlPetugas.setMinSelectableDate(null);
+
+        teleponPetugasField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                teleponPetugasFieldActionPerformed(evt);
             }
         });
 
@@ -385,21 +382,6 @@ public class Panel_Registrasi_Staf extends javax.swing.JPanel {
             }
         });
 
-        ttlPetugas.setDateFormatString("yyyy-MM-dd");
-        ttlPetugas.setMaxSelectableDate(null);
-        ttlPetugas.setMinSelectableDate(null);
-
-        jkPetugasBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "[pilih]", "P", "L" }));
-
-        jLabel17.setFont(new java.awt.Font("Cambria Math", 0, 14)); // NOI18N
-        jLabel17.setText("ID Petugas");
-
-        idPetugasField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                idPetugasFieldActionPerformed(evt);
-            }
-        });
-
         resetbutton.setText("RESET");
         resetbutton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -407,122 +389,128 @@ public class Panel_Registrasi_Staf extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(270, 270, 270)
+        jLabel20.setFont(new java.awt.Font("Cambria Math", 0, 14)); // NOI18N
+        jLabel20.setText("Agama");
+
+        jLabel19.setFont(new java.awt.Font("Cambria Math", 0, 14)); // NOI18N
+        jLabel19.setText("Nomor Telepon");
+
+        jLabel18.setFont(new java.awt.Font("Cambria Math", 0, 14)); // NOI18N
+        jLabel18.setText("Tanggal Lahir");
+
+        jLabel21.setFont(new java.awt.Font("Cambria Math", 0, 14)); // NOI18N
+        jLabel21.setText("Jabatan");
+
+        jLabel23.setFont(new java.awt.Font("Cambria Math", 0, 14)); // NOI18N
+        jLabel23.setText("Alamat");
+
+        jLabel24.setFont(new java.awt.Font("Cambria Math", 0, 14)); // NOI18N
+        jLabel24.setText("Jenis Kelamin");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(260, 260, 260)
                         .addComponent(simpanPetugas)
                         .addGap(61, 61, 61)
-                        .addComponent(resetbutton)))
-                .addContainerGap(264, Short.MAX_VALUE))
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(144, 144, 144)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel7Layout.createSequentialGroup()
-                                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGap(104, 104, 104)
-                                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(53, 53, 53)
-                                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(alamatPetugasField, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jkPetugasBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                                    .addComponent(jLabel17)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(idPetugasField, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                                    .addComponent(jLabel13)
-                                    .addGap(54, 54, 54)
-                                    .addComponent(namaPetugasField, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(resetbutton))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(134, 134, 134)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel13))
+                                        .addGap(54, 54, 54))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel17)
+                                        .addGap(93, 93, 93)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(idPetugasField, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(namaPetugasField, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(alamatPetugasField, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(105, 105, 105))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(53, 53, 53)
-                                .addComponent(teleponPetugasField))
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel7Layout.createSequentialGroup()
-                                        .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jkPetugasBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 0, Short.MAX_VALUE))
-                                    .addGroup(jPanel7Layout.createSequentialGroup()
-                                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(53, 53, 53)
-                                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jabatanField)
-                                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                                .addComponent(ttlPetugas, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(0, 0, Short.MAX_VALUE)))))
-                                .addContainerGap())
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(53, 53, 53)
-                                .addComponent(agamaPetugasField, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE))))))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(agamaPetugasField, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(teleponPetugasField, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
+                                            .addComponent(ttlPetugas, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jabatanField))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)))))))
+                .addContainerGap())
         );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
                 .addComponent(jLabel22)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel17)
-                            .addComponent(idPetugasField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel13)
-                            .addComponent(namaPetugasField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(alamatPetugasField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel15)
-                            .addComponent(jkPetugasBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel21)
-                            .addComponent(jabatanField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(29, 29, 29)
-                        .addComponent(jLabel18))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(ttlPetugas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel17)
+                    .addComponent(idPetugasField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(namaPetugasField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(alamatPetugasField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel23))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jkPetugasBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel24))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addComponent(jLabel21)
+                        .addGap(31, 31, 31))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jabatanField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(ttlPetugas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel19)
                     .addComponent(teleponPetugasField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel20)
                     .addComponent(agamaPetugasField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(48, 48, 48)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(simpanPetugas)
                     .addComponent(resetbutton))
-                .addGap(45, 45, 45))
+                .addGap(30, 30, 30))
         );
 
-        jScrollPane2.setViewportView(jPanel7);
+        jScrollPane3.setViewportView(jPanel1);
 
-        jTabbedPane1.addTab("Non-Dokter", jScrollPane2);
+        jTabbedPane1.addTab("Non-dokter", jScrollPane3);
 
         jLabel1.setFont(new java.awt.Font("Maiandra GD", 0, 24)); // NOI18N
         jLabel1.setText("Registrasi Pegawai");
@@ -556,10 +544,6 @@ public class Panel_Registrasi_Staf extends javax.swing.JPanel {
     private void namaFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namaFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_namaFieldActionPerformed
-
-    private void namaPetugasFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namaPetugasFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_namaPetugasFieldActionPerformed
 
     private void teleponFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teleponFieldActionPerformed
         // TODO add your handling code here:
@@ -734,6 +718,14 @@ private void refresh(){
         // TODO add your handling code here:
     }//GEN-LAST:event_jkBoxActionPerformed
 
+    private void namaPetugasFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namaPetugasFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_namaPetugasFieldActionPerformed
+
+    private void idPetugasFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idPetugasFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_idPetugasFieldActionPerformed
+
     private void alamatPetugasFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alamatPetugasFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_alamatPetugasFieldActionPerformed
@@ -755,41 +747,39 @@ private void refresh(){
         boolean isi5 = false;//tanggal lahir
         boolean isi6 = false;//nomor telepon
         boolean isi7 = false;//agama
-        
-        
+
         if(!idPetugasField.getText().equals("")){
             isi1 = true;
         }
-        
+
         if(!namaPetugasField.getText().equals("")){
             isi2 = true;
-            
+
         }
-        
+
         if(!alamatPetugasField.getText().equals("")){
             isi3 = true;
-            
+
         }
-        
+
         if(!jabatanField.getText().equals("")){
             isi4 = true;
-            
+
         }
-        
+
         if(!ttlPetugas.getDate().toString().equals("")){
             isi5 = true;
-            
+
         }
-        
+
         if(!teleponPetugasField.getText().equals("")){
             isi6 = true;
         }
-        
+
         if(!agamaPetugasField.getText().equals("")){
             isi7 = true;
         }
-        
-        
+
         if(isi1&&isi2&&isi3&&isi4&&isi5&&isi6&&isi7)    {
             petugas petugas = new petugas ();
             String id_petugas = idPetugasField.getText();
@@ -801,8 +791,7 @@ private void refresh(){
             String tgl = new java.text.SimpleDateFormat("yyyy-MM-dd").format(tanggal3);
             String telepon = teleponPetugasField.getText();
             String agama = agamaPetugasField.getText();
-            
-            
+
             try {
                 petugas.setId_Petugas(id_petugas);
                 petugas.setNama_Petugas(nama_petugas);
@@ -812,21 +801,20 @@ private void refresh(){
                 petugas.setTanggalLahir(tgl);
                 petugas.setTelepon(telepon);
                 petugas.setAgama(agama);
-                  
-                                  
+
                 if (ps.insertPetugas(petugas)!=null) {
                     int opsi = JOptionPane.showConfirmDialog(null, "Data Anda berhasil disimpan. Apakah Anda akan menambahkan data lagi?","", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
                 }
-                
+
             }
             catch(RemoteException exception){
                 exception.printStackTrace();
             }
         }
         else{
-            
+
             JOptionPane.showMessageDialog(null,"ada data yang salah isi", "ERROR", JOptionPane.ERROR_MESSAGE);
-            
+
             if(!isi1){
                 idPetugasField.setBackground(Color.red);
             }
@@ -848,33 +836,34 @@ private void refresh(){
             if(!isi7){
                 agamaPetugasField.setBackground(Color.red);
             }
-            
-            
+
             JOptionPane.showMessageDialog(null, "Ada kesalahan pada kolom isian Anda. Mohon memperbaiki field yang berwarna merah untuk melanjutkan.", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-        
-        
-    
-        
-//        if (!idPetugasField.getText().equals("") && !namaPetugasField.getText().equals("") && !jabatanField.getText().equals("") && !alamatPetugasField.getText().equals("") && !teleponPetugasField.getText().equals("") && !ttlPetugas.getDate().toString().equals("") && !jkPetugasBox.getSelectedItem().toString().equals("[pilih]")&&!agamaPetugasField.getText().equals("")){
-//           
-//            try {
-//            petugas petugas = new petugas ();
-//            petugas.setId_Petugas(idPetugasField.getText());
-//            petugas.setNama_Petugas(namaPetugasField.getText());
-//            petugas.setJabatan(jabatanField.getText());
-//            petugas.setAlamat(alamatPetugasField.getText());
-//            petugas.setTelepon(teleponField.getText());
-//            petugas.setTanggalLahir(tanggalPetugas);
-//            petugas.setJenKel(""+jkPetugasBox.getSelectedItem());
-//            petugas.setAgama(agamaPetugasField.getText());
-//                
-//            ps.insertPetugas(petugas);
-//            } catch (RemoteException ex) {
-//                Logger.getLogger(Panel_Registrasi_Staf.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
+
+        //        if (!idPetugasField.getText().equals("") && !namaPetugasField.getText().equals("") && !jabatanField.getText().equals("") && !alamatPetugasField.getText().equals("") && !teleponPetugasField.getText().equals("") && !ttlPetugas.getDate().toString().equals("") && !jkPetugasBox.getSelectedItem().toString().equals("[pilih]")&&!agamaPetugasField.getText().equals("")){
+            //
+            //            try {
+                //            petugas petugas = new petugas ();
+                //            petugas.setId_Petugas(idPetugasField.getText());
+                //            petugas.setNama_Petugas(namaPetugasField.getText());
+                //            petugas.setJabatan(jabatanField.getText());
+                //            petugas.setAlamat(alamatPetugasField.getText());
+                //            petugas.setTelepon(teleponField.getText());
+                //            petugas.setTanggalLahir(tanggalPetugas);
+                //            petugas.setJenKel(""+jkPetugasBox.getSelectedItem());
+                //            petugas.setAgama(agamaPetugasField.getText());
+                //
+                //            ps.insertPetugas(petugas);
+                //            } catch (RemoteException ex) {
+                //                Logger.getLogger(Panel_Registrasi_Staf.class.getName()).log(Level.SEVERE, null, ex);
+                //            }
+            //        }
     }//GEN-LAST:event_simpanPetugasActionPerformed
+
+    private void resetbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetbuttonActionPerformed
+        // TODO add your handling code here:
+        refresh2 ();
+    }//GEN-LAST:event_resetbuttonActionPerformed
     private void refresh2 () {
         idPetugasField.setText("");
         namaPetugasField.setText("");
@@ -887,15 +876,6 @@ private void refresh(){
                 
                 
     } 
-
-    private void idPetugasFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idPetugasFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_idPetugasFieldActionPerformed
-
-    private void resetbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetbuttonActionPerformed
-        // TODO add your handling code here:
-        refresh2 ();
-    }//GEN-LAST:event_resetbuttonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField agamaField;
@@ -912,8 +892,6 @@ private void refresh(){
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -921,6 +899,8 @@ private void refresh(){
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -928,10 +908,10 @@ private void refresh(){
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jabatanField;
     private javax.swing.JComboBox jkBox;
