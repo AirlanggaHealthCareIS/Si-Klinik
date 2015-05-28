@@ -5,6 +5,7 @@
 package database.Service;
 
 import database.entity.obat;
+import database.entity.obat_kritis;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
@@ -28,4 +29,6 @@ public interface Obat_Service extends Remote {
     String getIdObat(String nama) throws RemoteException;
     
     obat getLastObat() throws RemoteException;
+    
+    List<obat_kritis> getObatKritis() throws RemoteException;
 }

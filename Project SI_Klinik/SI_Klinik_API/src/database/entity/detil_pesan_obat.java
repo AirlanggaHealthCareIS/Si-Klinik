@@ -7,7 +7,7 @@ package database.entity;
 import java.io.Serializable;
 /**
  *
- * @author asus
+ * @author alif
  */
 public class detil_pesan_obat implements Serializable{
     private String id_pemesanan_obat;
