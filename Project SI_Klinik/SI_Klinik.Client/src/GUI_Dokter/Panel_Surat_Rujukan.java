@@ -4,17 +4,69 @@
  */
 package GUI_Dokter;
 
+import GUI_StafKlinik.Panel_Laporan_Keuangan;
+import database.Service.RekamMedik_Service;
+import database.Service.Pasien_Service;
+import database.entity.Pasien;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import database.entity.Laporan_Keuangan;
+import database.entity.Rekam_Medis;
+import java.awt.Color;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.rmi.RemoteException;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Acer
  */
 public class Panel_Surat_Rujukan extends javax.swing.JPanel {
+Pasien pasien;
+Rekam_Medis rm;
+Pasien_Service pas;
+
+    private Font font1 = new Font(Font.FontFamily.HELVETICA,14,Font.BOLD);
+    private Font font2 = new Font(Font.FontFamily.HELVETICA,18,Font.BOLD);
+    private Font font3 = new Font(Font.FontFamily.HELVETICA,11,Font.BOLD);
+    private Font font5 = new Font(Font.FontFamily.HELVETICA,11);
+    private Font font4 = new Font(Font.FontFamily.HELVETICA,9);
+    private Font font6 = new Font(Font.FontFamily.HELVETICA,9,Font.BOLD);
+    
 
     /**
      * Creates new form Panel_Surat_Rujukan
      */
-    public Panel_Surat_Rujukan() {
-        initComponents();
+    public Panel_Surat_Rujukan(GUI_Dokter gui, Rekam_Medis rm) {
+          initComponents();          
+          this.rm = rm;
+          pas = gui.pas;
+        try {
+            pasien = pas.getPasien(rm.getId_Pasien());
+        } catch (RemoteException ex) {
+            Logger.getLogger(Panel_Surat_Rujukan.class.getName()).log(Level.SEVERE, null, ex);
+        }          
     }
 
     /**
@@ -30,10 +82,8 @@ public class Panel_Surat_Rujukan extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTextPane3 = new javax.swing.JTextPane();
+        nama = new javax.swing.JTextPane();
         jButton2 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
 
         jButton1.setText("Cetak");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -50,7 +100,12 @@ public class Panel_Surat_Rujukan extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Maiandra GD", 1, 18)); // NOI18N
         jLabel4.setText("Tujuan Rumah Sakit Rujukan");
 
-        jScrollPane3.setViewportView(jTextPane3);
+        nama.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                namaFocusGained(evt);
+            }
+        });
+        jScrollPane3.setViewportView(nama);
 
         jButton2.setText("Cetak");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -59,52 +114,39 @@ public class Panel_Surat_Rujukan extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel1.setText("ID Dokter :");
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel2.setText("ID Pasien  :");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(226, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(308, 308, 308))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(248, 248, 248))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(206, 206, 206))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(237, 237, 237)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel5))
+                .addComponent(jLabel5)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(227, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(205, 205, 205))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(246, 246, 246))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(307, 307, 307))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(51, 51, 51)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addGap(60, 60, 60)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
+                .addGap(33, 33, 33)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(43, 43, 43)
                 .addComponent(jButton2)
-                .addGap(106, 106, 106))
+                .addContainerGap(172, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -113,17 +155,134 @@ public class Panel_Surat_Rujukan extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+    if(!nama.getText().equals("")){
+        createPdf();
+    }
+    else{
+        nama.setBackground(Color.red);
+        JOptionPane.showMessageDialog(null, "Mohon masukkan rumah sakit rujukan", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    }
+        
+    private void createPdf(){
+        JFileChooser saveFile = new JFileChooser();
+        saveFile.setSelectedFile(new File("D:/SI_KLINIK/Surat Rujukan.pdf"));        
+        String result = null;        
+        if (saveFile.showSaveDialog(null)== JFileChooser.APPROVE_OPTION) {
+              result= saveFile.getSelectedFile().toString();
+        } else {
+            System.out.println("No Selection ");
+            }
+        try {            
+            // TODO add your handling code here:
+            Document document = new Document();
+            try {
+                PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(result));                
+                document.open();
+                PdfContentByte canvas = writer.getDirectContent();
+                Rectangle rect = new Rectangle (50,800,550,700);
+                rect.setBorder(Rectangle.BOX);
+                rect.setBorderWidth(0);
+                rect.setBorderColor(BaseColor.BLACK);
+                canvas.rectangle(rect);
+                Paragraph preface;
+                preface= getPreface("SURAT RUJUKAN PASIEN");                
+                document.add(preface);
+                document.add(Chunk.NEWLINE);
+                document.add(Chunk.NEWLINE);
+                document.add(createParagraph());
+                document.close();
+                open(result);                
+            } catch (DocumentException ex) {
+                Logger.getLogger(Panel_Surat_Rujukan.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Panel_Surat_Rujukan.class.getName()).log(Level.SEVERE, null, ex);
+        }       
+    }
+    
+     
+    public void open(String url) {
+        try {
+            Desktop desktop = Desktop.getDesktop();
+            if (desktop.isSupported(Desktop.Action.OPEN)) {
+                desktop.open(new File(url));
+            } else {
+                System.out.println("Open is not supported");
+            }
+        } catch (IOException exp) {
+            exp.printStackTrace();
+        }
+    }
+    
+    
+    private Paragraph createParagraph(){
+        Paragraph preface =new Paragraph();
+        preface.setAlignment(Element.ALIGN_LEFT);     
+        Chunk chunk = new Chunk("Rumah Sakit Rujukan: " +nama.getText(),font5);
+        preface.add(Chunk.NEWLINE);
+        preface.add(chunk);        
+        chunk = new Chunk("Mohon konsultasi dan perawatan selanjutnya untuk: ",font5);
+        preface.add(Chunk.NEWLINE);
+        preface.add(chunk);
+        chunk = new Chunk("Nama Pasien : "+pasien.getNama_Pasien(),font3);
+        preface.add(Chunk.NEWLINE);
+        preface.add(chunk);
+        chunk = new Chunk("Diagnosa :"+rm.getAssessments(),font4);
+        preface.add(Chunk.NEWLINE);
+        preface.add(chunk);
+        
+        chunk = new Chunk("Demikian dan terimakasih.",font4);
+        preface.add(Chunk.NEWLINE);
+        preface.add(chunk);
+        return preface;
+    }
+    
+    private Paragraph getPreface(String status){
+        Paragraph preface =new Paragraph();
+        Calendar cal = new GregorianCalendar();
+        String tanggal ="0";
+        if(cal.get(Calendar.DATE)<0){
+            tanggal="0"+cal.get(Calendar.DATE);
+        }
+        else{
+            tanggal=""+cal.get(Calendar.DATE);
+        }
+        int bulan=(cal.get(Calendar.MONTH))+1;;                
+        int tahun= cal.get(Calendar.YEAR);
+        preface.setAlignment(Element.ALIGN_CENTER);     
+        Chunk chunk = new Chunk("Surat Rujukan Pasien",font1);
+        preface.add(Chunk.NEWLINE);
+        preface.add(chunk);
+        chunk = new Chunk("SI Klinik",font2);
+        preface.add(Chunk.NEWLINE);
+        preface.add(chunk);
+        chunk = new Chunk("Surabaya",font3);
+        preface.add(Chunk.NEWLINE);
+        preface.add(chunk);
+        chunk = new Chunk("Jawa Timur",font4);
+        preface.add(Chunk.NEWLINE);
+        preface.add(chunk);
+        chunk = new Chunk("NO Telp. 031-675725",font5);
+        preface.add(Chunk.NEWLINE);
+        preface.add(chunk);
+        chunk = new Chunk("Tanggal : "+tanggal+"-"+bulan+"-"+tahun,font5);
+        preface.add(Chunk.NEWLINE);
+        preface.add(chunk);
+        return preface;
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void namaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_namaFocusGained
+        // TODO add your handling code here:
+        nama.setBackground(Color.white);
+    }//GEN-LAST:event_namaFocusGained
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextPane jTextPane3;
+    private javax.swing.JTextPane nama;
     // End of variables declaration//GEN-END:variables
 }
