@@ -58,7 +58,7 @@ public class TableModel_Penyakit extends AbstractTableModel{
 
     
     public int getColumnCount() {
-        return 8;
+        return 2;
     }
 
    

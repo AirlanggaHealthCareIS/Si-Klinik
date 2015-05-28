@@ -33,7 +33,7 @@ public class Form_Data_Penyakit_Ubah extends javax.swing.JFrame {
      */
     public Form_Data_Penyakit_Ubah(GUI_Admin gui, Penyakit s) {
         initComponents();
-        penyakitservice = (Penyakit_Service) gui.ss;
+        penyakitservice = (Penyakit_Service) gui.penys;
         penyakit = s;
         this.gui = gui;
         nama1.setText(penyakit.getId_Penyakit());
@@ -265,7 +265,7 @@ public class Form_Data_Penyakit_Ubah extends javax.swing.JFrame {
     
     private void OKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKActionPerformed
         // TODO add your handling code here:
-        
+        UbahPenyakit();
     }//GEN-LAST:event_OKActionPerformed
 
     private void BACKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BACKActionPerformed

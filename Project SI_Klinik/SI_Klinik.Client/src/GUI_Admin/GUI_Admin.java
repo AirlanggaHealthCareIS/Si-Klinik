@@ -36,52 +36,22 @@ import javax.swing.JPanel;
 
 public class GUI_Admin extends javax.swing.JFrame {
     petugas p;    
-    Pasien pasi;
     Petugas_Service ps;
-    Supplier_Service ss;
     Penyakit_Service penys;
     Obat_Service os;
-    lihat_Resep_Service lrs;
-    Detail_Lihat_Resep_Service dlrs;
-    Resep_Service rs;
-    RekamMedik_Service rm; 
-    Detail_Resep_Service drs;
-    TransaksiObat_Service tos;
-    DetailTransaksiObat_Service dtos;
-    Pemesanan_Obat_Service pos;
-    public Pasien_Service pas;
-    public Pendaftaran_Service pds;
     
     public GUI_Admin (petugas p, Login l){
         super("Admin");
         initComponents();
         this.p= p;
-        ss = l.service12;
         penys=l.service16;
         ps = l.service1;
-        lrs = l.service17;
         os = l.service10;
-        dlrs = l.service18;
-        rs = l.service11;
-        tos = l.service19;
-        dtos = l.service20;
-        pos = l.service22;
-        drs = l.service8;
-        pas = l.service4;
-        pds= l.service3;
-        rm= l.service15;
         jLabel3.setText(p.getNama_Petugas());
-        //Panel_Profil_Admin panel = new Panel_Profil_Admin(this);
-      //  jPanel4.add(panel);
+        Panel_Profil_Admin panel = new Panel_Profil_Admin(this);
+        jPanel4.add(panel);
     }
     
-    public void setPasien (Pasien pasi){
-        this.pasi = pasi;
-    } 
-    
-    public Pasien getPasien(){
-        return pasi;
-    }
     
      public String getTanggal(){
         Calendar cal = new GregorianCalendar();
@@ -349,7 +319,4 @@ public class GUI_Admin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     // End of variables declaration//GEN-END:variables
 
-    void updatePanel(Panel_Profil_Admin_Ubah panel) {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
 }

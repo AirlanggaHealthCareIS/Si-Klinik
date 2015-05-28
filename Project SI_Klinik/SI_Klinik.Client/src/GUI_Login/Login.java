@@ -9,6 +9,7 @@ import java.rmi.registry.Registry;
 import java.rmi.NotBoundException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.RemoteException;
+import GUI_Admin.GUI_Admin;
 import GUI_Apoteker.GUI_Apoteker;
 import GUI_Dokter.GUI_Dokter;
 import GUI_Kasir.GUI_Kasir;
@@ -249,7 +250,7 @@ public class Login extends javax.swing.JFrame {
         service20 = (DetailTransaksiObat_Service) registry.lookup("service20"); 
         service21 = (Penggajian_Service) registry.lookup("service21");
         service22 = (Pemesanan_Obat_Service) registry.lookup("service22");
-        service24 = (List_PO_Service) registry.lookup("service24");
+        //service24 = (List_PO_Service) registry.lookup("service24");
     }
             
             
@@ -332,7 +333,14 @@ public class Login extends javax.swing.JFrame {
                         GUI_StafKlinik panggil = new GUI_StafKlinik(p,this);
                         panggil.show();
                         this.dispose();
-                   }                 
+                   } 
+                   
+                   
+                   else if(jabatan.equalsIgnoreCase("Admin"))   {
+                        GUI_Admin panggil = new GUI_Admin(p,this);
+                        panggil.show();
+                        this.dispose();
+                   } 
                 } 
              }
           } catch (RemoteException ex) {

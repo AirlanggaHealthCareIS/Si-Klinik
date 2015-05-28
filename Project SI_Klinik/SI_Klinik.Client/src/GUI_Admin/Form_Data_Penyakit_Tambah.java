@@ -31,7 +31,7 @@ public class Form_Data_Penyakit_Tambah extends javax.swing.JFrame {
     
     public Form_Data_Penyakit_Tambah(GUI_Admin gui) {
         initComponents();
-        ss = (Penyakit_Service) gui.ss;
+        ss = (Penyakit_Service) gui.penys;
         this.gui = gui;
     }
     
@@ -70,7 +70,7 @@ public class Form_Data_Penyakit_Tambah extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Footlight MT Light", 0, 18)); // NOI18N
         jLabel1.setText("INPUT DATA PENYAKIT");
 
-        jLabel3.setText("NAMA SUPPLIER ");
+        jLabel3.setText("NAMA PENYAKIT ");
 
         OK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Save-32.png"))); // NOI18N
         OK.setText("SIMPAN");
@@ -213,7 +213,7 @@ public class Form_Data_Penyakit_Tambah extends javax.swing.JFrame {
             
             String ID = null;
             try {
-                ID = "PENY"+(ss.getPenyakitAll().size()+1);
+                ID = "P-"+(ss.getPenyakitAll().size()+1);
             } catch (RemoteException ex) {
                 Logger.getLogger(Form_Data_Penyakit_Tambah.class.getName()).log(Level.SEVERE, null, ex);
             }

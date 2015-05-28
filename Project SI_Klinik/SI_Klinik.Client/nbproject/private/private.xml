@@ -12,14 +12,15 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Ardy%20Naibaho/Downloads/jessica%20-%20titip/Si-Klinik/trunk/Project%20SI_Klinik/SI_Klinik.Client/src/GUI_Dokter/Panel_Rekam_Medik_Detail.java</file>
-            <file>file:/C:/Users/Ardy%20Naibaho/Downloads/jessica%20-%20titip/Si-Klinik/trunk/Project%20SI_Klinik/SI_Klinik.Client/src/GUI_Login/Login.java</file>
-            <file>file:/C:/Users/Ardy%20Naibaho/Downloads/jessica%20-%20titip/Si-Klinik/trunk/Project%20SI_Klinik/SI_Klinik.Client/src/GUI_Dokter/Panel_Resep.java</file>
-            <file>file:/C:/Users/Ardy%20Naibaho/Downloads/jessica%20-%20titip/Si-Klinik/trunk/Project%20SI_Klinik/SI_Klinik.Client/src/GUI_Dokter/Form_Tambah_Resep.java</file>
-            <file>file:/C:/Users/Ardy%20Naibaho/Downloads/jessica%20-%20titip/Si-Klinik/trunk/Project%20SI_Klinik/SI_Klinik.Client/src/GUI_Owner/GUI_Owner.java</file>
-            <file>file:/C:/Users/Ardy%20Naibaho/Downloads/jessica%20-%20titip/Si-Klinik/trunk/Project%20SI_Klinik/SI_Klinik.Client/src/GUI_Apoteker/Panel_Pembelian.java</file>
-            <file>file:/C:/Users/Ardy%20Naibaho/Downloads/jessica%20-%20titip/Si-Klinik/trunk/Project%20SI_Klinik/SI_Klinik.Client/src/GUI_StafKlinik/Panel_Laporan_Keuangan.java</file>
-            <file>file:/C:/Users/Ardy%20Naibaho/Downloads/jessica%20-%20titip/Si-Klinik/trunk/Project%20SI_Klinik/SI_Klinik.Client/test/Test_Panel_Laporan_Keuangan.java</file>
+            <file>file:/C:/Users/user/Documents/Si-Klinik.git/trunk/Project%20SI_Klinik/SI_Klinik.Client/src/GUI_Admin/GUI_Admin.java</file>
+            <file>file:/C:/Users/user/Documents/Si-Klinik.git/trunk/Project%20SI_Klinik/SI_Klinik.Client/src/GUI_Apoteker/GUI_Apoteker.java</file>
+            <file>file:/C:/Users/user/Documents/Si-Klinik.git/trunk/Project%20SI_Klinik/SI_Klinik.Client/src/GUI_Admin/Form_Data_Penyakit_Tambah.java</file>
+            <file>file:/C:/Users/user/Documents/Si-Klinik.git/trunk/Project%20SI_Klinik/SI_Klinik.Client/src/GUI_Login/Login.java</file>
+            <file>file:/C:/Users/user/Documents/Si-Klinik.git/trunk/Project%20SI_Klinik/SI_Klinik.Client/src/GUI_Admin/Form_data_penyakit.java</file>
+            <file>file:/C:/Users/user/Documents/Si-Klinik.git/trunk/Project%20SI_Klinik/SI_Klinik.Client/src/GUI_Admin/Form_Data_Penyakit_Ubah.java</file>
+            <file>file:/C:/Users/user/Documents/Si-Klinik.git/trunk/Project%20SI_Klinik/SI_Klinik.Client/src/GUI_Admin/Panel_Profil_Admin_Ubah.java</file>
+            <file>file:/C:/Users/user/Documents/Si-Klinik.git/trunk/Project%20SI_Klinik/SI_Klinik.Client/src/Client_Application_Model/TableModel_Penyakit.java</file>
+            <file>file:/C:/Users/user/Documents/Si-Klinik.git/trunk/Project%20SI_Klinik/SI_Klinik.Client/src/GUI_Admin/Panel_Profil_Admin.java</file>
         </group>
     </open-files>
 </project-private>

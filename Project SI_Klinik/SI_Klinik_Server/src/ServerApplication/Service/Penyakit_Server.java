@@ -62,7 +62,7 @@ public class Penyakit_Server extends UnicastRemoteObject implements Penyakit_Ser
             statement = DatabaseUtilities.getConnection().prepareStatement(
             "UPDATE penyakit SET  NAMA_PENYAKIT=? WHERE ID_PENYAKIT=?");
             statement.setString(1, b.getNama_Penyakit());
-            statement.setString(8, b.getId_Penyakit());
+            statement.setString(2, b.getId_Penyakit());
             statement.executeUpdate();  
         }
         catch (SQLException exception) {

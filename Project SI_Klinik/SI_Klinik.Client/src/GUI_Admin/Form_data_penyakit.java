@@ -32,10 +32,10 @@ public class Form_data_penyakit extends javax.swing.JPanel {
      * Creates new form Form_data_penyakit
      */
     public Form_data_penyakit(GUI_Admin gui) throws RemoteException, NotBoundException {
-        this.ss = (Penyakit_Service) gui.ss;
+        this.ss = (Penyakit_Service) gui.penys;
         this.gui=gui;        
         initComponents(); 
-         TOMBOL_UBAH.setEnabled(false);
+        TOMBOL_UBAH.setEnabled(false);
         tabelPenyakit.setData(this.ss.getPenyakitAll());
         tabelSup.setModel(tabelPenyakit);
         tabelSup.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
@@ -161,8 +161,6 @@ public class Form_data_penyakit extends javax.swing.JPanel {
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
-
-        jPanel2.getAccessibleContext().setAccessibleName("DATA PENYAKIT");
     }// </editor-fold>//GEN-END:initComponents
 
     private void TOMBOL_UBAHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TOMBOL_UBAHActionPerformed
