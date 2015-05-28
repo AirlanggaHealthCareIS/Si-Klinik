@@ -1,5 +1,6 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package Client_Application_Model;
@@ -12,7 +13,7 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author alif
  */
-public class TableModel_Generate_PO {
+public class TableModel_Generate_PO extends AbstractTableModel{
     private List<obat_kritis> list = new ArrayList<obat_kritis>();
     
     public TableModel_Generate_PO(){
