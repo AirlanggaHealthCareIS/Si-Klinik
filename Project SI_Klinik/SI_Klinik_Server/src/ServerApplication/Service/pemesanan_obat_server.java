@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 /**
  *
- * @author asus
+ * @author alif
  */
 public class pemesanan_obat_server extends UnicastRemoteObject implements Pemesanan_Obat_Service{
 
@@ -94,7 +94,6 @@ public class pemesanan_obat_server extends UnicastRemoteObject implements Pemesa
                 }
             }
         }}
-    
     @Override
     public Pemesanan_Obat getLastPO() throws RemoteException {
         System.out.println("proses get LAST PO");

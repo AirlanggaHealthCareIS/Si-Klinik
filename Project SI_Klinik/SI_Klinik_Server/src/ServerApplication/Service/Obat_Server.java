@@ -6,6 +6,7 @@ package ServerApplication.Service;
  
 import database.Service.Obat_Service;
 import database.entity.obat;
+import database.entity.obat_kritis;
 import si_klinik_server.DatabaseUtilities;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -146,6 +147,43 @@ public class Obat_Server extends UnicastRemoteObject implements Obat_Service {
         }
     }
     
+    public List<obat_kritis> getObatKritis() throws RemoteException {
+        System.out.println("proses get obat kritis");
+        Statement statement = null;        
+        try {
+            
+          statement = DatabaseUtilities.getConnection().createStatement();
+
+          ResultSet result = statement.executeQuery("select O.`ID_OBAT`, O.`NAMA_OBAT`, s.NAMA_SUPPLIER, ((O.STOK_KRITIS - O.STOK_OBAT)+1)  AS SELISIH from obat as O, supplier as s where `STOK_KRITIS` >=`STOK_OBAT` and O.ID_SUPPLIER = S.ID_SUPPLIER");
+
+          List list = new ArrayList();
+          
+          while(result.next()){
+            obat_kritis a = new obat_kritis();
+            a.setID_OBAT(result.getString("ID_OBAT"));
+            a.setNAMA_OBAT(result.getString("NAMA_OBAT"));
+            a.setNAMA_SUPPLIER(result.getString("NAMA_SUPPLIER"));
+            a.setSELISIH(result.getInt("SELISIH"));
+            list.add(a);
+            }
+            result.close();
+            return list;
+        } 
+        catch (SQLException exception) {
+            exception.printStackTrace();
+            return null;
+        }
+        finally{
+            if(statement!=null){
+                try {
+                    statement.close();
+                } catch (SQLException  exception) {
+                    exception.printStackTrace();
+                }
+            }
+        }
+    }
+
     
 
     @Override 

@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  *
- * @author asus
+ * @author alif
  */
 public class Detail_List_PO_Server extends UnicastRemoteObject implements List_PO_Service{
 
@@ -35,8 +35,8 @@ public class Detail_List_PO_Server extends UnicastRemoteObject implements List_P
         PreparedStatement statement = null;
         try{
         statement = DatabaseUtilities.getConnection().prepareStatement(
-            "INSERT INTO `detil_pemesanan_obat`(`id_pemesanan_obat`, `id_obat`, `jumlah_pesanan`, 'status') VALUES (?,?,?,?)"
-        );
+            "INSERT INTO `detil_pemesanan_obat`(`id_pemesanan_obat`, `id_obat`, `jumlah_pesanan`, status) VALUES (?,?,?,?)"
+        );      
         
         statement.setString(1, PO.getId_Pemesanan_obat());
         statement.setString(2, PO.getId_obat());

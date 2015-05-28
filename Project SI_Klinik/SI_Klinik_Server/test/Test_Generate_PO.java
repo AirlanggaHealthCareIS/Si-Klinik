@@ -56,24 +56,37 @@ public class Test_Generate_PO {
     @Test
     public void testGetObatKritis() throws Exception{
         System.out.println("getobatkritis");
-        //List<obat> output = ok.getObatKritis();
-        List<obat> target = new ArrayList<>();
-        obat ambil = new obat();
-        ambil.setid_obat("O1");
-        ambil.setnama_obat("IBUPROFEN");
+        List<obat_kritis> output = ok.getObatKritis();
+        List<obat_kritis> target = new ArrayList<>();
+        obat_kritis ambil = new obat_kritis();
+        ambil.setID_OBAT("O1");
+        ambil.setNAMA_OBAT("IBUPROFEN");
+        ambil.setNAMA_SUPPLIER("PT GRACIA PHARMINDO");
+        //ambil.setSELISIH(Integer.parseInt("2"));
         target.add(ambil);
-        ambil = new obat();
-        ambil.setid_obat("O2");
-        ambil.setnama_obat("PROFEN");
+        ambil = new obat_kritis();
+        ambil.setID_OBAT("O2");
+        ambil.setNAMA_OBAT("PROFEN");
+        ambil.setNAMA_SUPPLIER("PT GRACIA PHARMINDO");
         target.add(ambil);
-        ambil = new obat();
-        ambil.setid_obat("O3");
-        ambil.setnama_obat("PARASETAMOL");
+        ambil = new obat_kritis();
+        ambil.setID_OBAT("O3");
+        ambil.setNAMA_OBAT("PARASETAMOL");
+        ambil.setNAMA_SUPPLIER("PT COMPHIPAR");
+        //ambil.setSELISIH(Integer.parseInt("2"));
         target.add(ambil);
-////        for(int i = 0; i<output.size(); i++){
-////            assertEquals(target.get(i).getid_obat(), output.get(i).getid_obat());
-////            assertEquals(target.get(i).getnama_obat(), output.get(i).getnama_obat());
-////        }
+        ambil = new obat_kritis();
+        ambil.setID_OBAT("O5");
+        ambil.setNAMA_OBAT("AMOXCILIN");
+        ambil.setNAMA_SUPPLIER("PT HOLI PHARMACEUTICAL INDUSTR");
+        //ambil.setSELISIH(Integer.parseInt("2"));
+        target.add(ambil);
+        for(int i = 0; i<output.size(); i++){
+            assertEquals(target.get(i).getID_OBAT(), output.get(i).getID_OBAT());
+            assertEquals(target.get(i).getNAMA_OBAT(), output.get(i).getNAMA_OBAT());
+            assertEquals(target.get(i).getNAMA_SUPPLIER(), output.get(i).getNAMA_SUPPLIER());
+            //assertEquals(target.get(i).getSELISIH(), output.get(i).getSELISIH());
+        }
     }
     
     @Test
@@ -82,9 +95,19 @@ public class Test_Generate_PO {
         List<Pemesanan_Obat> output = po.getPO();
         List<Pemesanan_Obat> target = new ArrayList<>();
         Pemesanan_Obat ambil = new Pemesanan_Obat();
-        ambil.setId_Pemesnan_obat("PO1");
-        ambil.setId_supplier("SUP001");
-        ambil.setTgl_Pemesanan("2015-04-08");
+        ambil.setId_Pemesnan_obat("PO2");
+        ambil.setId_supplier("SUP003");
+        ambil.setTgl_Pemesanan("2015-05-21");
+        target.add(ambil);
+        ambil = new Pemesanan_Obat();
+        ambil.setId_Pemesnan_obat("PO3");
+        ambil.setId_supplier("SUP003");
+        ambil.setTgl_Pemesanan("2015-05-21");
+        target.add(ambil);
+        ambil = new Pemesanan_Obat();
+        ambil.setId_Pemesnan_obat("PO4");
+        ambil.setId_supplier("SUP003");
+        ambil.setTgl_Pemesanan("2015-05-21");
         target.add(ambil);
         for(int i=0; i<output.size(); i++){
             assertEquals(target.get(i).getId_Pemesanan_obat(), output.get(i).getId_Pemesanan_obat());

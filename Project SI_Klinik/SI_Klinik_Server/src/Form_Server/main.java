@@ -20,6 +20,7 @@ import ServerApplication.Service.Detail_Lihat_Resep_Server;
 import ServerApplication.Service.Petugas_Server;
 import ServerApplication.Service.TransaksiObat_Server;
 import ServerApplication.Service.Penggajian_Server;
+import ServerApplication.Service.Detail_List_PO_Server;
 import ServerApplication.Service.pemesanan_obat_server;
 import ServerApplication.Service.Presensi_Server;
 import database.Service.Detail_Lihat_Resep_Service;
@@ -79,6 +80,7 @@ public class main {
         Penggajian_Server gajiServer = new Penggajian_Server();
         pemesanan_obat_server pesanServer = new pemesanan_obat_server();
         Presensi_Server presensiServer = new Presensi_Server();
+        Detail_List_PO_Server detailListPO = new Detail_List_PO_Server();
         
         
         server.rebind("service1",   petugasServer);
@@ -103,6 +105,7 @@ public class main {
         server.rebind("service21", gajiServer);
         server.rebind("service22", pesanServer);
         server.rebind("service23", presensiServer);
+        server.rebind("service24", detailListPO);
         
         System.out.println("Server Berhasil Tersambung");
     }
