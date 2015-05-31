@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 
+
+
 import database.entity.Penggajian;
 import ServerApplication.Service.Penggajian_Server;
 import java.rmi.RemoteException;
@@ -50,39 +52,32 @@ public class Test_Penggajian_Server {
     }
 
     /**
-     * Test of getPenggajianSemuaPegawai method, of class Penggajian_Server.
+     * Test of insertGaji method, of class Penggajian_Server.
      */
     @Test
-    public void testGetPenggajianSemuaPegawai() throws Exception {
-        System.out.println("getPenggajianSemuaPegawai");
-        String tanggal1 = "2015-04-01";
-        String tanggal2 = "2015-04-06";
-        //List<Penggajian> output = ps.getPenggajianSemuaPegawai(tanggal1, tanggal2);
-        List<Penggajian> target = new ArrayList();
-        Penggajian ambil = new Penggajian();
-        
-        ambil.setIdPenggajian("G002");
-        ambil.setIdPegawai("DOK002");
-        ambil.setNamaPegawai("DR. FADJAR ARIBOWO");
-        ambil.setTanggal("2015-04-06");
-        ambil.setGajiPokok(3000000);
-        target.add(ambil);
-        
-        ambil = new Penggajian();
-        ambil.setIdPenggajian("G003");
-        ambil.setIdPegawai("PET007");
-        ambil.setNamaPegawai("TRIYAH");
-        ambil.setTanggal("2015-04-06");
-        ambil.setGajiPokok(3000000);
-        target.add(ambil);
-        
-//        for (int i=0; i<output.size(); i++){
-//            assertEquals(target.get(i).getIdPenggajian(), output.get(i).getIdPenggajian());
-//            assertEquals(target.get(i).getIdPegawai(), output.get(i).getIdPegawai());
-//            assertEquals(target.get(i).getNamaPegawai(), output.get(i).getNamaPegawai());
-//            assertEquals(target.get(i).getTanggal(), output.get(i).getTanggal());
-//            assertEquals(target.get(i).getGajiPokok(), output.get(i).getGajiPokok());
-//        }
+    public void testInsertGaji() throws Exception {
+            Penggajian_Server penggajianServer = new Penggajian_Server();
+            List<Penggajian> output = penggajianServer.getPenggajianNonDokter();
+            Penggajian p = new Penggajian();
+            
+                p.setTanggal("2015-05-31");
+                p.setIdPegawai("PET007");
+                p.setNamaPegawai("Triyah");
+                p.setGajiPokok(3000000);
+                p.setGajiTambahan(30000);
+                p.setTotalGaji(3030000);
+                penggajianServer.insertGaji(p);
+            
+                Penggajian target = p;
+                
+                for (int i = 0; i < output.size(); i++) {
+                    assertEquals(target.getTanggal(), output.get(i).getTanggal());
+                    assertEquals(target.getIdPegawai(), output.get(i).getIdPegawai());
+                    assertEquals(target.getNamaPegawai(), output.get(i).getNamaPegawai());
+                    assertEquals(target.getGajiPokok(), output.get(i).getGajiPokok());
+                    assertEquals(target.getGajiTambahan(), output.get(i).getGajiTambahan());
+                    assertEquals(target.getTotalGaji(), output.get(i).getTotalGaji());
+                }
     }
 
     /**
@@ -90,30 +85,62 @@ public class Test_Penggajian_Server {
      */
     @Test
     public void testGetPenggajianNonDokter() throws Exception {
-        System.out.println("getPenggajianNonDokter");
-        String tanggal1 = "2015-04-01";
-        String tanggal2 = "2015-04-06";
-        //List<Penggajian> output = ps.getPenggajianNonDokter(tanggal1, tanggal2);
-        List<Penggajian> target = new ArrayList();
+        List<Penggajian> target = new ArrayList<>();
+        List<Penggajian> output = ps.getPenggajianNonDokter();
         Penggajian ambil = new Penggajian();
-        ambil.setTanggal("2015-04-06");
-        ambil.setIdPenggajian("G003");
+        
+        ambil.setIdPegawai("PET001");
+        ambil.setNamaPegawai("JESSICA");
+        ambil.setGajiPokok(2000000);
+        target.add(ambil);
+        
+        ambil = new Penggajian();
+        ambil.setIdPegawai("PET002");
+        ambil.setNamaPegawai("ALIF");
+        ambil.setGajiPokok(2000000);
+        target.add(ambil);
+        
+        ambil = new Penggajian();
+        ambil.setIdPegawai("PET003");
+        ambil.setNamaPegawai("YULIASTI");
+        ambil.setGajiPokok(2500000);
+        target.add(ambil);
+        
+        ambil = new Penggajian();
+        ambil.setIdPegawai("PET004");
+        ambil.setNamaPegawai("MELLA");
+        ambil.setGajiPokok(2500000);
+        target.add(ambil);
+        
+        ambil = new Penggajian();
+        ambil.setIdPegawai("PET005");
+        ambil.setNamaPegawai("INDYKA");
+        ambil.setGajiPokok(2500000);
+        target.add(ambil);
+        
+        ambil = new Penggajian();
+        ambil.setIdPegawai("PET006");
+        ambil.setNamaPegawai("MERRY");
+        ambil.setGajiPokok(3000000);
+        target.add(ambil);
+        
+        ambil = new Penggajian();
         ambil.setIdPegawai("PET007");
         ambil.setNamaPegawai("TRIYAH");
         ambil.setGajiPokok(3000000);
-        ambil.setGajiTambahan(0);
-        ambil.setTotalGaji(3000000);
         target.add(ambil);
         
-//        for (int i=0; i<output.size(); i++){
-//            assertEquals(target.get(i).getTanggal(), output.get(i).getTanggal());
-//            assertEquals(target.get(i).getIdPenggajian(), output.get(i).getIdPenggajian());
-//            assertEquals(target.get(i).getIdPegawai(), output.get(i).getIdPegawai());
-//            assertEquals(target.get(i).getNamaPegawai(), output.get(i).getNamaPegawai());
-//            assertEquals(target.get(i).getGajiPokok(), output.get(i).getGajiPokok());
-//            assertEquals(target.get(i).getGajiTambahan(), output.get(i).getGajiTambahan());
-//            assertEquals(target.get(i).getTotalGaji(), output.get(i).getTotalGaji());
-//        }
+        ambil = new Penggajian();
+        ambil.setIdPegawai("PET008");
+        ambil.setNamaPegawai("MELINDA");
+        ambil.setGajiPokok(3000000);
+        target.add(ambil);
+        
+        for (int i=0; i<output.size(); i++){
+            assertEquals(target.get(i).getIdPegawai(), output.get(i).getIdPegawai());
+            assertEquals(target.get(i).getNamaPegawai(), output.get(i).getNamaPegawai());
+            assertEquals(target.get(i).getGajiPokok(), output.get(i).getGajiPokok());
+        }
     }
 
     /**
@@ -121,133 +148,127 @@ public class Test_Penggajian_Server {
      */
     @Test
     public void testGetPenggajianDokter() throws Exception {
-        System.out.println("getPenggajianDokter");
-        String tanggal1 = "2015-04-01";
-        String tanggal2 = "2015-04-08";
-        //List<Penggajian> output = ps.getPenggajianDokter(tanggal1, tanggal2);
-        List<Penggajian> target = new ArrayList();
-        
+        List<Penggajian> target = new ArrayList<>();
+        List<Penggajian> output = ps.getPenggajianDokter();
         Penggajian ambil = new Penggajian();
+        
         ambil.setIdPegawai("DOK001");
         ambil.setNamaPegawai("DR. RETNO WISASTI, S");
-        ambil.setGajiPokok(3000000);
-        ambil.setTotalPeriksa(0);
-        ambil.setTarifPeriksa(100000);
-        ambil.setGajiTambahan(0);
+        ambil.setGajiPokok(1000000);
         target.add(ambil);
         
         ambil = new Penggajian();
         ambil.setIdPegawai("DOK002");
         ambil.setNamaPegawai("DR. FADJAR ARIBOWO");
-        ambil.setGajiPokok(3000000);
-        ambil.setTotalPeriksa(1);
-        ambil.setTarifPeriksa(100000);
-        ambil.setGajiTambahan(100000);
+        ambil.setGajiPokok(1000000);
         target.add(ambil);
         
         ambil = new Penggajian();
         ambil.setIdPegawai("DOK003");
         ambil.setNamaPegawai("DRG. DYAH AYU R. W.");
-        ambil.setGajiPokok(3000000);
-        ambil.setTotalPeriksa(0);
-        ambil.setTarifPeriksa(120000);
-        ambil.setGajiTambahan(0);
+        ambil.setGajiPokok(1000000);
         target.add(ambil);
         
         ambil = new Penggajian();
         ambil.setIdPegawai("DOK004");
         ambil.setNamaPegawai("DRG. BACHTIAR EFFEND");
-        ambil.setGajiPokok(3000000);
-        ambil.setTotalPeriksa(0);
-        ambil.setTarifPeriksa(120000);
-        ambil.setGajiTambahan(0);
+        ambil.setGajiPokok(1000000);
         target.add(ambil);
         
         ambil = new Penggajian();
         ambil.setIdPegawai("DOK005");
         ambil.setNamaPegawai("DR. NUGROHO TJANDRA ");
-        ambil.setGajiPokok(3000000);
-        ambil.setTotalPeriksa(0);
-        ambil.setTarifPeriksa(150000);
-        ambil.setGajiTambahan(0);
+        ambil.setGajiPokok(25000000);
         target.add(ambil);
-
+        
         ambil = new Penggajian();
         ambil.setIdPegawai("DOK006");
         ambil.setNamaPegawai("DR. I NYOMAN ADNYANA");
-        ambil.setGajiPokok(3000000);
-        ambil.setTotalPeriksa(0);
-        ambil.setTarifPeriksa(150000);
-        ambil.setGajiTambahan(0);
+        ambil.setGajiPokok(1000000);
         target.add(ambil);
         
         ambil = new Penggajian();
         ambil.setIdPegawai("DOK007");
         ambil.setNamaPegawai("DR. BUDIARTO, SP. PK");
-        ambil.setGajiPokok(3000000);
-        ambil.setTotalPeriksa(0);
-        ambil.setTarifPeriksa(150000);
-        ambil.setGajiTambahan(0);
+        ambil.setGajiPokok(10000000);
         target.add(ambil);
         
         ambil = new Penggajian();
         ambil.setIdPegawai("DOK008");
         ambil.setNamaPegawai("DR. MARIANA HAROEN, ");
-        ambil.setGajiPokok(3000000);
-        ambil.setTotalPeriksa(0);
-        ambil.setTarifPeriksa(100000);
-        ambil.setGajiTambahan(0);
+        ambil.setGajiPokok(400000);
         target.add(ambil);
         
         ambil = new Penggajian();
         ambil.setIdPegawai("DOK009");
         ambil.setNamaPegawai("DR. RAHARDJO ARIYO M");
-        ambil.setGajiPokok(3000000);
-        ambil.setTotalPeriksa(0);
-        ambil.setTarifPeriksa(100000);
-        ambil.setGajiTambahan(0);
+        ambil.setGajiPokok(30000000);
         target.add(ambil);
         
         ambil = new Penggajian();
         ambil.setIdPegawai("DOK010");
         ambil.setNamaPegawai("DR. HERI KABULLAH, S");
-        ambil.setGajiPokok(3000000);
-        ambil.setTotalPeriksa(0);
-        ambil.setTarifPeriksa(100000);
-        ambil.setGajiTambahan(0);
+        ambil.setGajiPokok(20000000);
         target.add(ambil);
         
-//        for (int i=0; i<output.size(); i++){
-//            assertEquals(target.get(i).getIdPegawai(), output.get(i).getIdPegawai());
-//            assertEquals(target.get(i).getNamaPegawai(), output.get(i).getNamaPegawai());
-//            assertEquals(target.get(i).getGajiPokok(), output.get(i).getGajiPokok());
-//            assertEquals(target.get(i).getTotalPeriksa(), output.get(i).getTotalPeriksa());
-//            assertEquals(target.get(i).getTarifPeriksa(), output.get(i).getTarifPeriksa());
-//            assertEquals(target.get(i).getGajiTambahan(), output.get(i).getGajiTambahan());
-//        }
+        for (int i=0; i<output.size(); i++){
+            assertEquals(target.get(i).getIdPegawai(), output.get(i).getIdPegawai());
+            assertEquals(target.get(i).getNamaPegawai(), output.get(i).getNamaPegawai());
+            assertEquals(target.get(i).getGajiPokok(), output.get(i).getGajiPokok());
+        }
     }
 
     /**
-     * Test of getGajiDokter method, of class Penggajian_Server.
+     * Test of getGajiPeriksa method, of class Penggajian_Server.
      */
-    
     @Test
-    public void testGetGajiDokter() throws Exception {
-        System.out.println("getGajiDokter");
+    public void testGetGajiPeriksa() throws Exception {
+        List<Penggajian> target = new ArrayList<>();
         String tanggal1 = "2015-04-01";
-        String tanggal2 = "2015-04-06";
-        String idDokter = "DOK002";
-        //List<Penggajian> output = ps.getGajiDokter(tanggal1, tanggal2, idDokter);
-        List<Penggajian> target = new ArrayList();
+        String tanggal2 = "2015-04-02";
+        List<Penggajian> output = ps.getGajiPeriksa(tanggal1, tanggal2);
         Penggajian ambil = new Penggajian();
-        ambil.setTanggal("2015-04-06");
-        ambil.setIdPenggajian("G002");
+        
+        ambil.setIdPegawai("DOK001");
+        ambil.setTarifPeriksa(50000);
+        ambil.setTotalPeriksa(3);
+        ambil.setGajiPokok(1000000);
         target.add(ambil);
         
-//        for (int i=0; i<output.size(); i++){
-//            assertEquals(target.get(i).getTanggal(), output.get(i).getTanggal());
-//            assertEquals(target.get(i).getIdPenggajian(), output.get(i).getIdPenggajian());
-//        }
+        ambil = new Penggajian();
+        ambil.setIdPegawai("DOK002");
+        ambil.setTarifPeriksa(50000);
+        ambil.setTotalPeriksa(1);
+        ambil.setGajiPokok(1000000);
+        target.add(ambil);
+        
+        for (int i=0; i<output.size(); i++){
+            assertEquals(target.get(i).getIdPegawai(), output.get(i).getIdPegawai());
+            assertEquals(target.get(i).getTarifPeriksa(), output.get(i).getTarifPeriksa());
+            assertEquals(target.get(i).getTotalPeriksa(), output.get(i).getTotalPeriksa());
+            assertEquals(target.get(i).getGajiPokok(), output.get(i).getGajiPokok());
+        }
+    }
+
+    /**
+     * Test of getPresensi method, of class Penggajian_Server.
+     */
+    @Test
+    public void testGetPresensi() throws Exception {
+        String tanggal1 = "2015-04-02";
+        String tanggal2 = "2015-04-02";
+        List<Penggajian> output = ps.getPresensi(tanggal1, tanggal2);
+        List<Penggajian> target = new ArrayList<>();
+        Penggajian ambil = new Penggajian();
+        
+        ambil.setIdPegawai("DOK001");
+        ambil.setPresensi(1);
+        target.add(ambil);
+        
+        for (int i=0; i<output.size(); i++){
+            assertEquals(target.get(i).getIdPegawai(), output.get(i).getIdPegawai());
+            assertEquals(target.get(i).getPresensi(), output.get(i).getPresensi());
+        }
     }
     
 }

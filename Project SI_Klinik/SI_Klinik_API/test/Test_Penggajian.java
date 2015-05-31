@@ -5,6 +5,7 @@
  */
 
 
+
 import database.entity.Penggajian;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -19,10 +20,10 @@ import static org.junit.Assert.*;
  */
 public class Test_Penggajian {
     
-    Penggajian g;
+    Penggajian p;
     
     public Test_Penggajian() {
-        g = new Penggajian();
+        p = new Penggajian();
     }
     
     @BeforeClass
@@ -41,67 +42,95 @@ public class Test_Penggajian {
     public void tearDown() {
     }
 
+    /**
+     * Test of setTanggal method, of class Penggajian.
+     */
     @Test
     public void testSetGetTanggal() {
-        String tanggal = "2015-04-06";
-        g.setTanggal(tanggal);
-        assertEquals(tanggal, g.getTanggal());
+        System.out.println("set tanggal");
+        String tanggal = "2015-05-31";
+        p.setTanggal(tanggal);
+        assertEquals(p.getTanggal(), tanggal);
     }
 
     @Test
     public void testSetGetNamaPegawai() {
-        String nama = "TRIYAH";
-        g.setNamaPegawai(nama);
-        assertEquals(nama, g.getNamaPegawai());
+        System.out.println("set nama pegawai");
+        String nama = "Dr. Retno Wisasti, S";
+        p.setNamaPegawai(nama);
+        assertEquals(p.getNamaPegawai(), nama);
     }
 
     @Test
     public void testSetGetIdPenggajian() {
-        String idPenggajian = "G003";
-        g.setIdPenggajian(idPenggajian);
-        assertEquals(idPenggajian, g.getIdPenggajian());
+        System.out.println("set id penggajian");
+        String id = "1";
+        p.setIdPenggajian(id);
+        assertEquals(p.getIdPenggajian(), id);
     }
 
     @Test
     public void testSetGetIdPegawai() {
-        String idPegawai = "PET007";
-        g.setIdPegawai(idPegawai);
-        assertEquals(idPegawai, g.getIdPegawai());
+        System.out.println("set id pegawai");
+        String idp = "DOK001";
+        p.setIdPegawai(idp);
+        assertEquals(p.getIdPegawai(), idp);
     }
 
     @Test
     public void testSetGetTotalPeriksa() {
-        int totalPeriksa = 0;
-        g.setTotalPeriksa(totalPeriksa);
-        assertEquals(totalPeriksa, g.getTotalPeriksa());
+        System.out.println("set total periksa");
+        int periksa = 13;
+        p.setTotalPeriksa(periksa);
+        assertEquals(p.getTotalPeriksa(), periksa);
     }
 
-    
     @Test
     public void testSetGetTarifPeriksa() {
-        int tarifPeriksa = 0;
-        g.setTarifPeriksa(tarifPeriksa);
-        assertEquals(tarifPeriksa, g.getTarifPeriksa());
+        System.out.println("set tarif periksa");
+        int tarif = 50000;
+        p.setTarifPeriksa(tarif);
+        assertEquals(p.getTarifPeriksa(), tarif);
     }
 
     @Test
     public void testSetGetGajiPokok() {
-        int gajiPokok = 3000000;
-        g.setGajiPokok(gajiPokok);
-        assertEquals(gajiPokok, g.getGajiPokok());
+        System.out.println("set gaji pokok");
+        int gajiPokok = 1000000;
+        p.setGajiPokok(gajiPokok);
+        assertEquals(p.getGajiPokok(), gajiPokok);
     }
 
     @Test
     public void testSetGetGajiTambahan() {
-        int gajiTambahan = 0;
-        g.setGajiTambahan(gajiTambahan);
-        assertEquals(gajiTambahan, g.getGajiTambahan());
+        System.out.println("set gaji tambahan");
+        int gajiTambahan = 740000;
+        p.setGajiTambahan(gajiTambahan);
+        assertEquals(p.getGajiTambahan(), gajiTambahan);
     }
 
     @Test
     public void testSetGetTotalGaji() {
-        int totalGaji = 3000000;
-        g.setTotalGaji(totalGaji);
-        assertEquals(totalGaji, g.getTotalGaji());
+        System.out.println("set total gaji");
+        int totalGaji = 1740000;
+        p.setTotalGaji(totalGaji);
+        assertEquals(p.getTotalGaji(), totalGaji);
     }
+
+    @Test
+    public void testSetGetPresensi() {
+        System.out.println("setTanggal");
+        int presensi = 6;
+        p.setPresensi(presensi);
+        assertEquals(p.getPresensi(), presensi);
+    }
+
+    @Test
+    public void testSetGetGajiPeriksa() {
+        System.out.println("setTanggal");
+        int gajiPeriksa = 650000;
+        p.setGajiPeriksa(gajiPeriksa);
+        assertEquals(p.getGajiPeriksa(), gajiPeriksa);
+    }
+    
 }

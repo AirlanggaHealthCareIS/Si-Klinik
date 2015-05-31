@@ -33,11 +33,9 @@ public class Laporan_Keuangan_Server extends UnicastRemoteObject implements Lapo
         PreparedStatement statement = null;
         try{
             statement = DatabaseUtilities.getConnection().prepareStatement(
-                    "INSERT INTO `pengeluaran`(`ID_Transaksi`, `Tanggal`, `Jumlah`, `Saldo`, `Flag`)\n"+
-                    "VALUES (?,?,?,0,0)"
+                    "INSERT INTO `pengeluaran`(`ID_Transaksi`, `Tanggal`, `Jumlah`, `Saldo`, `Flag`) VALUES (?,?,?,?,?)"
             );
             System.out.println(statement.toString());
-            
             statement.setString(1, lk.getId());
             statement.setString(2, lk.getTanggal());
             statement.setInt(3, lk.getPengeluaran());
@@ -48,6 +46,7 @@ public class Laporan_Keuangan_Server extends UnicastRemoteObject implements Lapo
             return lk;
         }
         catch(SQLException exception){
+            exception.printStackTrace();
             return null;
         }
         finally{
@@ -163,6 +162,47 @@ public class Laporan_Keuangan_Server extends UnicastRemoteObject implements Lapo
             );
             statement.setString(1, tanggal1);
             statement.setString(2, tanggal1);
+            Laporan_Keuangan laporan_keuangan = new Laporan_Keuangan(); 
+            ResultSet result = statement.executeQuery();
+
+          if(result.next()){
+                laporan_keuangan.setTanggal(result.getString("Tanggal"));
+                laporan_keuangan.setRef(result.getString("ID"));
+                laporan_keuangan.setPemasukan(result.getInt("Jumlah"));
+                laporan_keuangan.setSaldo(result.getInt("Saldo"));                
+                laporan_keuangan.setFlag(result.getInt("Flag"));
+          }
+          result.close();
+
+          return laporan_keuangan;
+
+        }
+        catch(SQLException exception){
+          exception.printStackTrace();
+          return null;
+        }
+        finally{
+            if(statement != null){
+                try{
+                    statement.close();
+                }catch(SQLException exception){
+                   exception.printStackTrace();
+                }
+            }
+        }
+    }
+    
+    @Override
+    public Laporan_Keuangan getPengeluaranAwal(String tanggal1) throws RemoteException {
+        
+        System.out.println("Client Melakukan Proses Get All");
+
+        PreparedStatement statement = null;
+        try{
+            statement = DatabaseUtilities.getConnection().prepareStatement(
+                    "SELECT P.ID_Transaksi AS ID, P.Tanggal AS Tanggal, P.Jumlah AS Jumlah, P.Saldo AS Saldo, P.Flag AS Flag FROM pengeluaran AS P WHERE P.Tanggal <? ORDER BY Flag DESC LIMIT 1" 
+            );
+            statement.setString(1, tanggal1);
             Laporan_Keuangan laporan_keuangan = new Laporan_Keuangan(); 
             ResultSet result = statement.executeQuery();
 

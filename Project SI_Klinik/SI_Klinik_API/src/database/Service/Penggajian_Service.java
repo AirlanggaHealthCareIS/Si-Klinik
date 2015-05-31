@@ -6,6 +6,7 @@
 
 package database.Service;
 
+import database.entity.Laporan_Keuangan;
 import database.entity.Penggajian;
 import java.rmi.RemoteException;
 import java.rmi.Remote;
@@ -21,4 +22,5 @@ public interface Penggajian_Service extends Remote {
    List<Penggajian> getPenggajianDokter () throws RemoteException;
    List<Penggajian> getPresensi(String tanggal1, String tanggal2)throws RemoteException;
    List<Penggajian> getGajiPeriksa(String tanggal1, String tanggal2)throws RemoteException;
+   
 }

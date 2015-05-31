@@ -37,8 +37,8 @@ public class Penggajian_Server extends UnicastRemoteObject implements Penggajian
                     "INSERT INTO `penggajian`(`id_gaji`, `tanggal_gaji`, `id_pegawai`, `nama_pegawai`, `gaji_pokok`, `gaji_tambahan`, `total_gaji`) \n"+
                     "VALUES (null,?,?,?,?,?,?)"
             );
-            System.out.println("INSERT INTO `penggajian`(`id_gaji`, `tanggal_gaji`, `id_pegawai`, `nama_pegawai`, `gaji_pokok`, `gaji_tambahan`, `total_gaji`) \n"+
-                    "VALUES (null,"+p.getTanggal()+","+p.getIdPegawai()+","+p.getNamaPegawai()+","+p.getGajiPokok()+","+p.getGajiTambahan()+","+p.getTotalGaji()+")");
+            System.out.println(statement.toString());
+
             statement.setString(1, p.getTanggal());
             statement.setString(2, p.getIdPegawai());
             statement.setString(3, p.getNamaPegawai());
