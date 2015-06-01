@@ -96,7 +96,9 @@ public class Login extends javax.swing.JFrame {
         aktorIniDokter = false;
         jLabel7.setVisible(false);
         jLabel8.setVisible(false);
-        registry = LocateRegistry.getRegistry("0.0.0.0", 9750);        
+        port = Integer.parseInt(JOptionPane.showInputDialog(null, "Port Tujuan: ", "input", JOptionPane.QUESTION_MESSAGE));
+        serverAddr = JOptionPane.showInputDialog(null, "Server Address Tujuan: ", "input", JOptionPane.QUESTION_MESSAGE);
+        registry = LocateRegistry.getRegistry(serverAddr, port);        
    }
 
     @SuppressWarnings("unchecked")
@@ -258,7 +260,7 @@ public class Login extends javax.swing.JFrame {
         username = nama.getText();       
         nama.setBackground(Color.white);
         pass.setBackground(Color.white);
-        String password = getPassword();
+        String password = getPassword();        
         service1 = (Petugas_Service) registry.lookup("service1");        
         service2 = (Dokter_Service) registry.lookup("service2");  
         if(!username.equals("")&&password.length()>0){

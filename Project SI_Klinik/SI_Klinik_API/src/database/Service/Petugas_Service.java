@@ -16,6 +16,7 @@ import java.util.List;
  * @author Windows 8.1
  */
 public interface Petugas_Service extends Remote {
+    
     petugas insertPetugas(petugas petugas) throws RemoteException;
 
     void updatePetugas(petugas petugas) throws RemoteException;

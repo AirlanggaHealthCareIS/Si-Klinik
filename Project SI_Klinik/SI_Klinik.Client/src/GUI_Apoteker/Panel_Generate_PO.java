@@ -209,16 +209,20 @@ public class Panel_Generate_PO extends javax.swing.JPanel {
                     }
                 }
                 if(ada){
-                   detil_pesan_obat detail = new detil_pesan_obat();
-                   detail.setId_Pemesanan_obat(listPO.get(index).getId_Pemesanan_obat());
-                   detail.setId_obat(listob.get(i).getID_OBAT());
-                   detail.setJumlah_pesan(listob.get(i).getSELISIH());
-                   detail.setStatus(0);
-                    System.out.println(index);
-                   List<detil_pesan_obat>list = listPO.get(index).getList();
-                   list.add(detail);
-                   lpos.insertListPO(detail);
-                   listPO.get(index).setList(list); 
+                    try {
+                        detil_pesan_obat detail = new detil_pesan_obat();
+                        detail.setId_Pemesanan_obat(listPO.get(index).getId_Pemesanan_obat());
+                        detail.setId_obat(listob.get(i).getID_OBAT());
+                        detail.setJumlah_pesan(listob.get(i).getSELISIH());
+                        detail.setStatus(0);
+                         System.out.println(index);
+                        List<detil_pesan_obat>list = listPO.get(index).getList();
+                        list.add(detail);
+                        lpos.insertListPO(detail); 
+                        listPO.get(index).setList(list);
+                    } catch (RemoteException ex) {
+                        Logger.getLogger(Panel_Generate_PO.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
                 else{
                     po = new Pemesanan_Obat();
@@ -263,13 +267,13 @@ public class Panel_Generate_PO extends javax.swing.JPanel {
     }//GEN-LAST:event_generatePOActionPerformed
     
     public  void updatetable() throws RemoteException{
-        listob = obs.getObatKritis();
-        for (int i = 0; i < listob.size(); i++) {
-            listob.get(i).setNo(i+1);
-        }
-        System.out.println(listob.size());
-        table.setData(listob);
-        jTable1.setModel(table);        
+//        listob = obs.getObatKritis();
+//        for (int i = 0; i < listob.size(); i++) {
+//            listob.get(i).setNo(i+1);
+//        }
+//        System.out.println(listob.size());
+//        table.setData(listob);
+//        jTable1.setModel(table);        
     }
     
     public  void updatetable2() throws RemoteException{
