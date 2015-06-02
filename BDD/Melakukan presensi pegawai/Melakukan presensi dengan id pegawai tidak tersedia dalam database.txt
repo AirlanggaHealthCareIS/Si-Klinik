@@ -1,0 +1,12 @@
+Feature : Melakukan presensi pegawai
+Skenario : Pegawai (dokter, apoteker, staf klinik, kasir) melakukan presensi dengan id pegawai yang diinputkan salah
+
+Given : Saya berada di halaman presensi
+When : Saya menginputkan id pegawai yang salah (tidak tersedia dalam database) dan menekan tombol Presensi
+Then : Saya mendapat pemberitahuan bahwa id pegawai yang saya inputkan tidak tersedia dalam database
+When : Saya menekan tombol OK
+Then : Saya kembali ke halaman presensi
+When : Saya menginputkan id pegawai dengan benar dan saya menekan tombol Presensi
+Then : Saya mendapat pemberitahuan bahwa saya telah melakukan presensi
+When : Saya menekan tombol Refresh
+Then : Semua field pada halaman presensi kembali kosong

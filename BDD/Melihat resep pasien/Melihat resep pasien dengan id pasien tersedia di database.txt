@@ -1,0 +1,8 @@
+Feature : Melihat resep pasien
+Skenario : Apoteker melihat resep pasien yang tersedia dalam database
+
+Given : Saya berada di halaman apoteker dan telah membuka menu kelola penjualan
+When : Saya menginputkan id pasien dan menekan tombol Cari
+Then : Saya dapat melihat satu/beberapa resep sesuai dengan id pasien yang diinputkan sebelumnya
+When : Saya memilih salah satu resep pasien yang diinginkan dan saya menekan tombol Lihat Detail
+Then : Saya dapat melihat detail data resep pasien yang diinginkan

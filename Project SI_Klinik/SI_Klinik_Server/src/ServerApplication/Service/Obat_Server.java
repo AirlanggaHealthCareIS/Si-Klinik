@@ -286,7 +286,7 @@ public class Obat_Server extends UnicastRemoteObject implements Obat_Service {
         try{
           statement = DatabaseUtilities.getConnection().createStatement();
 
-          ResultSet result = statement.executeQuery("SELECT NAMA_OBAT FROM `obat` WHERE ID_OBAT LIKE '"+nama+"%'"+"ORDER BY ID_OBAT DESC");
+          ResultSet result = statement.executeQuery("SELECT NAMA_OBAT FROM `obat` WHERE NAMA_OBAT LIKE '"+nama+"%'");
 
           List list = new ArrayList();
           

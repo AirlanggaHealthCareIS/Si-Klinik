@@ -263,7 +263,9 @@ public class Panel_Resep extends javax.swing.JPanel {
                 resep.setqty_detail_resep(list.get(i).getQty());
                 detResepService.insertResep(resep);
             }
-            
+            JOptionPane.showMessageDialog(null, "Data Rekam Medis berhasil Disimpan", "Pesan Rekam Medis", JOptionPane.OK_OPTION);
+            Panel_Rekam_Medik_Awal pra = new Panel_Rekam_Medik_Awal(gui);
+            pra.setVisible(true);
         } catch (RemoteException ex) {
             Logger.getLogger(Panel_Resep.class.getName()).log(Level.SEVERE, null, ex);
         }

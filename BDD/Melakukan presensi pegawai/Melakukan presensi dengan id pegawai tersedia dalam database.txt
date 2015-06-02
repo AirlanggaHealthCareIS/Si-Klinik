@@ -1,0 +1,8 @@
+Feature : Melakukan presensi pegawai
+Skenario : Pegawai (dokter, apoteker, staf klinik, kasir) melakukan presensi dengan id pegawai yang diinputkan benar
+
+Given : Saya berada di halaman presensi
+When : Saya menginputkan id pegawai dan menekan tombol Presensi
+Then : Saya mendapat pemberitahuan bahwa saya telah melakukan presensi
+When : Saya menekan tombol Refresh
+Then : Semua field pada halaman presensi kembali kosong

@@ -319,12 +319,12 @@ public class GUI_Presensi extends javax.swing.JFrame {
             status = id.getText().substring(0, 3);
             
             if (status.equalsIgnoreCase("PET")) {
-                nama = ps.getPegawai(id.getText());
                 list = ps.getPegawaiCek(id.getText());
+                nama = list.get(0).getNama_Pegawai().toString();
             }
             else {
-                nama = ps.getDokter(id.getText());
                 list = ps.getDokterCek(id.getText());
+                nama= list.get(0).getNama_Dokter().toString();
             }
             
             if(!list.isEmpty()&&ps.getPegawaiFromPresensi(id.getText(), getTanggal())==null){
@@ -335,7 +335,7 @@ public class GUI_Presensi extends javax.swing.JFrame {
                 p.setJam_keluar(getTime());
                 ps.insertPresensi(p);
                 
-                pesan.setText("Selamat datang \b"+nama+"\nSelamat Bekerja");
+                pesan.setText("Selamat datang \b"+nama +"\nSelamat Bekerja");
             }
             else if(list.isEmpty()){
                 JOptionPane.showMessageDialog(null, "ID tidak Ditemukan, Silahkan Coba Lagi", "Pesan", JOptionPane.OK_OPTION);

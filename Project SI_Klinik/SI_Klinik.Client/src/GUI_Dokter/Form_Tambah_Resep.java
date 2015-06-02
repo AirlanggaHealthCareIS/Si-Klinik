@@ -16,9 +16,13 @@ import database.Service.Detail_Resep_Service;
 import database.Service.Obat_Service;
 import database.entity.detail_lihat_resep;
 import java.awt.Color;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.text.JTextComponent;
 
 
 /**
@@ -40,16 +44,49 @@ public class Form_Tambah_Resep extends javax.swing.JFrame {
         service3 = (Detail_Resep_Service) registry.lookup("service8");        
         service4 = (Obat_Service) registry.lookup("service10");
         this.pp = pp;
-        namaObat.setVisible(false);
-        jml.setVisible(false);
+        jml.setVisible(true);
+        
+        boxNamaObat.getEditor().getEditorComponent().addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent evt){
+                String keyWord = boxNamaObat.getEditor().getItem().toString();
+                if (evt.getKeyCode()>=65 && evt.getKeyCode()<=90 || evt.getKeyCode()>=96 && evt.getKeyCode()<=105 || evt.getKeyCode()==8) {
+                    boxNamaObat.setModel(getListObat(keyWord));
+                    if (boxNamaObat.getItemCount()>0) {
+                        boxNamaObat.showPopup();
+                        if (evt.getKeyCode()!=8) {
+                            ((JTextComponent)boxNamaObat.getEditor().getEditorComponent()).select(keyWord.length(), boxNamaObat.getEditor().getItem().toString().length());
+                        }
+                        else{
+                            boxNamaObat.getEditor().setItem(keyWord);
+                        }
+                    }
+                    else{
+                        boxNamaObat.addItem(keyWord);
+                    }
+                }
+            
+            }
+        
+        });
     }
 
     private void refresh(){
-        kodeObat.setText("Masukkan kode obat");
-        namaObat.removeAllItems();
-        namaObat.setVisible(false);
         jml.removeAll();
-        jml.setVisible(false);
+        jml.setVisible(true);
+    }
+    
+    public DefaultComboBoxModel getListObat(String kataKunci){
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        try {
+            List a = service4.getObatList(kataKunci);
+            for (int i = 0; i < a.size(); i++) {
+                model.addElement(a.get(i).toString());
+            }
+        } catch (RemoteException ex) {
+            Logger.getLogger(Form_Tambah_Resep.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return model;
     }
     
     /**
@@ -62,40 +99,20 @@ public class Form_Tambah_Resep extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        kodeObat = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        namaObat = new javax.swing.JComboBox();
         jLabel4 = new javax.swing.JLabel();
         jml = new javax.swing.JSpinner();
         jButton2 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
+        boxNamaObat = new javax.swing.JComboBox();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setMinimumSize(new java.awt.Dimension(700, 450));
 
-        jLabel1.setText("Kode Obat       :");
-
-        kodeObat.setText("Masukkan Kode Obat");
-        kodeObat.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                kodeObatFocusGained(evt);
-            }
-        });
-
-        jButton1.setText("Cari");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         jLabel2.setText("Nama Obat      :");
-
-        namaObat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pilih Obat" }));
 
         jLabel4.setText("Jumlah             :");
 
@@ -106,6 +123,7 @@ public class Form_Tambah_Resep extends javax.swing.JFrame {
             }
         });
 
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Form Tambah Obat");
 
         jButton3.setText("Kembali");
@@ -115,6 +133,12 @@ public class Form_Tambah_Resep extends javax.swing.JFrame {
             }
         });
 
+        boxNamaObat.setEditable(true);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 2, 10)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 255));
+        jLabel1.setText("Masukkan nama obat");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -123,49 +147,37 @@ public class Form_Tambah_Resep extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jml, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(131, 131, 131)
+                        .addComponent(jButton2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(86, 86, 86)
+                        .addComponent(jLabel6))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(131, 131, 131)
-                                .addComponent(jButton2)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton3))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(namaObat, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel6)
-                                            .addComponent(kodeObat, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jml, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(boxNamaObat, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jLabel6)
-                .addGap(29, 29, 29)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(kodeObat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(43, 43, 43)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(namaObat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(boxNamaObat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(4, 4, 4)
+                .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(jml, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -179,7 +191,7 @@ public class Form_Tambah_Resep extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,10 +201,6 @@ public class Form_Tambah_Resep extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void kodeObatFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_kodeObatFocusGained
-        kodeObat.setText("");
-    }//GEN-LAST:event_kodeObatFocusGained
-
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         pp.gui.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -201,15 +209,15 @@ public class Form_Tambah_Resep extends javax.swing.JFrame {
         String nama = "";
         String hasil = "";
         
-        if(namaObat.getSelectedItem().equals("Pilih Obat")||jml.getValue().equals(null)){
+        if(boxNamaObat.getEditor().getItem().toString().equals("") ||jml.getValue().equals(null)){
             JOptionPane.showMessageDialog(null, "Data Yang Anda Inputkan Belum Lengkap");
 
         }
         else{
             lr = new detail_lihat_resep();
             try {
-                lr.setIdObat(service4.getIdObat(namaObat.getSelectedItem().toString()));
-                lr.setObat(namaObat.getSelectedItem().toString());
+                lr.setIdObat(service4.getIdObat(boxNamaObat.getEditor().getItem().toString()));
+                lr.setObat(boxNamaObat.getEditor().getItem().toString());
                 lr.setQty(Integer.parseInt(String.valueOf(jml.getValue())));
                 pp.list.add(lr);
                 pp.updateTable(pp.list);
@@ -268,28 +276,12 @@ public class Form_Tambah_Resep extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-        namaObat.setVisible(true);
-        jml.setVisible(true);
-        String kode = kodeObat.getText();
-        try {
-            List a = service4.getObatList(kode);
-            for (int i = 0; i < a.size(); i++) {
-                namaObat.addItem(a.get(i).toString());
-            }
-        } catch (RemoteException ex) {
-            Logger.getLogger(Form_Tambah_Resep.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     /**
      * @param args the command line arguments
      */
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox boxNamaObat;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
@@ -298,7 +290,5 @@ public class Form_Tambah_Resep extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSpinner jml;
-    private javax.swing.JTextField kodeObat;
-    private javax.swing.JComboBox namaObat;
     // End of variables declaration//GEN-END:variables
 }

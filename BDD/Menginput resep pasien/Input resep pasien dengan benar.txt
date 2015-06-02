@@ -1,11 +1,17 @@
 Feature : Dokter dapat menginputkan resep pasien
 
+
 Scenario : Input resep obat dengan data yang diinputkan benar
 
+
+
 Given : Saya telah masuk ke halaman rekam medis pasien dan mengisi rekam medis pasien
+ dan tindakan medis (optional)
 When : Saya meng-klik tombol Selanjutnya
-Then : Saya berada pada tab resep dan dapat melihat form resep pasien
+ pada halaman tindakan medis
+Then : Saya berada pada halaman resep dan dapat melihat form resep pasien
+
 When : Saya mengisi semua field dengan benar dan saya meng-klik tombol Selanjutnya
-Then : Saya berada pada tab simpan
-When : Saya meng-klik tombol Simpan
-Then : Saya menerima pesan bahwa data telah tersimpan dan saya dapat melihat data resep yang baru saja diinputkan
+
+
+Then : Saya menerima pesan bahwa data telah tersimpan dan saya dapat melihat data rekam medis pasien yang didalamnya terdapat resep pasien

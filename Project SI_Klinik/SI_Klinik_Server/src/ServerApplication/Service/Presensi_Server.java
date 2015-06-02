@@ -201,12 +201,13 @@ public class Presensi_Server extends UnicastRemoteObject implements Presensi_Ser
         
         try {
             statement = DatabaseUtilities.getConnection().createStatement();
-            ResultSet result = statement.executeQuery("SELECT ID_PETUGAS FROM petugas WHERE ID_PETUGAS = '"+ID+"'");
+            ResultSet result = statement.executeQuery("SELECT ID_PETUGAS, NAMA_PETUGAS FROM petugas WHERE ID_PETUGAS = '"+ID+"'");
             List<Presensi> list = new ArrayList<Presensi>();
             
             while(result.next()){
                 Presensi a = new Presensi();
                 a.setId_pegawai((result.getString("ID_PETUGAS")));
+                a.setNama_Pegawai((result.getString("NAMA_PETUGAS")));
                 list.add(a);
             }
             result.close();
@@ -268,12 +269,13 @@ public class Presensi_Server extends UnicastRemoteObject implements Presensi_Ser
         
         try {
             statement = DatabaseUtilities.getConnection().createStatement();
-            ResultSet result = statement.executeQuery("SELECT ID_DOKTER FROM dokter WHERE ID_DOKTER = '"+ID+"'");
+            ResultSet result = statement.executeQuery("SELECT ID_DOKTER, NAMA_DOKTER FROM dokter WHERE ID_DOKTER = '"+ID+"'");
             List<Presensi> list = new ArrayList<Presensi>();
             
             while(result.next()){
                 Presensi a = new Presensi();
                 a.setId_pegawai((result.getString("ID_DOKTER")));
+                a.setNama_Dokter((result.getString("NAMA_DOKTER")));
                 list.add(a);
             }
             result.close();
