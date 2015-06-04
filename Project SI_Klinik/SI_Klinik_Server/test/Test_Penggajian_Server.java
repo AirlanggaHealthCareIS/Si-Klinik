@@ -57,27 +57,25 @@ public class Test_Penggajian_Server {
     @Test
     public void testInsertGaji() throws Exception {
             Penggajian_Server penggajianServer = new Penggajian_Server();
-            List<Penggajian> output = penggajianServer.getPenggajianNonDokter();
             Penggajian p = new Penggajian();
             
-                p.setTanggal("2015-05-31");
+                p.setTanggal("2015-05-03");
                 p.setIdPegawai("PET007");
                 p.setNamaPegawai("Triyah");
                 p.setGajiPokok(3000000);
                 p.setGajiTambahan(30000);
                 p.setTotalGaji(3030000);
+                
                 penggajianServer.insertGaji(p);
-            
+                Penggajian output = penggajianServer.getLastPenggajian();
                 Penggajian target = p;
                 
-                for (int i = 0; i < output.size(); i++) {
-                    assertEquals(target.getTanggal(), output.get(i).getTanggal());
-                    assertEquals(target.getIdPegawai(), output.get(i).getIdPegawai());
-                    assertEquals(target.getNamaPegawai(), output.get(i).getNamaPegawai());
-                    assertEquals(target.getGajiPokok(), output.get(i).getGajiPokok());
-                    assertEquals(target.getGajiTambahan(), output.get(i).getGajiTambahan());
-                    assertEquals(target.getTotalGaji(), output.get(i).getTotalGaji());
-                }
+                    assertEquals(target.getTanggal(), output.getTanggal());
+                    assertEquals(target.getIdPegawai(), output.getIdPegawai());
+                    assertEquals(target.getNamaPegawai(), output.getNamaPegawai());
+                    assertEquals(target.getGajiPokok(), output.getGajiPokok());
+                    assertEquals(target.getGajiTambahan(), output.getGajiTambahan());
+                    assertEquals(target.getTotalGaji(), output.getTotalGaji());
     }
 
     /**
@@ -269,6 +267,31 @@ public class Test_Penggajian_Server {
             assertEquals(target.get(i).getIdPegawai(), output.get(i).getIdPegawai());
             assertEquals(target.get(i).getPresensi(), output.get(i).getPresensi());
         }
+    }
+    
+    @Test
+    public void testGetLastPenggajian(){
+        try {
+            Penggajian_Server gajiServer = new Penggajian_Server();
+            Penggajian output = gajiServer.getLastPenggajian();           
+            Penggajian target = new Penggajian();
+            target.setIdPegawai("PET007");
+            target.setNamaPegawai("Triyah");
+            target.setTanggal("2015-05-03");
+            target.setGajiPokok(3000000);
+            target.setGajiTambahan(30000);
+            target.setTotalGaji(3030000);
+            
+                assertEquals(target.getIdPegawai(), output.getIdPegawai());
+                assertEquals(target.getNamaPegawai(), output.getNamaPegawai());
+                assertEquals(target.getTanggal(), output.getTanggal());
+                assertEquals(target.getGajiPokok(), output.getGajiPokok());
+                assertEquals(target.getGajiTambahan(), output.getGajiTambahan());
+                assertEquals(target.getTotalGaji(), output.getTotalGaji());
+            
+        } catch (RemoteException ex) {
+            Logger.getLogger(Test_Tambah_Data_Supplier_Server.class.getName()).log(Level.SEVERE, null, ex);
+        } 
     }
     
 }

@@ -247,4 +247,40 @@ public class Penggajian_Server extends UnicastRemoteObject implements Penggajian
             }
         }
     }
+    
+     public Penggajian getLastPenggajian() throws RemoteException {
+        System.out.println("proses get ALL Penggajian");
+        Statement statement = null;
+        
+        try {
+            statement = DatabaseUtilities.getConnection().createStatement();
+            ResultSet result = statement.executeQuery("SELECT * FROM penggajian ORDER BY id_gaji DESC LIMIT 1 ");
+            Penggajian a = null;
+            System.out.println(statement.toString());
+            while(result.next()){
+                a = new Penggajian();
+                a.setIdPegawai((result.getString("ID_PEGAWAI")));
+                a.setNamaPegawai(result.getString("NAMA_PEGAWAI"));
+                a.setTanggal(result.getString("tanggal_gaji"));
+                a.setGajiPokok(result.getInt("gaji_pokok"));
+                a.setGajiTambahan(result.getInt("gaji_tambahan"));
+                a.setTotalGaji(result.getInt("total_gaji"));
+            }    
+            result.close();
+            return a;
+        } 
+        catch (SQLException exception) {
+            exception.printStackTrace();
+            return null;
+        }
+        finally{
+            if(statement!=null){
+                try {
+                    statement.close();
+                } catch (SQLException  exception) {
+                    exception.printStackTrace();
+                }
+            }
+        }
+    }
 }

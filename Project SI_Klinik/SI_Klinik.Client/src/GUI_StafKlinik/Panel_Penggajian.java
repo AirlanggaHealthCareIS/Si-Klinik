@@ -29,7 +29,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.rmi.AccessException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -56,6 +60,7 @@ public class Panel_Penggajian extends javax.swing.JPanel {
     int masuk;
     String tanggal1;
     String tanggal2;
+    boolean isSaldoEnough = true;
     
     private Font font1 = new Font(Font.FontFamily.HELVETICA,14,Font.BOLD);
     private Font font2 = new Font(Font.FontFamily.HELVETICA,18,Font.BOLD);
@@ -63,12 +68,23 @@ public class Panel_Penggajian extends javax.swing.JPanel {
     private Font font5 = new Font(Font.FontFamily.HELVETICA,11);
     private Font font4 = new Font(Font.FontFamily.HELVETICA,9);
     private Font font6 = new Font(Font.FontFamily.HELVETICA,9,Font.BOLD);
+    Registry registry;
     
     /**
      * Creates new form Panel_Penggajian
      */
     public Panel_Penggajian() {
         initComponents();
+        try {      
+            registry = LocateRegistry.getRegistry("0.0.0.0", 9750);
+            penggajianService = (Penggajian_Service) registry.lookup("service21");
+            laporanKeuanganService = (Laporan_Keuangan_Service) registry.lookup("service5");
+        } catch (RemoteException ex) {
+            Logger.getLogger(Panel_Penggajian.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NotBoundException ex) {
+            Logger.getLogger(Panel_Penggajian.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
      public Panel_Penggajian(GUI_StafKlinik gui) {
@@ -332,7 +348,7 @@ public class Panel_Penggajian extends javax.swing.JPanel {
         return tanggal;
     }
     
-    public void setGajiNonDokter(String tanggal1, String tanggal2){
+    public boolean setGajiNonDokter(String tanggal1, String tanggal2){
         int uangMakan;
         int totalGaji=0;
         int gajiPokok;
@@ -403,6 +419,7 @@ public class Panel_Penggajian extends javax.swing.JPanel {
                 penggajianService.insertGaji(p);
             }
             if (lkAkhir.getSaldo() > penggajian) {
+                isSaldoEnough = true;
                 createPdf(list);
                 lk.setTanggal(tgl);
                 System.out.println("tgl lk : "+lk.getTanggal());
@@ -414,9 +431,11 @@ public class Panel_Penggajian extends javax.swing.JPanel {
                 System.out.println("saldo awal :"+lkAkhir.getSaldo());
                 System.out.println("saldo setelah dikurangi penggajian :"+lk.getSaldo());
                 lk.setFlag(lkAkhir.getFlag()+1);
+                System.out.println("Flag : "+lk.getFlag());
                 laporanKeuanganService.insertPengeluaran(lk);
             }
             else{
+                isSaldoEnough = false;
                 JOptionPane.showMessageDialog(null, "Saldo tidak cukup untuk membayar gaji! Saldo anda tinggal Rp "+lkAkhir.getSaldo()+" total gaji yang harus dibayar Rp "+penggajian);
             }
             
@@ -424,9 +443,11 @@ public class Panel_Penggajian extends javax.swing.JPanel {
         catch (RemoteException ex) {
             Logger.getLogger(Panel_Penggajian.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        return isSaldoEnough;
     }
     
-    public void setGajiDokter(String tanggal1, String tanggal2){
+    public boolean setGajiDokter(String tanggal1, String tanggal2){
         int uangMakan;
         int tarif;
         int periksa;
@@ -515,6 +536,7 @@ public class Panel_Penggajian extends javax.swing.JPanel {
                 System.out.println("penggajian : "+penggajian);
             }
             if (lkAkhir.getSaldo() > penggajian) {
+                isSaldoEnough = true;
                 createPdf(list);
                 lk.setTanggal(tgl);
                 System.out.println("tgl lk : "+tgl);
@@ -529,13 +551,20 @@ public class Panel_Penggajian extends javax.swing.JPanel {
                 laporanKeuanganService.insertPengeluaran(lk);
             }
             else{
+                isSaldoEnough = false;
                 JOptionPane.showMessageDialog(null, "Saldo tidak cukup untuk membayar gaji! Saldo anda tinggal Rp "+lkAkhir.getSaldo()+" total gaji yang harus dibayar Rp "+penggajian);
+                
             }
             
         } 
         catch (RemoteException ex) {
             Logger.getLogger(Panel_Penggajian.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return isSaldoEnough;
+    }
+    
+    public boolean getIsSaldoEnough(){
+        return isSaldoEnough;
     }
     
     public void gajiNonDokter(String tanggal1, String tanggal2){
