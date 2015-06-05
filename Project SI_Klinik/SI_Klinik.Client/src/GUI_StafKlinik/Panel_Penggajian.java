@@ -24,6 +24,7 @@ import database.Service.Penggajian_Service;
 import database.Service.Laporan_Keuangan_Service;
 import database.entity.Laporan_Keuangan;
 import database.entity.Penggajian;
+import database.entity.petugas;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -418,8 +419,8 @@ public class Panel_Penggajian extends javax.swing.JPanel {
                 System.out.println("penggajian : "+penggajian);
                 penggajianService.insertGaji(p);
             }
-            if (lkAkhir.getSaldo() > penggajian) {
-                isSaldoEnough = true;
+//            if (lkAkhir.getSaldo() > penggajian) {
+//                isSaldoEnough = true;
                 createPdf(list);
                 lk.setTanggal(tgl);
                 System.out.println("tgl lk : "+lk.getTanggal());
@@ -433,11 +434,11 @@ public class Panel_Penggajian extends javax.swing.JPanel {
                 lk.setFlag(lkAkhir.getFlag()+1);
                 System.out.println("Flag : "+lk.getFlag());
                 laporanKeuanganService.insertPengeluaran(lk);
-            }
-            else{
-                isSaldoEnough = false;
-                JOptionPane.showMessageDialog(null, "Saldo tidak cukup untuk membayar gaji! Saldo anda tinggal Rp "+lkAkhir.getSaldo()+" total gaji yang harus dibayar Rp "+penggajian);
-            }
+//            }
+//            else{
+//                isSaldoEnough = false;
+//                JOptionPane.showMessageDialog(null, "Saldo tidak cukup untuk membayar gaji! Saldo anda tinggal Rp "+lkAkhir.getSaldo()+" total gaji yang harus dibayar Rp "+penggajian);
+//            }
             
         } 
         catch (RemoteException ex) {
@@ -535,8 +536,8 @@ public class Panel_Penggajian extends javax.swing.JPanel {
                 penggajian = penggajian + totalGaji;
                 System.out.println("penggajian : "+penggajian);
             }
-            if (lkAkhir.getSaldo() > penggajian) {
-                isSaldoEnough = true;
+//            if (lkAkhir.getSaldo() > penggajian) {
+//                isSaldoEnough = true;
                 createPdf(list);
                 lk.setTanggal(tgl);
                 System.out.println("tgl lk : "+tgl);
@@ -549,12 +550,12 @@ public class Panel_Penggajian extends javax.swing.JPanel {
                 System.out.println("saldo setelah dikurangi penggajian :"+lk.getSaldo());
                 lk.setFlag(lkAkhir.getFlag()+1);
                 laporanKeuanganService.insertPengeluaran(lk);
-            }
-            else{
-                isSaldoEnough = false;
-                JOptionPane.showMessageDialog(null, "Saldo tidak cukup untuk membayar gaji! Saldo anda tinggal Rp "+lkAkhir.getSaldo()+" total gaji yang harus dibayar Rp "+penggajian);
-                
-            }
+//            }
+//            else{
+//                isSaldoEnough = false;
+//                JOptionPane.showMessageDialog(null, "Saldo tidak cukup untuk membayar gaji! Saldo anda tinggal Rp "+lkAkhir.getSaldo()+" total gaji yang harus dibayar Rp "+penggajian);
+//                
+//            }
             
         } 
         catch (RemoteException ex) {
@@ -693,21 +694,25 @@ public class Panel_Penggajian extends javax.swing.JPanel {
             Document document = new Document();
             try {
                 PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(result));                
-                document.open();
-                PdfContentByte canvas = writer.getDirectContent();
-                Rectangle rect = new Rectangle (50,800,550,700);
-                rect.setBorder(Rectangle.BOX);
-                rect.setBorderWidth(0);
-                rect.setBorderColor(BaseColor.BLACK);
-                canvas.rectangle(rect);
-                Paragraph preface;
-                preface = getPreface("Slip Gaji");                
-                document.add(preface);
-                document.add(Chunk.NEWLINE);
-                document.add(Chunk.NEWLINE);
-                document.add(createTableLaporan(list));
+                    document.open();
+                    PdfContentByte canvas = writer.getDirectContent();
+
+                for (int i = 0; i < list.size(); i++) {
+                    document.newPage();
+                    Rectangle rect = new Rectangle (50,800,550,700);
+                    rect.setBorder(Rectangle.BOX);
+                    rect.setBorderWidth(0);
+                    rect.setBorderColor(BaseColor.BLACK);
+                    canvas.rectangle(rect);
+                    Paragraph preface;
+                    preface = getPreface("Slip Gaji");                
+                    document.add(preface);
+                    document.add(Chunk.NEWLINE);
+                    document.add(Chunk.NEWLINE);
+                    document.add(createTableLaporan(list.get(i)));
+                }
                 document.close();
-                open(result);                
+                open(result);
             } catch (DocumentException ex) {
                 Logger.getLogger(Panel_Laporan_Keuangan.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -716,131 +721,169 @@ public class Panel_Penggajian extends javax.swing.JPanel {
         }       
     }
     
-    private PdfPTable createTableLaporan(List<Penggajian> list){
+    private PdfPTable createTableLaporan(Penggajian p){
         PdfPTable tabel = new PdfPTable(2);   
         PdfPCell cell;
 
-        for(int i=0;i<list.size();i++){ 
-            cell = new PdfPCell(new Phrase(("ID Pegawai"), font6));
+            cell = new PdfPCell(new Phrase(("Nama Pegawai"), font2));
             cell.setVerticalAlignment(Element.ALIGN_TOP);
             cell.setColspan(1);
             cell.setBorder(Rectangle.BOX);
             cell.setBorderWidth(1);
-            tabel.addCell(cell); 
-            
-            cell = new PdfPCell(new Phrase((""+list.get(i).getIdPegawai()),font5));
-            cell.setVerticalAlignment(Element.ALIGN_TOP);
-            cell.setBorderWidth(1);
-            tabel.addCell(cell);
-            
-            cell = new PdfPCell(new Phrase(("Nama Pegawai"), font6));
-            cell.setVerticalAlignment(Element.ALIGN_TOP);
-            cell.setColspan(1);
-            cell.setBorder(Rectangle.BOX);
-            cell.setBorderWidth(1);
+            cell.setBorderColor(BaseColor.WHITE);
             tabel.addCell(cell); 
         
-            cell = new PdfPCell(new Phrase((""+list.get(i).getNamaPegawai()),font5));
-            cell.setVerticalAlignment(Element.ALIGN_TOP); 
+            cell = new PdfPCell(new Phrase((""+p.getNamaPegawai()),font2));
+            cell.setVerticalAlignment(Element.ALIGN_TOP);
             cell.setBorderWidth(1);
+            cell.setBorderColor(BaseColor.WHITE);
             tabel.addCell(cell);
             
-            cell = new PdfPCell(new Phrase(("Gaji Pokok"), font6));
+            cell = new PdfPCell(new Phrase(("ID Pegawai"), font2));
             cell.setVerticalAlignment(Element.ALIGN_TOP);
             cell.setColspan(1);
             cell.setBorder(Rectangle.BOX);
             cell.setBorderWidth(1);
+            cell.setBorderColor(BaseColor.WHITE);
             tabel.addCell(cell); 
         
-            cell = new PdfPCell(new Phrase((""+list.get(i).getGajiPokok()),font5));
+            cell = new PdfPCell(new Phrase((""+p.getIdPegawai()),font2));
             cell.setVerticalAlignment(Element.ALIGN_TOP);
             cell.setBorderWidth(1);
+            cell.setBorderColor(BaseColor.WHITE);
             tabel.addCell(cell);
             
-            cell = new PdfPCell(new Phrase(("Gaji Tambahan"), font6));
+            cell = new PdfPCell(new Phrase(("Alamat"), font2));
             cell.setVerticalAlignment(Element.ALIGN_TOP);
             cell.setColspan(1);
             cell.setBorder(Rectangle.BOX);
             cell.setBorderWidth(1);
-            tabel.addCell(cell); 
-            
-            cell = new PdfPCell(new Phrase((""+list.get(i).getGajiTambahan()),font5));
-            cell.setVerticalAlignment(Element.ALIGN_TOP);
-            cell.setBorderWidth(1);
-            tabel.addCell(cell);
-            
-            cell = new PdfPCell(new Phrase(("Total Gaji"), font6));
-            cell.setVerticalAlignment(Element.ALIGN_TOP);
-            cell.setColspan(1);
-            cell.setBorder(Rectangle.BOX);
-            cell.setBorderWidth(1);
+            cell.setBorderColor(BaseColor.WHITE);
             tabel.addCell(cell); 
         
-            cell = new PdfPCell(new Phrase((""+list.get(i).getTotalGaji()),font5));
+            cell = new PdfPCell(new Phrase((""),font2));
             cell.setVerticalAlignment(Element.ALIGN_TOP);
             cell.setBorderWidth(1);
+            cell.setBorderColor(BaseColor.WHITE);
             tabel.addCell(cell);
-        }
+            
+            cell = new PdfPCell(new Phrase(("Telepon"), font2));
+            cell.setVerticalAlignment(Element.ALIGN_TOP);
+            cell.setColspan(1);
+            cell.setBorder(Rectangle.BOX);
+            cell.setBorderWidth(1);
+            cell.setBorderColor(BaseColor.WHITE);
+            tabel.addCell(cell); 
+        
+            cell = new PdfPCell(new Phrase((""),font2));
+            cell.setVerticalAlignment(Element.ALIGN_TOP);
+            cell.setBorderWidth(1);
+            cell.setBorderColor(BaseColor.WHITE);
+            tabel.addCell(cell);
+            
+            cell = new PdfPCell(new Phrase(("Jabatan"), font2));
+            cell.setVerticalAlignment(Element.ALIGN_TOP);
+            cell.setColspan(1);
+            cell.setBorder(Rectangle.BOX);
+            cell.setBorderWidth(1);
+            cell.setBorderColor(BaseColor.WHITE);
+            tabel.addCell(cell); 
+        
+            cell = new PdfPCell(new Phrase((""),font2));
+            cell.setVerticalAlignment(Element.ALIGN_TOP);
+            cell.setBorderWidth(1);
+            cell.setBorderColor(BaseColor.WHITE);
+            tabel.addCell(cell);
+            
+            cell = new PdfPCell(new Phrase(("Gaji Pokok"), font2));
+            cell.setVerticalAlignment(Element.ALIGN_TOP);
+            cell.setColspan(1);
+            cell.setBorder(Rectangle.BOX);
+            cell.setBorderWidth(1);
+            cell.setBorderColor(BaseColor.WHITE);
+            tabel.addCell(cell); 
+        
+            cell = new PdfPCell(new Phrase((""+p.getGajiPokok()),font2));
+            cell.setVerticalAlignment(Element.ALIGN_TOP);
+            cell.setBorderWidth(1);
+            cell.setBorderColor(BaseColor.WHITE);
+            tabel.addCell(cell);
+            
+            cell = new PdfPCell(new Phrase(("Gaji Tambahan"), font2));
+            cell.setVerticalAlignment(Element.ALIGN_TOP);
+            cell.setColspan(1);
+            cell.setBorder(Rectangle.BOX);
+            cell.setBorderWidth(1);
+            cell.setBorderColor(BaseColor.WHITE);
+            tabel.addCell(cell); 
+            
+            cell = new PdfPCell(new Phrase((""+p.getGajiTambahan()),font2));
+            cell.setVerticalAlignment(Element.ALIGN_TOP);
+            cell.setBorderWidth(1);
+            cell.setBorderColor(BaseColor.WHITE);
+            tabel.addCell(cell);
+            
+            cell = new PdfPCell(new Phrase(("Total Gaji"), font2));
+            cell.setVerticalAlignment(Element.ALIGN_TOP);
+            cell.setColspan(1);
+            cell.setBorder(Rectangle.BOX);
+            cell.setBorderWidth(1);
+            cell.setBorderColor(BaseColor.WHITE);
+            tabel.addCell(cell); 
+        
+            cell = new PdfPCell(new Phrase((""+p.getTotalGaji()),font2));
+            cell.setVerticalAlignment(Element.ALIGN_TOP);
+            cell.setBorderWidth(1);
+            cell.setBorderColor(BaseColor.WHITE);
+            tabel.addCell(cell);
+ 
         return tabel;
     }
     
     private Paragraph getPreface(String status){
+        lk = new Laporan_Keuangan();
         Paragraph preface =new Paragraph();
         Calendar cal = new GregorianCalendar();
         String tanggal ="0";
+
         if(cal.get(Calendar.DATE)<0){
             tanggal="0"+cal.get(Calendar.DATE);
         }
         else{
             tanggal=""+cal.get(Calendar.DATE);
         }
+        
         int bulan=(cal.get(Calendar.MONTH))+1;;                
         int tahun= cal.get(Calendar.YEAR);
+        String id1 = lk.getId();
+        String id2 = p.getIdPegawai();
+        String id = id = id1+id2;
+        
         preface.setAlignment(Element.ALIGN_CENTER);     
-        Chunk chunk = new Chunk("Slip Gaji",font1);
+        Chunk chunk = new Chunk("Slip Gaji",font2);
         preface.add(Chunk.NEWLINE);
         preface.add(chunk);
         chunk = new Chunk("SI Klinik",font2);
         preface.add(Chunk.NEWLINE);
         preface.add(chunk);
-        chunk = new Chunk("Periode : "+tanggal1+" s/d "+tanggal2,font3);
+        chunk = new Chunk("Jalan Pahlawan 45 Surabaya",font1);
         preface.add(Chunk.NEWLINE);
         preface.add(chunk);
-        chunk = new Chunk("Diambil pada tanggal "+tanggal+"/"+bulan+"/"+tahun,font5);
+        chunk = new Chunk("Telepon : 031 7564231",font1);
         preface.add(Chunk.NEWLINE);
         preface.add(chunk);
+        preface.add(Chunk.NEWLINE);
+        preface.add(Chunk.NEWLINE);
+        preface.setAlignment(Element.ALIGN_RIGHT);
+        chunk = new Chunk("Tanggal "+tanggal+"/"+bulan+"/"+tahun,font1);
+        preface.add(Chunk.NEWLINE);
+        preface.add(chunk);
+        chunk = new Chunk("No. Referensi :"+id,font1);
+        preface.add(Chunk.NEWLINE);
+        preface.add(chunk);        
         return preface;
     }
     
-    private Paragraph getIsi(List<Penggajian>  list) throws RemoteException{
-        Paragraph preface =new Paragraph();       
-        preface.setAlignment(Element.ALIGN_LEFT);     
-        Chunk chunk = new Chunk("Slip Gaji",font3);
-        for(int i = 0; i<list.size();i++){           
-            chunk = new Chunk("ID Pegawai : "+list.get(i).getIdPegawai(),font3);
-            preface.add(Chunk.NEWLINE);
-            preface.add(chunk);
-         
-            chunk = new Chunk("Nama Pegawai :"+list.get(i).getNamaPegawai(),font3);
-            preface.add(Chunk.NEWLINE);
-            preface.add(chunk);
-            chunk = new Chunk("GAJI :",font3);
-            preface.add(Chunk.NEWLINE);
-            preface.add(chunk);  
-            chunk = new Chunk("Gaji Pokok :"+list.get(i).getGajiPokok(),font3);
-            preface.add(Chunk.NEWLINE);
-            preface.add(chunk);
-            chunk = new Chunk("Gaji Tambahan :"+list.get(i).getGajiTambahan(),font3);
-            preface.add(Chunk.NEWLINE);
-            preface.add(chunk);
-            chunk = new Chunk("Gaji Total :"+list.get(i).getTotalGaji(),font3);
-            preface.add(Chunk.NEWLINE);
-            preface.add(chunk);
-        }
-        
-        return preface;
-    }
-
      public void open(String url) {
         try {
             Desktop desktop = Desktop.getDesktop();
