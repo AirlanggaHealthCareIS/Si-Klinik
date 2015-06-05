@@ -119,6 +119,7 @@ public class Transaksi_Periksa_Server extends UnicastRemoteObject implements Tra
         
             statement.setString(1, id_pasien);
             System.out.println(id_pasien);
+            System.out.println("");
             ResultSet result = statement.executeQuery();
             List<Transaksi_Periksa> list = new ArrayList<Transaksi_Periksa>();
         
@@ -202,11 +203,12 @@ public class Transaksi_Periksa_Server extends UnicastRemoteObject implements Tra
         PreparedStatement statement = null;
         try{
             statement = DatabaseUtilities.getConnection().prepareStatement(
-                "SELECT * FROM transaksi_periksa WHEN MONTH(tanggal_transaksi_periksa) =?"
+                "SELECT * FROM transaksi_periksa WHERE MONTH(tanggal_transaksi_periksa) =?"
             );
         
             statement.setInt(1, bulan);
             ResultSet result = statement.executeQuery();
+            System.out.println(statement.toString());
             List<Transaksi_Periksa> list = new ArrayList<Transaksi_Periksa>();
         
             while(result.next()){
