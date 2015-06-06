@@ -13,6 +13,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import si_klinik_server.DatabaseUtilities;
@@ -34,7 +35,7 @@ public class Penyakit_Server extends UnicastRemoteObject implements Penyakit_Ser
             statement = DatabaseUtilities.getConnection().prepareStatement(
             "INSERT INTO penyakit(ID_PENYAKIT, NAMA_PENYAKIT) values(?,?)");
             
-            statement.setString(1, a.getId_Penyakit());
+            statement.setInt(1, a.getId_Penyakit());
             statement.setString(2, a.getNama_Penyakit());
             System.out.println(statement.toString());
             statement.execute();
@@ -62,7 +63,7 @@ public class Penyakit_Server extends UnicastRemoteObject implements Penyakit_Ser
             statement = DatabaseUtilities.getConnection().prepareStatement(
             "UPDATE penyakit SET  NAMA_PENYAKIT=? WHERE ID_PENYAKIT=?");
             statement.setString(1, b.getNama_Penyakit());
-            statement.setString(2, b.getId_Penyakit());
+            statement.setInt(2, b.getId_Penyakit());
             statement.executeUpdate();  
         }
         catch (SQLException exception) {
@@ -80,43 +81,7 @@ public class Penyakit_Server extends UnicastRemoteObject implements Penyakit_Ser
     }
     
     
-    public Penyakit getPenyakit(String IdSuplier) throws RemoteException {
-        System.out.println("melakukan proses getby ID_PENYAKIT");
-        
-        PreparedStatement statement = null;
-        try {
-            statement = DatabaseUtilities.getConnection().prepareStatement(
-                    "SELECT * FROM penyakit WHERE ID_PENYAKIT = ?");
-            statement.setString(1, IdSuplier);
-            ResultSet result = statement.executeQuery();
-            
-            Penyakit a = null;
-            
-            if(result.next()){
-                a = new Penyakit();
-                a.setId_Penyakit((result.getString("ID_PENYAKIT")));
-                a.setNama_Penyakit(result.getString("NAMA_PENYAKIT"));
-               
-                
-            }
-            return a;
-            
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-            return null;
-        }
-        finally{
-            if(statement != null){
-                try{
-                    statement.close();
-                }
-                catch(SQLException exception){
-                    exception.printStackTrace();
-                }
-            }
-            
-        }
-    }
+    
      @Override
     public List<Penyakit> getPenyakitAll() throws RemoteException {
         System.out.println("Client Melakukan Proses Get All");
@@ -131,7 +96,7 @@ public class Penyakit_Server extends UnicastRemoteObject implements Penyakit_Ser
 
             while(result.next()){
                 Penyakit a = new Penyakit();
-                a.setId_Penyakit(result.getString("ID_PENYAKIT"));
+                a.setId_Penyakit(result.getInt("ID_PENYAKIT"));
                 a.setNama_Penyakit(result.getString("NAMA_PENYAKIT"));
                 list.add(a);
             }
@@ -155,13 +120,71 @@ public class Penyakit_Server extends UnicastRemoteObject implements Penyakit_Ser
         }
     }
 
-    @Override
-    public Penyakit getId_Penyakit(String Nama_Penyakit) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+    
 
     @Override
     public Penyakit getLastPenyakit() throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet.");
+     System.out.println("proses get ALL PENYAKIT");
+        Statement statement = null;
+        
+        try {
+            statement = DatabaseUtilities.getConnection().createStatement();
+            ResultSet result = statement.executeQuery("SELECT * FROM penyakit ORDER BY ID_PENYAKIT DESC LIMIT 1");
+          Penyakit a = null;
+            while(result.next()){
+                a = new Penyakit();
+                a.setId_Penyakit((result.getInt("ID_PENYAKIT")));
+                a.setNama_Penyakit(result.getString("NAMA_PENYAKIT"));
+                
+            }    
+            result.close();
+            return a;
+        } 
+        catch (SQLException exception) {
+            exception.printStackTrace();
+            return null;
+        }
+        finally{
+            if(statement!=null){
+                try {
+                    statement.close();
+                } catch (SQLException  exception) {
+                    exception.printStackTrace();
+                }
+            }
+        }   
+    }
+
+    @Override
+    public Penyakit getPenyakitID(int id_penyakit) throws RemoteException {
+        System.out.println("proses get PENYAKIT By ID");
+        Statement statement = null;
+        
+        try {
+            statement = DatabaseUtilities.getConnection().createStatement();
+            ResultSet result = statement.executeQuery("SELECT * FROM penyakit WHERE ID_PENYAKIT = "+id_penyakit);
+          Penyakit a = null;
+            while(result.next()){
+                a = new Penyakit();
+                a.setId_Penyakit((result.getInt("ID_PENYAKIT")));
+                a.setNama_Penyakit(result.getString("NAMA_PENYAKIT"));
+                
+            }    
+            result.close();
+            return a;
+        } 
+        catch (SQLException exception) {
+            exception.printStackTrace();
+            return null;
+        }
+        finally{
+            if(statement!=null){
+                try {
+                    statement.close();
+                } catch (SQLException  exception) {
+                    exception.printStackTrace();
+                }
+            }
+        }
     }
 }

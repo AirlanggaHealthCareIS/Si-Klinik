@@ -2,7 +2,8 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package database.entity;
+
+import database.entity.Supplier;
 import database.entity.Supplier;
 import org.junit.After;
 import org.junit.AfterClass;

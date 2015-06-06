@@ -9,16 +9,16 @@ import java.util.ArrayList;
 
 
 public class Penyakit implements Serializable{
-    private String Id_Penyakit;
+    private int Id_Penyakit;
     private String Nama_Penyakit;
     
             
 
-    public String getId_Penyakit() {
+    public int getId_Penyakit() {
         return Id_Penyakit;
     }
 
-    public void setId_Penyakit(String Id_Penyakit) {
+    public void setId_Penyakit(int Id_Penyakit) {
         this.Id_Penyakit = Id_Penyakit;
     }
 

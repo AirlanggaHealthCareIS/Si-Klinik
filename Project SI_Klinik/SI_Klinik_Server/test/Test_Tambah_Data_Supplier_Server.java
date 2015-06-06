@@ -109,6 +109,7 @@ public class Test_Tambah_Data_Supplier_Server extends TestCase {
     }
     
      public void testInsertSupplier(){
+         
         try {Supplier_Server suppServer = new Supplier_Server();
             Supplier s = new Supplier();
             s.setId_Supplier("SUP001");
