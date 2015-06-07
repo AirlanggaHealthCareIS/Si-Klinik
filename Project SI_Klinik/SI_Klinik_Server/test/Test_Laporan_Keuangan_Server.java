@@ -56,6 +56,30 @@ public class Test_Laporan_Keuangan_Server{
     /**
      * Test of getLaporanKeuangan method, of class Laporan_Keuangan_Server.
      */
+    
+    @Test
+    public void insertPengeluaran() throws Exception{
+        String tanggal1 = "2015-04-01";
+        Laporan_Keuangan_Server lkServer = new Laporan_Keuangan_Server();
+        Laporan_Keuangan lk = new Laporan_Keuangan();
+            
+        lk.setTanggal("2015-06-08");
+        lk.setId("GD201568");
+        lk.setPengeluaran(100000);
+        lk.setSaldo(2404000);
+        lk.setFlag(2);
+
+        lkServer.insertPengeluaran(lk);
+        Laporan_Keuangan output = lkServer.getPengeluaranAwal(tanggal1);
+        Laporan_Keuangan target = lk;
+
+            assertEquals(target.getTanggal(), output.getTanggal());
+            assertEquals(target.getId(), output.getId());
+            assertEquals(target.getPengeluaran(), output.getPengeluaran());
+            assertEquals(target.getSaldo(), output.getSaldo());
+            assertEquals(target.getFlag(), output.getFlag());
+    }
+    
     @Test
     public void testGetLaporanKeuangan_String_String() throws Exception {
         String tanggal1 = "2015-04-01";
@@ -85,6 +109,25 @@ public class Test_Laporan_Keuangan_Server{
         String tanggal1 = "2015-04-01";
         int saldo;
         Laporan_Keuangan output = lk.getSaldoAwal(tanggal1);
+        Laporan_Keuangan ambil = new Laporan_Keuangan();
+        ambil.setTanggal("2015-03-25");
+        ambil.setRef("B-1");
+        ambil.setPemasukan(100000);
+        ambil.setSaldo(2404000);
+        ambil.setFlag(2);
+
+        assertEquals(ambil.getTanggal(), output.getTanggal());
+        assertEquals(ambil.getRef(), output.getRef());
+        assertEquals(ambil.getPemasukan(), output.getPemasukan());
+        assertEquals(ambil.getSaldo(), output.getSaldo());
+        assertEquals(ambil.getFlag(), output.getFlag());
+    }
+    
+    @Test
+    public void testGetPengeluaranAwal() throws Exception {
+        String tanggal1 = "2015-03-25";
+        int saldo;
+        Laporan_Keuangan output = lk.getPengeluaranAwal(tanggal1);
         Laporan_Keuangan ambil = new Laporan_Keuangan();
         ambil.setTanggal("2015-03-25");
         ambil.setRef("B-1");
