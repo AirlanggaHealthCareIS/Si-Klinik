@@ -1,0 +1,7 @@
+Skenario 2	: Tindakan medis tidak dilakukan karena tidak terdapat di dalam database
+Given dokter berada pada halaman awal menginput tindakan medis
+When dokter menerima ID pasien yang telah mendaftar
+Then dokter tidak mengisi tindakan medis yang telah dilakukan
+And dokter tidak melakukan pengecekan data sebelum menyimpan ke dalam database
+Then dokter harus mengisi kembali tindakan medis yang harus dilakukan pembaharuan kemudian menyimpan kedalam database
+

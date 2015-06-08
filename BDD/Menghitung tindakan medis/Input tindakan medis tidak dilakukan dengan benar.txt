@@ -1,0 +1,7 @@
+Skenario 1	: Memasukkan data tindakan medis dengan benar dan tersimpan di dalam database
+Given dokter berada pada halaman awal menginput tindakan medis
+When dokter menerima ID pasien yang telah mendaftar
+Then dokter mengisi tindakan medis yang telah dilakukan
+And dokter melakukan pengecekan data sebelum menyimpan ke dalam database
+And dokter menekan tombol NEXT
+And dokter telah selesai melakukan penginputan dan data tersimpan kedalam database
