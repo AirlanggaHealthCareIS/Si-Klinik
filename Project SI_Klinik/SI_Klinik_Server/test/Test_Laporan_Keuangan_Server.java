@@ -60,17 +60,18 @@ public class Test_Laporan_Keuangan_Server{
     @Test
     public void insertPengeluaran() throws Exception{
         String tanggal1 = "2015-04-01";
+        
         Laporan_Keuangan_Server lkServer = new Laporan_Keuangan_Server();
         Laporan_Keuangan lk = new Laporan_Keuangan();
-            
+           
         lk.setTanggal("2015-06-08");
-        lk.setId("GD201568");
+        lk.setId("GD201569");
         lk.setPengeluaran(100000);
         lk.setSaldo(2404000);
-        lk.setFlag(2);
+        lk.setFlag(3);
 
         lkServer.insertPengeluaran(lk);
-        Laporan_Keuangan output = lkServer.getPengeluaranAwal(tanggal1);
+        Laporan_Keuangan output = lkServer.getLastPengeluaran();
         Laporan_Keuangan target = lk;
 
             assertEquals(target.getTanggal(), output.getTanggal());
@@ -125,20 +126,42 @@ public class Test_Laporan_Keuangan_Server{
     
     @Test
     public void testGetPengeluaranAwal() throws Exception {
-        String tanggal1 = "2015-03-25";
-        int saldo;
+        String tanggal1 = "2015-04-01";
         Laporan_Keuangan output = lk.getPengeluaranAwal(tanggal1);
         Laporan_Keuangan ambil = new Laporan_Keuangan();
         ambil.setTanggal("2015-03-25");
         ambil.setRef("B-1");
-        ambil.setPemasukan(100000);
+        ambil.setPengeluaran(0);
         ambil.setSaldo(2404000);
         ambil.setFlag(2);
 
         assertEquals(ambil.getTanggal(), output.getTanggal());
         assertEquals(ambil.getRef(), output.getRef());
-        assertEquals(ambil.getPemasukan(), output.getPemasukan());
+        assertEquals(ambil.getPengeluaran(), output.getPengeluaran());
         assertEquals(ambil.getSaldo(), output.getSaldo());
         assertEquals(ambil.getFlag(), output.getFlag());
+    }
+    
+    @Test
+    public void testGetLastPengeluaran() throws Exception {
+        try {
+            Laporan_Keuangan_Server lkServer = new Laporan_Keuangan_Server();
+            Laporan_Keuangan output = lkServer.getLastPengeluaran();           
+            Laporan_Keuangan target = new Laporan_Keuangan();
+            target.setId("GD201568");
+            target.setTanggal("2015-06-08");
+            target.setPengeluaran(100000);
+            target.setSaldo(2404000);
+            target.setFlag(3);
+            
+                assertEquals(target.getTanggal(), output.getTanggal());
+                assertEquals(target.getRef(), output.getRef());
+                assertEquals(target.getPemasukan(), output.getPemasukan());
+                assertEquals(target.getSaldo(), output.getSaldo());
+                assertEquals(target.getFlag(), output.getFlag());
+            
+        } catch (RemoteException ex) {
+            Logger.getLogger(Test_Tambah_Data_Supplier_Server.class.getName()).log(Level.SEVERE, null, ex);
+        } 
     }
 }

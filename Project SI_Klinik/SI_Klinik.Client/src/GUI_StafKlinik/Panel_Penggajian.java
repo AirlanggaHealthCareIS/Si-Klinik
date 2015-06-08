@@ -419,8 +419,8 @@ public class Panel_Penggajian extends javax.swing.JPanel {
                 System.out.println("penggajian : "+penggajian);
                 penggajianService.insertGaji(p);
             }
-//            if (lkAkhir.getSaldo() > penggajian) {
-//                isSaldoEnough = true;
+            if (lkAkhir.getSaldo() > penggajian) {
+                isSaldoEnough = true;
                 createPdf(list);
                 lk.setTanggal(tgl);
                 System.out.println("tgl lk : "+lk.getTanggal());
@@ -434,11 +434,11 @@ public class Panel_Penggajian extends javax.swing.JPanel {
                 lk.setFlag(lkAkhir.getFlag()+1);
                 System.out.println("Flag : "+lk.getFlag());
                 laporanKeuanganService.insertPengeluaran(lk);
-//            }
-//            else{
-//                isSaldoEnough = false;
-//                JOptionPane.showMessageDialog(null, "Saldo tidak cukup untuk membayar gaji! Saldo anda tinggal Rp "+lkAkhir.getSaldo()+" total gaji yang harus dibayar Rp "+penggajian);
-//            }
+            }
+            else{
+                isSaldoEnough = false;
+                JOptionPane.showMessageDialog(null, "Saldo tidak cukup untuk membayar gaji! Saldo anda tinggal Rp "+lkAkhir.getSaldo()+" total gaji yang harus dibayar Rp "+penggajian);
+            }
             
         } 
         catch (RemoteException ex) {
@@ -536,8 +536,8 @@ public class Panel_Penggajian extends javax.swing.JPanel {
                 penggajian = penggajian + totalGaji;
                 System.out.println("penggajian : "+penggajian);
             }
-//            if (lkAkhir.getSaldo() > penggajian) {
-//                isSaldoEnough = true;
+            if (lkAkhir.getSaldo() > penggajian) {
+                isSaldoEnough = true;
                 createPdf(list);
                 lk.setTanggal(tgl);
                 System.out.println("tgl lk : "+tgl);
@@ -550,12 +550,12 @@ public class Panel_Penggajian extends javax.swing.JPanel {
                 System.out.println("saldo setelah dikurangi penggajian :"+lk.getSaldo());
                 lk.setFlag(lkAkhir.getFlag()+1);
                 laporanKeuanganService.insertPengeluaran(lk);
-//            }
-//            else{
-//                isSaldoEnough = false;
-//                JOptionPane.showMessageDialog(null, "Saldo tidak cukup untuk membayar gaji! Saldo anda tinggal Rp "+lkAkhir.getSaldo()+" total gaji yang harus dibayar Rp "+penggajian);
-//                
-//            }
+            }
+            else{
+                isSaldoEnough = false;
+                JOptionPane.showMessageDialog(null, "Saldo tidak cukup untuk membayar gaji! Saldo anda tinggal Rp "+lkAkhir.getSaldo()+" total gaji yang harus dibayar Rp "+penggajian);
+                
+            }
             
         } 
         catch (RemoteException ex) {

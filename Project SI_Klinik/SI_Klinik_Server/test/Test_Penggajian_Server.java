@@ -54,6 +54,7 @@ public class Test_Penggajian_Server {
     /**
      * Test of insertGaji method, of class Penggajian_Server.
      */
+    
     @Test
     public void testInsertGaji() throws Exception {
             Penggajian_Server penggajianServer = new Penggajian_Server();

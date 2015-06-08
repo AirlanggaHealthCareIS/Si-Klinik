@@ -200,7 +200,7 @@ public class Laporan_Keuangan_Server extends UnicastRemoteObject implements Lapo
         PreparedStatement statement = null;
         try{
             statement = DatabaseUtilities.getConnection().prepareStatement(
-                    "SELECT P.ID_Transaksi AS ID, P.Tanggal AS Tanggal, P.Jumlah AS Jumlah, P.Saldo AS Saldo, P.Flag AS Flag FROM pengeluaran AS P WHERE P.Tanggal <? ORDER BY Flag DESC LIMIT 1" 
+                    "SELECT P.ID_Transaksi AS ID, P.Tanggal AS Tanggal, P.Jumlah AS Jumlah, P.Saldo AS Saldo, P.Flag AS Flag FROM pengeluaran AS P WHERE P.Tanggal <? ORDER BY P.Flag DESC LIMIT 1" 
             );
             statement.setString(1, tanggal1);
             Laporan_Keuangan laporan_keuangan = new Laporan_Keuangan(); 
@@ -228,6 +228,41 @@ public class Laporan_Keuangan_Server extends UnicastRemoteObject implements Lapo
                     statement.close();
                 }catch(SQLException exception){
                    exception.printStackTrace();
+                }
+            }
+        }
+    }
+    
+    public Laporan_Keuangan getLastPengeluaran() throws RemoteException {
+        System.out.println("proses get ALL Pengeluaran");
+        Statement statement = null;
+        
+        try {
+            statement = DatabaseUtilities.getConnection().createStatement();
+            ResultSet result = statement.executeQuery("SELECT * FROM pengeluaran ORDER BY id_transaksi DESC LIMIT 1 ");
+            Laporan_Keuangan lk = null;
+            System.out.println(statement.toString());
+            while(result.next()){
+                lk = new Laporan_Keuangan();
+                lk.setId(result.getString("ID_Transaksi"));
+                lk.setTanggal(result.getString("Tanggal"));
+                lk.setPengeluaran(result.getInt("Jumlah"));
+                lk.setSaldo(result.getInt("Saldo"));
+                lk.setFlag(result.getInt("Flag"));
+            }    
+            result.close();
+            return lk;
+        } 
+        catch (SQLException exception) {
+            exception.printStackTrace();
+            return null;
+        }
+        finally{
+            if(statement!=null){
+                try {
+                    statement.close();
+                } catch (SQLException  exception) {
+                    exception.printStackTrace();
                 }
             }
         }

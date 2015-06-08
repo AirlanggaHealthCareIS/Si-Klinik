@@ -21,4 +21,5 @@ public interface Laporan_Keuangan_Service extends Remote {
     List<Laporan_Keuangan> getLaporanKeuangan() throws RemoteException;
     Laporan_Keuangan getSaldoAwal(String tanggal1) throws RemoteException;
     Laporan_Keuangan getPengeluaranAwal(String tanggal1) throws RemoteException;
+    Laporan_Keuangan getLastPengeluaran() throws RemoteException;
 }
