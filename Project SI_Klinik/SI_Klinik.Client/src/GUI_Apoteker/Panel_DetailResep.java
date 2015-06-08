@@ -14,6 +14,7 @@ import java.rmi.NotBoundException;
 import java.rmi.registry.LocateRegistry;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -33,23 +34,31 @@ public class Panel_DetailResep extends javax.swing.JPanel {
         dlrs = gui.dlrs;
         drs = gui.drs;
         noID = panel.ll.getId_rekam_medik();        
-        temp = "";        
-        initComponents();
+        temp = "";    
         this.gui = gui;        
         try{
             listResep = this.dlrs.getLihatResep(noID);
-            list = this.dlrs.getLihatResepDetail(noID);
-            tableModelResep.setData(list);
-            tabel_detail.setModel(tableModelResep);
+            list = this.dlrs.getLihatResepDetail(noID);            
         }catch(RemoteException exception){
             exception.printStackTrace();
         }        
-        if(listResep.size()>0){
-            tanggal.setText(listResep.get(0).getTanggal());
-            temp = ""+listResep.get(0).getId_Pasien();
-            idPasien.setText(temp);
-            nama.setText(listResep.get(0).getNama_Pasien());
-            namaDokter.setText(listResep.get(0).getNama_Dokter());
+        if(list.size()>0){                
+            initComponents();
+            if(listResep.size()>0){
+                tableModelResep.setData(list);
+                tabel_detail.setModel(tableModelResep);
+                tanggal.setText(listResep.get(0).getTanggal());
+                temp = ""+listResep.get(0).getId_Pasien();
+                idPasien.setText(temp);
+                nama.setText(listResep.get(0).getNama_Pasien());
+                namaDokter.setText(listResep.get(0).getNama_Dokter());
+            }                        
+        }
+        else {
+            initComponents();
+            JOptionPane.showMessageDialog(null, "Tidak ada data resep dari dokter","ERROR" , JOptionPane.ERROR_MESSAGE);
+            Panel_Resep panels = new Panel_Resep(gui);
+            gui.updatePanel(panels);            
         }
     }
     

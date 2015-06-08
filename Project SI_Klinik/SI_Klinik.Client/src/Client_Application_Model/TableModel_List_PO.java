@@ -36,9 +36,9 @@ public class TableModel_List_PO extends AbstractTableModel{
     @Override
     public String getColumnName(int column) {
         switch(column){
-            case 0 : return "id_po";
-            case 1 : return "supplier";
-            case 2 : return "tanggal pesan";
+            case 0 : return "ID PO";
+            case 1 : return "Supplier";
+            case 2 : return "Tanggal Pesan";
             default: return null;
         }
     }   

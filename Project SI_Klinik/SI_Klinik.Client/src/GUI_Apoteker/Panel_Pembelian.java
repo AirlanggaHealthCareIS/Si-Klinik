@@ -3,19 +3,60 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+//yg baru
 package GUI_Apoteker;
-
+import Client_Application_Model.TableModel_Generate_PO;
+import Client_Application_Model.TableModel_List_PO;
+import GUI_Apoteker.Form_ubah_pemesanan_obat;
+import database.Service.List_PO_Service;
+import database.entity.obat_kritis;
+import database.entity.Supplier;
+import database.entity.detil_pesan_obat;
+import database.entity.Pemesanan_Obat;
+import database.Service.Obat_Service;
+import database.Service.Supplier_Service;
+import database.Service.Pemesanan_Obat_Service;
+import java.rmi.RemoteException;
+import java.util.List;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
- * @author Ardy Naibaho
+ * @author asus
  */
 public class Panel_Pembelian extends javax.swing.JPanel {
-
+    TableModel_List_PO table = new TableModel_List_PO();
+    Obat_Service obs;
+    Pemesanan_Obat_Service pos;
+    List_PO_Service lpos;
+    GUI_Apoteker gui;
+    List<Pemesanan_Obat> listPO= new ArrayList<Pemesanan_Obat>();    
+    Pemesanan_Obat po;
+    
     /**
-     * Creates new form Panel_Pembelian
+     * Creates new form Panel_Generate_PO
      */
-    public Panel_Pembelian() {
+    public Panel_Pembelian(GUI_Apoteker gui) {
         initComponents();
+        obs = gui.os;
+        pos = gui.pos;
+        lpos = gui.listPO;
+        this.gui = gui;
+        pembelian.setEnabled(false);
+        jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent e) {
+                int row = jTable1.getSelectedRow();
+                 if(row != -1){                   
+                   pembelian.setEnabled(true);
+                   po =listPO.get(row);
+                 }
+            }
+        });
     }
 
     /**
@@ -27,22 +68,102 @@ public class Panel_Pembelian extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setMinimumSize(new java.awt.Dimension(700, 450));
-        setPreferredSize(new java.awt.Dimension(700, 450));
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        pembelian = new javax.swing.JButton();
+
+        setMinimumSize(new java.awt.Dimension(1170, 530));
+        setPreferredSize(new java.awt.Dimension(1170, 530));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "no", "id_obat", "nama_obat", "jumlah_harus_dipesan", "supplier"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel1.setText("Data Pemesanan Obat");
+
+        pembelian.setText("KELOLA PEMBELIAN");
+        pembelian.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pembelianActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 700, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(482, 482, 482)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(474, 474, 474)
+                        .addComponent(pembelian, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 490, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 450, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(pembelian, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-
+    public String getTanggal(){
+       Calendar cal = new GregorianCalendar();
+            String tanggal ="0";
+            if(cal.get(Calendar.DATE)<0){
+                tanggal="0"+cal.get(Calendar.DATE);
+            }
+            else{
+                tanggal=""+cal.get(Calendar.DATE);
+            }
+            String bulan="0";
+            if(cal.get(Calendar.MONTH)<10){
+                bulan="0"+(cal.get(Calendar.MONTH)+1);;
+            }
+            else{
+                bulan=""+(cal.get(Calendar.MONTH)+1);
+            }
+            String tahun= ""+cal.get(Calendar.YEAR);
+            tanggal = (tahun+"-"+bulan+"-"+tanggal);
+        return tanggal;
+    }
+    
+    private void pembelianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pembelianActionPerformed
+        
+    }//GEN-LAST:event_pembelianActionPerformed
+    
+    public  void updatetable() throws RemoteException{
+        listPO = pos.getPO();
+        table.setData(listPO);
+        jTable1.setModel(table);        
+    }
+    
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JButton pembelian;
     // End of variables declaration//GEN-END:variables
 }

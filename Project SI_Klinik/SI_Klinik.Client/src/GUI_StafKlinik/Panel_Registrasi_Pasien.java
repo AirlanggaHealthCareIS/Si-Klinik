@@ -24,6 +24,7 @@ public class Panel_Registrasi_Pasien extends javax.swing.JPanel {
     String tanggalpasien;
     public GUI_StafKlinik gui;
     Pendaftaran_Service pendaftaranservice;
+     List<dokter> list;
     
     /**
      * Creates new form Panel_Profil_Apoteker
@@ -175,6 +176,15 @@ public class Panel_Registrasi_Pasien extends javax.swing.JPanel {
         jButton4.setEnabled(false);
 
         dokter.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tidak ada dokter" }));
+        dokter.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                dokterPopupMenuWillBecomeVisible(evt);
+            }
+        });
 
         jLabel2.setText("*) Sistem ini menyarankan dokter di atas untuk menangani");
 
@@ -249,11 +259,12 @@ public class Panel_Registrasi_Pasien extends javax.swing.JPanel {
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dokter, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(dokter, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(15, 15, 15)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -714,9 +725,10 @@ public void setPasien (Pasien p){
         // TODO add your handling code here:
         dokter.removeAllItems();
         dokter.setBackground(Color.gray);
-        if(!poli.getItemAt(poli.getSelectedIndex()).equals("Pilih")){
+        if(poli.getSelectedIndex()>0){
+        if(!poli.getItemAt(poli.getSelectedIndex()).toString().equals("Pilih")){
             try {
-                List<dokter> list = pendaftaranservice.GetDokter(pendaftaranservice.getPoliFromNama(poli.getItemAt(poli.getSelectedIndex()).toString()).getId_Poli());
+                list = pendaftaranservice.GetDokter(pendaftaranservice.getPoliFromNama(poli.getItemAt(poli.getSelectedIndex()).toString()).getId_Poli());
                 for (int i = 0; i < list.size(); i++) {
                     dokter.addItem(list.get(i).getnama_dokter());
                 }                            
@@ -737,6 +749,7 @@ public void setPasien (Pasien p){
                 Logger.getLogger(Panel_Registrasi_Pasien.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        }
     }//GEN-LAST:event_poliActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -750,7 +763,17 @@ public void setPasien (Pasien p){
             isi = false;
             dokter.setBackground(Color.red);
         }
+        if(isi){
+            pendaftaran p = new pendaftaran();
+            p.setId_Dokter(list.get(dokter.getSelectedIndex()).getid_dokter());
+            
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void dokterPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_dokterPopupMenuWillBecomeVisible
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_dokterPopupMenuWillBecomeVisible
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField agamaField;

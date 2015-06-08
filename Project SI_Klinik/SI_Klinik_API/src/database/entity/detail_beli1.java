@@ -9,18 +9,19 @@ package database.entity;
  * @author Acer
  */
 public class detail_beli1 {
-    private String id_detail_beli;
     private String id_obat;
+    private String nama_obat;
     private String id_beli;
-    private int qty_detail_beli;
+    private int qty_pesan;
+    private int qty_datang;
     
     
-    public String getid_detail_beli() {
-        return id_detail_beli;
+    public String getnama_obat() {
+        return nama_obat;
     }
 
-    public void setid_detail_beli(String id_detail_beli) {
-        this.id_detail_beli = id_detail_beli;
+    public void setnama_obat(String nama_obat) {
+        this.nama_obat = nama_obat;
     }
     
     public String getid_obat() {
@@ -39,14 +40,21 @@ public class detail_beli1 {
         this.id_beli = id_beli;
     }
     
-    public int getqty_detail_beli() {
-        return qty_detail_beli;
+    public int getqtypesan() {
+        return qty_pesan;
     }
 
-    public void setqty_detail_beli(int qty_detail_beli) {
-        this.qty_detail_beli = qty_detail_beli;
+    public void setqtypesan(int qty_pesan) {
+        this.qty_pesan = qty_pesan;
     }   
-        
+    
+     public int getqtydatang() {
+        return qty_datang;
     }
+
+    public void setqtydatang(int qty_datang) {
+        this.qty_datang = qty_datang;
+    }       
+}
   
 

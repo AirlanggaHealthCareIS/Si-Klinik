@@ -22,9 +22,15 @@ public class Panel_Profil_Apoteker extends javax.swing.JPanel {
         p = gui.p;        
         nama.setText(p.getNama_Petugas());
         alamat.setText(p.getAlamat());
-        jenkel.setText(p.getJenKel());
+        if(p.getJenKel().equalsIgnoreCase("P")){
+            jenkel.setText("Perempuan");
+        }
+        else{
+            jenkel.setText("Laki-laki");
+        }
         telp.setText(p.getTelepon());
-        tanggallahir.setText(p.getTanggalLahir());
+        String x[] =p.getTanggalLahir().split("-");
+        tanggallahir.setText(x[2]+"-"+x[1]+"-"+x[0]);
         agama.setText(p.getAgama());
     }
 
