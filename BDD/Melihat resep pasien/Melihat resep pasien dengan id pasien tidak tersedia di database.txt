@@ -1,12 +1,8 @@
 Feature : Melihat resep pasien
-Skenario : Apoteker melihat resep pasien dengan id pasien yang salah
+Skenario : Apoteker melihat resep pasien yang tidak mempunyai catatan rekam medik dalam database
 
-Given : Saya berada di halaman apoteker dan telah membuka menu kelola penjualan
-When : Saya menginputkan id pasien dan menekan tombol Cari
-Then : Saya mendapat pesan bahwa id pasien yang dimaksud tidak tersedia
-When : Saya menekan tombol OK
-Then : Saya kembali ke halaman presensi
-When : Saya menginputkan id pasien dengan benar
-Then : Saya dapat melihat satu/beberapa resep sesuai dengan id pasien yang diinputkan sebelumnya
-When : Saya memilih salah satu resep pasien yang diinginkan dan saya menekan tombol Lihat Detail
-Then : Saya dapat melihat detail data resep pasien yang diinginkan
+Given : Saya berada di halaman apoteker dan telah membuka menu penjualan obat
+When : Saya menekan tombol Cari Pasien dan menginputkan nama/id pasien yang tidak mempunyai data rekam medik dan menekan tombol cari
+Then : Saya dapat melihat id/nama pasien, alamat pasien secara otomatis terisi pada field yang tersedia
+When : Saya menekan tombol ok 
+Then : Saya tidak melihat data rekam medik pasien yang bersangkutan
