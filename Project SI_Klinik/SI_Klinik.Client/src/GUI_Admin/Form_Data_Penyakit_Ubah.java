@@ -36,7 +36,7 @@ public class Form_Data_Penyakit_Ubah extends javax.swing.JFrame {
         penyakitservice = (Penyakit_Service) gui.penys;
         penyakit = s;
         this.gui = gui;
-        nama1.setText(penyakit.getId_Penyakit());
+        nama1.setText(""+penyakit.getId_Penyakit());
         NAMA.setText(penyakit.getNama_Penyakit());
        
     }

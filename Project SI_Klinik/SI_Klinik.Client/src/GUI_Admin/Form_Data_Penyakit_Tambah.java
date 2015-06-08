@@ -211,15 +211,14 @@ public class Form_Data_Penyakit_Tambah extends javax.swing.JFrame {
             
             String N = NAMA.getText();
             
-            String ID = null;
+            int ID = 0;
             try {
-                ID = "P-"+(ss.getPenyakitAll().size()+1);
+                ID = (ss.getPenyakitAll().size()+1);
             } catch (RemoteException ex) {
                 Logger.getLogger(Form_Data_Penyakit_Tambah.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
                Penyakit s= new Penyakit();
-               s.setId_Penyakit(ID);
                s.setNama_Penyakit(N);
                
                if(ss.insertPenyakit(s)!=null){

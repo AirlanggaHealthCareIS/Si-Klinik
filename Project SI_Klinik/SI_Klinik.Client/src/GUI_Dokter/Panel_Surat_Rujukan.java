@@ -68,6 +68,13 @@ Pasien_Service pas;
             Logger.getLogger(Panel_Surat_Rujukan.class.getName()).log(Level.SEVERE, null, ex);
         }          
     }
+    
+    public Panel_Surat_Rujukan(Rekam_Medis rm, Pasien p, String rs){
+        initComponents();
+        this.rm = rm;
+        nama.setText(rs);
+        pasien = p;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -236,6 +243,25 @@ Pasien_Service pas;
         preface.add(Chunk.NEWLINE);
         preface.add(chunk);
         return preface;
+    }
+    
+    public String createStringParagraph(){
+        String a = "";
+        a = a+ "Rumah Sakit Rujukan: "+nama.getText()+"\n";
+        a = a+ "Mohon konsultasi dan perawatan selanjutnya untuk: " + "\n";
+        a = a+ "Nama Pasien : "+pasien.getNama_Pasien()+"\n";
+        String diagnosa = "";
+        for (int i = 0; i < rm.getAssessment().size(); i++) {
+            if (i==0) {
+                diagnosa = rm.getAssessment(i).getAssessment();
+            }
+            else{
+                diagnosa = diagnosa+" : "+rm.getAssessment(i).getAssessment();
+            }
+        }
+        a = a+ "Diagnosa :"+diagnosa+"\n";
+        a = a+ "Demikian dan terimakasih.";
+        return a;
     }
     
     private Paragraph getPreface(String status){

@@ -33,10 +33,9 @@ public class Penyakit_Server extends UnicastRemoteObject implements Penyakit_Ser
         PreparedStatement statement = null;
         try{
             statement = DatabaseUtilities.getConnection().prepareStatement(
-            "INSERT INTO penyakit(ID_PENYAKIT, NAMA_PENYAKIT) values(?,?)");
+            "INSERT INTO penyakit(ID_PENYAKIT, NAMA_PENYAKIT) values(null,?)");
             
-            statement.setInt(1, a.getId_Penyakit());
-            statement.setString(2, a.getNama_Penyakit());
+            statement.setString(1, a.getNama_Penyakit());
             System.out.println(statement.toString());
             statement.execute();
             return a;
@@ -89,7 +88,7 @@ public class Penyakit_Server extends UnicastRemoteObject implements Penyakit_Ser
         PreparedStatement statement = null;
         
         try{
-            statement = DatabaseUtilities.getConnection().prepareStatement("SELECT * FROM `penyakit` ORDER BY NAMA_PENYAKIT ASC");            
+            statement = DatabaseUtilities.getConnection().prepareStatement("SELECT * FROM `penyakit` ORDER BY ID_PENYAKIT DESC");            
             ResultSet result = statement.executeQuery();
             
             List<Penyakit> list = new ArrayList<Penyakit>();

@@ -214,6 +214,10 @@ public class Rekam_Medis implements Serializable{
          return list;
      }
      
+     public detail_Assessment getAssessment(int index){
+         return list.get(index);
+     }
+     
      public void setAssessment(List <detail_Assessment> list) {
         this.list = list;
     }
