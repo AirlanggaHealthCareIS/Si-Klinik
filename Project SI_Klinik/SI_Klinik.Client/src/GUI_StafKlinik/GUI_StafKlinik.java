@@ -7,6 +7,7 @@ package GUI_StafKlinik;
 import GUI_Apoteker.Panel_Resep;
 import GUI_Login.Login;
 import database.Service.Dokter_Service;
+import database.Service.Jadwal_Service;
 import database.Service.Laporan_Keuangan_Service;
 import database.Service.Petugas_Service;
 import database.Service.Pasien_Service;
@@ -30,6 +31,7 @@ public class GUI_StafKlinik extends javax.swing.JFrame {
     Penggajian_Service penggajianServer;    
     Dokter_Service dokterServer;
     Pasien_Service pasienServer;
+    Jadwal_Service jadwalServer;
     Transaksi_Periksa_Service  bpjs;
     public GUI_StafKlinik ( petugas p, Login l){
         super("Staf Klinik");
@@ -42,6 +44,7 @@ public class GUI_StafKlinik extends javax.swing.JFrame {
         dokterServer = l.service2;
         penggajianServer=l.service21;
         petugasServer = l.service1;
+        jadwalServer = l.service9;
         jLabel3.setText(p.getNama_Petugas());
         
         
@@ -295,7 +298,21 @@ public class GUI_StafKlinik extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton15ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        // TODO add your handling code here:
+        jPanel4.removeAll();
+         jPanel4.repaint();
+         jPanel4.revalidate();                    
+         Panel_jadwaldokter  panel = null;
+        try {
+            panel = new Panel_jadwaldokter(this);
+        } catch (RemoteException ex) {
+            Logger.getLogger(GUI_StafKlinik.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NotBoundException ex) {
+            Logger.getLogger(GUI_StafKlinik.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         panel.setVisible(true);
+         jPanel4.add(panel);
+         jPanel4.repaint();
+         jPanel4.revalidate(); 
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void SUPPLIERActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SUPPLIERActionPerformed

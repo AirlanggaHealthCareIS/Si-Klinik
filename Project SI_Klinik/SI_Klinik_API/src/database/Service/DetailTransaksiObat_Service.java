@@ -17,4 +17,5 @@ import java.util.List;
  */
 public interface DetailTransaksiObat_Service extends Remote {
     detail_transaksi_obat insertDTO(detail_transaksi_obat dto) throws RemoteException;
+    List<detail_transaksi_obat> getDetailTO (String id_transaksi_obat) throws RemoteException;
 }

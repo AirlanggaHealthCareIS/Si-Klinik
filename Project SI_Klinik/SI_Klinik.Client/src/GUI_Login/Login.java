@@ -238,7 +238,7 @@ public class Login extends javax.swing.JFrame {
         service6 = (Tindakan_Dokter_Service) registry.lookup("service6");
         service7 = (Assessment_Service) registry.lookup("service7");
         service8 = (Detail_Resep_Service) registry.lookup("service8");
-//        service9 = (Jadwal_Service) registry.lookup("service9");
+        service9 = (Jadwal_Service) registry.lookup("service9");
         service10 = (Obat_Service) registry.lookup("service10");
 //        service11 = (Resep_Service) registry.lookup("service11");
         service12 = (Supplier_Service) registry.lookup("service12");

@@ -15,9 +15,9 @@ import java.util.List;
  * @author Indyka
  */
 public interface Transaksi_Periksa_Service extends Remote{
-    Transaksi_Periksa getTagihan(String id_transaksi) throws RemoteException;
     List<Transaksi_Periksa> getBPJS(int bulan) throws RemoteException;
     Transaksi_Periksa getLastTransaksi() throws RemoteException;
     Transaksi_Periksa insertTransaksi(Transaksi_Periksa a) throws RemoteException;
     List<Transaksi_Periksa> getTransaksis(String id_pasien) throws RemoteException;
+    Transaksi_Periksa getTagihan(String idtransaksi) throws RemoteException;
 }

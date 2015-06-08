@@ -4,11 +4,13 @@
  */
 package database.entity;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Acer
  */
-public class jadwal {
+public class jadwal implements Serializable{
     private String id_jadwal;
     private String id_dokter;
     private String hari;
@@ -55,6 +57,4 @@ public class jadwal {
     public void setid_poli(String a) {
         this.id_poli=a ;
     }
-    
-    
 }

@@ -50,9 +50,8 @@ public class TableModel_Jadwal extends AbstractTableModel{
         switch(column){
             case 0 : return "ID Jadwal";
             case 1 : return "ID Dokter";
-            case 2 : return "ID Poli";
-            case 3 : return "Hari";
-            case 4 : return "Jam";
+            case 2 : return "Hari";
+            case 3  : return "Jam";
 
             default: return null;
         }
@@ -63,16 +62,15 @@ public class TableModel_Jadwal extends AbstractTableModel{
     }
 
     public int getColumnCount() {
-        return 5;
+        return 4;
     }
     
     public Object getValueAt(int rowIndex, int columnIndex) {
         switch(columnIndex){
             case 0 : return list.get(rowIndex).getid_jadwal();
             case 1 : return list.get(rowIndex).getid_dokter();
-            case 2 : return list.get(rowIndex).getid_poli();
-            case 3 : return list.get(rowIndex).gethari();
-            case 4 : return list.get(rowIndex).getjam();
+            case 2 : return list.get(rowIndex).gethari();
+            case 3 : return list.get(rowIndex).getjam();
                 
             default : return null;
         }

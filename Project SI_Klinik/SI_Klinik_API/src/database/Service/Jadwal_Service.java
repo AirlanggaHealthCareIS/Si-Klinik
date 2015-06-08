@@ -17,6 +17,7 @@ import java.util.List;
 public interface Jadwal_Service extends Remote{
     
     List<jadwal> getJadwal (String hari) throws RemoteException;
-    void ubahJadwal (String id_jadwal, String hari, String jam) throws RemoteException;
-    
+    void ubahJadwal (String id_jadwal, String jam) throws RemoteException;
+    List<String> getIDDokter() throws RemoteException;
+    void insertJadwal(String id_dokter, String hari, String jam);
 }
