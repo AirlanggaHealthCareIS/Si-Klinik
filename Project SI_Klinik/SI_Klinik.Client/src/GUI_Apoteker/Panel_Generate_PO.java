@@ -15,6 +15,7 @@ import database.entity.Pemesanan_Obat;
 import database.Service.Obat_Service;
 import database.Service.Supplier_Service;
 import database.Service.Pemesanan_Obat_Service;
+import database.entity.obat;
 import java.rmi.RemoteException;
 import java.util.List;
 import javax.swing.event.ListSelectionEvent;
@@ -280,6 +281,11 @@ public class Panel_Generate_PO extends javax.swing.JPanel {
                     List<detil_pesan_obat>list = listPO.get(listPO.size()-1).getList();
                     list.add(detail);
                     listPO.get(listPO.size()-1).setList(list); 
+                    try {
+                        lpos.insertListPO(detail);
+                    } catch (RemoteException ex) {
+                        Logger.getLogger(Panel_Generate_PO.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
             for (int i = 0; i < listPO.size(); i++) {
@@ -299,20 +305,42 @@ public class Panel_Generate_PO extends javax.swing.JPanel {
     }//GEN-LAST:event_generatePOActionPerformed
     
     public  void updatetable() throws RemoteException{
-        listob = obs.getObatKritis();
+            listob = obs.getObatKritis();
+            List listIndexhapus  = new ArrayList(); 
+            for (int i = 0; i < listob.size(); i++) {
+                String o= listob.get(i).getID_OBAT();
+                System.out.println(o);
+                try {
+                    int jumlahpemesanan = pos.getJumlahPemesanan(o);
+                    System.out.println("jumlah pemesanan "+listob.get(i).getID_OBAT()+" adalah "+jumlahpemesanan);
+                    if(jumlahpemesanan>=listob.get(i).getSELISIH()){
+                        listIndexhapus.add(i);
+                        System.out.println("remove "+listob.get(i).getID_OBAT());
+                    }
+                    else if(jumlahpemesanan<listob.get(i).getSELISIH()&&jumlahpemesanan>0){
+                        listob.get(i).setSELISIH(listob.get(i).getSELISIH()-jumlahpemesanan);
+                    }                    
+                } catch (RemoteException ex) {
+                    Logger.getLogger(Panel_Generate_PO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            for (int i = 0; i < listIndexhapus.size(); i++) {
+                //System.out.println();
+                listob.remove((int)listIndexhapus.get(i));
+        }        
         for (int i = 0; i < listob.size(); i++) {
             listob.get(i).setNo(i+1);
             listob.get(i).setHARGA(obs.getObat(listob.get(i).getID_OBAT()).getharga_obat());
             listob.get(i).setTOTAL(listob.get(i).getHarga()*listob.get(i).getSELISIH());
-        }
-        System.out.println(listob.size());
-        table.setData(listob);
-        jTable1.setModel(table);        
+        }        
         int harga = 0;
         for (int i = 0; i < listob.size(); i++) {
             harga =  harga + listob.get(i).getTOTAL();
-        }
-        jLabel3.setText("Rp "+harga);
+        }    
+        System.out.println(listob.size());
+        jLabel3.setText("Rp "+harga);        
+        table.setData(listob);
+        jTable1.setModel(table);        
     }
     
     public  void updatetable2() throws RemoteException{

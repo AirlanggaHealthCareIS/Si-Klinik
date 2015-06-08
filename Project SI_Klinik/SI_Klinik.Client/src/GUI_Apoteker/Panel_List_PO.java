@@ -13,6 +13,7 @@ import java.rmi.RemoteException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 /**
@@ -138,17 +139,24 @@ public class Panel_List_PO extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Panel_Detil_PO panel = new Panel_Detil_PO(gui, po);
-        List<detil_pesan_obat> list1 = po.getList();
-        for (int i = 0; i < list1.size(); i++) {
-            try {
-                list1.get(i).setNama_obat(obs.getObat(list1.get(i).getId_obat()).getnama_obat());
-            } catch (RemoteException ex) {
-                Logger.getLogger(Panel_List_PO.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        int row = jTable1.getSelectedRow();
+        if(row == -1){
+            JOptionPane.showMessageDialog(null, "silahkan memilih salah satu pemesanan order untuk melanjutkan.", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-        panel.updateTabel(po.getList());
-        gui.updatePanel(panel);
+        else{
+            boolean isi1 = false;
+            Panel_Detil_PO panel = new Panel_Detil_PO(gui, po);
+            List<detil_pesan_obat> list1 = po.getList();
+            for (int i = 0; i < list1.size(); i++) {
+                try {
+                    list1.get(i).setNama_obat(obs.getObat(list1.get(i).getId_obat()).getnama_obat());
+                } catch (RemoteException ex) {
+                    Logger.getLogger(Panel_List_PO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            panel.updateTabel(po.getList());
+            gui.updatePanel(panel);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
