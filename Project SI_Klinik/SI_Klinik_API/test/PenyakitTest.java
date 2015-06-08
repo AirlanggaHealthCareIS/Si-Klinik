@@ -44,7 +44,7 @@ public class PenyakitTest {
      */
     @Test
     public void testGetId_Penyakit() {
-        String id_penyakit = "P-1";
+        int id_penyakit = 1;
         pen.setId_Penyakit(id_penyakit);
         assertEquals(id_penyakit,pen.getId_Penyakit());
     }
