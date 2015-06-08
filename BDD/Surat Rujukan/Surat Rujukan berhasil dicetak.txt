@@ -1,0 +1,8 @@
+Feature		: Dokter dapat masuk ke GUI Membuat Surat Rujukan 
+Skenario 1	: Dokter berhasil membuat surat rujukan
+Given dokter berada pada halaman awal membuat surat rujukan
+When dokter menerima ID pasien yang telah mendaftar
+Then dokter mengisi Rumah sakit tempat tujuan pasien yang akan dirujuk
+And dokter melakukan pengecekan data sebelum mencetak surat rujukan
+And dokter menekan tombol Cetak
+And dokter telah selesai melakukan pengisian surat rujukan dengan tujuan tumah sakit dan data tersimpan kedalam database

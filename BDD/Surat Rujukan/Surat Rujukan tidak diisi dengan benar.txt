@@ -1,0 +1,9 @@
+Skenario 2	: Dokter menginputkan tujuan rumah sakit yang salah
+Given dokter berada pada halaman awal membuat surat rujukan
+When dokter menerima ID pasien yang telah mendaftar
+Then dokter mengisi Rumah sakit tempat tujuan pasien yang akan dirujuk tetapi salah penulisan
+And dokter melakukan pengecekan data sebelum mencetak surat rujukan
+And dokter kembali mengisi tujuan rumah sakit dengan benar
+And dokter menekan tombol Cetak
+And dokter telah selesai melakukan pengisian surat rujukan dengan tujuan tumah sakit dan data tersimpan kedalam database
+
