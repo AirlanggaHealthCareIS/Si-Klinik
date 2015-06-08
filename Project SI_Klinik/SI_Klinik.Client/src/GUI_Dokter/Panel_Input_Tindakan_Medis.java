@@ -43,10 +43,7 @@ public class Panel_Input_Tindakan_Medis extends javax.swing.JPanel {
       List<Tindakan_Dokter> list = new ArrayList<Tindakan_Dokter>();
       public GUI_Dokter gui;
       public String a = "";
-
-      public Panel_Input_Tindakan_Medis (){
-          
-      }
+      Panel_Rekam_Medik_Tambah pane; 
       
       public String getTanggal(){
         Calendar cal = new GregorianCalendar();
@@ -69,13 +66,18 @@ public class Panel_Input_Tindakan_Medis extends javax.swing.JPanel {
             return tanggal;
     }
       
-    public Panel_Input_Tindakan_Medis(GUI_Dokter gui, String id_rekam) {
+    public Panel_Input_Tindakan_Medis(){
+        
+    }
+      
+    public Panel_Input_Tindakan_Medis(GUI_Dokter gui, String id_rekam , Panel_Rekam_Medik_Tambah pane) {
         initComponents();
         service6 = gui.tds;
         transaksi = gui.tp;
         id = id_rekam;
         tinper = gui.tip;
         this.gui= gui;
+        this.pane = pane;
     }
 
     /**
@@ -202,14 +204,13 @@ public class Panel_Input_Tindakan_Medis extends javax.swing.JPanel {
             } catch (RemoteException ex) {
                 Logger.getLogger(Panel_Input_Tindakan_Medis.class.getName()).log(Level.SEVERE, null, ex);
             }
-            try {
-                Panel_Resep panel = new Panel_Resep(this.gui,id);
-                
-            } catch (RemoteException ex) {
-                Logger.getLogger(Panel_Input_Tindakan_Medis.class.getName()).log(Level.SEVERE, null, ex);
+            try { 
+                Panel_Resep panel = new Panel_Resep(gui, id);
+                pane.tabBaru("Resep", panel,3);
             } catch (NotBoundException ex) {
                 Logger.getLogger(Panel_Input_Tindakan_Medis.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
         } catch (RemoteException ex) {
             Logger.getLogger(Panel_Input_Tindakan_Medis.class.getName()).log(Level.SEVERE, null, ex);
         }

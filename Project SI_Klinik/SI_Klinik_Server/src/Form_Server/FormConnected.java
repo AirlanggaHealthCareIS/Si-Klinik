@@ -93,10 +93,12 @@ public class FormConnected extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1350, 750));
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setMaximumSize(new java.awt.Dimension(1310, 800));
         jPanel1.setPreferredSize(new java.awt.Dimension(1310, 800));
         jPanel1.setLayout(null);
 
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -221,7 +223,7 @@ public class FormConnected extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(20, 220, 1310, 440);
+        jScrollPane1.setBounds(20, 220, 1310, 340);
 
         jButton1.setText("Detail Log");
         jPanel1.add(jButton1);
@@ -262,14 +264,13 @@ public class FormConnected extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 584, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void ConnectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConnectedActionPerformed
-        if(!portBenar){
+    private void connectedAction(){
+         if(!portBenar){
             port = 9999;
             jFormattedTextField2.setText("9999");
         }
@@ -286,10 +287,14 @@ public class FormConnected extends javax.swing.JFrame {
         } catch (RemoteException ex) {
             JOptionPane.showMessageDialog(null, "Koneksi gagal");
         }        
+    }
+    private void ConnectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConnectedActionPerformed
+       connectedAction();
     }//GEN-LAST:event_ConnectedActionPerformed
 
     private void jFormattedTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField2ActionPerformed
         // TODO add your handling code here:
+        connectedAction();
     }//GEN-LAST:event_jFormattedTextField2ActionPerformed
 
      private boolean CheckNumber(String a){

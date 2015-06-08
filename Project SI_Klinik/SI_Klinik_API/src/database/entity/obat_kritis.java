@@ -18,6 +18,8 @@ public class obat_kritis implements Serializable{
     private String NAMA_OBAT;
     private int SELISIH;
     private String NAMA_SUPPLIER;
+    private int harga;
+    private int totalharga;
     
     
     public int getNo(){
@@ -50,8 +52,20 @@ public class obat_kritis implements Serializable{
     }
     public String getNAMA_SUPPLIER(){
         return NAMA_SUPPLIER;
-    
+    }
+    public int getHarga(){ 
+        return harga;
 }
+    public void setHARGA(int a){
+        harga = a;
+    }
+    public int getTOTAL(){ 
+        return totalharga;
+    }
+    public void setTOTAL(int a){
+        totalharga = a;
+    }
+    
 }
     
     

@@ -98,7 +98,6 @@ public class GUI_Dokter extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1320, 720));
-        setPreferredSize(new java.awt.Dimension(1320, 720));
 
         jPanel1.setPreferredSize(new java.awt.Dimension(1320, 720));
 

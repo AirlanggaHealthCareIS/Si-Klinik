@@ -11,6 +11,7 @@ import database.Service.Jadwal_Service;
 import database.Service.Laporan_Keuangan_Service;
 import database.Service.Petugas_Service;
 import database.Service.Pasien_Service;
+import database.Service.Pendaftaran_Service;
 import database.Service.Penggajian_Service;
 import database.entity.Pasien;
 import java.rmi.NotBoundException;
@@ -27,12 +28,15 @@ import database.Service.Transaksi_Periksa_Service;
 public class GUI_StafKlinik extends javax.swing.JFrame {
     petugas p;
     Laporan_Keuangan_Service laporanServer;
+    Pendaftaran_Service pendaftaranServer;
     Petugas_Service petugasServer;
     Penggajian_Service penggajianServer;    
     Dokter_Service dokterServer;
     Pasien_Service pasienServer;
     Jadwal_Service jadwalServer;
     Transaksi_Periksa_Service  bpjs;
+    public Login l;
+    
     public GUI_StafKlinik ( petugas p, Login l){
         super("Staf Klinik");
         initComponents();
@@ -42,11 +46,12 @@ public class GUI_StafKlinik extends javax.swing.JFrame {
         bpjs = l.service14;
         laporanServer = l.service5;
         dokterServer = l.service2;
+        pendaftaranServer = l.service3;
         penggajianServer=l.service21;
         petugasServer = l.service1;
         jadwalServer = l.service9;
         jLabel3.setText(p.getNama_Petugas());
-        
+        this.l=l;
         
     }
     
@@ -334,16 +339,8 @@ public class GUI_StafKlinik extends javax.swing.JFrame {
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
          if(jComboBox1.getSelectedIndex()==1){
-            try {
-                Login l = new Login();
-                l.setVisible(true);
+                  l.setVisible(true);
                   this.dispose();
-            } catch (RemoteException ex) {
-                Logger.getLogger(GUI_StafKlinik.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (NotBoundException ex) {
-                Logger.getLogger(GUI_StafKlinik.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
         }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 

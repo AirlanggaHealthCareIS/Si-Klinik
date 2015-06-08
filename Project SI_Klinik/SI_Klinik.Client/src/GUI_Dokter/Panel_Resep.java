@@ -48,9 +48,7 @@ public class Panel_Resep extends javax.swing.JPanel {
      */
     public Panel_Resep(GUI_Dokter gui, String id_rekam) throws RemoteException, NotBoundException{
         initComponents();
-        registry = LocateRegistry.getRegistry("0.0.0.0", 9750);
-        detResepService = (Detail_Resep_Service) registry.lookup("service8");        
-        service10 = (Obat_Service) registry.lookup("service10");
+        detResepService = (Detail_Resep_Service) gui.drs;
         this.gui= gui;
         id=id_rekam;
         detResepService = gui.drs;

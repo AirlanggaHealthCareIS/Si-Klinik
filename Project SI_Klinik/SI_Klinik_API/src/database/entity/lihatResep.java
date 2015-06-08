@@ -14,6 +14,7 @@ public class lihatResep implements Serializable{
     private String Id_rekam_medik;
     private String Id_resep;
     private String Tanggal;
+    private int no;
     
     public int getId_Pasien() {
         return Id_Pasien;
@@ -21,6 +22,14 @@ public class lihatResep implements Serializable{
 
     public void setId_Pasien(int Id_Pasien) {
         this.Id_Pasien = Id_Pasien;
+    }
+
+     public int getNo() {
+        return no;
+    }
+
+    public void setNo(int no) {
+        this.no = no;
     }
 
     public String getId_rekam_medik() {

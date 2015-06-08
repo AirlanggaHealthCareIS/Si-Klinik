@@ -26,6 +26,8 @@ import ServerApplication.Service.Presensi_Server;
 import database.Service.Detail_Lihat_Resep_Service;
 import database.Service.Detail_Resep_Service;
 import database.Service.Pemesanan_Obat_Service;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.rmi.AccessException;
 import java.rmi.AlreadyBoundException;
 import java.rmi.NotBoundException;
@@ -36,6 +38,8 @@ import java.rmi.registry.Registry;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
@@ -47,8 +51,13 @@ import javax.swing.Timer;
  */
 public class main {
     Registry server;
-    int port = 9750;
-
+    int port ;
+    FormConnected f;
+    
+    public main(FormConnected f){
+        this.f = f;
+        this.port = f.port;
+     }
 
     public void start() throws RemoteException {
         server = LocateRegistry.createRegistry(port);
@@ -106,8 +115,10 @@ public class main {
         server.rebind("service22", pesanServer);
         server.rebind("service23", presensiServer);
         server.rebind("service24", detailListPO);
-        
+      
         System.out.println("Server Berhasil Tersambung");
+        
+        
     }
     public void stop() throws RemoteException, NotBoundException{      
         System.out.println("Server Terputus");        

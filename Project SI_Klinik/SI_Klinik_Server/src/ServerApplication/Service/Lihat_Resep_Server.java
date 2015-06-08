@@ -66,13 +66,15 @@ public class Lihat_Resep_Server extends UnicastRemoteObject implements lihat_Res
     @Override
     public List<lihatResep> getLihatResep(int id) throws RemoteException {
         System.out.println("Client Melakukan Proses Get By");
-
-        Statement statement = null;
+        
+        PreparedStatement statement = null;
         try{
-          statement = DatabaseUtilities.getConnection().createStatement();
-
-          ResultSet result = statement.executeQuery("SELECT DISTINCT RM.ID_PASIEN, RM.ID_REKAM_MEDIS, RM.TGL_REKAM_MEDIS FROM detail_resep_obat AS DRO, rekam_medis AS RM WHERE RM.ID_PASIEN = "+id+" AND DRO.ID_REKAM_MEDIS = RM.ID_REKAM_MEDIS");
-
+          statement = DatabaseUtilities.getConnection().prepareStatement(
+            "SELECT RM.ID_PASIEN, RM.ID_REKAM_MEDIS, RM.TGL_REKAM_MEDIS FROM rekam_medis AS RM WHERE RM.ID_PASIEN =? ORDER BY RM.TGL_REKAM_MEDIS DESC");
+        
+          statement.setInt(1, id); 
+          ResultSet result = statement.executeQuery();
+          
           List<lihatResep> list = new ArrayList<lihatResep>();
 
           while(result.next()){
@@ -87,10 +89,12 @@ public class Lihat_Resep_Server extends UnicastRemoteObject implements lihat_Res
 
           return list;
 
-        }catch(SQLException exception){
+        }
+        catch(SQLException exception){
           exception.printStackTrace();
           return null;
-        }finally{
+        }
+        finally{
             if(statement != null){
                 try{
                     statement.close();

@@ -6,6 +6,8 @@ package ServerApplication.Service;
 
 import database.entity.pendaftaran;
 import database.Service.Pendaftaran_Service;
+import database.entity.dokter;
+import database.entity.poliklinik;
 import si_klinik_server.DatabaseUtilities;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -179,6 +181,151 @@ public class Pendaftaran_Server extends UnicastRemoteObject implements Pendaftar
             }
         }
     }
+    
+    @Override
+    public List<poliklinik> getPoli(){
+    System.out.println("Client Melakukan Proses Get All");
+
+        PreparedStatement statement = null;
+        
+        try{
+            statement = DatabaseUtilities.getConnection().prepareStatement("SELECT * FROM poliklinik ORDER BY nama_poli ASC");
+            ResultSet result = statement.executeQuery();
+            
+            List<poliklinik> list = new ArrayList<poliklinik>();
+
+            while(result.next()){
+                poliklinik p = new poliklinik();
+                p.setId_Poli(result.getString("ID_POLI"));
+                p.setNama_Poli(result.getString("NAMA_POLI"));
+                list.add(p);
+            }
+           result.close();
+           return list;
+        }
+        catch(SQLException exception){
+          exception.printStackTrace();
+          return null;
+        }
+        finally{
+            if(statement != null){
+                try{
+                    statement.close();
+                }catch(SQLException exception){
+                   exception.printStackTrace();
+                }
+            }
+        }
+    }
+    
+    @Override
+    public poliklinik getPoliFromNama(String nama){
+         PreparedStatement statement = null;
+        
+        try{
+            statement = DatabaseUtilities.getConnection().prepareStatement("SELECT * FROM poliklinik WHERE nama_poli=?");
+            statement.setString(1, nama);
+            ResultSet result = statement.executeQuery();
+            poliklinik p =null; 
+            
+            if(result.next()){ 
+                p = new poliklinik();
+                p.setId_Poli(result.getString("ID_POLI"));
+                p.setNama_Poli(result.getString("NAMA_POLI"));             
+            }
+           result.close();
+           return p;
+        }
+        catch(SQLException exception){
+          exception.printStackTrace();
+          return null;
+        }
+        finally{
+            if(statement != null){
+                try{
+                    statement.close();
+                }catch(SQLException exception){
+                   exception.printStackTrace();
+                }
+            }
+        }
+    }
+    
+    @Override
+    public List<dokter> GetDokter(String id_poli){
+        
+        System.out.println("Client Melakukan Proses Get All");
+
+        PreparedStatement statement = null;
+        
+        try{
+            statement = DatabaseUtilities.getConnection().prepareStatement("SELECT D.NAMA_DOKTER,D.ID_DOKTER,D.ID_POLI FROM DOKTER AS D, JADWAL AS J WHERE D.ID_DOKTER=J.ID_DOKTER AND J.HARI = DAYOFWEEK(CURDATE()) AND J.JAM_MASUK < HOUR(CURTIME()) AND J.JAM_PULANG > HOUR(CURTIME()) AND D.ID_POLI =?");
+            statement.setString(1, id_poli);
+            ResultSet result = statement.executeQuery();
+            
+            List<dokter> list = new ArrayList<dokter>();
+
+            while(result.next()){
+                dokter d = new dokter();
+                d.setid_dokter(result.getString("ID_DOKTER"));
+                d.setnama_dokter(result.getString("NAMA_DOKTER"));
+                d.setid_poli(result.getString("ID_POLI"));
+                list.add(d);
+            }
+           result.close();
+           return list;
+        }
+        catch(SQLException exception){
+          exception.printStackTrace();
+          return null;
+        }
+        finally{
+            if(statement != null){
+                try{
+                    statement.close();
+                }catch(SQLException exception){
+                   exception.printStackTrace();
+                }
+            }
+        }    
+    }
+    
+    @Override
+    public int getJumlahAntrianDokter(String id_dokter, String id_poli){
+        
+        System.out.println("Client Melakukan Proses Get All");
+
+        PreparedStatement statement = null;
+        
+        try{
+            statement = DatabaseUtilities.getConnection().prepareStatement("SELECT COUNT(*) FROM pendaftaran WHERE ID_DOKTER =? AND ID_POLI =? AND STATUS = 0 AND TGL_PERIKSA = CURDATE()");
+            statement.setString(1, id_dokter);
+            statement.setString(2, id_dokter);
+            ResultSet result = statement.executeQuery();
+            
+            int i = 0;
+
+            if(result.next()){
+                i = result.getInt("COUNT(*)");
+            }            
+           result.close();
+           return i;
+        }
+        catch(SQLException exception){
+          exception.printStackTrace();
+          return 0;
+        }
+        finally{
+            if(statement != null){
+                try{
+                    statement.close();
+                }catch(SQLException exception){
+                   exception.printStackTrace();
+                }
+            }
+        }    
+    }
+    
 }
    
 

@@ -40,7 +40,7 @@ public class pemesanan_obat_server extends UnicastRemoteObject implements Pemesa
         statement.setString(1, PO.getId_Pemesanan_obat());
         statement.setString(2, PO.getId_supplier());
         statement.setString(3, PO.getTgl_Pemesanan());
-       
+            System.out.println(statement.toString());
         statement.executeUpdate();
         
         return PO;
@@ -66,9 +66,10 @@ public class pemesanan_obat_server extends UnicastRemoteObject implements Pemesa
         try{
           statement = DatabaseUtilities.getConnection().createStatement();
 
-          ResultSet result = statement.executeQuery("SELECT * FROM `pemesanan_obat`");
+          ResultSet result = statement.executeQuery("SELECT * FROM  `pemesanan_obat` ");
 
           List list = new ArrayList();
+          
           
           while(result.next()){
             Pemesanan_Obat a = new Pemesanan_Obat();

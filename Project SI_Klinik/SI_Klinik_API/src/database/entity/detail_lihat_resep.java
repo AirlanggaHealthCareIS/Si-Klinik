@@ -17,6 +17,8 @@ public class detail_lihat_resep implements Serializable{
     private String nama_Dokter;
     private String nama_obat;
     private int qty;
+    private String ket;
+    private String kemasan;
     
     public int getId_Pasien() {
         return Id_Pasien;
@@ -71,5 +73,21 @@ public class detail_lihat_resep implements Serializable{
 
     public void setIdObat(String id_obat) {
         this.id_obat = id_obat;
+    }
+    
+    public String getKeterangan() {
+        return ket;
+    }
+
+    public void setKeterangan(String ket) {
+        this.ket = ket;
+    }
+    
+     public String getKemasan() {
+        return kemasan;
+    }
+
+    public void setKemasan(String ket) {
+        this.kemasan = ket;
     }
 }

@@ -29,11 +29,10 @@ public class Panel_DetailResep extends javax.swing.JPanel {
     /**
      * Creates new form Panel_DetailResep
      */
-    public Panel_DetailResep(String no, GUI_Apoteker gui){
+    public Panel_DetailResep(Panel_Resep panel,GUI_Apoteker gui){
         dlrs = gui.dlrs;
         drs = gui.drs;
-        noID = no;
-        System.out.println(no);
+        noID = panel.ll.getId_rekam_medik();        
         temp = "";        
         initComponents();
         this.gui = gui;        
@@ -45,11 +44,37 @@ public class Panel_DetailResep extends javax.swing.JPanel {
         }catch(RemoteException exception){
             exception.printStackTrace();
         }        
-        tanggal.setText(listResep.get(0).getTanggal());
-        temp = ""+listResep.get(0).getId_Pasien();
-        idPasien.setText(temp);
-        nama.setText(listResep.get(0).getNama_Pasien());
-        namaDokter.setText(listResep.get(0).getNama_Dokter());
+        if(listResep.size()>0){
+            tanggal.setText(listResep.get(0).getTanggal());
+            temp = ""+listResep.get(0).getId_Pasien();
+            idPasien.setText(temp);
+            nama.setText(listResep.get(0).getNama_Pasien());
+            namaDokter.setText(listResep.get(0).getNama_Dokter());
+        }
+    }
+    
+     public Panel_DetailResep(String id,GUI_Apoteker gui){
+        dlrs = gui.dlrs;
+        drs = gui.drs;
+        noID =id;        
+        temp = "";        
+        initComponents();
+        this.gui = gui;        
+        try{
+            listResep = this.dlrs.getLihatResep(noID);
+            list = this.dlrs.getLihatResepDetail(noID);
+            tableModelResep.setData(list);
+            tabel_detail.setModel(tableModelResep);
+        }catch(RemoteException exception){
+            exception.printStackTrace();
+        }        
+        if(listResep.size()>0){
+            tanggal.setText(listResep.get(0).getTanggal());
+            temp = ""+listResep.get(0).getId_Pasien();
+            idPasien.setText(temp);
+            nama.setText(listResep.get(0).getNama_Pasien());
+            namaDokter.setText(listResep.get(0).getNama_Dokter());
+        }
     }
 
     /**
@@ -76,7 +101,7 @@ public class Panel_DetailResep extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         nama = new javax.swing.JLabel();
 
-        setMinimumSize(new java.awt.Dimension(700, 450));
+        setMinimumSize(new java.awt.Dimension(1170, 570));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
@@ -131,7 +156,6 @@ public class Panel_DetailResep extends javax.swing.JPanel {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 656, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -144,14 +168,15 @@ public class Panel_DetailResep extends javax.swing.JPanel {
                                     .addComponent(tanggal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(idPasien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(namaDokter, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
-                                    .addComponent(nama)))))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(300, 300, 300)
-                        .addComponent(jButton3))
+                                    .addComponent(nama)))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1127, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(286, 286, 286)
-                        .addComponent(jLabel4)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel4))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(400, 400, 400)
+                        .addComponent(jButton3)))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,31 +202,28 @@ public class Panel_DetailResep extends javax.swing.JPanel {
                 .addGap(41, 41, 41)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jButton3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(37, 37, 37))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 705, Short.MAX_VALUE)
+            .addGap(0, 1170, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(5, 5, 5)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 455, Short.MAX_VALUE)
+            .addGap(0, 570, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addGap(5, 5, 5)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
     }// </editor-fold>//GEN-END:initComponents
 

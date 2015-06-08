@@ -69,7 +69,7 @@ public class Detail_Lihat_Resep_Server1 extends UnicastRemoteObject implements D
         PreparedStatement statement = null;
         try{
          statement = DatabaseUtilities.getConnection().prepareStatement(
-                 "select O.ID_OBAT,O.NAMA_OBAT, O.STOK_OBAT, D.QTY_DETAIL_RESEP FROM detail_resep_obat AS D, obat AS O WHERE D.ID_DETAIL_RESEP =? AND D.ID_OBAT = O.ID_OBAT");
+                 "select O.ID_OBAT,O.NAMA_OBAT, O.STOK_OBAT, O.KEMASAN,D.QTY_DETAIL_RESEP FROM detail_resep_obat AS D, obat AS O WHERE D.ID_DETAIL_RESEP =? AND D.ID_OBAT = O.ID_OBAT");
           statement.setString(1, resep);          
             System.out.println(statement.toString());
           ResultSet result = statement.executeQuery();
@@ -80,6 +80,7 @@ public class Detail_Lihat_Resep_Server1 extends UnicastRemoteObject implements D
                 detail_lihat_resep detail_resep = new detail_lihat_resep();
                 detail_resep.setIdObat(result.getString("ID_OBAT"));                
                 detail_resep.setObat(result.getString("NAMA_OBAT"));
+                detail_resep.setKemasan(result.getString("KEMASAN"));                        
                 detail_resep.setQty(result.getInt("QTY_DETAIL_RESEP"));
                 list.add(detail_resep);
           }

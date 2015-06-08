@@ -4,6 +4,7 @@
  */
 package GUI_Apoteker;
 import Client_Application_Model.TableModel_Resep;
+import Method.AutoSuggestor;
 import database.entity.lihatResep;
 import database.Service.lihat_Resep_Service;
 import database.entity.petugas;
@@ -14,6 +15,8 @@ import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import database.Service.Resep_Service;
+import database.entity.Pasien;
+import java.awt.Color;
 import java.rmi.NotBoundException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -24,15 +27,15 @@ import java.util.List;
  *
  * @author tinot
  */
-public class Panel_Resep extends javax.swing.JPanel {
+public class Panel_Resep extends javax.swing.JPanel{
     Resep_Service resep;
     private TableModel_Resep tableModelResep = new TableModel_Resep();
     private lihat_Resep_Service lihatResepService;
     List<lihatResep> list = new ArrayList<>();
-    public String no;    
     GUI_Apoteker gui;
     lihatResep ll;
     Registry registry;
+    public Pasien pasien;
     
     public Panel_Resep(int id) throws RemoteException, NotBoundException{
         registry = LocateRegistry.getRegistry("0.0.0.0", 9750);      
@@ -45,20 +48,14 @@ public class Panel_Resep extends javax.swing.JPanel {
         initComponents();
         this.lihatResepService = gui.lrs;
         jButton1.setEnabled(false);
-        try {                
-            list = lihatResepService.getLihatResep();
-            tableModelResep.setData(list);
-            tabel_resep.setModel(tableModelResep);
-        } catch (RemoteException ex) {
-            Logger.getLogger(Panel_Resep.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        tableModelResep.setData(list);
+        tabel_resep.setModel(tableModelResep);
         this.gui=gui;
         tabel_resep.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e) {
                 int row = tabel_resep.getSelectedRow();
                  if(row != -1){
                    ll = tableModelResep.get(row);
-                   no = ll.getId_rekam_medik();
                    jButton1.setEnabled(true);
                  }
             }
@@ -75,23 +72,26 @@ public class Panel_Resep extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
         idpasien = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabel_resep = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        namapasien = new javax.swing.JTextField();
+        alamatpasien = new javax.swing.JTextField();
 
-        setMinimumSize(new java.awt.Dimension(700, 450));
+        setMinimumSize(new java.awt.Dimension(1170, 570));
+        setPreferredSize(new java.awt.Dimension(1170, 570));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
-        jLabel3.setText("Cari Pasien : ");
-
-        idpasien.setText("Masukkan ID Pasien");
+        idpasien.setEnabled(false);
         idpasien.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 idpasienFocusGained(evt);
@@ -118,13 +118,6 @@ public class Panel_Resep extends javax.swing.JPanel {
             }
         });
 
-        jButton2.setText("Cari");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
         jLabel4.setFont(new java.awt.Font("Vani", 1, 18)); // NOI18N
         jLabel4.setText("Resep Pasien");
 
@@ -142,58 +135,96 @@ public class Panel_Resep extends javax.swing.JPanel {
             }
         });
 
+        jButton2.setText("Cari Pasien");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("ID Pasien");
+
+        jLabel2.setText("Nama Pasien");
+
+        jLabel5.setText("Alamat Pasien ");
+
+        namapasien.setEnabled(false);
+        namapasien.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                namapasienFocusGained(evt);
+            }
+        });
+
+        alamatpasien.setEnabled(false);
+        alamatpasien.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                alamatpasienFocusGained(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addGap(176, 176, 176)
+                .addComponent(jButton4)
+                .addGap(62, 62, 62)
+                .addComponent(jButton3)
+                .addGap(69, 69, 69))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(21, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(39, 39, 39)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(275, 275, 275)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(292, 292, 292)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                    .addGap(54, 54, 54)
-                                    .addComponent(jLabel3)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(idpasien)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jButton2))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                    .addGap(51, 51, 51)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 48, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(32, 32, 32)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(alamatpasien)
+                            .addComponent(idpasien, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(namapasien, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(518, 518, 518))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton4)
+                        .addComponent(jButton3))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(17, Short.MAX_VALUE)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton3)
-                            .addComponent(jButton4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(17, 17, 17)
+                .addComponent(jButton2)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(idpasien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(jButton2))
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(namapasien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(7, 7, 7)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(alamatpasien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -205,14 +236,14 @@ public class Panel_Resep extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -222,14 +253,10 @@ public class Panel_Resep extends javax.swing.JPanel {
     }//GEN-LAST:event_idpasienFocusGained
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Panel_DetailResep b = new Panel_DetailResep(no,gui);
+        Panel_DetailResep b = new Panel_DetailResep(this,gui);
         gui.updatePanel(b);
         jButton1.setEnabled(false);
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        ceks();
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     public TableModel_Resep getTabel(){
         return tableModelResep;
@@ -237,6 +264,7 @@ public class Panel_Resep extends javax.swing.JPanel {
     
     public void ceks(){
     try {
+        if(!idpasien.getText().isEmpty()){
             list = this.lihatResepService.getLihatResep(Integer.parseInt(idpasien.getText()));
             if (list.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Data Tidak Ditemukan", "Pesan", JOptionPane.OK_OPTION);
@@ -244,10 +272,13 @@ public class Panel_Resep extends javax.swing.JPanel {
                 tabel_resep.setModel(tableModelResep);
             }
             else{
+                for (int i = 0; i < list.size(); i++) {
+                    list.get(i).setNo(i+1);
+                }
                 tableModelResep.setData(list);
                 tabel_resep.setModel(tableModelResep);    
             }
-            idpasien.setText("Masukkan ID Pasien");
+        }
         } catch (RemoteException ex) {
             Logger.getLogger(Panel_Resep.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -264,16 +295,45 @@ public class Panel_Resep extends javax.swing.JPanel {
         gui.updatePanel(panel);
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void namapasienFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_namapasienFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_namapasienFocusGained
+
+    private void alamatpasienFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_alamatpasienFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_alamatpasienFocusGained
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        Form_CariPasien cari = new Form_CariPasien(this);
+        cari.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    public void setPasien(Pasien pasien){
+        this.pasien = pasien;
+        idpasien.setText(pasien.getId_Pasien());
+        namapasien.setText(pasien.getNama_Pasien());
+        alamatpasien.setText(pasien.getAlamat());
+        ceks();
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField alamatpasien;
     private javax.swing.JTextField idpasien;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField namapasien;
     private javax.swing.JTable tabel_resep;
     // End of variables declaration//GEN-END:variables
+
+    
 }

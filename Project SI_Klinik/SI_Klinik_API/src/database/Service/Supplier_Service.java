@@ -20,5 +20,5 @@ public interface Supplier_Service  extends Remote{
     Supplier getSupplier (String ID_Supplier) throws RemoteException;
     List<Supplier> getSupliers() throws RemoteException;
     Supplier getLastSupplier()throws RemoteException;
-    
+    List<Supplier> getSupliersByNama() throws RemoteException;
 }

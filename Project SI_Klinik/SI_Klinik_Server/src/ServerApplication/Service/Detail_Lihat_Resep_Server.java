@@ -28,12 +28,14 @@ public class Detail_Lihat_Resep_Server extends UnicastRemoteObject implements De
     public List<detail_lihat_resep> getLihatResep(String rekam) throws RemoteException {
         System.out.println("Client Melakukan Proses Get By");
 
-        Statement statement = null;
+        PreparedStatement statement = null;
         try{
-          statement = DatabaseUtilities.getConnection().createStatement();
-
-          ResultSet result = statement.executeQuery("SELECT RM.ID_PASIEN, P.NAMA_PASIEN, D.NAMA_DOKTER, RM.TGL_REKAM_MEDIS FROM detail_resep_obat AS DRO, dokter AS D, rekam_medis AS RM, pasien AS P WHERE RM.ID_REKAM_MEDIS = '"+rekam+"' AND RM.ID_PASIEN = P.ID_PASIEN AND RM.ID_REKAM_MEDIS = DRO.ID_REKAM_MEDIS AND D.ID_DOKTER = RM.ID_DOKTER");
-
+          statement = DatabaseUtilities.getConnection().prepareStatement(
+            "SELECT RM.ID_PASIEN, P.NAMA_PASIEN, D.NAMA_DOKTER, RM.TGL_REKAM_MEDIS FROM detail_resep_obat AS DRO, dokter AS D, rekam_medis AS RM, pasien AS P WHERE RM.ID_REKAM_MEDIS =? AND RM.ID_PASIEN = P.ID_PASIEN AND RM.ID_REKAM_MEDIS = DRO.ID_REKAM_MEDIS AND D.ID_DOKTER = RM.ID_DOKTER");
+        
+          statement.setString(1, rekam); 
+          ResultSet result = statement.executeQuery();
+            System.out.println(statement.toString());
           List<detail_lihat_resep> list = new ArrayList<detail_lihat_resep>();
 
           while(result.next()){
@@ -72,14 +74,17 @@ public class Detail_Lihat_Resep_Server extends UnicastRemoteObject implements De
         try{
           statement = DatabaseUtilities.getConnection().createStatement();
 
-          ResultSet result = statement.executeQuery("SELECT O.NAMA_OBAT, D.QTY_DETAIL_RESEP FROM detail_resep_obat AS D, obat AS O WHERE D.ID_REKAM_MEDIS = '"+rekam+"' AND D.ID_OBAT = O.ID_OBAT");
+          ResultSet result = statement.executeQuery("SELECT O.ID_OBAT,O.NAMA_OBAT, O.KEMASAN, D.QTY_DETAIL_RESEP, D.KETERANGAN_DETAIL_RESEP FROM detail_resep_obat AS D, obat AS O WHERE D.ID_REKAM_MEDIS = '"+rekam+"' AND D.ID_OBAT = O.ID_OBAT");
 
           List<detail_lihat_resep> list = new ArrayList<detail_lihat_resep>();
 
           while(result.next()){
                 detail_lihat_resep detail_resep = new detail_lihat_resep();
+                detail_resep.setIdObat(result.getString("ID_OBAT"));
                 detail_resep.setObat(result.getString("NAMA_OBAT"));
                 detail_resep.setQty(result.getInt("QTY_DETAIL_RESEP"));
+                detail_resep.setKeterangan(result.getString("KETERANGAN_DETAIL_RESEP"));
+                detail_resep.setKemasan(result.getString("KEMASAN"));                 
                 list.add(detail_resep);
           }
 

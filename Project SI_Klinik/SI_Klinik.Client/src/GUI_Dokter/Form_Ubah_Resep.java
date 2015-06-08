@@ -33,7 +33,7 @@ public class Form_Ubah_Resep extends javax.swing.JFrame {
     
     public Form_Ubah_Resep(Panel_Resep pp, int index) throws RemoteException, NotBoundException {
         initComponents();
-        registry = LocateRegistry.getRegistry("0.0.0.0", 9750);
+        registry = LocateRegistry.getRegistry("127.0.0.1", 9999);
         service3 = (Detail_Resep_Service) registry.lookup("service8");        
         service4 = (Obat_Service) registry.lookup("service10");
         this.pp = pp;
@@ -174,6 +174,7 @@ public class Form_Ubah_Resep extends javax.swing.JFrame {
             pp.list.set(index, lr);
             pp.updateTable(pp.list);
             pp.gui.setVisible(true);
+            this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

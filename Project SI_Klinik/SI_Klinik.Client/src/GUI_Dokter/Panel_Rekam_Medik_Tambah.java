@@ -1482,7 +1482,7 @@ public class Panel_Rekam_Medik_Tambah extends javax.swing.JPanel {
                 Logger.getLogger(Panel_Rekam_Medik_Tambah.class.getName()).log(Level.SEVERE, null, ex);
             }
             jButton13.setVisible(false);
-            Panel_Input_Tindakan_Medis panel = new Panel_Input_Tindakan_Medis(gui,rm.getId_Rekam_Medis());
+            Panel_Input_Tindakan_Medis panel = new Panel_Input_Tindakan_Medis(gui,rm.getId_Rekam_Medis(),this);
             tabBaru("tindakan medis",panel,2);
         }
         else{

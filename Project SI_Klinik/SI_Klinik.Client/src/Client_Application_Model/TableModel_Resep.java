@@ -45,10 +45,9 @@ public class TableModel_Resep extends AbstractTableModel{
      @Override
      public String getColumnName(int column) {
         switch(column){
-            case 0 : return "ID PASIEN";
+            case 0 : return "NO";
             case 1 : return "ID REKAM MEDIK";
-            case 2 : return "TANGGAL EKAM MEDIK";
-
+            case 2 : return "TANGGAL REKAM MEDIK";            
             default: return null;
         }
     }
@@ -63,7 +62,7 @@ public class TableModel_Resep extends AbstractTableModel{
     
     public Object getValueAt(int rowIndex, int columnIndex) {
         switch(columnIndex){
-            case 0 : return list.get(rowIndex).getId_Pasien();
+            case 0 : return list.get(rowIndex).getNo();
             case 1 : return list.get(rowIndex).getId_rekam_medik();
             case 2 : return list.get(rowIndex).getTanggal();
                 

@@ -57,15 +57,11 @@ public class Test_Lihat_Resep_Server {
         List<lihatResep> output = ls.getLihatResep();
         List<lihatResep> target = new ArrayList<>();
         lihatResep ambil = new lihatResep();
-        ambil.setId_Pasien(5);
-        ambil.setId_rekam_medik("rk01");
-        ambil.setTanggal("2015-04-27");        
+        ambil.setId_Pasien(1);
+        ambil.setId_rekam_medik("2-2");
+        ambil.setTanggal("2015-04-28");        
         target.add(ambil);
-        ambil = new lihatResep();
-        ambil.setId_Pasien(2);
-        ambil.setId_rekam_medik("rk02");
-        ambil.setTanggal("2015-04-17");
-        target.add(ambil);
+        
         for (int i = 0; i < output.size(); i++) {
             assertEquals(target.get(i).getId_Pasien(), output.get(i).getId_Pasien());
             assertEquals(target.get(i).getId_rekam_medik(), output.get(i).getId_rekam_medik());
@@ -80,13 +76,13 @@ public class Test_Lihat_Resep_Server {
     @Test
     public void testGetLihatResep_int() throws Exception {
         System.out.println("getLihatResepInt");
-        int id = 5;
+        int id = 1;
         List<lihatResep> output = ls.getLihatResep(id);
         List<lihatResep> target = new ArrayList<>();
         lihatResep ambil = new lihatResep();
         ambil.setId_Pasien(id);
-        ambil.setId_rekam_medik("rk01");
-        ambil.setTanggal("2015-04-27");
+        ambil.setId_rekam_medik("2-2");
+        ambil.setTanggal("2015-04-28");
         target.add(ambil);
         for (int i = 0; i < output.size(); i++) {
             assertEquals(target.get(i).getId_Pasien(), output.get(i).getId_Pasien());

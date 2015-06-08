@@ -40,6 +40,8 @@ public class TableModel_Generate_PO extends AbstractTableModel{
             case 2 : return "NAMA_OBAT";
             case 3 : return "JUMLAH_YANG_HARUS_DIPESAN";
             case 4 : return "SUPPLIER";
+            case 5 : return "HARGA SATUAN";
+            case 6 : return "TOTAL HARGA"    ;
             default: return null;
         }
     }   
@@ -47,7 +49,7 @@ public class TableModel_Generate_PO extends AbstractTableModel{
         return list.size();
     }   
     public int getColumnCount() {
-        return 5;
+        return 7;
     }
 
     public Object getValueAt(int rowIndex, int columnIndex) {
@@ -57,6 +59,8 @@ public class TableModel_Generate_PO extends AbstractTableModel{
             case 2 : return list.get(rowIndex).getNAMA_OBAT();
             case 3 : return list.get(rowIndex).getSELISIH();
             case 4 : return list.get(rowIndex).getNAMA_SUPPLIER();   
+            case 5 : return list.get(rowIndex).getHarga();
+            case 6 : return list.get(rowIndex).getTOTAL();    
             default : return null;
         }
     }

@@ -26,7 +26,7 @@ public class poliklinik implements Serializable{
         return Nama_Poli;
     }
 
-    public void setNama_Petugas(String Nama_Poli) {
+    public void setNama_Poli(String Nama_Poli) {
         this.Nama_Poli = Nama_Poli;
     }
 }

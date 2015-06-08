@@ -8,12 +8,15 @@ package GUI_Apoteker;
 import database.entity.obat_kritis;
 import GUI_Apoteker.GUI_Apoteker;
 import GUI_Apoteker.Panel_Generate_PO;
+import database.Service.Obat_Service;
 import java.rmi.RemoteException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import database.entity.Supplier;
 import database.Service.Supplier_Service;
+import java.awt.Color;
+import javax.swing.JOptionPane;
 /**
  *
  * @author asus
@@ -23,11 +26,13 @@ public class Form_ubah_pemesanan_obat extends javax.swing.JFrame {
     Panel_Generate_PO panel_baru;
     GUI_Apoteker gui;
     Supplier_Service supplier2;
+    Obat_Service obs;
+    
     /**
      * Creates new form Form_ubah_pemesanan_obat
      */
     public Form_ubah_pemesanan_obat(GUI_Apoteker gui, Panel_Generate_PO panel) {
-        initComponents();
+        initComponents();        
         ok_baru = panel.ok;
         this.gui = gui;
         supplier2 = panel.supplier2;
@@ -35,9 +40,22 @@ public class Form_ubah_pemesanan_obat extends javax.swing.JFrame {
         nomer.setText(""+panel.ok.getNo());
         id_obat.setText(""+panel.ok.getID_OBAT());
         nama_obat.setText(panel.ok.getNAMA_OBAT());
-        jumlah_pemesanan.setText(""+panel.ok.getSELISIH());
-       
-        
+        jumlah_pemesanan.setText(""+panel.ok.getSELISIH());       
+        obs = gui.os;
+        try {
+            initiateComboBox1();            
+            supplierCOmbox.setSelectedItem(ok_baru.getNAMA_SUPPLIER().toUpperCase());
+        } catch (RemoteException ex) {
+            ex.printStackTrace();
+            Logger.getLogger(Form_ubah_pemesanan_obat.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void initiateComboBox1() throws RemoteException{
+        List<Supplier> list = supplier2.getSupliersByNama();        
+        for (int i = 0; i < list.size(); i++) {
+            supplierCOmbox.addItem(list.get(i).getNama_Supplier().toUpperCase());
+        }
     }
 
     /**
@@ -117,7 +135,6 @@ public class Form_ubah_pemesanan_obat extends javax.swing.JFrame {
         jLabel6.setText("Supplier :");
 
         supplierCOmbox.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        supplierCOmbox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Kimia Farma", "Johnson" }));
         supplierCOmbox.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
             }
@@ -145,33 +162,36 @@ public class Form_ubah_pemesanan_obat extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(nomer)
-                    .addComponent(id_obat)
-                    .addComponent(nama_obat)
-                    .addComponent(jumlah_pemesanan)
-                    .addComponent(supplierCOmbox, 0, 155, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(nomer)
+                            .addComponent(id_obat)
+                            .addComponent(nama_obat)
+                            .addComponent(jumlah_pemesanan)
+                            .addComponent(supplierCOmbox, 0, 155, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(165, 165, 165)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(116, 116, 116)
+                        .addComponent(jLabel1)))
                 .addContainerGap(81, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(38, 38, 38))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(21, 21, 21)
                 .addComponent(jLabel1)
-                .addGap(47, 47, 47)
+                .addGap(37, 37, 37)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(nomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -188,12 +208,12 @@ public class Form_ubah_pemesanan_obat extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(jumlah_pemesanan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
-                    .addComponent(supplierCOmbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(39, 39, 39))
+                    .addComponent(supplierCOmbox, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -224,42 +244,94 @@ public class Form_ubah_pemesanan_obat extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jumlah_pemesananActionPerformed
 
-    private void supplierCOmboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supplierCOmboxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_supplierCOmboxActionPerformed
-
     private void nama_obatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nama_obatActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nama_obatActionPerformed
 
+    
+    private boolean CheckNumber(String a){
+        char b;
+        StringBuffer s;        
+        for(int i = 0; i<a.length();i++){
+            b = a.charAt(i);                        
+            s = new StringBuffer();
+            s.append(b);          
+            if(!s.toString().equals("1")&&!s.toString().equals("2")&&!s.toString().equals("3")&&!s.toString().equals("4")&&!s.toString().equals("5")&&!s.toString().equals("6")&&!s.toString().equals("7")&&!s.toString().equals("8")&&!s.toString().equals("9")&&!s.toString().equals("0")){               
+               return false;
+            }            
+        }
+        return true;
+    }
+      
+      
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        boolean isi1 = false;
+        boolean isi2 = false;
+        boolean isi3 = false;
+        
+        if(CheckNumber(jumlah_pemesanan.getText())&&!jumlah_pemesanan.getText().equals("")){
+            isi1=true;            
+        }           
+        if(!supplierCOmbox.getItemAt(supplierCOmbox.getSelectedIndex()).toString().equals("Kimia Farma")){
+            isi2=true;
+        }
+        if(isi1){
+            if(panel_baru.ok.getSELISIH()<=Integer.parseInt(jumlah_pemesanan.getText())){
+                isi3= true;
+            }                
+        }
+        
+        if(isi1&&isi2&&isi3){
+            ok_baru.setID_OBAT(id_obat.getText());
+            ok_baru.setNAMA_OBAT(nama_obat.getText());
+            ok_baru.setNAMA_SUPPLIER(ok_baru.getNAMA_SUPPLIER());
+            ok_baru.setSELISIH(Integer.parseInt(jumlah_pemesanan.getText()));
+            try {
+                ok_baru.setHARGA(obs.getObat(id_obat.getText()).getharga_obat());
+                ok_baru.setTOTAL(ok_baru.getHarga()*ok_baru.getSELISIH());
+            } catch (RemoteException ex) {
+                Logger.getLogger(Form_ubah_pemesanan_obat.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            panel_baru.updateList(ok_baru);
+            try {
+                panel_baru.updatetable2();
+            } catch (RemoteException ex) {
+                Logger.getLogger(Form_ubah_pemesanan_obat.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            this.dispose();
+            gui.setVisible(true);
+        }
+        else{
+            if(!isi1||!isi2){
+                if(!isi1){
+                    jumlah_pemesanan.setBackground(Color.red);                                
+                }
+                if(!isi2){
+                    supplierCOmbox.setBackground(Color.red);
+                }
+                JOptionPane.showMessageDialog(null, "Ada kesalahan pada field isian Anda. Mohon perbaiki field yang berwarna merah untuk melanjutkan","ERROR",JOptionPane.ERROR_MESSAGE);
+            }
+            if(!isi3){
+                JOptionPane.showMessageDialog(null, "Mohon mengisi jumlah pemesanan minimal sejumlah yang disarankan yaitu " +panel_baru.ok.getSELISIH(),"ERROR",JOptionPane.ERROR_MESSAGE);
+            }
+            
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void supplierCOmboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supplierCOmboxActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_supplierCOmboxActionPerformed
+
     private void supplierCOmboxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_supplierCOmboxPopupMenuWillBecomeVisible
         supplierCOmbox.removeAllItems();
         try {
-            List<Supplier> listsup = supplier2.getSupliers();
-            for(int i = 0; i<listsup.size(); i++){
-                supplierCOmbox.addItem(listsup.get(i).getNama_Supplier().toString());
-            }
+            initiateComboBox1();
         } catch (RemoteException ex) {
             Logger.getLogger(Form_ubah_pemesanan_obat.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-    }//GEN-LAST:event_supplierCOmboxPopupMenuWillBecomeVisible
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ok_baru.setID_OBAT(id_obat.getText());
-        ok_baru.setNAMA_OBAT(nama_obat.getText());
-        ok_baru.setNAMA_SUPPLIER(supplierCOmbox.getItemAt(supplierCOmbox.getSelectedIndex()).toString());
-        ok_baru.setSELISIH(Integer.parseInt(jumlah_pemesanan.getText()));
-        
-        panel_baru.updateList(ok_baru);
-        try {
-            panel_baru.updatetable2();
-        } catch (RemoteException ex) {
-            Logger.getLogger(Form_ubah_pemesanan_obat.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        this.dispose();
-        gui.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_supplierCOmboxPopupMenuWillBecomeVisible
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

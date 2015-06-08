@@ -81,8 +81,11 @@ public class Panel_Generate_PO extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         UBAH = new javax.swing.JButton();
         generatePO = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
-        setMinimumSize(new java.awt.Dimension(700, 450));
+        setMinimumSize(new java.awt.Dimension(1170, 530));
+        setPreferredSize(new java.awt.Dimension(1170, 530));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -104,45 +107,61 @@ public class Panel_Generate_PO extends javax.swing.JPanel {
             }
         });
 
-        generatePO.setText("generate PO");
+        generatePO.setText("SIMPAN DAN GENERATE PO");
         generatePO.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 generatePOActionPerformed(evt);
             }
         });
 
+        jLabel2.setText("TOTAL HARGA YANG HARUS DIBAYAR  :");
+
+        jLabel3.setText("jLabel3");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 269, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(281, 281, 281))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(482, 482, 482)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(UBAH, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(474, 474, 474)
+                .addComponent(generatePO, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(500, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(UBAH, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(generatePO, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
-                        .addGap(68, 68, 68))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20))))
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(80, 80, 80))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(52, 52, 52)
                 .addComponent(UBAH)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(generatePO)
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addComponent(generatePO, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -176,6 +195,7 @@ public class Panel_Generate_PO extends javax.swing.JPanel {
     
     private void generatePOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generatePOActionPerformed
         int size = 0;
+        System.out.println("size list ob "+listob.size());
         List<Pemesanan_Obat> listPo = null;
         try {
             listPo = pos.getPO();
@@ -183,9 +203,11 @@ public class Panel_Generate_PO extends javax.swing.JPanel {
             Logger.getLogger(Panel_Generate_PO.class.getName()).log(Level.SEVERE, null, ex);
         }
         size = listPo.size();        
+        System.out.println("ini size awal tabel PO:"+size);
         if(listob.size()>0){
             Pemesanan_Obat po = new Pemesanan_Obat();
             po.setId_Pemesnan_obat("PO"+(size+1));
+            System.out.println("ini hasil generate id po :"+po.getId_Pemesanan_obat());
             try {
                  po.setId_supplier(supplier2.getId_Supplier(listob.get(0).getNAMA_SUPPLIER()).getId_Supplier());
             } catch (RemoteException ex) {
@@ -193,14 +215,21 @@ public class Panel_Generate_PO extends javax.swing.JPanel {
             }
             po.setTgl_Pemesanan(getTanggal());           
             po.setList(new ArrayList<detil_pesan_obat>());
+            try {
+                pos.insertPemesananObat(po);
+            } catch (RemoteException ex) {
+                Logger.getLogger(Panel_Generate_PO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             size = size+1;
             listPO.add(po);           
             int index = 0;
+            
             for(int i = 0; i<listob.size(); i++){
                 boolean ada = false;
                 for(int j = 0; j<listPO.size();j++){
                     try {
-                        if(supplier2.getSupplier(listPO.get(j).getId_supplier()).getNama_Supplier().equals(listob.get(i).getNAMA_SUPPLIER())){                                                         
+                        if(supplier2.getSupplier(listPO.get(j).getId_supplier()).getNama_Supplier().equals(listob.get(i).getNAMA_SUPPLIER())){      
+                            System.out.println("ini suppliernya sama, id_suppliernya "+listob.get(i).getNAMA_SUPPLIER());
                             ada  = true;
                             index = j;
                         }
@@ -212,13 +241,14 @@ public class Panel_Generate_PO extends javax.swing.JPanel {
                     try {
                         detil_pesan_obat detail = new detil_pesan_obat();
                         detail.setId_Pemesanan_obat(listPO.get(index).getId_Pemesanan_obat());
+                        System.out.println("Jadi, obat "+ listob.get(i).getID_OBAT() + " mempunyai id PO" + detail.getId_Pemesanan_obat());
                         detail.setId_obat(listob.get(i).getID_OBAT());
                         detail.setJumlah_pesan(listob.get(i).getSELISIH());
                         detail.setStatus(0);
-                         System.out.println(index);
                         List<detil_pesan_obat>list = listPO.get(index).getList();
                         list.add(detail);
                         lpos.insertListPO(detail); 
+                        System.out.println("lalu dia insertkan detail list po'nya");
                         listPO.get(index).setList(list);
                     } catch (RemoteException ex) {
                         Logger.getLogger(Panel_Generate_PO.class.getName()).log(Level.SEVERE, null, ex);
@@ -227,6 +257,7 @@ public class Panel_Generate_PO extends javax.swing.JPanel {
                 else{
                     po = new Pemesanan_Obat();
                     po.setId_Pemesnan_obat("PO"+(size+1));
+                    System.out.println("obat : "+listob.get(i).getNAMA_OBAT()+" Suppliernya adalah : "+listob.get(i).getNAMA_SUPPLIER()+" . Ini berarti supplier obat ini tidak ada yang sama. ID POnya digenerate lagi, " + po.getId_Pemesanan_obat());
                     try {
                         po.setId_supplier(supplier2.getId_Supplier(listob.get(i).getNAMA_SUPPLIER()).getId_Supplier());
                     } catch (RemoteException ex) {
@@ -242,6 +273,7 @@ public class Panel_Generate_PO extends javax.swing.JPanel {
                     }
                     detil_pesan_obat detail = new detil_pesan_obat();
                     detail.setId_Pemesanan_obat(listPO.get(listPO.size()-1).getId_Pemesanan_obat());
+                    System.out.println("Detailnya dimasukkan dengan id PO: "+ detail.getId_Pemesanan_obat());
                     detail.setId_obat(listob.get(i).getID_OBAT());
                     detail.setJumlah_pesan(listob.get(i).getSELISIH());
                     detail.setStatus(0);
@@ -267,18 +299,30 @@ public class Panel_Generate_PO extends javax.swing.JPanel {
     }//GEN-LAST:event_generatePOActionPerformed
     
     public  void updatetable() throws RemoteException{
-//        listob = obs.getObatKritis();
-//        for (int i = 0; i < listob.size(); i++) {
-//            listob.get(i).setNo(i+1);
-//        }
-//        System.out.println(listob.size());
-//        table.setData(listob);
-//        jTable1.setModel(table);        
+        listob = obs.getObatKritis();
+        for (int i = 0; i < listob.size(); i++) {
+            listob.get(i).setNo(i+1);
+            listob.get(i).setHARGA(obs.getObat(listob.get(i).getID_OBAT()).getharga_obat());
+            listob.get(i).setTOTAL(listob.get(i).getHarga()*listob.get(i).getSELISIH());
+        }
+        System.out.println(listob.size());
+        table.setData(listob);
+        jTable1.setModel(table);        
+        int harga = 0;
+        for (int i = 0; i < listob.size(); i++) {
+            harga =  harga + listob.get(i).getTOTAL();
+        }
+        jLabel3.setText("Rp "+harga);
     }
     
     public  void updatetable2() throws RemoteException{
         table.setData(listob);
-        jTable1.setModel(table);        
+        jTable1.setModel(table);   
+        int harga = 0;
+        for (int i = 0; i < listob.size(); i++) {
+            harga =  harga + listob.get(i).getTOTAL();
+        }
+        jLabel3.setText("Rp "+harga);
     }
     
 
@@ -286,6 +330,8 @@ public class Panel_Generate_PO extends javax.swing.JPanel {
     private javax.swing.JButton UBAH;
     private javax.swing.JButton generatePO;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables

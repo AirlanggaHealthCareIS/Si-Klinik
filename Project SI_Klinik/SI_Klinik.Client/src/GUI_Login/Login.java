@@ -95,12 +95,41 @@ public class Login extends javax.swing.JFrame {
         d = new dokter();
         aktorIniDokter = false;
         jLabel7.setVisible(false);
-        jLabel8.setVisible(false);
-        port = Integer.parseInt(JOptionPane.showInputDialog(null, "Port Tujuan: ", "input", JOptionPane.QUESTION_MESSAGE));
-        serverAddr = JOptionPane.showInputDialog(null, "Server Address Tujuan: ", "input", JOptionPane.QUESTION_MESSAGE);
+        jLabel8.setVisible(false);        
+        boolean portBenar=false;
+        while (!portBenar){            
+            String portx = JOptionPane.showInputDialog(null, "Port Server Tujuan (angka 1000-9999): ", "input", JOptionPane.QUESTION_MESSAGE);
+            if(!CheckNumber(portx)){                
+                portBenar = false;
+            }
+            else{            
+                if(Integer.parseInt(portx)>10000||Integer.parseInt(portx)<999)  {                    
+                    portBenar = false;
+                }            
+                else{
+                    portBenar = true;
+                    port = Integer.parseInt(portx);
+                }
+            }
+        }
+        serverAddr = JOptionPane.showInputDialog(null, "IP Address Server Tujuan: ", "input", JOptionPane.QUESTION_MESSAGE);        
         registry = LocateRegistry.getRegistry(serverAddr, port);        
    }
 
+    private boolean CheckNumber(String a){
+        char b;
+        StringBuffer s;        
+        for(int i = 0; i<a.length();i++){
+            b = a.charAt(i);                        
+            s = new StringBuffer();
+            s.append(b);          
+            if(!s.toString().equals("1")&&!s.toString().equals("2")&&!s.toString().equals("3")&&!s.toString().equals("4")&&!s.toString().equals("5")&&!s.toString().equals("6")&&!s.toString().equals("7")&&!s.toString().equals("8")&&!s.toString().equals("9")&&!s.toString().equals("0")){               
+               return false;
+            }            
+        }
+        return true;
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -109,6 +138,7 @@ public class Login extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         nama = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         masuk = new javax.swing.JButton();
         pass = new javax.swing.JPasswordField();
         jLabel6 = new javax.swing.JLabel();
@@ -148,6 +178,16 @@ public class Login extends javax.swing.JFrame {
         jPanel1.add(nama);
         nama.setBounds(440, 210, 290, 30);
 
+        jButton1.setText("Setting");
+        jButton1.setFocusable(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1);
+        jButton1.setBounds(710, 10, 73, 23);
+
         masuk.setText("LOGIN");
         masuk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -155,7 +195,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
         jPanel1.add(masuk);
-        masuk.setBounds(500, 360, 90, 30);
+        masuk.setBounds(500, 350, 110, 40);
 
         pass.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -182,14 +222,16 @@ public class Login extends javax.swing.JFrame {
 
         jLabel6.setBackground(new java.awt.Color(51, 51, 51));
         jLabel6.setFont(new java.awt.Font("Old English Text MT", 0, 36)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Sistem Informasi Klinik");
         jPanel1.add(jLabel6);
-        jLabel6.setBounds(240, 60, 380, 30);
+        jLabel6.setBounds(230, 60, 380, 30);
 
         jLabel3.setFont(new java.awt.Font("Algerian", 0, 48)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("SI KLINIK");
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(330, 10, 250, 50);
+        jLabel3.setBounds(310, 10, 250, 50);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -252,7 +294,7 @@ public class Login extends javax.swing.JFrame {
         service20 = (DetailTransaksiObat_Service) registry.lookup("service20"); 
         service21 = (Penggajian_Service) registry.lookup("service21");
         service22 = (Pemesanan_Obat_Service) registry.lookup("service22");
-        //service24 = (List_PO_Service) registry.lookup("service24");
+        service24 = (List_PO_Service) registry.lookup("service24");
     }
             
             
@@ -389,10 +431,12 @@ public class Login extends javax.swing.JFrame {
     
     private void namaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namaActionPerformed
         // TODO add your handling code here:
+        StartGUI();
     }//GEN-LAST:event_namaActionPerformed
 
     private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
         // TODO add your handling code here:
+        StartGUI();
     }//GEN-LAST:event_passActionPerformed
 
     private void passCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_passCaretPositionChanged
@@ -415,6 +459,13 @@ public class Login extends javax.swing.JFrame {
         nama.setBackground(Color.WHITE);
         jLabel8.setVisible(false);
     }//GEN-LAST:event_namaMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Setting s = new Setting(this);
+        s.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     
 //    
@@ -464,6 +515,7 @@ public class Login extends javax.swing.JFrame {
     
 //
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

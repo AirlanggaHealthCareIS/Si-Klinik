@@ -42,6 +42,7 @@ public class Detail_List_PO_Server extends UnicastRemoteObject implements List_P
         statement.setString(2, PO.getId_obat());
         statement.setInt(3, PO.getJumlah_Pesan());
         statement.setInt(4, PO.getStatus());       
+        System.out.println(statement.toString());
         statement.executeUpdate();
         
         return PO;

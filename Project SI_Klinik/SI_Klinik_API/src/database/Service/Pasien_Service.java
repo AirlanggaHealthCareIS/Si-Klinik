@@ -20,4 +20,7 @@ public interface Pasien_Service extends Remote {
 
     Pasien getPasien (String ID_Pasien) throws RemoteException;
 
+    List<Pasien> getAllPasien() throws RemoteException;
+    
+    Pasien getPasienFromNama (String Nama_Pasien) throws RemoteException;
 }
