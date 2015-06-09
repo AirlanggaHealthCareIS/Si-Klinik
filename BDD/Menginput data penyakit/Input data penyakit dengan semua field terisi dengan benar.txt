@@ -4,30 +4,30 @@
 Feature		Menambah data penyakit
 Scenario	Input data penyakit dengan semua field terisi dengan benar
 
-Given	 	Apoteker berada pada halaman data penyakit
+Given	 	admin berada pada halaman data penyakit
 
-When		Apoteker menekan tombol tambah
+When		admin menekan tombol tambah
 
-Then		Apoteker dihadapkan pada form untuk pengisian data penyakit
-
-
-When 		Apoteker memasukkan nama penyakit misalnya “MALARIA”
+Then		admin dihadapkan pada form untuk pengisian data penyakit
 
 
-And			Apoteker mengisi semua filed dengan benar dan lengkap
+When 		admin memasukkan nama penyakit misalnya “MALARIA”
 
 
-And			Apoteker menekan tombol “OK” untuk menyimpan data yang telah diinputkan
+And			admin mengisi semua filed dengan benar dan lengkap
 
 
-Then		Apoteker mendapat pesan bahwa data yang telah diinputkan berhasil tersimpan
+And			admin menekan tombol “OK” untuk menyimpan data yang telah diinputkan
+
+
+Then		admin mendapat pesan bahwa data yang telah diinputkan berhasil tersimpan
 
 
 
-And			Apoteker berada pada halaman data penyakit
+And			admin berada pada halaman data penyakit
 
 
-And			Apoteker dapat melihat data penyakit yang telah ada sebelumnya dan data penyakit yang baru saja diinputkan
+And			admin dapat melihat data penyakit yang telah ada sebelumnya dan data penyakit yang baru saja diinputkan
 
 ================================================================================================================================================
 

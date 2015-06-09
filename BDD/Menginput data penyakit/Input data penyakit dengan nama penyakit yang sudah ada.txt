@@ -2,29 +2,29 @@
 	
 Scenario			Input data penyakit dengan nama penyakit sudah ada di database
 
-Given	 			Apoteker berada pada halaman data penyakit
+Given	 			admin berada pada halaman data penyakit
 
-When				Apoteker menekan tombol tambah
+When				admin menekan tombol tambah
 		
-Then				Apoteker dihadapkan pada form untuk pengisian data penyakit
+Then				admin dihadapkan pada form untuk pengisian data penyakit
 
-When				Apoteker memasukkan nama penyakit misalnya “MALARIA”
+When				admin memasukkan nama penyakit misalnya “MALARIA”
 				
-Then				Apoteker mendapat pesan peringatan bahwa nama penyakit  yang diinputkan sudah ada di database
+Then				admin mendapat pesan peringatan bahwa nama penyakit  yang diinputkan sudah ada di database
 					
-When				Apoteker menekan tombol “OK” 
+When				admin menekan tombol “OK” 
 					
-And					Apoteker mengisi kembali field nama penyakit dengan data yang benar
+And					admin mengisi kembali field nama penyakit dengan data yang benar
 
-And					Apoteker mengisi semua field dengan lengkap dan benar
+And					admin mengisi semua field dengan lengkap dan benar
 
-And					Apoteker menekan tombol “ OK ”
+And					admin menekan tombol “ OK ”
 
-Then				Apoteker mendapat pesan peringatan bahwa data yang telah diinputkan berhasil tersimpan
+Then				admin mendapat pesan peringatan bahwa data yang telah diinputkan berhasil tersimpan
 					
-And					Apoteker berada pada halaman data penyakit
+And					admin berada pada halaman data penyakit
 					
-And					Apoteker dapat melihat data penyakit sebelumnya yang telah ada dan data penyakit yang baru saja diinputkan
+And					admin dapat melihat data penyakit sebelumnya yang telah ada dan data penyakit yang baru saja diinputkan
 
 
 ==============================================================================================================================================

@@ -2,32 +2,32 @@
 					
 Scenario			Input data penyakit dengan terdapat field yang masih kosong
 
-Given	 			Apoteker berada pada halaman data penyakit
+Given	 			admin berada pada halaman data penyakit
 
-When				Apoteker menekan tombol tambah
+When				admin menekan tombol tambah
 
-Then				Apoteker dihadapkan pada form untuk pengisian data penyakit
+Then				admin dihadapkan pada form untuk pengisian data penyakit
 
-When 				Apoteker memasukkan nama penyakit misalnya “MALARIA”
+When 				admin memasukkan nama penyakit misalnya “MALARIA”
 
-And					Apoteker mengisi filed dengan tidak lengkap (terdapat field yang kosong)
+And					admin mengisi filed dengan tidak lengkap (terdapat field yang kosong)
 
-And					Apoteker menekan tombol “OK” untuk menyimpan data yang telah diinputkan
+And					admin menekan tombol “OK” untuk menyimpan data yang telah diinputkan
 
-Then				Apoteker mendapat pesan peringatan bahwa terdapat field yang masih kosong
+Then				admin mendapat pesan peringatan bahwa terdapat field yang masih kosong
 
-When				Apoteker menekan tombol “ OK “
+When				admin menekan tombol “ OK “
 
-Then				Apoteker dapat melihat field mana yang masih kosong atau belum diisi
+Then				admin dapat melihat field mana yang masih kosong atau belum diisi
 
-When				Apoteker mengisi data pada field yang masih kosong
+When				admin mengisi data pada field yang masih kosong
 
-And					Apoteker menekan tombol “ OK ”
+And					admin menekan tombol “ OK ”
 
-Then				Apoteker mendapat pesan bahwa data yang telah diinputkan berhasil tersimpan
+Then				admin mendapat pesan bahwa data yang telah diinputkan berhasil tersimpan
 
-And					Apoteker berada pada halaman data penyakit
+And					admin berada pada halaman data penyakit
 
-And					Apoteker dapat melihat data penyakit sebelumnya yang telah ada dan data penyakit yang baru saja diinputkan
+And					admin dapat melihat data penyakit sebelumnya yang telah ada dan data penyakit yang baru saja diinputkan
 
 ================================================================================================================================================
