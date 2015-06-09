@@ -1,0 +1,28 @@
+Feature			Mengubah data penyakit
+
+Scenario		Ubah data penyakit dengan benar
+
+GivenApoteker	Apoteker berada pada halaman data penyakit
+
+When			Apoteker memilih row pada tabel data penyakit  yang akan diubah
+
+And				Apoteker menekan tombol ubah
+
+
+Then			Apoteker dihadapkan pada form untuk update data penyakit
+
+When			Apoteker mengubah nama penyakit misalnya “MALARIA” menjadi “ DEMAM BERDARAH”
+
+And				Apoteker menekan tombol “OK” 
+
+
+Then			Apoteker mendapat pesan bahwa update data penyakit  yang telah diinputkan berhasil tersimpan 
+
+
+And				Apoteker berada pada halaman data penyakit
+
+
+And				Apoteker dapat melihat data penyakit sebelumnya yang telah ada dan data penyakit yang baru saja di ubah
+
+
+
