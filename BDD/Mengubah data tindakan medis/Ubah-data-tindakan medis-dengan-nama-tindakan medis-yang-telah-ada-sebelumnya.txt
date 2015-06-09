@@ -1,0 +1,38 @@
+Feature			Mengubah data penyakit
+
+Scenario		Ubah data penyakit dengan nama penyakit yang telah ada sebelumnya
+
+Given			ADMIN berada pada halaman data penyakit
+
+When			ADMIN memilih row pada tabel data penyakit  yang akan diubah
+
+And				ADMIN menekan tombol ubah
+
+
+Then			ADMIN dihadapkan pada form untuk update data penyakit
+
+When			ADMIN mengubah nama penyakit misalnya “SUNTIK” menjadi “PHOTO RONGEN”
+
+And				ADMIN menekan tombol “OK” 
+
+
+Then 			ADMIN mendapat pesan peringatan bahwa update nama penyakit yang telah diinputkan sudah ada di database
+
+
+When			ADMIN menekan tombol “OK”
+
+
+And				ADMIN mengubah kembali field nama penyakit dengan nama penyakit yang belum ada sebelumnya di database
+
+And				ADMIN menekan tombol “OK”
+
+Then			ADMIN mendapat pesan bahwa update data penyakit  yang telah diinputkan berhasil tersimpan 
+
+
+And 			ADMIN berada pada halaman data penyakit
+
+And				ADMIN dapat melihat data penyakit sebelumnya yang telah ada dan data penyakit yang baru saja di ubah
+
+
+
+

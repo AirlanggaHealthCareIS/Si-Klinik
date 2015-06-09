@@ -1,0 +1,30 @@
+﻿Feature				Menambah data tindakan medis
+	
+Scenario			Input data tindakan medis dengan nama tindakan medis sudah ada di database
+
+Given	 			ADMIN berada pada halaman data tindakan medis
+
+When				ADMIN menekan tombol tambah
+		
+Then				ADMIN dihadapkan pada form untuk pengisian data tindakan medis
+
+When				ADMIN memasukkan nama tindakan medis misalnya “SUNTIK”
+				
+Then				ADMIN mendapat pesan peringatan bahwa nama tindakan medis  yang diinputkan sudah ada di database
+					
+When				ADMIN menekan tombol “OK” 
+					
+And					ADMIN mengisi kembali field nama tindakan medis dengan data yang benar
+
+And					ADMIN mengisi semua field dengan lengkap dan benar
+
+And					ADMIN menekan tombol “ OK ”
+
+Then				ADMIN mendapat pesan peringatan bahwa data yang telah diinputkan berhasil tersimpan
+					
+And					ADMIN berada pada halaman data tindakan medis
+					
+And					ADMIN dapat melihat data tindakan medis sebelumnya yang telah ada dan data tindakan medis yang baru saja diinputkan
+
+
+==============================================================================================================================================

@@ -1,0 +1,28 @@
+Feature			Mengubah data tindakan medis
+
+Scenario		Ubah data tindakan medis dengan benar
+
+GivenADMIN	ADMIN berada pada halaman data tindakan medis
+
+When			ADMIN memilih row pada tabel data tindakan medis  yang akan diubah
+
+And				ADMIN menekan tombol ubah
+
+
+Then			ADMIN dihadapkan pada form untuk update data tindakan medis
+
+When			ADMIN mengubah nama tindakan medis misalnya “suntik” menjadi “photo rongen”
+
+And				ADMIN menekan tombol “OK” 
+
+
+Then			ADMIN mendapat pesan bahwa update data tindakan medis  yang telah diinputkan berhasil tersimpan 
+
+
+And				ADMIN berada pada halaman data tindakan medis
+
+
+And				ADMIN dapat melihat data tindakan medis sebelumnya yang telah ada dan data tindakan medis yang baru saja di ubah
+
+
+

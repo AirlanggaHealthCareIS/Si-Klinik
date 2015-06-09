@@ -1,0 +1,33 @@
+﻿Feature				Menambah data tindakan medis
+					
+Scenario			Input data tindakan medis dengan terdapat field yang masih kosong
+
+Given	 			ADMIN berada pada halaman data tindakan medis
+
+When				ADMIN menekan tombol tambah
+
+Then				ADMIN dihadapkan pada form untuk pengisian data tindakan medis
+
+When 				ADMIN memasukkan nama tindakan medis misalnya “SUNTIK”
+
+And					ADMIN mengisi filed dengan tidak lengkap (terdapat field yang kosong)
+
+And					ADMIN menekan tombol “OK” untuk menyimpan data yang telah diinputkan
+
+Then				ADMIN mendapat pesan peringatan bahwa terdapat field yang masih kosong
+
+When				ADMIN menekan tombol “ OK “
+
+Then				ADMIN dapat melihat field mana yang masih kosong atau belum diisi
+
+When				ADMIN mengisi data pada field yang masih kosong
+
+And					ADMIN menekan tombol “ OK ”
+
+Then				ADMIN mendapat pesan bahwa data yang telah diinputkan berhasil tersimpan
+
+And					ADMIN berada pada halaman data tindakan medis
+
+And					ADMIN dapat melihat data tindakan medis sebelumnya yang telah ada dan data tindakan medis yang baru saja diinputkan
+
+================================================================================================================================================
