@@ -34,6 +34,7 @@ public class GUI_Dokter extends javax.swing.JFrame {
     public String keluhan;
     private Pasien p;
     public Detail_Resep_Service drs;
+    public Obat_Service ob;
     public Assessment_Service as;
     public Pasien_Service pas;
     public Dokter_Service ds;
@@ -57,6 +58,7 @@ public class GUI_Dokter extends javax.swing.JFrame {
         pes = l.service16;
         drs = l.service8;
         rs = l.service15;
+        ob = l.service10;
         this.d = d;
         jLabel3.setText(d.getnama_dokter());
         Panel_Profil_Dokter panel = new Panel_Profil_Dokter(this);

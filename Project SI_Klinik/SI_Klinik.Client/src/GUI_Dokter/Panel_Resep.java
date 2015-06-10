@@ -50,6 +50,7 @@ public class Panel_Resep extends javax.swing.JPanel {
         initComponents();
         detResepService = (Detail_Resep_Service) gui.drs;
         this.gui= gui;
+        service10 = gui.ob;
         id=id_rekam;
         detResepService = gui.drs;
                       

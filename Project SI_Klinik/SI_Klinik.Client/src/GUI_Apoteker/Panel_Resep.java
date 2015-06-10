@@ -38,8 +38,6 @@ public class Panel_Resep extends javax.swing.JPanel{
     public Pasien pasien;
     
     public Panel_Resep(int id) throws RemoteException, NotBoundException{
-        registry = LocateRegistry.getRegistry("127.0.0.1", 9999);      
-        lihatResepService = (lihat_Resep_Service) registry.lookup("service17");
         initComponents();
         idpasien.setText(""+id);
     }
@@ -268,7 +266,7 @@ public class Panel_Resep extends javax.swing.JPanel{
             list = this.lihatResepService.getLihatResep(Integer.parseInt(idpasien.getText()));
             if (list.size()==0) {
                 JOptionPane.showMessageDialog(null, "Data Tidak Ditemukan", "Pesan", JOptionPane.OK_OPTION);                
-            }
+             }
             else{
                 for (int i = 0; i < list.size(); i++) {
                     list.get(i).setNo(i+1);

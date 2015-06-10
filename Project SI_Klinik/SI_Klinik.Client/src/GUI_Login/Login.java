@@ -13,6 +13,7 @@ import GUI_Admin.GUI_Admin;
 import GUI_Apoteker.GUI_Apoteker;
 import GUI_Dokter.GUI_Dokter;
 import GUI_Kasir.GUI_Kasir;
+import GUI_Presensi.GUI_Presensi;
 import GUI_StafKlinik.GUI_StafKlinik;
 import database.Service.Assessment_Service;
 import database.Service.DetailTransaksiObat_Service;
@@ -38,6 +39,8 @@ import database.Service.lihat_Resep_Service;
 import database.Service.Pemesanan_Obat_Service;
 import database.Service.List_PO_Service;
 import database.entity.detil_pesan_obat;
+import database.Service.Presensi_Service;
+import database.entity.Presensi;
 import database.entity.petugas;
 import database.entity.dokter;
 import java.awt.Color;
@@ -72,6 +75,7 @@ public class Login extends javax.swing.JFrame {
       public DetailTransaksiObat_Service service20;
       public Penggajian_Service service21;
       public Pemesanan_Obat_Service service22;
+      public Presensi_Service service23;
       public List_PO_Service service24;
       Registry registry;
       public SocketClient client;
@@ -84,7 +88,7 @@ public class Login extends javax.swing.JFrame {
       private petugas p;
       private dokter d;
       public boolean aktorIniDokter;      
-      
+      public boolean absensi;
     /**
      * Creates new form Login
      */
@@ -97,6 +101,7 @@ public class Login extends javax.swing.JFrame {
         jLabel7.setVisible(false);
         jLabel8.setVisible(false);        
         boolean portBenar=false;
+        absensi = false;
         while (!portBenar){            
             String portx = JOptionPane.showInputDialog(null, "Port Server Tujuan (angka 1000-9999): ", "input", JOptionPane.QUESTION_MESSAGE);
             if(!CheckNumber(portx)){                
@@ -294,6 +299,7 @@ public class Login extends javax.swing.JFrame {
         service20 = (DetailTransaksiObat_Service) registry.lookup("service20"); 
         service21 = (Penggajian_Service) registry.lookup("service21");
         service22 = (Pemesanan_Obat_Service) registry.lookup("service22");
+        service23 = (Presensi_Service) registry.lookup("service23");
         service24 = (List_PO_Service) registry.lookup("service24");
     }
             
@@ -312,16 +318,25 @@ public class Login extends javax.swing.JFrame {
                 if(d==null){
                     if(service1.getPetugas(username)!=null||service2.getDokter(username)!=null){
                         pass.setBackground(Color.red);
-                        jLabel7.setVisible(true);                        
+                        jLabel7.setVisible(true);
+                        
                     }
                     else {
+                        if(username.equals("absensi")&&password.equals("absensi")){
+                            absensi=true;
+                            return true;        
+                        }
+                        else{
                         nama.setBackground(Color.red);
                         pass.setBackground(Color.red);
                         jLabel7.setVisible(true);                        
-                        jLabel8.setVisible(true);                        
-                    }
+                        jLabel8.setVisible(true);
+                        
                     JOptionPane.showMessageDialog(null, "Mohon masukkan username dan password dengan benar", "ERROR",JOptionPane.ERROR_MESSAGE);
-                    return false;                                        
+                                     
+                        return false;        
+                        }                        
+                    }               
                 }
                 else{
                     aktorIniDokter = true;
@@ -346,6 +361,7 @@ public class Login extends javax.swing.JFrame {
             }
             return false;            
         }
+        return false;
     }
     
     private void StartGUI(){
@@ -358,7 +374,12 @@ public class Login extends javax.swing.JFrame {
                     this.dispose();
                 }   
                 else{
-                   if(jabatan.equalsIgnoreCase("kasir"))   {
+                   if (absensi) {
+                       GUI_Presensi panggil = new GUI_Presensi(this);
+                       panggil.show();
+                       this.dispose();
+                   }
+                   else if(jabatan.equalsIgnoreCase("kasir"))   {
                        GUI_Kasir panggil = new GUI_Kasir(p,this);
                        panggil.show();
                        this.dispose();
@@ -384,7 +405,8 @@ public class Login extends javax.swing.JFrame {
                         GUI_Admin panggil = new GUI_Admin(p,this);
                         panggil.show();
                         this.dispose();
-                   } 
+                   }
+                   
                 } 
              }
           } catch (RemoteException ex) {
